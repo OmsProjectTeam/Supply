@@ -1,0 +1,160 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = ResourceWeb.LBAddCustomerMessages;
+    Layout = "~/Areas/ClintAccount/Views/Shared/_LayoutClint.cshtml";
+}
+
+
+<div class="col-xs-12">
+    <div class="box-content">
+        <ul class="list-inline">
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddCustomerMessages</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="ClintAccount" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
+            <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
+        </ul>
+
+        <div class="row small-spacing">
+            <div class="col-lg-12 col-xs-12">
+                <div class="box-content card white">
+                    <h4 class="box-title">@ResourceWeb.LBEmageSise</h4>
+
+                    <div class="card-content">
+                        <form role="form" method="post" asp-controller="CustomerMessages" asp-action="Save" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@Model.CustomerMessages.DataEntry" class="form-control" value="@User.Identity.Name">
+                                <input type="hidden" asp-for="@Model.CustomerMessages.IdCustomerMessages" class="form-control">
+                                <input type="hidden" asp-for="@Model.CustomerMessages.DateTimeEntry" value="@DateTime.Now">
+                                <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                            </div>
+
+                            <div class="card-content">
+                                <div class="row small-spacing">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.CustomerMessages.IdUser" for="exampleInputEmail1">@ResourceWeb.LbDescriptionClint</label>
+                                            <select id="merchant-select" class="form-control" asp-for="@Model.CustomerMessages.IdUser" asp-items=" ViewBag.User">
+                                            </select>
+                                            <span asp-validation-for="@Model.CustomerMessages.IdUser" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.CustomerMessages.IdTypesOfMessage" for="exampleInputEmail1">@ResourceWeb.LbDescriptionClint</label>
+                                            <select id="merchant-select" class="form-control" asp-for="@Model.CustomerMessages.IdTypesOfMessage" asp-items="@(new SelectList(ViewBag.TypesOfMessage, "IdTypesOfMessage", "TypesOfMessage"))">
+                                            </select>
+                                            <span asp-validation-for="@Model.CustomerMessages.IdTypesOfMessage" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="card-content">
+                                <div class="row small-spacing">
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.CustomerMessages.Title" for="exampleInputEmail1">@ResourceWeb.LbTitle</label>
+                                            <input asp-for="@Model.CustomerMessages.Title" type="text" placeholder="@ResourceWeb.LbTitle ...." class="form-control" maxlength="300">
+                                            <span asp-validation-for="@Model.CustomerMessages.Title" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-8">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.CustomerMessages.MessageDescription" for="exampleInputEmail1">@ResourceWeb.LbMessageDescription</label>
+                                            <textarea asp-for="@Model.CustomerMessages.MessageDescription" type="email" placeholder="@ResourceWeb.LbMessageDescription ...." class="form-control" maxlength="2000" rows="8"></textarea>
+                                            <span asp-validation-for="@Model.CustomerMessages.MessageDescription" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success"><input type="checkbox" asp-for="@Model.CustomerMessages.CurrentState" id="switch-10" checked="checked"><label for="switch-10">@ResourceWeb.lbCurrentState</label></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+    <script>
+        $("#url").val(window.location.href);
+    </script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2_1').select2({
+                placeholder: "Select an option",
+                allowClear: true
+            });
+
+            $('#merchant-select').change(function () {
+                var userId = $(this).val();
+                if (userId) {
+                    $.getJSON('@Url.Action("GetUserDetails", "CustomerMessages")', { id: userId }, function (data) {
+                        $('input[name="CustomerMessages.CompanyName"]').val(data.companyName);
+                        $('input[name="CustomerMessages.PhoneCompany"]').val(data.phoneCompany);
+                        $('input[name="CustomerMessages.PhoneCompanySecand"]').val(data.phoneCompanySecand);
+                        $('input[name="CustomerMessages.EmailCompany"]').val(data.emailCompany);
+
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        $("#url").val(window.location.href);
+
+        // JavaScript لتحميل الضواحي عند تغيير المدينة
+        $(document).ready(function () {
+            $('#city-select').change(function () {
+                var cityId = $(this).val();
+                if (cityId) {
+                    $.getJSON('@Url.Action("GetAreasByCity", "CityDeliveryTariffs")', { cityId: cityId }, function (data) {
+                        var $areaSelect = $('#area-select');
+                        $areaSelect.empty();
+                        $.each(data, function (index, item) {
+                            $areaSelect.append($('<option>', {
+                                value: item.id,
+                                text: item.description
+                            }));
+                        });
+                    });
+                } else {
+                    $('#area-select').empty();
+                }
+            });
+        });
+    </script>
+}
+
+
+

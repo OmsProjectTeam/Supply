@@ -50,8 +50,20 @@ namespace Infarstuructre.ViewModel
 		
 		public List<IdentityRole> Roles { get; set; }
 		public List<VwUser> Users { get; set; }
+        public IEnumerable<TBViewFAQDescription> ListFAQDescription { get; set; }
+        public TBFAQDescreption FAQDescreption { get; set; }
 
-      
+        public IEnumerable<TBViewFAQList> ListFAQList { get; set; }
+        public TBFAQList FAQList { get; set; }
+        public IEnumerable<TBFAQ> ListFAQ { get; set; }
+        public TBFAQ FAQ { get; set; }
+        public IEnumerable<TBTypesOfMessage> ListTypesOfMessage { get; set; }
+        public TBTypesOfMessage TypesOfMessage { get; set; }
+        public IEnumerable<TBViewCustomerMessages> ListViewCustomerMessages { get; set; }
+        public TBCustomerMessages CustomerMessages { get; set; }
+        public IEnumerable<TBEmailAlartSetting> ListEmailAlartSetting { get; set; }
+        public TBEmailAlartSetting EmailAlartSetting { get; set; }
+
     }
  }
 

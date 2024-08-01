@@ -31,29 +31,115 @@ namespace Infarstuructre.Data
 			{
 				entity.HasNoKey();
 				entity.ToView("VwUsers");
-			});		
-          
+			});
 
 
-       
+            builder.Entity<TBViewFAQList>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewFAQList");
+            });
+            //************************************************************
+            builder.Entity<TBViewFAQDescription>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewFAQDescription");
+            });
+            //************************************************************
+
+            //************************************************************
+            builder.Entity<TBViewCustomerMessages>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewCustomerMessages");
+            });
+            //************************************************************
+
+            //---------------------------------
+            builder.Entity<TBFAQ>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBFAQ>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBFAQ>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
+
+            //---------------------------------
+            builder.Entity<TBFAQDescreption>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBFAQDescreption>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
+
+            //---------------------------------
+            builder.Entity<TBFAQList>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBFAQList>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
 
 
+            //---------------------------------
+            builder.Entity<TBCustomerMessages>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBCustomerMessages>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
 
 
+            //---------------------------------
+            builder.Entity<TBTypesOfMessage>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBTypesOfMessage>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBTypesOfMessage>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBEmailAlartSetting>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBEmailAlartSetting>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBEmailAlartSetting>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
+        }
 
 
-
-
-		}
-
-	
 
 
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
-      
-
-
+        public DbSet<TBFAQ> TBFAQs { get; set; }
+        public DbSet<TBFAQDescreption> TBFAQDescreptions { get; set; }
+        public DbSet<TBFAQList> TBFAQLists { get; set; }
+        public DbSet<TBViewFAQDescription> ViewFAQDescription { get; set; }
+        public DbSet<TBViewFAQList> ViewFAQList { get; set; }
+        public DbSet<TBCustomerMessages> TBCustomerMessagess { get; set; }
+        public DbSet<TBViewCustomerMessages> ViewCustomerMessages { get; set; }
+        public DbSet<TBTypesOfMessage> TBTypesOfMessages { get; set; }
+        public DbSet<TBEmailAlartSetting> TBEmailAlartSettings { get; set; }
 
     }
 }

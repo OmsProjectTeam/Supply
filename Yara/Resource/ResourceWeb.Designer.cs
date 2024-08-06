@@ -241,6 +241,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add product Category.
+        /// </summary>
+        public static string LBAddproductCategory {
+            get {
+                return ResourceManager.GetString("LBAddproductCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Profit.
         /// </summary>
         public static string LBAddProfit {
@@ -363,6 +372,15 @@ namespace Yara.Resource {
         public static string LBAddTypeSystemDelivery {
             get {
                 return ResourceManager.GetString("LBAddTypeSystemDelivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Ware House.
+        /// </summary>
+        public static string LBAddWareHouse {
+            get {
+                return ResourceManager.GetString("LBAddWareHouse", resourceCulture);
             }
         }
         
@@ -1330,6 +1348,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Category.
+        /// </summary>
+        public static string LBMyproductCategory {
+            get {
+                return ResourceManager.GetString("LBMyproductCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Profits.
         /// </summary>
         public static string LBMyProfits {
@@ -1434,6 +1461,24 @@ namespace Yara.Resource {
         public static string LBMyTypeSystemDelivery {
             get {
                 return ResourceManager.GetString("LBMyTypeSystemDelivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ware House.
+        /// </summary>
+        public static string LBMyWareHouse {
+            get {
+                return ResourceManager.GetString("LBMyWareHouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ware House Type.
+        /// </summary>
+        public static string LBMyWareHouseType {
+            get {
+                return ResourceManager.GetString("LBMyWareHouseType", resourceCulture);
             }
         }
         
@@ -1749,6 +1794,15 @@ namespace Yara.Resource {
         public static string LBPricingSystem {
             get {
                 return ResourceManager.GetString("LBPricingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Category.
+        /// </summary>
+        public static string LbProductCategory {
+            get {
+                return ResourceManager.GetString("LbProductCategory", resourceCulture);
             }
         }
         
@@ -2176,6 +2230,24 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ware House.
+        /// </summary>
+        public static string LbWareHouse {
+            get {
+                return ResourceManager.GetString("LbWareHouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ware House Type.
+        /// </summary>
+        public static string LbWareHouseType {
+            get {
+                return ResourceManager.GetString("LbWareHouseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weight.
         /// </summary>
         public static string LbWeight {
@@ -2586,6 +2658,15 @@ namespace Yara.Resource {
         public static string VLUpdatedSuccessfully {
             get {
                 return ResourceManager.GetString("VLUpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Ware House Type has already been entered. Please check and try again later...!.
+        /// </summary>
+        public static string VLWareHouseTypeDoplceted {
+            get {
+                return ResourceManager.GetString("VLWareHouseTypeDoplceted", resourceCulture);
             }
         }
     }

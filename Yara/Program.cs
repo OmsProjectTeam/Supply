@@ -100,6 +100,9 @@ builder.Services.AddScoped<IIFAQList, CLSTBFAQList>();
 builder.Services.AddScoped<IITypesOfMessage, CLSTBTypesOfMessage>();
 builder.Services.AddScoped<IICustomerMessages, CLSTBCustomerMessages>();
 builder.Services.AddScoped<IIEmailAlartSetting, CLSTBEmailAlartSetting>();
+builder.Services.AddScoped<IIWareHouseType, CLSTBWareHouseType>();
+builder.Services.AddScoped<IIWareHouse, CLSTBWareHouse>();
+builder.Services.AddScoped<IIProductCategory, CLSProductCategory>();
 
 
 

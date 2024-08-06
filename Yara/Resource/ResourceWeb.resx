@@ -177,6 +177,9 @@
   <data name="LBAddPaing" xml:space="preserve">
     <value>Add Paing</value>
   </data>
+  <data name="LBAddproductCategory" xml:space="preserve">
+    <value>Add product Category</value>
+  </data>
   <data name="LBAddProfit" xml:space="preserve">
     <value>Add Profit</value>
   </data>
@@ -218,6 +221,9 @@
   </data>
   <data name="LBAddTypeSystemDelivery" xml:space="preserve">
     <value>Adding and modifying Type System Delivery</value>
+  </data>
+  <data name="LBAddWareHouse" xml:space="preserve">
+    <value>Add Ware House</value>
   </data>
   <data name="LbAmount" xml:space="preserve">
     <value>Amount</value>
@@ -540,6 +546,9 @@
   <data name="LBMyOrderStatus" xml:space="preserve">
     <value>Order Status</value>
   </data>
+  <data name="LBMyproductCategory" xml:space="preserve">
+    <value>Product Category</value>
+  </data>
   <data name="LBMyProfits" xml:space="preserve">
     <value>My Profits</value>
   </data>
@@ -575,6 +584,12 @@
   </data>
   <data name="LBMyTypeSystemDelivery" xml:space="preserve">
     <value>Type System Delivery</value>
+  </data>
+  <data name="LBMyWareHouse" xml:space="preserve">
+    <value>Ware House</value>
+  </data>
+  <data name="LBMyWareHouseType" xml:space="preserve">
+    <value>Ware House Type</value>
   </data>
   <data name="LbName" xml:space="preserve">
     <value>Name</value>
@@ -680,6 +695,9 @@
   </data>
   <data name="LBPricingSystem" xml:space="preserve">
     <value>Pricing System</value>
+  </data>
+  <data name="LbProductCategory" xml:space="preserve">
+    <value>Product Category</value>
   </data>
   <data name="LBProfile" xml:space="preserve">
     <value>Profile</value>
@@ -822,6 +840,12 @@
   <data name="LbUS_delivery" xml:space="preserve">
     <value>Delivery system user</value>
   </data>
+  <data name="LbWareHouse" xml:space="preserve">
+    <value>Ware House</value>
+  </data>
+  <data name="LbWareHouseType" xml:space="preserve">
+    <value>Ware House Type</value>
+  </data>
   <data name="LbWeight" xml:space="preserve">
     <value>Weight</value>
   </data>
@@ -959,5 +983,8 @@
   </data>
   <data name="VLUpdatedSuccessfully" xml:space="preserve">
     <value>The modification process was completed successfully</value>
+  </data>
+  <data name="VLWareHouseTypeDoplceted" xml:space="preserve">
+    <value>The Ware House Type has already been entered. Please check and try again later...!</value>
   </data>
 </root>

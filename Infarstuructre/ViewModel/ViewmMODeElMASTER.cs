@@ -64,6 +64,13 @@ namespace Infarstuructre.ViewModel
         public IEnumerable<TBEmailAlartSetting> ListEmailAlartSetting { get; set; }
         public TBEmailAlartSetting EmailAlartSetting { get; set; }
 
+        public TBWareHouse WareHouse { get; set; }
+        public IEnumerable<TBViewWareHouse> ViewWareHouse { get; set; }
+        public IEnumerable<TBViewWareHouseType> ViewWareHouseType { get; set; }
+        public TBWareHouseType WareHouseType { get; set; }
+        public TBProductCategory ProductCategory { get; set; }
+        public IEnumerable<TBViewProductCategory> ViewProductCategory { get; set; }
+
     }
  }
 

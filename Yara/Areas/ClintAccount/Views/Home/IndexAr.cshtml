@@ -4,61 +4,137 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminAr.cshtml";
 }
 
-<div class="col-lg-6 col-xs-12">
-    <div class="box-content">
-        <h4 class="box-title">Orders</h4>
-        <!-- /.box-title -->
-        <div class="dropdown js__drop_down">
-            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
-            <ul class="sub-menu">
-                <li><a href="#">Product</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else there</a></li>
-                <li class="split"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
+<link rel="stylesheet" href="~/css/home.css">
+
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+            <div class="row">
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-shopping-cart"></i>
+                            <h4>Marketplace</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-star"></i>
+                            <h4>Premium</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-user"></i>
+                            <h4>Profile</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-users"></i>
+                            <h4>Friends</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-group"></i>
+                            <h4>Groups</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-archive"></i>
+                            <h4>Inventory</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-envelope"></i>
+                            <h4>Messages</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-pencil"></i>
+                            <h4>Create</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-book"></i>
+                            <h4>Blog</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-gift"></i>
+                            <h4>Gift Cards</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-shopping-cart"></i>
+                            <h4>Official Store</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-cog"></i>
+                            <h4>Settings</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-info-circle"></i>
+                            <h4>About</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-life-ring"></i>
+                            <h4>Help & Safety</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-sign-in"></i>
+                            <h4>Quick Sign In</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="logout-button-container">
+                <a href="#" class="logout-button">Log Out</a>
+            </div>
         </div>
-        <!-- /.dropdown js__dropdown -->
-        <div class="table-responsive table-purchases">
-            <table class="table table-striped margin-bottom-10">
-                <thead>
-                    <tr>
-                        <th>Order No</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th style="width:5%;"></th>
-                    </tr>
-                </thead>
-                <tbody id="orderTableBody">
-                    @foreach (var order in Model.NewOrders)
-                    {
-                        <tr>
-                            <td>@order.IdOrderNew</td> <!-- Use appropriate property names -->
-                            <td>@order.description</td> <!-- Use appropriate property names -->
-                            <td>@order.CostPrice</td> <!-- Use appropriate property names -->
-                            <td>@order.OrderDate</td> <!-- Use appropriate property names -->
-                            <td>@order.dorderStatus</td> <!-- Use appropriate property names -->
-                            <td></td>
-                        </tr>
-                    }
-                    @foreach (var order in Model.OldOrders)
-                    {
-                        <tr>
-                            <td>@order.id</td>
-                            <td>@order.description</td> <!-- Use appropriate property names -->
-                            <td>@order.delivery_charges</td> <!-- Use appropriate property names -->
-                            <td>@order.order_dt</td> <!-- Use appropriate property names -->
-                            <td>@order.OrderStatus</td> <!-- Use appropriate property names -->
-                            <td></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <!-- /.table-responsive -->
     </div>
-    <!-- /.box-content -->
 </div>
 

@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "IndexAr";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminAr.cshtml";
+}
+
+<div class="col-lg-6 col-xs-12">
+    <div class="box-content">
+        <h4 class="box-title">Orders</h4>
+        <!-- /.box-title -->
+        <div class="dropdown js__drop_down">
+            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+            <ul class="sub-menu">
+                <li><a href="#">Product</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else there</a></li>
+                <li class="split"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+        <!-- /.dropdown js__dropdown -->
+        <div class="table-responsive table-purchases">
+            <table class="table table-striped margin-bottom-10">
+                <thead>
+                    <tr>
+                        <th>Order No</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th style="width:5%;"></th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    @foreach (var order in Model.NewOrders)
+                    {
+                        <tr>
+                            <td>@order.IdOrderNew</td> <!-- Use appropriate property names -->
+                            <td>@order.description</td> <!-- Use appropriate property names -->
+                            <td>@order.CostPrice</td> <!-- Use appropriate property names -->
+                            <td>@order.OrderDate</td> <!-- Use appropriate property names -->
+                            <td>@order.dorderStatus</td> <!-- Use appropriate property names -->
+                            <td></td>
+                        </tr>
+                    }
+                    @foreach (var order in Model.OldOrders)
+                    {
+                        <tr>
+                            <td>@order.id</td>
+                            <td>@order.description</td> <!-- Use appropriate property names -->
+                            <td>@order.delivery_charges</td> <!-- Use appropriate property names -->
+                            <td>@order.order_dt</td> <!-- Use appropriate property names -->
+                            <td>@order.OrderStatus</td> <!-- Use appropriate property names -->
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.box-content -->
+</div>
+

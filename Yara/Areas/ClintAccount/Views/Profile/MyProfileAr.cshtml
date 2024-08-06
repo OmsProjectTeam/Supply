@@ -1,0 +1,177 @@
+﻿@model ViewmMODeElMASTER
+@{
+	ViewData["Title"] = "MyProfile";
+	Layout = "~/Areas/ClintAccount/Views/Shared/_LayoutClint.cshtml";
+}
+
+<div class="col-xs-12">
+	<div class="col-xs-8">
+
+		<div class="box-content card">
+			<h4 class="box-title"><i class="fa fa-user ico"></i>About</h4>
+			<!-- /.box-title -->
+			<div class="dropdown js__drop_down">
+				<a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+				<ul class="sub-menu">
+					<li><a asp-area="Admin" asp-controller="Accounts" asp-action="EditeRegister" asp-route-Id="@Model.sUser.Id">Edit Profile</a></li>
+					<li><a asp-area="Admin" asp-controller="Accounts" asp-action="ChangePassword" asp-route-Id="@Model.sUser.Id">Change Password</a></li>
+				</ul>
+				<!-- /.sub-menu -->
+			</div>
+			<!-- /.dropdown js__dropdown -->
+			<div class="card-content">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>First Name:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">@Model.Name</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>Last Name:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">Simmons</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>User Name:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">Betty</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>Email:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">@Model.Email</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>City:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">Los Angeles</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>Country:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">United States</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>Birthday:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">Jan 22, 1984</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>Interests:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">Basketball, Web, Design, etc.</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>Website:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7"><a href="#">yourwebsite.com</a></div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-xs-5"><label>Phone:</label></div>
+							<!-- /.col-xs-5 -->
+							<div class="col-xs-7">@Model.PhoneNumber</div>
+							<!-- /.col-xs-7 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.card-content -->
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+	<div class="col-xs-4">
+		<div class="box-content bordered primary margin-bottom-20">
+			<div class="profile-avatar">
+				<img src="@string.Format("/Images/Users/{0}",Model.ImageUser)" alt="">
+
+				<h3><strong>Betty Simmons</strong></h3>
+
+			</div>
+			<!-- .profile-avatar -->
+			<table class="table table-hover no-margin">
+				<tbody>
+					<tr>
+						<td>Status</td>
+						<td><span class="notice notice-danger">@Model.ActiveUser</span></td>
+					</tr>
+					@* 	<tr>
+					<td>User Rating</td>
+					<td><i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i></td>
+					</tr> *@
+					<tr>
+						<td>Member Since</td>
+						<td>Jan 07, 2014</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

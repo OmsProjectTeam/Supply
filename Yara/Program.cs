@@ -94,6 +94,12 @@ builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IIRolsInformation, CLSRolsInformation>();
+builder.Services.AddScoped<IIFAQ, CLSTBFAQ>();
+builder.Services.AddScoped<IIFAQDescreption, CLSTBFAQDescreption>();
+builder.Services.AddScoped<IIFAQList, CLSTBFAQList>();
+builder.Services.AddScoped<IITypesOfMessage, CLSTBTypesOfMessage>();
+builder.Services.AddScoped<IICustomerMessages, CLSTBCustomerMessages>();
+builder.Services.AddScoped<IIEmailAlartSetting, CLSTBEmailAlartSetting>();
 
 
 

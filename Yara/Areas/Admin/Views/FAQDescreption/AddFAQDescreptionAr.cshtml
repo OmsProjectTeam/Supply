@@ -1,0 +1,96 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = "AddFAQDescreptionAr";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminAr.cshtml";
+}
+
+@{
+    ViewData["Title"] = "AddFAQDescreption";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row small-spacing">
+    <div class="col-12">
+        <div class="box-content">
+            <ul class="list-inline">
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWebAr.LbFAQ</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="IndexAr"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">الصفحة الرئيسية</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="" asp-controller="Home" asp-action="IndexAr"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">الرئيسية</button></a>
+                </li>
+            </ul>
+            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-12">
+        <div class="box-content card white">
+            <h4 class="box-title">@ResourceWebAr.LBAddFAQDescreption</h4>
+            <div class="card-content">
+                <form role="form" method="post" asp-controller="FAQDescreption" asp-action="SaveAr" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.FAQDescreption.DateEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.FAQDescreption.IdFAQDescreption" class="form-control">
+                        <input type="hidden" asp-for="@Model.FAQDescreption.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.FAQDescreption.IdFAQDescreption">@ResourceWebAr.LbFAQ</label>
+                                <select class="form-control select2_1" asp-for="@Model.FAQDescreption.IdFAQDescreption" asp-items="@(new SelectList(ViewBag.FAQ, "IdFAQ", "FAQ"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.FAQDescreption.IdFAQDescreption" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.FAQDescreption.Descreption">@ResourceWebAr.LbDescription1</label>
+                                <input asp-for="@Model.FAQDescreption.Descreption" type="text" checked class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.FAQDescreption.Descreption" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Descreption"]</strong></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWebAr.lbSave</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("Document is ready");
+            $('.select2_1').select2({
+                placeholder: "Select an option",
+                allowClear: true
+            });
+
+            // Bind change event to the selected company
+            $('#SelectFAQ').change(function () {
+                console.log("Selected FAQ changed");
+                updateCosting();
+            });
+    </script>
+}
+
+
+
+

@@ -1,0 +1,93 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = "MyFAQAr";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminAr.cshtml";
+}
+
+
+<div class="col-xs-12">
+	<div class="box-content">
+		<div class="row">
+			<div class="col-lg-6 col-xs-12">
+				<div id="accordion-1" class="js__ui_accordion margin-top-20">
+					@foreach (var item in Model.ListFAQ)
+					{
+						<h3 class="accordion-title">@item.FAQ</h3>
+						<div class="accordion-content">
+							@foreach (var description in Model.ListFAQDescription.OrderByDescending(n => n.IdFAQ).Where(a => a.IdFAQ == item.IdFAQ).ToList())
+							{
+								<p>@description.Descreption</p>
+							}
+							<ul>
+								@foreach (var list in Model.ListFAQList.OrderByDescending(n => n.IdFAQ).Where(a => a.IdFAQ == item.IdFAQ).ToList())
+								{
+									<li>@list.ListFAQ</li>
+								}
+							</ul>
+						</div>
+					}
+				</div>
+			</div>
+
+			@* 	<div class="col-lg-6 col-xs-12">
+			@foreach (var item in Model.ListFAQ)
+			{
+			<div id="accordion-@item.IdFAQ" class="js__ui_accordion margin-top-20 ui-accordion ui-widget ui-helper-reset" role="tablist">
+			<h3 class="accordion-title ui-accordion-header ui-corner-top ui-state-default ui-accordion-icons ui-accordion-header-collapsed ui-corner-all" role="tab" id="ui-id-@item.IdFAQ" aria-controls="ui-id-content-@item.IdFAQ" aria-selected="false" aria-expanded="false" tabindex="0">
+			@item.FAQ
+			</h3>
+			<div class="accordion-content ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content" style="display: none;" id="ui-id-content-@item.IdFAQ" aria-labelledby="ui-id-@item.IdFAQ" role="tabpanel" aria-hidden="true">
+			<br />
+			@foreach (var description in Model.ListFAQDescription.OrderByDescending(n => n.IdFAQ).Where(a => a.IdFAQ == item.IdFAQ).ToList())
+			{
+			<p>@description.Descreption</p>
+			}
+			<hr />
+			<ul>
+			@foreach (var list in Model.ListFAQList.OrderByDescending(n => n.IdFAQ).Where(a => a.IdFAQ == item.IdFAQ).ToList())
+			{
+			<li>@list.ListFAQ</li>
+			}
+			</ul>
+			</div>
+			</div>
+			}
+			</div>
+
+			<!-- /.col-lg-6 col-xs-12 -->
+			<div class="col-lg-6 col-xs-12">
+			<div class="text-right">
+			<h3 class="margin-bottom-20"><strong>Frequently Asked Questions</strong></h3>
+			<p class="text-muted limit-width margin-bottom-20">Obcaecati eaque voluptates, minima pariatur reprehenderit eligendi laborum incidunt doloribus facilis atque? Totam optio, natus.</p>
+			<ul class="list-inline list-inline-faq">
+			<li class="margin-bottom-10"><a href="#" class="btn btn-info"><i class="fa fa-envelope"></i> Email us your question</a></li>
+			</ul>
+			</div>
+			</div> *@
+			<!-- /.col-lg-6 col-xs-12 -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.box-content -->
+</div>
+
+
+@section scripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<script>
+		$(document).ready(function () {
+			$("#accordion-1").accordion({
+				collapsible: true,
+				active: false
+			});
+		});
+	</script>
+}
+
+
+
+
+

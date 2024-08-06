@@ -3,28 +3,202 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<style>
+    .box-content-link {
+        display: block;
+        text-align: center;
+        padding: 20px;
+        margin: 10px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .box-content-link:hover {
+        background: #eee;
+        border-color: #ccc;
+    }
+
+    .icon-box {
+        text-align: center;
+    }
+
+    .icon-box i {
+        font-size: 36px;
+        margin-bottom: 10px;
+        display: block;
+        color: #888;
+    }
+
+    .icon-box h4 {
+        font-size: 16px;
+        margin: 0;
+        color: #555;
+    }
+
+    .col-5 {
+        width: 20%;
+        float: left;
+    }
+
+    .logout-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .logout-button {
+        background: #f5f5f5;
+        color: #333;
+        border: 1px solid #ddd;
+        padding: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        width: 800px; /* Set the width to be a bit smaller */
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background: #ddd;
+        border-color: #ccc;
+    }
+</style>
 <div class="row small-spacing">
-	<div class="col-xs-12">
-		<div class="box-content">
-			<h4 class="box-title">Activity</h4>
-		
-		
-		</div>
-		<!-- /.box-content -->
-	</div>
-
-	
-
-
-
-	
-
-	
-
-
-	
-
-	</div>
-
-
-
+    <div class="col-xs-12">
+        <div class="box-content">
+            <div class="row">
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-shopping-cart"></i>
+                            <h4>Marketplace</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-star"></i>
+                            <h4>Premium</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-user"></i>
+                            <h4>Profile</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-users"></i>
+                            <h4>Friends</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-group"></i>
+                            <h4>Groups</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-archive"></i>
+                            <h4>Inventory</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-envelope"></i>
+                            <h4>Messages</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-pencil"></i>
+                            <h4>Create</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-book"></i>
+                            <h4>Blog</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-gift"></i>
+                            <h4>Gift Cards</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-shopping-cart"></i>
+                            <h4>Official Store</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-cog"></i>
+                            <h4>Settings</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-info-circle"></i>
+                            <h4>About</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-life-ring"></i>
+                            <h4>Help & Safety</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-sign-in"></i>
+                            <h4>Quick Sign In</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="logout-button-container">
+                <a href="#" class="logout-button">Log Out</a>
+            </div>
+        </div>
+    </div>
+</div>

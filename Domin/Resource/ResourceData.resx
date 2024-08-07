@@ -330,4 +330,13 @@
   <data name="VlMessageDescription" xml:space="preserve">
     <value>Please include the Message Description for the process to complete successfully...!</value>
   </data>
+  <data name="VlWareHouseTyp" xml:space="preserve">
+    <value>Please include the Ware House type to complete successfully..!</value>
+  </data>
+  <data name="VlProductCategory" xml:space="preserve">
+    <value>Please include the Product Category to complete successfully..!</value>
+  </data>
+  <data name="VlCode1" xml:space="preserve">
+    <value>Code</value>
+  </data>
 </root>

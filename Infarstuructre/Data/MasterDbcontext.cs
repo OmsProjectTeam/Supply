@@ -33,7 +33,7 @@ namespace Infarstuructre.Data
 				entity.ToView("VwUsers");
 			});
 
-
+            //***********************************************************
             builder.Entity<TBViewFAQList>(entity =>
             {
                 entity.HasNoKey();
@@ -52,6 +52,27 @@ namespace Infarstuructre.Data
             {
                 entity.HasNoKey();
                 entity.ToView("ViewCustomerMessages");
+            });
+            //************************************************************
+            //************************************************************
+            builder.Entity<TBViewWareHouseType>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewWareHouseType");
+            });
+            //************************************************************
+            //************************************************************
+            builder.Entity<TBViewProductCategory>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewProductCategory");
+            });
+            //************************************************************
+            //************************************************************
+            builder.Entity<TBViewWareHouse>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewWareHouse");
             });
             //************************************************************
 
@@ -124,6 +145,42 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");
 
             //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBWareHouseType>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBWareHouseType>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBWareHouseType>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBProductCategory>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBProductCategory>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBProductCategory>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBWareHouse>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBWareHouse>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBWareHouse>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
         }
 
 
@@ -140,6 +197,12 @@ namespace Infarstuructre.Data
         public DbSet<TBViewCustomerMessages> ViewCustomerMessages { get; set; }
         public DbSet<TBTypesOfMessage> TBTypesOfMessages { get; set; }
         public DbSet<TBEmailAlartSetting> TBEmailAlartSettings { get; set; }
+        public DbSet<TBWareHouseType> TBWareHouseTypes { get; set; }
+        public DbSet<TBProductCategory> TBProductCategorys { get; set; }
+        public DbSet<TBWareHouse> TBWareHouses { get; set; }
+        public DbSet<TBViewWareHouse> ViewWareHouse { get; set; }
+        public DbSet<TBViewProductCategory> ViewProductCategory { get; set; }
+        public DbSet<TBViewWareHouseType> ViewWareHouseType { get; set; }
 
     }
 }

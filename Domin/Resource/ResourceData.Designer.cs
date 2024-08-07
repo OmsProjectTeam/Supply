@@ -331,6 +331,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        public static string VlCode1 {
+            get {
+                return ResourceManager.GetString("VlCode1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the company&apos;s delivery price so that the process can be completed successfully...!.
         /// </summary>
         public static string VlCompanyDelivery {
@@ -565,6 +574,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the Product Category to complete successfully..!.
+        /// </summary>
+        public static string VlProductCategory {
+            get {
+                return ResourceManager.GetString("VlProductCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profit Amount.
         /// </summary>
         public static string VlProfitAmount {
@@ -696,6 +714,15 @@ namespace Domin.Resource {
         public static string VlTypeSystemDelivery {
             get {
                 return ResourceManager.GetString("VlTypeSystemDelivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Ware House type to complete successfully..!.
+        /// </summary>
+        public static string VlWareHouseTyp {
+            get {
+                return ResourceManager.GetString("VlWareHouseTyp", resourceCulture);
             }
         }
     }

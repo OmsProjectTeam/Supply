@@ -174,6 +174,15 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");
 
             //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBTypesProduct>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBTypesProduct>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -193,6 +202,7 @@ namespace Infarstuructre.Data
         public DbSet<TBViewProductCategory> ViewProductCategory { get; set; }
         public DbSet<TBViewWareHouseType> ViewWareHouseType { get; set; }
         public DbSet<TBMerchants> TBMerchantss { get; set; }
+        public DbSet<TBTypesProduct> TBTypesProducts { get; set; }
 
     }
 }

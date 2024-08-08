@@ -86,7 +86,7 @@
                         var PhotoNAme = slider.Photo;
                         var delet = iMerchants.DELETPHOTOWethError(PhotoNAme);
 
-                        TempData["CompanyName"] = ResourceWeb.VLCompanyNameDoplceted;
+                        TempData["MerchantName"] = ResourceWeb.VLMerchantNameDoplceted;
                         return RedirectToAction("AddEditMerchants", model);
                     }
                     var reqwest = iMerchants.saveData(slider);

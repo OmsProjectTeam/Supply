@@ -366,4 +366,7 @@
   <data name="VlMerchantWeb" xml:space="preserve">
     <value>Please include the Merchant Web to complete successfully..!</value>
   </data>
+  <data name="VlTypesProduct" xml:space="preserve">
+    <value>Please include the Types Product to complete successfully..!</value>
+  </data>
 </root>

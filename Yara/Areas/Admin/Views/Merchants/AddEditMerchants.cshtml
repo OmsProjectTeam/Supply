@@ -37,6 +37,7 @@
                                             <label asp-for="@Model.Merchants.MerchantName" for="exampleInputEmail1">@ResourceWeb.lbMerchantName</label>
                                             <input asp-for="@Model.Merchants.MerchantName" type="text" placeholder="@ResourceWeb.lbMerchantName ...." class="form-control" maxlength="200">
                                             <span asp-validation-for="@Model.Merchants.MerchantName" class="text-danger"></span>
+                                            <span style="color:red"> <strong>@TempData["MerchantName"]</strong></span>
                                         </div>
                                     </div>
 

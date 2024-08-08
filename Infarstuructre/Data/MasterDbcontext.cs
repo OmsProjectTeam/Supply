@@ -75,7 +75,6 @@ namespace Infarstuructre.Data
                 entity.ToView("ViewWareHouse");
             });
             //************************************************************
-
             //---------------------------------
             builder.Entity<TBFAQ>()
            .Property(b => b.DateTimeEntry)
@@ -86,9 +85,7 @@ namespace Infarstuructre.Data
             builder.Entity<TBFAQ>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
-
             //---------------------------------
-
             //---------------------------------
             builder.Entity<TBFAQDescreption>()
            .Property(b => b.DateTimeEntry)
@@ -96,9 +93,7 @@ namespace Infarstuructre.Data
             builder.Entity<TBFAQDescreption>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");
-
             //---------------------------------
-
             //---------------------------------
             builder.Entity<TBFAQList>()
            .Property(b => b.DateTimeEntry)
@@ -106,86 +101,80 @@ namespace Infarstuructre.Data
             builder.Entity<TBFAQList>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");
-
             //---------------------------------
-
-
             //---------------------------------
             builder.Entity<TBCustomerMessages>()
            .Property(b => b.DateTimeEntry)
            .HasDefaultValueSql("getdate()");
             builder.Entity<TBCustomerMessages>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBTypesOfMessage>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBTypesOfMessage>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBTypesOfMessage>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBEmailAlartSetting>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBEmailAlartSetting>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBEmailAlartSetting>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBWareHouseType>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBWareHouseType>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBWareHouseType>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBProductCategory>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBProductCategory>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBProductCategory>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBWareHouse>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBWareHouse>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBWareHouse>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------
+            //---------------------------------
+            builder.Entity<TBMerchants>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBMerchants>()
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");
 
             //--------------------------------- 
-
-
-            //---------------------------------
-            builder.Entity<TBTypesOfMessage>()
-           .Property(b => b.DateTimeEntry)
-           .HasDefaultValueSql("getdate()");
-            builder.Entity<TBTypesOfMessage>()
-           .Property(b => b.CurrentState)
-           .HasDefaultValueSql("((1))");
-            builder.Entity<TBTypesOfMessage>()
-           .Property(b => b.Active)
-           .HasDefaultValueSql("((1))");
-
-            //---------------------------------
-            //---------------------------------	
-            builder.Entity<TBEmailAlartSetting>()
-           .Property(b => b.DateTimeEntry)
-           .HasDefaultValueSql("getdate()");
-            builder.Entity<TBEmailAlartSetting>()
-           .Property(b => b.CurrentState)
-           .HasDefaultValueSql("((1))");
-            builder.Entity<TBEmailAlartSetting>()
-           .Property(b => b.Active)
-           .HasDefaultValueSql("((1))");
-
-            //---------------------------------
-            //---------------------------------	
-            builder.Entity<TBWareHouseType>()
-           .Property(b => b.DateTimeEntry)
-           .HasDefaultValueSql("getdate()");
-            builder.Entity<TBWareHouseType>()
-           .Property(b => b.CurrentState)
-           .HasDefaultValueSql("((1))");
-            builder.Entity<TBWareHouseType>()
-           .Property(b => b.Active)
-           .HasDefaultValueSql("((1))");
-
-            //---------------------------------
-            //---------------------------------	
-            builder.Entity<TBProductCategory>()
-           .Property(b => b.DateTimeEntry)
-           .HasDefaultValueSql("getdate()");
-            builder.Entity<TBProductCategory>()
-           .Property(b => b.CurrentState)
-           .HasDefaultValueSql("((1))");
-            builder.Entity<TBProductCategory>()
-           .Property(b => b.Active)
-           .HasDefaultValueSql("((1))");
-
-            //---------------------------------
-            //---------------------------------	
-            builder.Entity<TBWareHouse>()
-           .Property(b => b.DateTimeEntry)
-           .HasDefaultValueSql("getdate()");
-            builder.Entity<TBWareHouse>()
-           .Property(b => b.CurrentState)
-           .HasDefaultValueSql("((1))");
-            builder.Entity<TBWareHouse>()
-           .Property(b => b.Active)
-           .HasDefaultValueSql("((1))");
-
-            //---------------------------------
         }
-
-
-
-
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
         public DbSet<TBFAQ> TBFAQs { get; set; }
@@ -203,6 +192,7 @@ namespace Infarstuructre.Data
         public DbSet<TBViewWareHouse> ViewWareHouse { get; set; }
         public DbSet<TBViewProductCategory> ViewProductCategory { get; set; }
         public DbSet<TBViewWareHouseType> ViewWareHouseType { get; set; }
+        public DbSet<TBMerchants> TBMerchantss { get; set; }
 
     }
 }

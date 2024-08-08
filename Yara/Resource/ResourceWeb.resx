@@ -150,6 +150,9 @@
   <data name="LbAddEditInformationCompanies" xml:space="preserve">
     <value>Add and modify company data</value>
   </data>
+  <data name="LBAddEditMerchants" xml:space="preserve">
+    <value>Add and modify the AddEdit Merchants</value>
+  </data>
   <data name="LBAddEmailAlartSetting" xml:space="preserve">
     <value>Adding and modifying Email Alart Setting</value>
   </data>
@@ -432,6 +435,12 @@
   <data name="LbInformaitionco" xml:space="preserve">
     <value>company information</value>
   </data>
+  <data name="LbInformaitionMerchants" xml:space="preserve">
+    <value>Informaition Merchants</value>
+  </data>
+  <data name="LbInformaitionMerchantsOner" xml:space="preserve">
+    <value>Informaition Merchants Oner</value>
+  </data>
   <data name="LbInformationCompany" xml:space="preserve">
     <value>Information Company</value>
   </data>
@@ -465,11 +474,35 @@
   <data name="lbMailSender" xml:space="preserve">
     <value>Mail Sender</value>
   </data>
+  <data name="LbMerchantAddres" xml:space="preserve">
+    <value>Merchant Addres</value>
+  </data>
+  <data name="lbMerchantEmaile" xml:space="preserve">
+    <value>Merchant Emaile</value>
+  </data>
   <data name="LBMerchantInformation" xml:space="preserve">
     <value>Merchant Information</value>
   </data>
+  <data name="lbMerchantName" xml:space="preserve">
+    <value>Merchant Name</value>
+  </data>
+  <data name="lbMerchantOnerEmail" xml:space="preserve">
+    <value>Merchant Oner Email</value>
+  </data>
+  <data name="lbMerchantOnerName" xml:space="preserve">
+    <value>Merchant Oner Name</value>
+  </data>
+  <data name="lbMerchantOnerPhone" xml:space="preserve">
+    <value>Merchant Oner Phone</value>
+  </data>
+  <data name="lbMerchantPhone" xml:space="preserve">
+    <value>Merchant Phone</value>
+  </data>
   <data name="LBMerchants" xml:space="preserve">
     <value>Merchants</value>
+  </data>
+  <data name="lbMerchantWeb" xml:space="preserve">
+    <value>Merchant Web</value>
   </data>
   <data name="Lbmerchant_mob" xml:space="preserve">
     <value>phone number</value>
@@ -533,6 +566,9 @@
   </data>
   <data name="LBMyMerchant" xml:space="preserve">
     <value>Merchants' data</value>
+  </data>
+  <data name="LBMYMerchants" xml:space="preserve">
+    <value>Merchants Information</value>
   </data>
   <data name="LBMyOrder" xml:space="preserve">
     <value>Order</value>

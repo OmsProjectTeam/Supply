@@ -339,4 +339,31 @@
   <data name="VlCode1" xml:space="preserve">
     <value>Code</value>
   </data>
+  <data name="MaxLength200" xml:space="preserve">
+    <value>The number of characters entered must not exceed 200 characters...!</value>
+  </data>
+  <data name="VlMerchantAddres" xml:space="preserve">
+    <value>Please include the Merchant Address to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantEmaile" xml:space="preserve">
+    <value>Please include the Merchant Emaile to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantName" xml:space="preserve">
+    <value>Please include the Merchant Name to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantOnerEmail" xml:space="preserve">
+    <value>Please include the Merchan tOner Email to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantOnerName" xml:space="preserve">
+    <value>Please include the Merchant Oner Name to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantOnerPhone" xml:space="preserve">
+    <value>Please include the Merchant Oner Phone to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantPhone" xml:space="preserve">
+    <value>Please include the Merchant Phone to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantWeb" xml:space="preserve">
+    <value>Please include the Merchant Web to complete successfully..!</value>
+  </data>
 </root>

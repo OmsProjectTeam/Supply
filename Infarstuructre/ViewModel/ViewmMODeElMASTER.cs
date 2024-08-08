@@ -15,6 +15,7 @@ namespace Infarstuructre.ViewModel
 	{
 		public returnUrl returnUrl { get; set; }
         public IEnumerable<IdentityRole> ListIdentityRole { get; set; }
+        public IEnumerable<prodactlist> Listprodatt { get; set; }
         public IdentityRole? sIdentityRole { get; set; } 
         public IEnumerable<VwUser> ListVwUser { get; set; }
         public IEnumerable<ApplicationUser> ListlicationUser { get; set; }
@@ -70,7 +71,24 @@ namespace Infarstuructre.ViewModel
         public TBWareHouseType WareHouseType { get; set; }
         public TBProductCategory ProductCategory { get; set; }
         public IEnumerable<TBViewProductCategory> ViewProductCategory { get; set; }
+        public IEnumerable<TBMerchants> listMerchants { get; set; }
 
+        public TBMerchants Merchants { get; set; }
+
+
+
+
+
+
+
+
+        public string ProductName { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string UPC { get; set; }
+        public int Quantity { get; set; }
+        public string RetailPrice { get; set; }
+        public string TotalRetailPrice { get; set; }
     }
  }
 

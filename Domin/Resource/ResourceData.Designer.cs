@@ -115,6 +115,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The number of characters entered must not exceed 200 characters...!.
+        /// </summary>
+        public static string MaxLength200 {
+            get {
+                return ResourceManager.GetString("MaxLength200", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number of characters entered must not exceed 2000 characters...!.
         /// </summary>
         public static string MaxLength2000 {
@@ -507,6 +516,78 @@ namespace Domin.Resource {
         public static string VllocalCurrency {
             get {
                 return ResourceManager.GetString("VllocalCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchant Address to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantAddres {
+            get {
+                return ResourceManager.GetString("VlMerchantAddres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchant Emaile to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantEmaile {
+            get {
+                return ResourceManager.GetString("VlMerchantEmaile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchant Name to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantName {
+            get {
+                return ResourceManager.GetString("VlMerchantName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchan tOner Email to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantOnerEmail {
+            get {
+                return ResourceManager.GetString("VlMerchantOnerEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchant Oner Name to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantOnerName {
+            get {
+                return ResourceManager.GetString("VlMerchantOnerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchant Oner Phone to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantOnerPhone {
+            get {
+                return ResourceManager.GetString("VlMerchantOnerPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchant Phone to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantPhone {
+            get {
+                return ResourceManager.GetString("VlMerchantPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Merchant Web to complete successfully..!.
+        /// </summary>
+        public static string VlMerchantWeb {
+            get {
+                return ResourceManager.GetString("VlMerchantWeb", resourceCulture);
             }
         }
         

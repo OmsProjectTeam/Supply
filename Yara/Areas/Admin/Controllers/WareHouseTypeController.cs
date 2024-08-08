@@ -23,13 +23,13 @@ namespace Yara.Areas.Admin.Controllers
             return View(viewmMODeElMASTER);
         }
 
-        public IActionResult AddWareHouseType(int? id)
+        public IActionResult AddWareHouseType(int? IdWareHouseType)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ViewWareHouseType = iWareHouseType.GetAll();
-            if (id != null)
+            if (IdWareHouseType != null)
             {
-                vmodel.WareHouseType = iWareHouseType.GetById(Convert.ToInt32(id));
+                vmodel.WareHouseType = iWareHouseType.GetById(Convert.ToInt32(IdWareHouseType));
                 return View(vmodel);
             }
             else
@@ -67,7 +67,7 @@ namespace Yara.Areas.Admin.Controllers
                     else
                     {
                         TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                        return Redirect(returnUrl);
+                        return RedirectToAction("AddWareHouseType");
                     }
                 }
                 else
@@ -81,7 +81,7 @@ namespace Yara.Areas.Admin.Controllers
                     else
                     {
                         TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-                        return Redirect(returnUrl);
+                        return RedirectToAction("AddWareHouseType");
                     }
                 }
             }

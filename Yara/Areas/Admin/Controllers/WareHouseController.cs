@@ -25,16 +25,16 @@ namespace Yara.Areas.Admin.Controllers
             return View(viewmMODeElMASTER);
         }
 
-        public IActionResult AddWareHouse(int? id)
+        public IActionResult AddWareHouse(int? IdBWareHouse)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 
             vmodel.ViewWareHouse = iWareHouse.GetAll();
             ViewBag.WareHouseType = iWareHouseType.GetAll();
 
-            if (id != null)
+            if (IdBWareHouse != null)
             {
-                vmodel.WareHouseType = iWareHouseType.GetById(Convert.ToInt32(id));
+                vmodel.WareHouseType = iWareHouseType.GetById(Convert.ToInt32(IdBWareHouse));
                 return View(vmodel);
             }
             else
@@ -51,6 +51,7 @@ namespace Yara.Areas.Admin.Controllers
             {
                 slider.IdBWareHouse = model.WareHouse.IdBWareHouse;
                 slider.Description = model.WareHouse.Description;
+                slider.IdWareHouseType = model.WareHouse.IdWareHouseType;
                 slider.Code = model.WareHouse.Code;
                 slider.Active = model.WareHouse.Active;
                 slider.DataEntry = model.WareHouse.DataEntry;
@@ -99,9 +100,9 @@ namespace Yara.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult DeleteData(int Id)
+        public IActionResult DeleteData(int IdBWareHouse)
         {
-            var reqwistDelete = iWareHouse.deleteData(Id);
+            var reqwistDelete = iWareHouse.deleteData(IdBWareHouse);
             if (reqwistDelete == true)
             {
                 TempData["Saved successfully"] = ResourceWeb.VLdELETESuccessfully;

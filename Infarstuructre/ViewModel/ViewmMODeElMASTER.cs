@@ -46,7 +46,7 @@ namespace Infarstuructre.ViewModel
 		public bool ActiveUser { get; set; }
 		public string Password { get; set; }
 		public string ComparePassword { get; set; }
-		public string userName { get; set; }
+		public string username1 { get; set; }
 		public string PhoneNumber { get; set; }	
 		
 		public List<IdentityRole> Roles { get; set; }
@@ -89,6 +89,8 @@ namespace Infarstuructre.ViewModel
         public int Quantity { get; set; }
         public string RetailPrice { get; set; }
         public string TotalRetailPrice { get; set; }
+        public TBWareHouseBranch WareHouseBranch { get; set; }
+        public IEnumerable<TBViewWareHouseBranch> ViewWareHouseBranch { get; set; }
     }
  }
 

@@ -1,4 +1,6 @@
-﻿namespace Infarstuructre.BL
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Infarstuructre.BL
 {
 
     public interface IIWareHouse
@@ -10,6 +12,14 @@
         bool deleteData(int id);
         List<TBViewWareHouse> GetAllv(int id);
         List<TBViewWareHouse> GetAllActive();
+        //////////////////API//////////////////////////
+        Task<List<TBViewWareHouse>> GetAllAPI();
+        Task<List<TBViewWareHouse>> GetAllvAPI(int id);
+        Task<TBWareHouse> GetByIdAPI(int id);
+        Task<TBWareHouse> GetByNameAPI(string name);
+        Task SaveDataAPI(TBWareHouse savee);
+        Task DeleteDataAPI(int id);
+        Task UpdateDataAPI(TBWareHouse update);
     }
 
     public class CLSTBWareHouse : IIWareHouse
@@ -85,6 +95,50 @@
             return MySlider;
         }
 
+        //////////////////API//////////////////////////
 
+        public async Task<List<TBViewWareHouse>> GetAllAPI()
+        {
+            List<TBViewWareHouse> Slider = await dbcontext.ViewWareHouse.Where(a => a.CurrentState == true).ToListAsync();
+            return Slider;
+        }
+
+        public async Task<List<TBViewWareHouse>> GetAllvAPI(int id)
+        {
+            List<TBViewWareHouse> Slider = await dbcontext.ViewWareHouse.OrderByDescending(n => n.IdBWareHouse == id).Where(a => a.IdBWareHouse == id).Where(a => a.CurrentState == true).ToListAsync();
+            return Slider;
+        }
+
+        public async Task<TBWareHouse> GetByIdAPI(int id)
+        {
+            TBWareHouse sslid = await dbcontext.TBWareHouses.FirstOrDefaultAsync(a => a.IdBWareHouse == id);
+            return sslid;
+        }
+
+        public async Task<TBWareHouse> GetByNameAPI(string name)
+        {
+            TBWareHouse sslid = await dbcontext.TBWareHouses.FirstOrDefaultAsync(a => a.Description == name);
+            return sslid;
+        }
+
+        public async Task SaveDataAPI(TBWareHouse savee)
+        {
+            await dbcontext.TBWareHouses.AddAsync(savee);
+            await dbcontext.SaveChangesAsync();
+        }
+
+        public async Task DeleteDataAPI(int id)
+        {
+            var catr = GetById(id);
+            catr.CurrentState = false;
+            dbcontext.Entry(catr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await dbcontext.SaveChangesAsync();
+        }
+
+        public async Task UpdateDataAPI(TBWareHouse update)
+        {
+            dbcontext.Entry(update).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await dbcontext.SaveChangesAsync();
+        }
     }
 }

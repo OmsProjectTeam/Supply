@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240808010658_addTBViewHouseBranch")]
+    partial class addTBViewHouseBranch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -224,80 +227,6 @@ namespace Infarstuructre.Migrations
                     b.HasKey("IdFAQList");
 
                     b.ToTable("TBFAQLists");
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBMerchants", b =>
-                {
-                    b.Property<int>("IdMerchants")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMerchants"));
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CurrentState")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("MerchantAddres")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("MerchantEmaile")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("MerchantName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("MerchantOnerEmail")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("MerchantOnerName")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("MerchantOnerPhone")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("MerchantPhone")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("MerchantWeb")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("Photo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdMerchants");
-
-                    b.ToTable("TBMerchantss");
                 });
 
             modelBuilder.Entity("Domin.Entity.TBProductCategory", b =>

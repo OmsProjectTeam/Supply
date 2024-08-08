@@ -75,6 +75,14 @@ namespace Infarstuructre.Data
                 entity.ToView("ViewWareHouse");
             });
             //************************************************************
+            //************************************************************
+            builder.Entity<TBViewWareHouseBranch>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewWareHouseBranch");
+            });
+            //************************************************************
+
             //---------------------------------
             builder.Entity<TBFAQ>()
            .Property(b => b.DateTimeEntry)
@@ -174,6 +182,19 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");
 
             //--------------------------------- 
+            //---------------------------------
+            //---------------------------------	
+            builder.Entity<TBWareHouseBranch>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBWareHouseBranch>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBWareHouseBranch>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -186,6 +207,7 @@ namespace Infarstuructre.Data
         public DbSet<TBViewCustomerMessages> ViewCustomerMessages { get; set; }
         public DbSet<TBTypesOfMessage> TBTypesOfMessages { get; set; }
         public DbSet<TBEmailAlartSetting> TBEmailAlartSettings { get; set; }
+
         public DbSet<TBWareHouseType> TBWareHouseTypes { get; set; }
         public DbSet<TBProductCategory> TBProductCategorys { get; set; }
         public DbSet<TBWareHouse> TBWareHouses { get; set; }
@@ -193,6 +215,8 @@ namespace Infarstuructre.Data
         public DbSet<TBViewProductCategory> ViewProductCategory { get; set; }
         public DbSet<TBViewWareHouseType> ViewWareHouseType { get; set; }
         public DbSet<TBMerchants> TBMerchantss { get; set; }
+        public DbSet<TBWareHouseBranch> TBWareHouseBranchs { get; set; }
+        public DbSet<TBViewWareHouseBranch> ViewWareHouseBranch { get; set; }
 
     }
 }

@@ -6,41 +6,41 @@ namespace Yara.Areas.Admin.APIsControllers
     [Authorize(Roles = "Admin,ApiRoles")]
     [Route("api/[controller]")]
     [ApiController]
-    public class WareHouseTypeAPIController : ControllerBase
+    public class WareHouseBranchAPIController : ControllerBase
     {
-        IIWareHouseType iWareHouseType;
+        IIWareHouseBranch iWareHouseBranch;
         MasterDbcontext dbcontext;
-        public WareHouseTypeAPIController(IIWareHouseType iWareHouseType1, MasterDbcontext dbcontext1)
+        public WareHouseBranchAPIController(IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1)
         {
-            iWareHouseType = iWareHouseType1;
+            iWareHouseBranch = iWareHouseBranch1;
             dbcontext = dbcontext1;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iWareHouseType.GetAllAPI();
+            var allData = await iWareHouseBranch.GetAllAPI();
             return Ok(allData);
         }
 
         [HttpGet("GetAllV/{id}")]
         public async Task<IActionResult> GetAllV(int id)
         {
-            var allData = await iWareHouseType.GetAllvAPI(id);
+            var allData = await iWareHouseBranch.GetAllvAPI(id);
             return Ok(allData);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iWareHouseType.GetByIdAPI(id);
+            var Data = await iWareHouseBranch.GetByIdAPI(id);
             return Ok(Data);
         }
 
         [HttpGet("GetByName/{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
-            var Data = await iWareHouseType.GetByNameAPI(name);
+            var Data = await iWareHouseBranch.GetByNameAPI(name);
             if (Data == null)
                 return NotFound();
 
@@ -48,33 +48,33 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddData(TBWareHouseType model)
+        public async Task<IActionResult> AddData(TBWareHouseBranch model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await iWareHouseType.SaveDataAPI(model);
+            await iWareHouseBranch.SaveDataAPI(model);
             return Ok(model);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateData(TBWareHouseType model)
+        public async Task<IActionResult> UpdateData(TBWareHouseBranch model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await iWareHouseType.UpdateDataAPI(model);
+            await iWareHouseBranch.UpdateDataAPI(model);
             return Ok(model);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteData(int id)
-        {   
+        {
             var item = await GetById(id);
             if (item == null)
                 return NoContent();
 
-            await iWareHouseType.DeleteDataAPI(id);
+            await iWareHouseBranch.DeleteDataAPI(id);
             return Ok(item);
         }
     }

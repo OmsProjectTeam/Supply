@@ -27,29 +27,36 @@
         <div class="box-content card white">
             <h4 class="box-title">@ResourceWeb.LBAddWareHouse</h4>
             <div class="card-content">
-                <form role="form" method="post" asp-controller="WareHouse" asp-action="Save" enctype="multipart/form-data">
+                <form role="form" method="post" asp-controller="WareHouseBranch" asp-action="Save" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="hidden" asp-for="@Model.WareHouse.DataEntry" class="form-control" value="@User.Identity.Name">
-                        <input type="hidden" asp-for="@Model.WareHouse.DateTimeEntry" value="@DateTime.Now">
-                        <input type="hidden" asp-for="@Model.WareHouse.IdBWareHouse">
+                        <input type="hidden" asp-for="@Model.WareHouseBranch.DataEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.WareHouseBranch.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.WareHouseBranch.IdBWareHouseBranch">
                         <input type="hidden" asp-for="@Model.returnUrl" id="url">
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label asp-for="@Model.WareHouse">@ResourceWeb.LbWareHouseType</label>
-                            <select class="form-control select2_1" asp-for="@Model.WareHouse.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouse"></select>
+                            <label asp-for="@Model.WareHouseBranch.IdWareHouseType">@ResourceWeb.LbWareHouseType</label>
+                            <select class="form-control select2_1" asp-for="@Model.WareHouseBranch.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouse"></select>
                             <span asp-validation-for="@Model.FAQDescreption.IdFAQ" class="text-danger"></span>
+                        </div>
+                    </div>
 
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.WareHouseBranch.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
+                            <select class="form-control select2_1" asp-for="@Model.WareHouseBranch.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
+                            <span asp-validation-for="@Model.WareHouseBranch.IdBWareHouse" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.WareHouse.Code">@ResourceWeb.Lbcode</label>
-                                <input asp-for="@Model.WareHouse.Code" type="text" placeholder="@ResourceWeb.Lbcode ...." class="form-control" maxlength="300">
-                                <span asp-validation-for="@Model.WareHouse.Code" class="text-danger"></span>
+                                <label asp-for="@Model.WareHouseBranch.Code">@ResourceWeb.Lbcode</label>
+                                <input asp-for="@Model.WareHouseBranch.Code" type="text" placeholder="@ResourceWeb.Lbcode ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.WareHouseBranch.Code" class="text-danger"></span>
                                 <span style="color:red"><strong>@TempData["Code"]</strong></span>
                             </div>
                         </div>
@@ -57,30 +64,31 @@
                         <div class="row small-spacing">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label asp-for="@Model.WareHouse.Description">@ResourceWeb.LbDescription1</label>
-                                    <input asp-for="@Model.WareHouse.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.WareHouse.Description" class="text-danger"></span>
+                                    <label asp-for="@Model.WareHouseBranch.Description">@ResourceWeb.LbDescription1</label>
+                                    <input asp-for="@Model.WareHouseBranch.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.WareHouseBranch.Description" class="text-danger"></span>
                                     <span style="color:red"><strong>@TempData["Description"]</strong></span>
                                 </div>
                             </div>
 
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.WareHouse.Active">@ResourceWeb.LbActive</label>
-                                    <input asp-for="@Model.WareHouse.Active" type="checkbox" checked class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.WareHouse.Active" class="text-danger"></span>
-                            </div>
-                        </div>
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label asp-for="@Model.WareHouse.CurrentState">@ResourceWeb.LbCurrentState</label>
-                                    <input asp-for="@Model.WareHouse.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.WareHouse.CurrentState" class="text-danger"></span>
+                                    <label asp-for="@Model.WareHouseBranch.Active">@ResourceWeb.LbActive</label>
+                                    <input asp-for="@Model.WareHouseBranch.Active" type="checkbox" checked class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.WareHouseBranch.Active" class="text-danger"></span>
+                                    <span style="color:red"><strong>@TempData["Active"]</strong></span>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.WareHouseBranch.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                        <input asp-for="@Model.WareHouseBranch.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                        <span asp-validation-for="@Model.WareHouseBranch.CurrentState" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                 </form>
             </div>
         </div>

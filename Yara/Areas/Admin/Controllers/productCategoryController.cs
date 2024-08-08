@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domin.Entity;
+using Infarstuructre.BL;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -22,9 +24,20 @@ namespace Yara.Areas.Admin.Controllers
             return View(viewmMODeElMASTER);
         }
 
-        public IActionResult AddproductCategory()
+        public IActionResult AddproductCategory(int? IdProductCategory)
         {
-            return View();
+            ViewmMODeElMASTER viewmMODeElMASTER = new ViewmMODeElMASTER();
+            viewmMODeElMASTER.ViewProductCategory = iProductCategory.GetAll();
+            if (IdProductCategory != null)
+            {
+                viewmMODeElMASTER.ProductCategory = iProductCategory.GetById(Convert.ToInt32(IdProductCategory));
+                return View(viewmMODeElMASTER);
+            }
+            else
+            {
+                return View(viewmMODeElMASTER);
+            }
+            return View(viewmMODeElMASTER);
         }
 
         [HttpPost]
@@ -82,9 +95,9 @@ namespace Yara.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult DeleteData(int Id)
+        public IActionResult DeleteData(int IdProductCategory)
         {
-            var reqwistDelete = iProductCategory.deleteData(Id);
+            var reqwistDelete = iProductCategory.deleteData(IdProductCategory);
             if (reqwistDelete == true)
             {
                 TempData["Saved successfully"] = ResourceWeb.VLdELETESuccessfully;

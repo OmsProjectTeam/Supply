@@ -54,7 +54,7 @@ namespace Infarstuructre.ViewModel
 		public string PhoneNumber { get; set; }	
 		
 		public string userName { get; set; }
-		public string PhoneNumber { get; set; }		
+		
 		public List<IdentityRole> Roles { get; set; }
 		public List<VwUser> Users { get; set; }
         public IEnumerable<TBViewFAQDescription> ListFAQDescription { get; set; }
@@ -88,13 +88,6 @@ namespace Infarstuructre.ViewModel
 
 
 
-        public string ProductName { get; set; }
-        public string Make { get; set; }
-        public string Model { get; set; }
-        public string UPC { get; set; }
-        public int Quantity { get; set; }
-        public string RetailPrice { get; set; }
-        public string TotalRetailPrice { get; set; }
         public TBWareHouseBranch WareHouseBranch { get; set; }
         public IEnumerable<TBViewWareHouseBranch> ViewWareHouseBranch { get; set; }
      

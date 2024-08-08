@@ -367,6 +367,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add and modify the Types Product.
+        /// </summary>
+        public static string LBAddTypesProduct {
+            get {
+                return ResourceManager.GetString("LBAddTypesProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding and modifying systems.
         /// </summary>
         public static string LBAddTypeSystem {
@@ -1573,6 +1582,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Types Product.
+        /// </summary>
+        public static string LBMyTypesProduct {
+            get {
+                return ResourceManager.GetString("LBMyTypesProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Systems.
         /// </summary>
         public static string LBMyTypeSystem {
@@ -2266,6 +2284,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type Product.
+        /// </summary>
+        public static string LbTypesProduct {
+            get {
+                return ResourceManager.GetString("LbTypesProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to system.
         /// </summary>
         public static string LbTypeSystem {
@@ -2766,6 +2793,15 @@ namespace Yara.Resource {
         public static string VLTypesOfRequestDoplceted {
             get {
                 return ResourceManager.GetString("VLTypesOfRequestDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The product type has already been entered. Please check and try again later...!.
+        /// </summary>
+        public static string VLTypesProductDoplceted {
+            get {
+                return ResourceManager.GetString("VLTypesProductDoplceted", resourceCulture);
             }
         }
         

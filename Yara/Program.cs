@@ -105,6 +105,7 @@ builder.Services.AddScoped<IIWareHouse, CLSTBWareHouse>();
 builder.Services.AddScoped<IIProductCategory, CLSProductCategory>();
 builder.Services.AddScoped<IIMerchants, CLSTBMerchants>();
 builder.Services.AddScoped<IIWareHouseBranch, CLSTBWareHouseBranch>();
+builder.Services.AddScoped<IITypesProduct, CLSTBTypesProduct>();
 
 
 

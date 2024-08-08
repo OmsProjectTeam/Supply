@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240808061506_TBTypesProduct")]
+    partial class TBTypesProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,7 +402,7 @@ namespace Infarstuructre.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("TypesProduct")
+                    b.Property<string>("TypesOfMessage")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -597,51 +600,6 @@ namespace Infarstuructre.Migrations
                     b.ToView("ViewWareHouse", (string)null);
                 });
 
-            modelBuilder.Entity("Domin.Entity.TBViewWareHouseBranch", b =>
-                {
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("CurrentState")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DescriptionWareHouse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdBWareHouse")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdBWareHouseBranch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdWareHouseType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WareHouseType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ViewWareHouseBranch", (string)null);
-                });
-
             modelBuilder.Entity("Domin.Entity.TBViewWareHouseType", b =>
                 {
                     b.Property<bool>("Active")
@@ -712,54 +670,6 @@ namespace Infarstuructre.Migrations
                     b.HasKey("IdBWareHouse");
 
                     b.ToTable("TBWareHouses");
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBWareHouseBranch", b =>
-                {
-                    b.Property<int>("IdBWareHouseBranch")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBWareHouseBranch"));
-
-                    b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<bool>("CurrentState")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("IdBWareHouse")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdWareHouseType")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdBWareHouseBranch");
-
-                    b.ToTable("TBWareHouseBranchs");
                 });
 
             modelBuilder.Entity("Domin.Entity.TBWareHouseType", b =>

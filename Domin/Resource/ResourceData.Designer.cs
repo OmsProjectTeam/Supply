@@ -781,6 +781,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the Types Product to complete successfully..!.
+        /// </summary>
+        public static string VlTypesProduct {
+            get {
+                return ResourceManager.GetString("VlTypesProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the system type for the process to complete successfully..!.
         /// </summary>
         public static string VlTypeSystem {

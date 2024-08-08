@@ -30,9 +30,13 @@ namespace Infarstuructre.ViewModel
         public bool Rememberme { get; set; }
         public List<SelectListItem> Roles1 { get; set; }
         public string SelectedRoleId { get; set; }
-
-
-
+        public string ProductName { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string UPC { get; set; }
+        public int Quantity { get; set; }
+        public string RetailPrice { get; set; }
+        public string TotalRetailPrice { get; set; }
         public string UserName { get; set; }
 		public string UserId { get; set; }
 		public string UserImage { get; set; }
@@ -49,11 +53,12 @@ namespace Infarstuructre.ViewModel
 		public string username1 { get; set; }
 		public string PhoneNumber { get; set; }	
 		
+		public string userName { get; set; }
+		public string PhoneNumber { get; set; }		
 		public List<IdentityRole> Roles { get; set; }
 		public List<VwUser> Users { get; set; }
         public IEnumerable<TBViewFAQDescription> ListFAQDescription { get; set; }
         public TBFAQDescreption FAQDescreption { get; set; }
-
         public IEnumerable<TBViewFAQList> ListFAQList { get; set; }
         public TBFAQList FAQList { get; set; }
         public IEnumerable<TBFAQ> ListFAQ { get; set; }
@@ -64,7 +69,6 @@ namespace Infarstuructre.ViewModel
         public TBCustomerMessages CustomerMessages { get; set; }
         public IEnumerable<TBEmailAlartSetting> ListEmailAlartSetting { get; set; }
         public TBEmailAlartSetting EmailAlartSetting { get; set; }
-
         public TBWareHouse WareHouse { get; set; }
         public IEnumerable<TBViewWareHouse> ViewWareHouse { get; set; }
         public IEnumerable<TBViewWareHouseType> ViewWareHouseType { get; set; }
@@ -72,8 +76,10 @@ namespace Infarstuructre.ViewModel
         public TBProductCategory ProductCategory { get; set; }
         public IEnumerable<TBViewProductCategory> ViewProductCategory { get; set; }
         public IEnumerable<TBMerchants> listMerchants { get; set; }
+        public TBMerchants Merchants { get; set; }   
+        public IEnumerable<TBTypesProduct> ListTypesProduct { get; set; }
+        public TBTypesProduct TypesProduct { get; set; }
 
-        public TBMerchants Merchants { get; set; }
 
 
 
@@ -91,6 +97,7 @@ namespace Infarstuructre.ViewModel
         public string TotalRetailPrice { get; set; }
         public TBWareHouseBranch WareHouseBranch { get; set; }
         public IEnumerable<TBViewWareHouseBranch> ViewWareHouseBranch { get; set; }
+     
     }
  }
 

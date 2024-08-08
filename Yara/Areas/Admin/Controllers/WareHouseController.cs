@@ -34,7 +34,7 @@ namespace Yara.Areas.Admin.Controllers
 
             if (IdBWareHouse != null)
             {
-                vmodel.WareHouseType = iWareHouseType.GetById(Convert.ToInt32(IdBWareHouse));
+                vmodel.WareHouse = iWareHouse.GetById(Convert.ToInt32(IdBWareHouse));
                 return View(vmodel);
             }
             else

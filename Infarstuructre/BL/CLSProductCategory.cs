@@ -16,6 +16,14 @@ namespace Infarstuructre.BL
         bool deleteData(int id);
         List<TBViewProductCategory> GetAllv(int id);
         List<TBViewProductCategory> GetAllActive();
+        //////////////////API//////////////////////////
+        Task<List<TBViewProductCategory>> GetAllAPI();
+        Task<List<TBViewProductCategory>> GetAllvAPI(int id);
+        Task<TBProductCategory> GetByIdAPI(int id);
+        Task<TBProductCategory> GetByNameAPI(string name);
+        Task SaveDataAPI(TBProductCategory savee);
+        Task DeleteDataAPI(int id);
+        Task UpdateDataAPI(TBProductCategory update);
     }
     public class CLSProductCategory : IIProductCategory
     {
@@ -93,6 +101,52 @@ namespace Infarstuructre.BL
             {
                 return false;
             }
+        }
+
+        //////////////////API//////////////////////////
+
+        public async Task<List<TBViewProductCategory>> GetAllAPI()
+        {
+            List<TBViewProductCategory> Slider = await dbcontext.ViewProductCategory.Where(a => a.CurrentState == true).ToListAsync();
+            return Slider;
+        }
+
+        public async Task<List<TBViewProductCategory>> GetAllvAPI(int id)
+        {
+            List<TBViewProductCategory> Slider = await dbcontext.ViewProductCategory.OrderByDescending(n => n.IdProductCategory == id).Where(a => a.IdProductCategory == id).Where(a => a.CurrentState == true).ToListAsync();
+            return Slider;
+        }
+
+        public async Task<TBProductCategory> GetByIdAPI(int id)
+        {
+            TBProductCategory sslid = await dbcontext.TBProductCategorys.FirstOrDefaultAsync(a => a.IdProductCategory == id);
+            return sslid;
+        }
+
+        public async Task<TBProductCategory> GetByNameAPI(string name)
+        {
+            TBProductCategory sslid = await dbcontext.TBProductCategorys.FirstOrDefaultAsync(a => a.ProductCategory == name);
+            return sslid;
+        }
+
+        public async Task SaveDataAPI(TBProductCategory savee)
+        {
+            await dbcontext.TBProductCategorys.AddAsync(savee);
+            await dbcontext.SaveChangesAsync();
+        }
+
+        public async Task DeleteDataAPI(int id)
+        {
+            var catr = GetById(id);
+            catr.CurrentState = false;
+            dbcontext.Entry(catr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await dbcontext.SaveChangesAsync();
+        }
+
+        public async Task UpdateDataAPI(TBProductCategory update)
+        {
+            dbcontext.Entry(update).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await dbcontext.SaveChangesAsync();
         }
     }
 }

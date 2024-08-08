@@ -31,6 +31,7 @@
                     <div class="form-group">
                         <input type="hidden" asp-for="@Model.ProductCategory.DataEntry" class="form-control" value="@User.Identity.Name">
                         <input type="hidden" asp-for="@Model.ProductCategory.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.ProductCategory.IdProductCategory">
                         <input type="hidden" asp-for="@Model.returnUrl" id="url">
                     </div>
 
@@ -49,6 +50,15 @@
                                 <label asp-for="@Model.ProductCategory.Active">@ResourceWeb.LbActive</label>
                                 <input asp-for="@Model.ProductCategory.Active" type="checkbox" checked class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.ProductCategory.Active" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Active"]</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductCategory.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                <input asp-for="@Model.ProductCategory.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.ProductCategory.CurrentState" class="text-danger"></span>
                                 <span style="color:red"><strong>@TempData["Active"]</strong></span>
                             </div>
                         </div>

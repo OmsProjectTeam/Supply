@@ -808,6 +808,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the Ware House Branch to complete successfully..!.
+        /// </summary>
+        public static string VlWareHouseBranch {
+            get {
+                return ResourceManager.GetString("VlWareHouseBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the Ware House type to complete successfully..!.
         /// </summary>
         public static string VlWareHouseTyp {

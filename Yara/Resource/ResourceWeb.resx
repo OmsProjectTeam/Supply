@@ -231,6 +231,9 @@
   <data name="LBAddWareHouse" xml:space="preserve">
     <value>Add Ware House</value>
   </data>
+  <data name="LBAddWareHouseType" xml:space="preserve">
+    <value>Add Ware House Type</value>
+  </data>
   <data name="LbAmount" xml:space="preserve">
     <value>Amount</value>
   </data>
@@ -365,6 +368,9 @@
   </data>
   <data name="LbdescriptionOrderStuse" xml:space="preserve">
     <value>Description Order Status</value>
+  </data>
+  <data name="LbDescriptionWareHouse" xml:space="preserve">
+    <value>Description Ware House</value>
   </data>
   <data name="LBEmageSise" xml:space="preserve">
     <value>Image size 150*150</value>
@@ -629,6 +635,9 @@
   </data>
   <data name="LBMyWareHouse" xml:space="preserve">
     <value>Ware House</value>
+  </data>
+  <data name="LBMyWareHouseBranch" xml:space="preserve">
+    <value>Ware House Branch</value>
   </data>
   <data name="LBMyWareHouseType" xml:space="preserve">
     <value>Ware House Type</value>
@@ -1031,6 +1040,9 @@
   </data>
   <data name="VLUpdatedSuccessfully" xml:space="preserve">
     <value>The modification process was completed successfully</value>
+  </data>
+  <data name="VLWareHouseBranchDoplceted" xml:space="preserve">
+    <value>The Ware House Branch has already been entered. Please check and try again later...!</value>
   </data>
   <data name="VLWareHouseTypeDoplceted" xml:space="preserve">
     <value>The Ware House Type has already been entered. Please check and try again later...!</value>

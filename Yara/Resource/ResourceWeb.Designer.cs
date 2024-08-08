@@ -403,6 +403,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Ware House Type.
+        /// </summary>
+        public static string LBAddWareHouseType {
+            get {
+                return ResourceManager.GetString("LBAddWareHouseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         public static string LbAmount {
@@ -804,6 +813,15 @@ namespace Yara.Resource {
         public static string LbdescriptionOrderStuse {
             get {
                 return ResourceManager.GetString("LbdescriptionOrderStuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description Ware House.
+        /// </summary>
+        public static string LbDescriptionWareHouse {
+            get {
+                return ResourceManager.GetString("LbDescriptionWareHouse", resourceCulture);
             }
         }
         
@@ -1596,6 +1614,15 @@ namespace Yara.Resource {
         public static string LBMyWareHouse {
             get {
                 return ResourceManager.GetString("LBMyWareHouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ware House Branch.
+        /// </summary>
+        public static string LBMyWareHouseBranch {
+            get {
+                return ResourceManager.GetString("LBMyWareHouseBranch", resourceCulture);
             }
         }
         
@@ -2802,6 +2829,15 @@ namespace Yara.Resource {
         public static string VLUpdatedSuccessfully {
             get {
                 return ResourceManager.GetString("VLUpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Ware House Branch has already been entered. Please check and try again later...!.
+        /// </summary>
+        public static string VLWareHouseBranchDoplceted {
+            get {
+                return ResourceManager.GetString("VLWareHouseBranchDoplceted", resourceCulture);
             }
         }
         

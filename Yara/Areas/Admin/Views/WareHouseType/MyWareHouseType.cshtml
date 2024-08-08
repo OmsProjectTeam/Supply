@@ -28,7 +28,7 @@
                                 <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
                                 <div class="navbar-inner">
                                     <ul>
-                                        <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbQuastion</a></li>
+                                        <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbWareHouseType</a></li>
 
                                         <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbInformaition</a></li>
                                     </ul>
@@ -108,8 +108,8 @@
                                                         </td>
                                                         <td>
                                                             <ul class="list-inline">
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="AddWareHouseType" asp-route-Id="@item.IdWareHouseType"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="DeleteData" asp-route-Id="@item.IdWareHouseType"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="AddWareHouseType" asp-route-IdWareHouseType="@item.IdWareHouseType"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="DeleteData" asp-route-IdWareHouseType="@item.IdWareHouseType"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
                                                             </ul>
                                                         </td>
                                                     </tr>

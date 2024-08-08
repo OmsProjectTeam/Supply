@@ -1,13 +1,13 @@
 ﻿@model ViewmMODeElMASTER
 @{
-    ViewData["Title"] = "MyFAQ";
+    ViewData["Title"] = "MyWareHouseBranch";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="col-xs-12">
     <div class="box-content">
         <ul class="list-inline">
-            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMyWareHouse</button></a></li>/
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMyWareHouseBranch</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
             <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
@@ -15,7 +15,7 @@
         </ul>
         <!-- /.box-title -->
         <div class="dropdown js__drop_down">
-            <a asp-area="Admin" asp-controller="WareHouse" asp-action="AddWareHouse"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
+            <a asp-area="Admin" asp-controller="WareHouseBranch" asp-action="AddWareHouseBranch"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
         </div>
         <!-- /.dropdown js__dropdown -->
         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -28,7 +28,7 @@
                                 <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
                                 <div class="navbar-inner">
                                     <ul>
-                                        <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LBMyWareHouse</a></li>
+                                        <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LBMyWareHouseBranch</a></li>
 
                                         <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbInformaition</a></li>
                                     </ul>
@@ -61,10 +61,10 @@
 
                                             </tfoot>
                                             <tbody>
-                                                        @foreach (var item in Model.ViewWareHouse)
+                                                        @foreach (var item in Model.ViewWareHouseBranch)
                                                         {
                                                     <tr role="row" class="odd">
-                                                        <td>@item.IdBWareHouse</td>
+                                                        <td>@item.IdBWareHouseBranch</td>
                                                         <td>@item.Description</td>
                                                         <td>@item.WareHouseType</td>
                                                         <td class="truncate-50">@item.Active</td>
@@ -86,7 +86,8 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDescription1</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDescriptionWareHouse</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.Lbcode</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
@@ -94,27 +95,30 @@
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbDescription1</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbDescriptionWareHouse</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.Lbcode</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbOpration</th>
                                             </tfoot>
                                             <tbody>
-                                                        @foreach (var item in Model.ViewWareHouse)
+                                                        @foreach (var item in Model.ViewWareHouseBranch)
                                                         {
                                                     <tr role="row" class="odd">
-                                                        <td>@item.IdBWareHouse</td>
-                                                        <td>@item.Description</td>
+                                                        <td>@item.IdBWareHouseBranch</td>
+                                                        <td>@item.DescriptionWareHouse</td>
+                                                        <td>@item.Code</td>
                                                         <td>@item.DataEntry</td>
                                                         <td>@item.DateTimeEntry</td>
+                                                        <td>@item.CurrentState</td>
                                                         <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.CurrentState" IdTypesOfMessage="switch-2" disabled><label for="switch-2">@item.CurrentState</label></div>
                                                         </td>
                                                         <td>
                                                             <ul class="list-inline">
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouse" asp-action="AddWareHouse" asp-route-IdBWareHouse="@item.IdBWareHouse"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouse" asp-action="DeleteData" asp-route-IdBWareHouse="@item.IdBWareHouse"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseBranch" asp-action="AddWareHouseBranch" asp-route-IdBWareHouseBranch="@item.IdBWareHouseBranch"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseBranch" asp-action="DeleteData" asp-route-IdBWareHouseBranch="@item.IdBWareHouseBranch"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
                                                             </ul>
                                                         </td>
                                                     </tr>

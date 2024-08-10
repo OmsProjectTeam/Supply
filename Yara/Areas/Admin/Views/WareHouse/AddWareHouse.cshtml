@@ -51,12 +51,18 @@
                         </div>
                     </div>
                     <div class="row small-spacing">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.WareHouse.Code">@ResourceWeb.Lbcode</label>
                                 <input asp-for="@Model.WareHouse.Code" type="text" placeholder="@ResourceWeb.Lbcode ...." class="form-control" maxlength="300" id="Code" readonly>
                                 <span asp-validation-for="@Model.WareHouse.Code" class="text-danger"></span>
                                 <span style="color:red"><strong>@TempData["Code"]</strong></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>QR Code</label>
+                                <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
                             </div>
                         </div>
                     </div>
@@ -88,6 +94,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+
     <script>
         $(document).ready(function () {
             console.log("Document is ready");
@@ -116,6 +123,7 @@
                 if (warehouseType && description) {
                     var code = warehouseType + description + randomString;
                     $('#Code').val(code);
+                    updateQRCode(); // Update QR code when code is updated
                 }
             }
 
@@ -124,8 +132,25 @@
                 updateCodeField();
             });
 
+            // Update the QR code image
+            function updateQRCode() {
+                var code = $('#Code').val();
+                if (code) {
+                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $('#QRCodeImage').attr('src', '');
+                }
+            }
+
+            // Bind change event to Code field to update QR code
+            $('#Code').on('change keyup', function () {
+                updateQRCode();
+            });
+
             // Update the URL field with the current page URL
             $("#url").val(window.location.href);
         });
     </script>
 }
+
+

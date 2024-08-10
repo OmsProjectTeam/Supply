@@ -270,8 +270,13 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                        <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5"></textarea>
-                                        <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                        <div class="input-group">
+                                            <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5"></textarea>
+                                            <div class="input-group-append">
+                                                <img src="@Url.Action("GenerateQRCode", new { text = Model.ProductInformation.Qrcode })" alt="QR Code" class="img-fluid" />
+                                            </div>
+                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +290,7 @@
                                     <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
                                 </p>
                                 <p>
-                                    <img asp-for="@Model.ProductInformation.Photo" id="output" width="450" height="300" />
+                                    <img  id="output" width="450" height="300" />
                                 </p>
                                 <span style="color:red"><strong>@TempData["Message"]</strong></span>
                             </div>
@@ -309,6 +314,15 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-content card white">
+            <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+
+        </div>
         </div>
     </div>
 </div>

@@ -34,26 +34,45 @@ namespace Yara.Areas.Admin.Controllers
                 }
                 else
                 {
-                    var imageNodes7 = document.DocumentNode.SelectNodes("//div[@class='grid']//img");
+                    var imageNodes7 = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
 
-                    if (imageNodes7 != null)
+                    if (imageNodes7 != null && imageNodes7.Any())
                     {
-                        var imageUrls1 = imageNodes7.Select(node => node.GetAttributeValue("src", "")).ToList();
-                        ViewBag.ImageUrls = imageUrls1;
+                        var firstImageUrl = imageNodes7
+                            .Select(node => node.GetAttributeValue("src", ""))
+                            .FirstOrDefault(); // الحصول على أول رابط فقط
+
+                        ViewBag.ImageUrls = new List<string> { firstImageUrl }; // تخزين الرابط في قائمة جديدة
                     }
 
                 }
-
 
                 var imageNodes2 = document.DocumentNode.SelectNodes("//div[@class='price-format__large price-format__main-price']");
                 if (imageNodes2 != null)
                 {
                     // استخدم النص من العقدة بدلاً من العقدة نفسها
                     ViewBag.html = imageNodes2.Select(node => node.InnerText).ToArray();
-					// استخدم النص من العقدة بدلاً من العقدة نفسها
-				}
+                    // استخدم النص من العقدة بدلاً من العقدة نفسها
 
-			}
+
+
+
+
+
+                }
+                else
+                {
+                    var imageNodes8 = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']");
+                    if (imageNodes8 != null)
+                    {
+                        ViewBag.html = imageNodes2.Select(node => node.InnerText).ToArray();
+                    }
+
+
+                }
+
+
+            }
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;

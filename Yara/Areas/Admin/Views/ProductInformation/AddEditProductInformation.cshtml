@@ -105,7 +105,7 @@
                                     <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
                                 </p>
                                 <p>
-                                    <img id="output" width="450" height="300" />
+                                    <img asp-for="@Model.ProductInformation.Photo" id="output" width="450" height="300" />
                                 </p>
                                 <span style="color:red"><strong>@TempData["Message"]</strong></span>
                             </div>

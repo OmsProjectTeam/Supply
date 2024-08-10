@@ -27,12 +27,7 @@ namespace Yara.Areas.Admin.Controllers
                 if (imageNodes != null)
                 {
                     var imageUrls = imageNodes.Select(node => node.GetAttributeValue("src", "")).ToList();
-                    ViewBag.ImageUrls = imageUrls;
-
-                   
-
-
-
+                    ViewBag.ImageUrls = imageUrls;                 
                 }
                 else
                 {
@@ -70,17 +65,11 @@ namespace Yara.Areas.Admin.Controllers
 
                 }
 
-
             }
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
             }
-
-
-
-
-
 
             return View();
         }

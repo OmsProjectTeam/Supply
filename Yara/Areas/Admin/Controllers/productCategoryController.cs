@@ -57,7 +57,6 @@ namespace Yara.Areas.Admin.Controllers
                         TempData["ProductCategory"] = ResourceWeb.VLProductCategoryDoplceted;
                         return RedirectToAction("AddproductCategory", model);
                     }
-
                     var reqwest = iProductCategory.saveData(slider);
                     if (reqwest == true)
                     {

@@ -135,42 +135,52 @@
 
 @section Scripts {
     <script>
+        // Function to load a local file and display it
         var loadFile = function (event) {
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);
         };
 
-        // Fetch and display image based on model input
+        // Event listener for when the model input field changes
         $("#modelInput").on("change", function () {
-            var model = $(this).val();
+            var model = $(this).val(); // Get the model input value
+            console.log("Model input changed");  // Debugging line to confirm the event is firing
+            console.log("Model value:", model);  // Debugging line to log the model value
+
             if (model) {
                 $.ajax({
-                    url: '@Url.Action("FetchImageByModel", "ProductInformation")',
+                    url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })', // Correctly formatted URL
                     type: 'GET',
-                    data: { model: model },
+                    data: { model: model }, // Send the model as a parameter
                     success: function (response) {
+                        console.log("AJAX success response:", response); // Debugging line to log the success response
                         if (response.success) {
-                            $("#output").attr("src", response.imageUrl).show();
+                            $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
                         } else {
-                            alert(response.message);
-                            $("#output").hide();
+                            alert(response.message); // Show an alert if there was an issue fetching the image
+                            $("#output").hide(); // Hide the image element if there's no image to display
                         }
                     },
-                    error: function () {
-                        alert("Error fetching the image.");
-                        $("#output").hide();
+                    error: function (xhr, status, error) {
+                        console.log("AJAX error:", xhr.responseText);  // Log the error response to the console
+                        alert("Error fetching the image."); // Alert the user about the error
+                        $("#output").hide(); // Hide the image element in case of an error
                     }
                 });
             }
         });
 
+        // Set the URL of the form to the current page URL
         $("#url").val(window.location.href);
     </script>
+
+    <!-- Include necessary scripts for Select2 and other plugins -->
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 }
+
 
 
 

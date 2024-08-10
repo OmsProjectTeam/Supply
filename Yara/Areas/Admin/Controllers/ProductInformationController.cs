@@ -197,21 +197,14 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
+        [HttpGet]
         public async Task<IActionResult> FetchImageByModel(string model)
         {
             try
             {
                 HtmlWeb web = new HtmlWeb();
-                var url = $"https://www.homedepot.com/s/{model}";  // Adjust this URL to match your requirements
-                var document = web.Load(url);
-
+                var document = web.Load("https://www.homedepot.com/s/" + model);
                 var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
-                if (imageNodes == null)
-                {
-                    imageNodes = document.DocumentNode.SelectNodes("//div[@class='grid']//img");
-                }
 
                 if (imageNodes != null)
                 {
@@ -220,8 +213,15 @@ namespace Yara.Areas.Admin.Controllers
                 }
                 else
                 {
-                    return Json(new { success = false, message = "Image not found." });
+                    var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@class='grid']//img");
+                    if (imageNodesFallback != null)
+                    {
+                        var imageUrl = imageNodesFallback.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
+                        return Json(new { success = true, imageUrl });
+                    }
                 }
+
+                return Json(new { success = false, message = "Image not found." });
             }
             catch (Exception ex)
             {

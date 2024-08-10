@@ -1,4 +1,6 @@
-﻿namespace Yara.Areas.Admin.Controllers
+﻿using HtmlAgilityPack;
+
+namespace Yara.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
@@ -192,6 +194,38 @@
             {
                 TempData["ErrorSave"] = ResourceWeb.VLErrorDeleteData;
                 return RedirectToAction("MYProductInformation");
+            }
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> FetchImageByModel(string model)
+        {
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                var url = $"https://www.homedepot.com/s/{model}";  // Adjust this URL to match your requirements
+                var document = web.Load(url);
+
+                var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
+                if (imageNodes == null)
+                {
+                    imageNodes = document.DocumentNode.SelectNodes("//div[@class='grid']//img");
+                }
+
+                if (imageNodes != null)
+                {
+                    var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
+                    return Json(new { success = true, imageUrl });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Image not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
             }
         }
     }

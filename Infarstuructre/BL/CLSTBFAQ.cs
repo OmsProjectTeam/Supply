@@ -1,4 +1,6 @@
-﻿namespace Infarstuructre.BL
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Infarstuructre.BL
 {
 
 	public interface IIFAQ
@@ -10,7 +12,16 @@
 		bool deleteData(int IdFAQ);
 		List<TBFAQ> GetAllv(int IdFAQ);
 		List<TBFAQ> GetAllActive();
-	}
+        //////////////////////////APIs/////////////////////////////////////////////////////////////////
+        Task<List<TBFAQ>> GetAllAsync();
+        Task<List<TBFAQ>> GetAllvAsync(int IdCustomerMessages);
+        Task<List<TBFAQ>> GetAllDataentryAsync(string dataEntry);
+        Task<TBFAQ> GetByIdAsync(int IdCustomerMessages);
+        Task<List<TBFAQ>> GetAllActiveAsync();
+        Task<bool> AddDataAsync(TBFAQ savee);
+        Task<bool> DeleteDataAsync(int TBFAQ);
+        Task<bool> UpdateDataAsync(TBFAQ update);
+    }
 
 	public class CLSTBFAQ : IIFAQ
 	{
@@ -85,6 +96,82 @@
 			return MySlider;
 		}
 
+        // //////////////////////////APIs/////////////////////////////////////////////////////////////////
 
-	}
+        public async Task<List<TBFAQ>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.TBFAQs.OrderByDescending(n => n.IdFAQ).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBFAQ>> GetAllvAsync(int IdFAQ)
+        {
+            var myDatd = await dbcontext.TBFAQs.OrderByDescending(n => n.IdFAQ).Where(a => a.IdFAQ == IdFAQ).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBFAQ>> GetAllDataentryAsync(string dataEntry)
+        {
+            var MySlider = await dbcontext.TBFAQs.Where(a => a.DateEntry == dataEntry && a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<List<TBFAQ>> GetAllActiveAsync()
+        {
+            List<TBFAQ> MySlider = await dbcontext.TBFAQs.OrderByDescending(n => n.IdFAQ).Where(a => a.CurrentState == true).Where(a => a.Active == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBFAQ> GetByIdAsync(int IdFAQ)
+        {
+            var sslid = await dbcontext.TBFAQs.FirstOrDefaultAsync(a => a.IdFAQ == IdFAQ);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBFAQ savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBFAQ>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdFAQ)
+        {
+            try
+            {
+                var email = await GetByIdAsync(IdFAQ);
+                email.CurrentState = false;
+                dbcontext.Entry(email).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> UpdateDataAsync(TBFAQ update)
+        {
+            try
+            {
+                dbcontext.Entry(update).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+    }
 }

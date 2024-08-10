@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Infarstuructre.BL
 {
     public interface IIMerchants
@@ -12,6 +14,15 @@ namespace Infarstuructre.BL
         List<TBMerchants> GetAllv(int IdMerchants);
         bool DELETPHOTO(int IdMerchants);
         bool DELETPHOTOWethError(string PhotoNAme);
+        // /////////////APIs////////////////////////////////////////////////
+        Task<List<TBMerchants>> GetAllAsync();
+        Task<List<TBMerchants>> GetAllActiveAsync();
+        Task<TBMerchants> GetByIdAsync(int IdMerchants);
+        Task<bool> AddDataAsync(TBMerchants savee);
+        Task<bool> DeleteDataAsync(int IdMerchants);
+        Task<bool> UpdateDataAsync(TBMerchants update);
+        Task<bool> DELETPHOTOASYNC(int IdMerchants);
+        Task<bool> DELETPHOTOWethErrorAsync(string PhotoNAme);
     }
     public class CLSTBMerchants: IIMerchants
     {
@@ -117,6 +128,141 @@ namespace Infarstuructre.BL
 
         }
         public bool DELETPHOTOWethError(string PhotoNAme)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(PhotoNAme))
+                {
+                    // إذا كان هناك صورة قديمة، قم بمسحها من الملف
+                    var oldFilePath = Path.Combine(@"wwwroot/Images/Home", PhotoNAme);
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+
+
+                        // استخدم FileShare.None للسماح بحذف الملف أثناء استخدامه
+                        using (FileStream fs = new FileStream(oldFilePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                        {
+                            System.Threading.Thread.Sleep(200);
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+                        }
+
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                // يفضل ألا تترك البرنامج يتجاوز الأخطاء بصمت، يفضل تسجيل الخطأ أو إعادة رميه
+                return false;
+            }
+        }
+
+        //// ///////////////////APIs////////////////////////////////////////////////////////////////
+
+        public async Task<List<TBMerchants>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.TBMerchantss.OrderByDescending(n => n.IdMerchants).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBMerchants>> GetAllActiveAsync()
+        {
+            var MySlider = await dbcontext.TBMerchantss.OrderByDescending(n => n.IdMerchants).Where(a => a.CurrentState == true).Where(a => a.Active == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBMerchants> GetByIdAsync(int IdMerchants)
+        {
+            var sslid = await dbcontext.TBMerchantss.FirstOrDefaultAsync(a => a.IdMerchants == IdMerchants);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBMerchants savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBMerchants>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdMerchants)
+        {
+            try
+            {
+                var merchant = await GetByIdAsync(IdMerchants);
+                merchant.CurrentState = false;
+                dbcontext.Entry(merchant).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> UpdateDataAsync(TBMerchants update)
+        {
+            try
+            {
+                dbcontext.Entry(update).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DELETPHOTOASYNC(int IdMerchants)
+        {
+            try
+            {
+                var catr = await GetByIdAsync(IdMerchants);
+                //using (FileStream fs = new FileStream(catr.Photo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                //{
+                if (!string.IsNullOrEmpty(catr.Photo))
+                {
+                    // إذا كان هناك صورة قديمة، قم بمسحها من الملف
+                    var oldFilePath = Path.Combine(@"wwwroot/Images/Home", catr.Photo);
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+
+
+                        // استخدم FileShare.None للسماح بحذف الملف أثناء استخدامه
+                        using (FileStream fs = new FileStream(oldFilePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                        {
+                            System.Threading.Thread.Sleep(200);
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+                        }
+
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+                //}
+
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DELETPHOTOWethErrorAsync(string PhotoNAme)
         {
             try
             {

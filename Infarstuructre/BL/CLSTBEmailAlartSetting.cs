@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Infarstuructre.BL
 {
 	public interface IIEmailAlartSetting
@@ -10,7 +12,15 @@ namespace Infarstuructre.BL
 		bool UpdateData(TBEmailAlartSetting updatss);
 		bool deleteData(int IdEmailAlartSetting);
 		List<TBEmailAlartSetting> GetAllv(int IdEmailAlartSetting);
-	}
+        //////////////////////////APIs/////////////////////////////////////////////////////////////////
+        Task<List<TBEmailAlartSetting>> GetAllAsync();
+        Task<List<TBEmailAlartSetting>> GetAllvAsync(int IdCustomerMessages);
+        Task<List<TBEmailAlartSetting>> GetAllDataentryAsync(string dataEntry);
+        Task<TBEmailAlartSetting> GetByIdAsync(int IdCustomerMessages);
+        Task<bool> AddDataAsync(TBEmailAlartSetting savee);
+        Task<bool> DeleteDataAsync(int TBEmailAlartSetting);
+        Task<bool> UpdateDataAsync(TBEmailAlartSetting update);
+    }
 	public class CLSTBEmailAlartSetting: IIEmailAlartSetting
 	{
 		MasterDbcontext dbcontext;
@@ -78,5 +88,76 @@ namespace Infarstuructre.BL
 			List<TBEmailAlartSetting> MySlider = dbcontext.TBEmailAlartSettings.OrderByDescending(n => n.IdEmailAlartSetting == IdEmailAlartSetting).Where(a => a.IdEmailAlartSetting == IdEmailAlartSetting).Where(a => a.CurrentState == true).ToList();
 			return MySlider;
 		}
-	}
+
+        // //////////////////////////APIs/////////////////////////////////////////////////////////////////
+
+        public async Task<List<TBEmailAlartSetting>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.TBEmailAlartSettings.OrderByDescending(n => n.IdEmailAlartSetting).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBEmailAlartSetting>> GetAllvAsync(int IdEmailAlartSetting)
+        {
+            var myDatd = await dbcontext.TBEmailAlartSettings.OrderByDescending(n => n.IdEmailAlartSetting).Where(a => a.IdEmailAlartSetting == IdEmailAlartSetting).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBEmailAlartSetting>> GetAllDataentryAsync(string dataEntry)
+        {
+            var MySlider = await dbcontext.TBEmailAlartSettings.Where(a => a.DataEntry == dataEntry && a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBEmailAlartSetting> GetByIdAsync(int IdEmailAlartSetting)
+        {
+            var sslid = await dbcontext.TBEmailAlartSettings.FirstOrDefaultAsync(a => a.IdEmailAlartSetting == IdEmailAlartSetting);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBEmailAlartSetting savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBEmailAlartSetting>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdEmailAlartSetting)
+        {
+            try
+            {
+                var email = await GetByIdAsync(IdEmailAlartSetting);
+                email.CurrentState = false;
+                dbcontext.Entry(email).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> UpdateDataAsync(TBEmailAlartSetting update)
+        {
+            try
+            {
+                dbcontext.Entry(update).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+    }
 }

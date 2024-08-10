@@ -56,18 +56,15 @@ namespace Yara.Areas.Admin.Controllers
                     ViewBag.html = imageNodes2.Select(node => node.InnerText).ToArray();
                     // استخدم النص من العقدة بدلاً من العقدة نفسها
 
-
-
-
-
-
                 }
                 else
                 {
-                    var imageNodes8 = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']");
-                    if (imageNodes8 != null)
+                    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+                    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
                     {
-                        ViewBag.html = imageNodes2.Select(node => node.InnerText).ToArray();
+                        // استخدم أول أربعة عناصر فقط لتكوين السعر الأول
+                        var price = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                        ViewBag.html1 = price;
                     }
 
 

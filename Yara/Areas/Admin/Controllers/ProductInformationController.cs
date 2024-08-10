@@ -227,6 +227,21 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }

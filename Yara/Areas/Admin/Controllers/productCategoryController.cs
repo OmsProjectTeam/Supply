@@ -59,7 +59,6 @@ namespace Yara.Areas.Admin.Controllers
                         TempData["WareHouseType"] = ResourceWeb.VLWareHouseTypeDoplceted;
                         return RedirectToAction("AddproductCategory", model);
                     }
-
                     var reqwest = iProductCategory.saveData(slider);
                     if (reqwest == true)
                     {

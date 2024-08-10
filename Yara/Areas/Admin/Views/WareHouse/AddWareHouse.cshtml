@@ -37,7 +37,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.WareHouse.IdWareHouseType">@ResourceWeb.LbWareHouseType</label>
-                                <select class="form-control select2_1" asp-for="@Model.WareHouse.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouseType"></select>
+                                <select class="form-control" asp-for="@Model.WareHouse.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouseType"></select>
                                 <span asp-validation-for="@Model.WareHouse.IdWareHouseType" class="text-danger"></span>
                             </div>
                         </div>

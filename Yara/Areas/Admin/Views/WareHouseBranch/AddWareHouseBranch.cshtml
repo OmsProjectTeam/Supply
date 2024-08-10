@@ -38,7 +38,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label asp-for="@Model.WareHouseBranch.IdWareHouseType">@ResourceWeb.LbWareHouseType</label>
-                            <select class="form-control select2_1" asp-for="@Model.WareHouseBranch.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouse"></select>
+                            <select class="form-control" asp-for="@Model.WareHouseBranch.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouseType"></select>
                             <span asp-validation-for="@Model.FAQDescreption.IdFAQ" class="text-danger"></span>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label asp-for="@Model.WareHouseBranch.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
-                            <select class="form-control select2_1" asp-for="@Model.WareHouseBranch.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
+                            <select class="form-control" asp-for="@Model.WareHouseBranch.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
                             <span asp-validation-for="@Model.WareHouseBranch.IdBWareHouse" class="text-danger"></span>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.WareHouseBranch.Code">@ResourceWeb.Lbcode</label>
-                                <input asp-for="@Model.WareHouseBranch.Code" type="text" placeholder="@ResourceWeb.Lbcode ...." class="form-control" maxlength="300">
+                                <input asp-for="@Model.WareHouseBranch.Code" type="text" placeholder="@ResourceWeb.Lbcode ...." class="form-control" maxlength="300" id="Code" readonly>
                                 <span asp-validation-for="@Model.WareHouseBranch.Code" class="text-danger"></span>
                                 <span style="color:red"><strong>@TempData["Code"]</strong></span>
                             </div>
@@ -65,7 +65,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.WareHouseBranch.Description">@ResourceWeb.LbDescription1</label>
-                                    <input asp-for="@Model.WareHouseBranch.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300">
+                                    <input asp-for="@Model.WareHouseBranch.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300" id="Description">
                                     <span asp-validation-for="@Model.WareHouseBranch.Description" class="text-danger"></span>
                                     <span style="color:red"><strong>@TempData["WareHouseBranch"]</strong></span>
                                 </div>
@@ -103,11 +103,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
-
     <script>
         $(document).ready(function () {
             console.log("Document is ready");
@@ -116,14 +111,38 @@
                 allowClear: true
             });
 
-            // Bind change event to the selected company
-            $('#SelectWareHouse').change(function () {
-                console.log("Selected Ware House changed");
-                updateCosting();
+            // Generate random 5-character string
+            function generateRandomString(length) {
+                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                var result = '';
+                var charactersLength = characters.length;
+                for (var i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                }
+                return result;
+            }
+
+            // Function to update the Code field
+            function updateCodeField() {
+                var warehouseType = $('#SelectWareHouseType option:selected').text();
+                var warehouse = $('#SelectWareHouse option:selected').text();
+                var description = $('#Description').val();
+                var randomString = generateRandomString(5);
+
+                if (warehouseType && description) {
+                    var code = warehouseType + warehouse + description + randomString;
+                    $('#Code').val(code);
+                }
+            }
+
+            // Bind change events to WareHouseType and Description fields
+            $('#SelectWareHouseType, #Description').on('change keyup', function () {
+                updateCodeField();
             });
-    </script>
-    <script>
-        $("#url").val(window.location.href);
+
+            // Update the URL field with the current page URL
+            $("#url").val(window.location.href);
+        });
     </script>
 }
 

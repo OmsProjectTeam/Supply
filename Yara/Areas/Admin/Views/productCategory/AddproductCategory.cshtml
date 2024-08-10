@@ -41,25 +41,36 @@
                                 <label asp-for="@Model.ProductCategory.ProductCategory">@ResourceWeb.LbProductCategory</label>
                                 <input asp-for="@Model.ProductCategory.ProductCategory" type="text" placeholder="@ResourceWeb.LbProductCategory ...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.ProductCategory.ProductCategory" class="text-danger"></span>
-                                <span style="color:red"><strong>@TempData["Product Category"]</strong></span>
+                                <span style="color:red"><strong>@TempData["ProductCategory"]</strong></span>
                             </div>
                         </div>
 
+                     
+
+                
+
+
+                    </div>
+
+
+                    <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.ProductCategory.Active">@ResourceWeb.LbActive</label>
                                 <input asp-for="@Model.ProductCategory.Active" type="checkbox" checked class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.ProductCategory.Active" class="text-danger"></span>
-                                <span style="color:red"><strong>@TempData["Active"]</strong></span>
+
                             </div>
                         </div>
+
+                       
 
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.ProductCategory.CurrentState">@ResourceWeb.lbCurrentState</label>
                                 <input asp-for="@Model.ProductCategory.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.ProductCategory.CurrentState" class="text-danger"></span>
-                                <span style="color:red"><strong>@TempData["Active"]</strong></span>
+
                             </div>
                         </div>
 

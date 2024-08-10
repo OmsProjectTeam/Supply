@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240809002029_TBProductInformation")]
+    partial class TBProductInformation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -375,11 +378,6 @@ namespace Infarstuructre.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Photo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -624,63 +622,6 @@ namespace Infarstuructre.Migrations
                     b.ToTable((string)null);
 
                     b.ToView("ViewProductCategory", (string)null);
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBViewProductInformation", b =>
-                {
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CurrentState")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdProductCategory")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProductInformation")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTypesProduct")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Make")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Photo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductCategory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Qrcode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TypesProduct")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UPC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ViewProductInformation", (string)null);
                 });
 
             modelBuilder.Entity("Domin.Entity.TBViewWareHouse", b =>

@@ -10,7 +10,6 @@ namespace Yara.Areas.Admin.Controllers
     {
         IIProductCategory iProductCategory;
         MasterDbcontext dbcontext;
-
         public productCategoryController(MasterDbcontext dbcontext1, IIProductCategory iProductCategory1)
         {
             dbcontext = dbcontext1;
@@ -23,7 +22,6 @@ namespace Yara.Areas.Admin.Controllers
 
             return View(viewmMODeElMASTER);
         }
-
         public IActionResult AddproductCategory(int? IdProductCategory)
         {
             ViewmMODeElMASTER viewmMODeElMASTER = new ViewmMODeElMASTER();
@@ -56,7 +54,7 @@ namespace Yara.Areas.Admin.Controllers
                 {
                     if (dbcontext.TBProductCategorys.Where(a => a.ProductCategory == slider.ProductCategory).ToList().Count > 0)
                     {
-                        TempData["WareHouseType"] = ResourceWeb.VLWareHouseTypeDoplceted;
+                        TempData["ProductCategory"] = ResourceWeb.VLProductCategoryDoplceted;
                         return RedirectToAction("AddproductCategory", model);
                     }
 
@@ -69,7 +67,7 @@ namespace Yara.Areas.Admin.Controllers
                     else
                     {
                         TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                        return Redirect(returnUrl);
+                        return RedirectToAction("AddproductCategory");
                     }
                 }
                 else
@@ -83,14 +81,14 @@ namespace Yara.Areas.Admin.Controllers
                     else
                     {
                         TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-                        return Redirect(returnUrl);
+                        return RedirectToAction("AddproductCategory");
                     }
                 }
             }
             catch
             {
                 TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                return Redirect(returnUrl);
+                return RedirectToAction("AddproductCategory");
             }
         }
 
@@ -106,7 +104,7 @@ namespace Yara.Areas.Admin.Controllers
             else
             {
                 TempData["ErrorSave"] = ResourceWeb.VLErrorDeleteData;
-                return RedirectToAction("MyproductCategory");
+                return RedirectToAction("AddproductCategory");
             }
         }
     }

@@ -61,10 +61,15 @@ namespace Yara.Areas.Admin.Controllers
                 {
                     if (dbcontext.TBWareHouses.Where(a => a.Description == slider.Description).ToList().Count > 0)
                     {
-                        TempData["WareHouseType"] = ResourceWeb.VLWareHouseTypeDoplceted;
+                        TempData["Description"] = ResourceWeb.VLDescriptionWareHouseDoplceted;
                         return RedirectToAction("AddWareHouse", model);
                     }
 
+                    if (dbcontext.TBWareHouses.Where(a => a.Code == slider.Code).ToList().Count > 0)
+                    {
+                        TempData["Code"] = ResourceWeb.VLDescriptionWareHouseCodeDoplceted;
+                        return RedirectToAction("AddWareHouse", model);
+                    }
                     var reqwest = iWareHouse.saveData(slider);
                     if (reqwest == true)
                     {

@@ -47,17 +47,17 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseType</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouse</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDescription1</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseType</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.Lbcode</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouse</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbDescription1</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseType</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouse</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbDescription1</th>                                          
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.Lbcode</th>
 
                                             </tfoot>
                                             <tbody>
@@ -65,12 +65,12 @@
                                                         {
                                                     <tr role="row" class="odd">
                                                         <td>@item.IdBWareHouseBranch</td>
-                                                        <td>@item.Description</td>
                                                         <td>@item.WareHouseType</td>
-                                                        <td class="truncate-50">@item.Active</td>
-                                                        <td>
-                                                            <div class="switch primary"><input type="checkbox" checked="@item.Active" IdTypesOfMessage="switch-3" disabled><label for="switch-3">@item.Active</label></div>
-                                                        </td>
+                                                        <td>@item.Description</td>
+                                                        <td>@item.WareHouseBranchName</td>
+                                                        <td>@item.Code</td>
+                                                       
+                                                        
                                                     </tr>
                                                         }
                                             </tbody>
@@ -90,6 +90,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.Lbcode</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbOpration</th>
                                             <tfoot>
@@ -100,6 +101,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbOpration</th>
                                             </tfoot>
                                             <tbody>
@@ -107,11 +109,13 @@
                                                         {
                                                     <tr role="row" class="odd">
                                                         <td>@item.IdBWareHouseBranch</td>
-                                                        <td>@item.DescriptionWareHouse</td>
+                                                        <td>@item.WareHouseBranchName</td>
                                                         <td>@item.Code</td>
                                                         <td>@item.DataEntry</td>
                                                         <td>@item.DateTimeEntry</td>
-                                                        <td>@item.CurrentState</td>
+                                                        <td>
+                                                            <div class="switch primary"><input type="checkbox" checked="@item.Active" IdTypesOfMessage="switch-3" disabled><label for="switch-3">@item.Active</label></div>
+                                                        </td>
                                                         <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.CurrentState" IdTypesOfMessage="switch-2" disabled><label for="switch-2">@item.CurrentState</label></div>
                                                         </td>

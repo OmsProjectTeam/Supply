@@ -63,12 +63,16 @@ namespace Yara.Areas.Admin.Controllers
                 slider.CurrentState = model.WareHouseBranch.CurrentState;
                 if (slider.IdBWareHouseBranch == 0 || slider.IdBWareHouseBranch == null)
                 {
-                    if (dbcontext.TBWareHouses.Where(a => a.Description == slider.Description).ToList().Count > 0)
+                    if (dbcontext.TBWareHouseBranchs.Where(a => a.Description == slider.Description).ToList().Count > 0)
                     {
                         TempData["WareHouseBranch"] = ResourceWeb.VLWareHouseBranchDoplceted;
                         return RedirectToAction("AddWareHouseBranch", model);
                     }
-
+                    if (dbcontext.TBWareHouseBranchs.Where(a => a.Code == slider.Code).ToList().Count > 0)
+                    {
+                        TempData["Code"] = ResourceWeb.VLWareHouseBranchCodeDoplceted;
+                        return RedirectToAction("AddWareHouseBranch", model);
+                    }
                     var reqwest = iWareHouseBranch.saveData(slider);
                     if (reqwest == true)
                     {

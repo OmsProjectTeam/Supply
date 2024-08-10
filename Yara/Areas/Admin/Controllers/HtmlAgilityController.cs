@@ -19,14 +19,31 @@ namespace Yara.Areas.Admin.Controllers
             try
             {
                 HtmlWeb web = new HtmlWeb();
-                var document = web.Load(url);
+                var document = web.Load("https://www.homedepot.com/s/" + url);
                 var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
 
                 if (imageNodes != null)
                 {
                     var imageUrls = imageNodes.Select(node => node.GetAttributeValue("src", "")).ToList();
                     ViewBag.ImageUrls = imageUrls;
+
+                   
+
+
+
                 }
+                else
+                {
+                    var imageNodes7 = document.DocumentNode.SelectNodes("//div[@class='grid']//img");
+
+                    if (imageNodes7 != null)
+                    {
+                        var imageUrls1 = imageNodes7.Select(node => node.GetAttributeValue("src", "")).ToList();
+                        ViewBag.ImageUrls = imageUrls1;
+                    }
+
+                }
+
 
                 var imageNodes2 = document.DocumentNode.SelectNodes("//div[@class='price-format__large price-format__main-price']");
                 if (imageNodes2 != null)
@@ -57,6 +74,7 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return View("myLodeHtml", new List<ViewmMODeElMASTER>());
             }
+
 
             string htmlContent = string.Empty;
 

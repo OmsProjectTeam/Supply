@@ -372,4 +372,22 @@
   <data name="VlTypesProduct" xml:space="preserve">
     <value>Please include the Types Product to complete successfully..!</value>
   </data>
+  <data name="VlMerchentsType" xml:space="preserve">
+    <value>Please enter the merchant type or classification for the process to be completed successfully.</value>
+  </data>
+  <data name="VlMake" xml:space="preserve">
+    <value>Please include Make  to complete successfully..!</value>
+  </data>
+  <data name="VlProductName" xml:space="preserve">
+    <value>Please include Product Name to complete successfully..!</value>
+  </data>
+  <data name="VlQrcode" xml:space="preserve">
+    <value>Please include Qrcode  to complete successfully..!</value>
+  </data>
+  <data name="VlUPC" xml:space="preserve">
+    <value>Please include VlUPC  to complete successfully..!</value>
+  </data>
+  <data name="VlModel" xml:space="preserve">
+    <value>Please include the Model to complete successfully..!</value>
+  </data>
 </root>

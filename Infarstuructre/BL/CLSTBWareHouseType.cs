@@ -5,40 +5,37 @@ namespace Infarstuructre.BL
 
     public interface IIWareHouseType
     {
-        List<TBViewWareHouseType> GetAll();
-        TBWareHouseType GetById(int id);
+        List<TBWareHouseType> GetAll();
+        TBWareHouseType GetById(int IdWareHouseType);
         bool saveData(TBWareHouseType savee);
         bool UpdateData(TBWareHouseType updatss);
-        bool deleteData(int id);
-        List<TBViewWareHouseType> GetAllv(int IdWareHouseType);
-        List<TBViewWareHouseType> GetAllActive();
-
+        bool deleteData(int IdWareHouseType);
+        List<TBWareHouseType> GetAllv(int IdWareHouseType);
+        List<TBWareHouseType> GetAllActive();
         //////////////////API//////////////////////////
-        Task<List<TBViewWareHouseType>> GetAllAPI();
-        Task<List<TBViewWareHouseType>> GetAllvAPI(int IdWareHouseType);
+        Task<List<TBWareHouseType>> GetAllAPI();
+        Task<List<TBWareHouseType>> GetAllvAPI(int IdWareHouseType);
         Task<TBWareHouseType> GetByIdAPI(int IdWareHouseType);
         Task<TBWareHouseType> GetByNameAPI(string name);
         Task SaveDataAPI(TBWareHouseType savee);
         Task DeleteDataAPI(int IdWareHouseType);
         Task UpdateDataAPI(TBWareHouseType update);
     }
-
     public class CLSTBWareHouseType : IIWareHouseType
     {
         MasterDbcontext dbcontext;
         public CLSTBWareHouseType(MasterDbcontext dbcontext1)
         {
             dbcontext = dbcontext1;
-
         }
-        public List<TBViewWareHouseType> GetAll()
+        public List<TBWareHouseType> GetAll()
         {
-            List<TBViewWareHouseType> MySlider = dbcontext.ViewWareHouseType.Where(a => a.CurrentState == true).ToList();
+            List<TBWareHouseType> MySlider = dbcontext.TBWareHouseTypes.Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
-        public List<TBViewWareHouseType> GetAllActive()
+        public List<TBWareHouseType> GetAllActive()
         {
-            List<TBViewWareHouseType> MySlider = dbcontext.ViewWareHouseType.OrderByDescending(n => n.IdWareHouseType).Where(a => a.CurrentState == true).Where(a => a.Active == true).ToList();
+            List<TBWareHouseType> MySlider = dbcontext.TBWareHouseTypes.OrderByDescending(n => n.IdWareHouseType).Where(a => a.CurrentState == true).Where(a => a.Active == true).ToList();
             return MySlider;
         }
         public TBWareHouseType GetById(int IdWareHouseType)
@@ -72,11 +69,11 @@ namespace Infarstuructre.BL
                 return false;
             }
         }
-        public bool deleteData(int Id)
+        public bool deleteData(int IdWareHouseType)
         {
             try
             {
-                var catr = GetById(Id);
+                var catr = GetById(IdWareHouseType);
                 catr.CurrentState = false;
                 //TbSubCateegoory dele = dbcontex.TbSubCateegoorys.Where(a => a.IdBrand == IdBrand).FirstOrDefault();
                 //dbcontex.TbSubCateegoorys.Remove(dele);
@@ -88,47 +85,38 @@ namespace Infarstuructre.BL
             {
                 return false;
             }
-
         }
-
-        public List<TBViewWareHouseType> GetAllv(int IdWareHouseType)
+        public List<TBWareHouseType> GetAllv(int IdWareHouseType)
         {
-            List<TBViewWareHouseType> MySlider = dbcontext.ViewWareHouseType.OrderByDescending(n => n.IdWareHouseType == IdWareHouseType).Where(a => a.IdWareHouseType == IdWareHouseType).Where(a => a.CurrentState == true).ToList();
+            List<TBWareHouseType> MySlider = dbcontext.TBWareHouseTypes.OrderByDescending(n => n.IdWareHouseType == IdWareHouseType).Where(a => a.IdWareHouseType == IdWareHouseType).Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
-
         //////////////////API//////////////////////////
-
-        public async Task<List<TBViewWareHouseType>> GetAllAPI()
+        public async Task<List<TBWareHouseType>> GetAllAPI()
         {
-            List<TBViewWareHouseType> Slider = await dbcontext.ViewWareHouseType.Where(a => a.CurrentState == true).ToListAsync();
+            List<TBWareHouseType> Slider = await dbcontext.TBWareHouseTypes.Where(a => a.CurrentState == true).ToListAsync();
             return Slider;
         }
-
-        public async Task<List<TBViewWareHouseType>> GetAllvAPI(int IdWareHouseType)
+        public async Task<List<TBWareHouseType>> GetAllvAPI(int IdWareHouseType)
         {
-            List<TBViewWareHouseType> Slider = await dbcontext.ViewWareHouseType.OrderByDescending(n => n.IdWareHouseType == IdWareHouseType).Where(a => a.IdWareHouseType == IdWareHouseType).Where(a => a.CurrentState == true).ToListAsync();
+            List<TBWareHouseType> Slider = await dbcontext.TBWareHouseTypes.OrderByDescending(n => n.IdWareHouseType == IdWareHouseType).Where(a => a.IdWareHouseType == IdWareHouseType).Where(a => a.CurrentState == true).ToListAsync();
             return Slider;
         }
-
         public async Task<TBWareHouseType> GetByIdAPI(int IdWareHouseType)
         {
             TBWareHouseType sslid = await dbcontext.TBWareHouseTypes.FirstOrDefaultAsync(a => a.IdWareHouseType == IdWareHouseType);
             return sslid;
         }
-
         public async Task<TBWareHouseType> GetByNameAPI(string name)
         {
             TBWareHouseType sslid = await dbcontext.TBWareHouseTypes.FirstOrDefaultAsync(a => a.WareHouseType == name);
             return sslid;
         }
-
         public async Task SaveDataAPI(TBWareHouseType savee)
         {
             await dbcontext.TBWareHouseTypes.AddAsync(savee);
             await dbcontext.SaveChangesAsync();
         }
-
         public async Task DeleteDataAPI(int IdWareHouseType)
         {
             var catr = GetById(IdWareHouseType);
@@ -136,7 +124,6 @@ namespace Infarstuructre.BL
             dbcontext.Entry(catr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await dbcontext.SaveChangesAsync();
         }
-
         public async Task UpdateDataAPI(TBWareHouseType update)
         {
             dbcontext.Entry(update).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

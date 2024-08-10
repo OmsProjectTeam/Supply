@@ -14,6 +14,7 @@ namespace Domin.Entity
         public int IdBWareHouse { get; set; }
         public int IdWareHouseType { get; set; }
 
+
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlWareHouseBranch")]
         [MaxLength(100, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength100")]
         [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]

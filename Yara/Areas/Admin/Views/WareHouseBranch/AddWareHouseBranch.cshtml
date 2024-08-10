@@ -67,28 +67,31 @@
                                     <label asp-for="@Model.WareHouseBranch.Description">@ResourceWeb.LbDescription1</label>
                                     <input asp-for="@Model.WareHouseBranch.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300">
                                     <span asp-validation-for="@Model.WareHouseBranch.Description" class="text-danger"></span>
-                                    <span style="color:red"><strong>@TempData["Description"]</strong></span>
+                                    <span style="color:red"><strong>@TempData["WareHouseBranch"]</strong></span>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="row small-spacing">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.WareHouseBranch.Active">@ResourceWeb.LbActive</label>
                                     <input asp-for="@Model.WareHouseBranch.Active" type="checkbox" checked class="form-control" maxlength="300">
                                     <span asp-validation-for="@Model.WareHouseBranch.Active" class="text-danger"></span>
-                                    <span style="color:red"><strong>@TempData["Active"]</strong></span>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.WareHouseBranch.CurrentState">@ResourceWeb.lbCurrentState</label>
-                                        <input asp-for="@Model.WareHouseBranch.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
-                                        <span asp-validation-for="@Model.WareHouseBranch.CurrentState" class="text-danger"></span>
-                                    </div>
                                 </div>
                             </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.WareHouseBranch.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                    <input asp-for="@Model.WareHouseBranch.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.WareHouseBranch.CurrentState" class="text-danger"></span>
+                                </div>
+                            </div>
+
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                 </form>
             </div>
         </div>

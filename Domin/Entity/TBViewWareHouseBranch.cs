@@ -11,10 +11,11 @@ namespace Domin.Entity
     {
         public int IdBWareHouseBranch { get; set; }
         public int IdBWareHouse { get; set; }
-        public string DescriptionWareHouse { get; set; }
+
+        public string Description { get; set; }
         public int IdWareHouseType { get; set; }
         public string WareHouseType { get; set; }
-        public string Description { get; set; }
+        public string WareHouseBranchName { get; set; }
         public string Code { get; set; }
         public bool Active { get; set; }
         public string DataEntry { get; set; }

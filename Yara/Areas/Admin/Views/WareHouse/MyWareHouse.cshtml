@@ -47,27 +47,27 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouse</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDescription1</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseType</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDescription1</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.Lbcode</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouse</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbDescription1</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseType</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbDescription1</th>                                           
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.Lbcode</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
-
                                             </tfoot>
                                             <tbody>
                                                         @foreach (var item in Model.ViewWareHouse)
                                                         {
                                                     <tr role="row" class="odd">
                                                         <td>@item.IdBWareHouse</td>
-                                                        <td>@item.Description</td>
                                                         <td>@item.WareHouseType</td>
-                                                        <td class="truncate-50">@item.Active</td>
+                                                        <td>@item.Description</td>
+                                                        <td>@item.Code</td>
+                                                     
                                                         <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.Active" IdTypesOfMessage="switch-3" disabled><label for="switch-3">@item.Active</label></div>
                                                         </td>

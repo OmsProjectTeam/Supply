@@ -153,6 +153,9 @@
   <data name="LBAddEditMerchants" xml:space="preserve">
     <value>Add and modify the AddEdit Merchants</value>
   </data>
+  <data name="LBAddEditProductInformation" xml:space="preserve">
+    <value>Adding and modifying Informaition Product</value>
+  </data>
   <data name="LBAddEmailAlartSetting" xml:space="preserve">
     <value>Adding and modifying Email Alart Setting</value>
   </data>
@@ -450,6 +453,12 @@
   <data name="LbInformaitionMerchantsOner" xml:space="preserve">
     <value>Informaition Merchants Oner</value>
   </data>
+  <data name="LbInformaitionProductInformation" xml:space="preserve">
+    <value>Informaition Product</value>
+  </data>
+  <data name="LbInformaitionProductInformationMake" xml:space="preserve">
+    <value>Mak-UPC</value>
+  </data>
   <data name="LbInformationCompany" xml:space="preserve">
     <value>Information Company</value>
   </data>
@@ -482,6 +491,9 @@
   </data>
   <data name="lbMailSender" xml:space="preserve">
     <value>Mail Sender</value>
+  </data>
+  <data name="lbMake" xml:space="preserve">
+    <value>Make</value>
   </data>
   <data name="LbMerchantAddres" xml:space="preserve">
     <value>Merchant Addres</value>
@@ -521,6 +533,9 @@
   </data>
   <data name="LbMessageDescription" xml:space="preserve">
     <value>Message Description</value>
+  </data>
+  <data name="lbModel" xml:space="preserve">
+    <value>Model</value>
   </data>
   <data name="lbMsgErrorLogin" xml:space="preserve">
     <value>Error User Name Or Password.....!</value>
@@ -593,6 +608,9 @@
   </data>
   <data name="LBMyproductCategory" xml:space="preserve">
     <value>Product Category</value>
+  </data>
+  <data name="LBMYProductInformation" xml:space="preserve">
+    <value>Product Information</value>
   </data>
   <data name="LBMyProfits" xml:space="preserve">
     <value>My Profits</value>
@@ -747,8 +765,14 @@
   <data name="LBPricingSystem" xml:space="preserve">
     <value>Pricing System</value>
   </data>
+  <data name="LBProduc" xml:space="preserve">
+    <value>Produc</value>
+  </data>
   <data name="LbProductCategory" xml:space="preserve">
     <value>Product Category</value>
+  </data>
+  <data name="lbProductName" xml:space="preserve">
+    <value>Product Name</value>
   </data>
   <data name="LBProfile" xml:space="preserve">
     <value>Profile</value>
@@ -761,6 +785,9 @@
   </data>
   <data name="LBProfitsInformations" xml:space="preserve">
     <value>Profits Informations</value>
+  </data>
+  <data name="lbQrcode" xml:space="preserve">
+    <value>Qrcode</value>
   </data>
   <data name="LbQuastion" xml:space="preserve">
     <value>Quastion</value>
@@ -864,6 +891,9 @@
   <data name="LbTypeSystem" xml:space="preserve">
     <value>system</value>
   </data>
+  <data name="lbUPC" xml:space="preserve">
+    <value>UPC</value>
+  </data>
   <data name="lbUpdate" xml:space="preserve">
     <value>Update</value>
   </data>
@@ -895,6 +925,9 @@
     <value>Delivery system user</value>
   </data>
   <data name="LbWareHouse" xml:space="preserve">
+    <value>Ware House</value>
+  </data>
+  <data name="LBWareHouseL" xml:space="preserve">
     <value>Ware House</value>
   </data>
   <data name="LbWareHouseType" xml:space="preserve">
@@ -966,6 +999,12 @@
   <data name="VLDescriptionOrderDoplceted" xml:space="preserve">
     <value>The order description has already been entered. Please confirm and try again later...!</value>
   </data>
+  <data name="VLDescriptionWareHouseCodeDoplceted" xml:space="preserve">
+    <value>The main repository code has already been entered. Please check and try again later.</value>
+  </data>
+  <data name="VLDescriptionWareHouseDoplceted" xml:space="preserve">
+    <value>The main repository has already been added, please check and try again later.</value>
+  </data>
   <data name="VLEmailAlartSettingDoplceted" xml:space="preserve">
     <value>Your email address has already been entered, please check and try again later..!</value>
   </data>
@@ -1005,6 +1044,15 @@
   <data name="VLMerchantNameDoplceted" xml:space="preserve">
     <value>The email address has already been added. Please check and try again later...!</value>
   </data>
+  <data name="VLMerchentsTypeDoplceted" xml:space="preserve">
+    <value>The merchant type or classification has been entered for the process to be completed successfully.</value>
+  </data>
+  <data name="VLProductCategoryDoplceted" xml:space="preserve">
+    <value>The product category has already been entered. Please check and try again later.</value>
+  </data>
+  <data name="VLProductNameDoplceted" xml:space="preserve">
+    <value>The product type has already been entered. Please check and try again later.....!</value>
+  </data>
   <data name="VLReceiptNoDoplceted" xml:space="preserve">
     <value>The bond number has already been entered. Please check and try again later...!</value>
   </data>
@@ -1040,6 +1088,9 @@
   </data>
   <data name="VLUpdatedSuccessfully" xml:space="preserve">
     <value>The modification process was completed successfully</value>
+  </data>
+  <data name="VLWareHouseBranchCodeDoplceted" xml:space="preserve">
+    <value>The repository code has already been entered. Please check and try again later.</value>
   </data>
   <data name="VLWareHouseBranchDoplceted" xml:space="preserve">
     <value>The Ware House Branch has already been entered. Please check and try again later...!</value>

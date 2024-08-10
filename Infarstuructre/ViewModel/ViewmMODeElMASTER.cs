@@ -71,7 +71,7 @@ namespace Infarstuructre.ViewModel
         public TBEmailAlartSetting EmailAlartSetting { get; set; }
         public TBWareHouse WareHouse { get; set; }
         public IEnumerable<TBViewWareHouse> ViewWareHouse { get; set; }
-        public IEnumerable<TBViewWareHouseType> ViewWareHouseType { get; set; }
+        public IEnumerable<TBWareHouseType> ViewWareHouseType { get; set; }
         public TBWareHouseType WareHouseType { get; set; }
         public TBProductCategory ProductCategory { get; set; }
         public IEnumerable<TBViewProductCategory> ViewProductCategory { get; set; }
@@ -79,18 +79,10 @@ namespace Infarstuructre.ViewModel
         public TBMerchants Merchants { get; set; }   
         public IEnumerable<TBTypesProduct> ListTypesProduct { get; set; }
         public TBTypesProduct TypesProduct { get; set; }
-
-
-
-
-
-
-
-
-
         public TBWareHouseBranch WareHouseBranch { get; set; }
         public IEnumerable<TBViewWareHouseBranch> ViewWareHouseBranch { get; set; }
-     
+        public IEnumerable<TBViewProductInformation> ListViewProductInformation { get; set; }
+        public TBProductInformation ProductInformation { get; set; }
     }
- }
+}
 

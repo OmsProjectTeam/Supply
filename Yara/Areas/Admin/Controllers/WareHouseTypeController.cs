@@ -88,14 +88,14 @@ namespace Yara.Areas.Admin.Controllers
             catch
             {
                 TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                return Redirect(returnUrl);
+                return RedirectToAction("AddWareHouseType");
             }
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult DeleteData(int Id)
+        public IActionResult DeleteData(int IdWareHouseType)
         {
-            var reqwistDelete = iWareHouseType.deleteData(Id);
+            var reqwistDelete = iWareHouseType.deleteData(IdWareHouseType);
             if (reqwistDelete == true)
             {
                 TempData["Saved successfully"] = ResourceWeb.VLdELETESuccessfully;

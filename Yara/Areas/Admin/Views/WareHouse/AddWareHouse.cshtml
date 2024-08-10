@@ -22,7 +22,6 @@
             <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
         </div>
     </div>
-
     <div class="col-lg-6 col-xs-12">
         <div class="box-content card white">
             <h4 class="box-title">@ResourceWeb.LBAddWareHouse</h4>
@@ -34,18 +33,25 @@
                         <input type="hidden" asp-for="@Model.WareHouse.IdBWareHouse">
                         <input type="hidden" asp-for="@Model.returnUrl" id="url">
                     </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label asp-for="@Model.WareHouse">@ResourceWeb.LbWareHouseType</label>
-                            <select class="form-control select2_1" asp-for="@Model.WareHouse.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouse"></select>
-                            <span asp-validation-for="@Model.FAQDescreption.IdFAQ" class="text-danger"></span>
-
-                        </div>
-                    </div>
-
                     <div class="row small-spacing">
                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.WareHouse">@ResourceWeb.LbWareHouseType</label>
+                                <select class="form-control select2_1" asp-for="@Model.WareHouse.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouse"></select>
+                                <span asp-validation-for="@Model.FAQDescreption.IdFAQ" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.WareHouse.Description">@ResourceWeb.LbDescription1</label>
+                                <input asp-for="@Model.WareHouse.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.WareHouse.Description" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Description"]</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row small-spacing">
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <label asp-for="@Model.WareHouse.Code">@ResourceWeb.Lbcode</label>
                                 <input asp-for="@Model.WareHouse.Code" type="text" placeholder="@ResourceWeb.Lbcode ...." class="form-control" maxlength="300">
@@ -53,32 +59,22 @@
                                 <span style="color:red"><strong>@TempData["Code"]</strong></span>
                             </div>
                         </div>
-
-                        <div class="row small-spacing">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.WareHouse.Description">@ResourceWeb.LbDescription1</label>
-                                    <input asp-for="@Model.WareHouse.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.WareHouse.Description" class="text-danger"></span>
-                                    <span style="color:red"><strong>@TempData["Description"]</strong></span>
-                                </div>
-                            </div>
-
+                    </div>
+                    <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.WareHouse.Active">@ResourceWeb.LbActive</label>
-                                    <input asp-for="@Model.WareHouse.Active" type="checkbox" checked class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.WareHouse.Active" class="text-danger"></span>
+                                <input asp-for="@Model.WareHouse.Active" type="checkbox" checked class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.WareHouse.Active" class="text-danger"></span>
                             </div>
                         </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.WareHouse.CurrentState">@ResourceWeb.lbCurrentState</label>
-                                    <input asp-for="@Model.WareHouse.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.WareHouse.CurrentState" class="text-danger"></span>
-                                </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.WareHouse.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                <input asp-for="@Model.WareHouse.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.WareHouse.CurrentState" class="text-danger"></span>
                             </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                 </form>
@@ -86,7 +82,6 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
@@ -96,7 +91,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
-
     <script>
         $(document).ready(function () {
             console.log("Document is ready");
@@ -104,7 +98,6 @@
                 placeholder: "Select an option",
                 allowClear: true
             });
-
             // Bind change event to the selected company
             $('#SelectWareHouse').change(function () {
                 console.log("Selected Ware House changed");
@@ -115,4 +108,3 @@
         $("#url").val(window.location.href);
     </script>
 }
-

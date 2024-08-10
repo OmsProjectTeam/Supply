@@ -1,5 +1,10 @@
-﻿using Infarstuructre.ViewModel;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ZXing;
+using ZXing.Common;
+using ZXing.QrCode;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -119,5 +124,52 @@ namespace Yara.Areas.Admin.Controllers
                 return RedirectToAction("MyWareHouse");
             }
         }
+
+       
+
+        public IActionResult GenerateQRCode(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return Content("No text provided");
+
+            // إعداد خيارات التشفير
+            var encodingOptions = new QrCodeEncodingOptions
+            {
+                Width = 200,
+                Height = 200,
+                Margin = 1
+            };
+
+            // إنشاء كائن BarcodeWriter
+            var barcodeWriter = new BarcodeWriterPixelData
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = encodingOptions
+            };
+
+            // توليد الصورة
+            var pixelData = barcodeWriter.Write(text);
+            using (var bitmap = new Bitmap(pixelData.Width, pixelData.Height, PixelFormat.Format32bppRgb))
+            {
+                var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
+                IntPtr ptr = bitmapData.Scan0;
+                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, ptr, pixelData.Pixels.Length);
+                bitmap.UnlockBits(bitmapData);
+
+                using (var stream = new MemoryStream())
+                {
+                    bitmap.Save(stream, ImageFormat.Png);
+                    return File(stream.ToArray(), "image/png");
+                }
+            }
+        }
+
+
     }
 }
+
+
+
+        
+        
+    

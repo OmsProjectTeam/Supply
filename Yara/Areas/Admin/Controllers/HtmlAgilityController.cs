@@ -1,4 +1,6 @@
 ﻿
+using HtmlAgilityPack;
+
 namespace Yara.Areas.Admin.Controllers
 {
     [Area("Admin")]

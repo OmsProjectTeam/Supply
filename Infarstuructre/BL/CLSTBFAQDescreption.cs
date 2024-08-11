@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domin.Entity;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,15 @@ namespace Infarstuructre.BL
 		bool deleteData(int IdFAQDescreption);
 		List<TBViewFAQDescription> GetAllv(int IdFAQDescreption);
 		bool UpdateData(TBFAQDescreption updatss);
+        // /////////////APIs////////////////////////////////////////////////
+        Task<List<TBViewFAQDescription>> GetAllAsync();
+        Task<List<TBViewFAQDescription>> GetAllvAsync(int IdFAQDescreption);
+        Task<List<TBViewFAQDescription>> GetAllDataentryAsync(string dataEntry);
+        Task<List<TBViewFAQDescription>> GetAllActiveAsync();
+        Task<TBFAQDescreption> GetByIdAsync(int IdFAQDescreption);
+        Task<bool> AddDataAsync(TBFAQDescreption savee);
+        Task<bool> DeleteDataAsync(int IdFAQDescreption);
+        Task<bool> UpdateDataAsync(TBFAQDescreption update);
 
     }
 
@@ -83,10 +94,86 @@ namespace Infarstuructre.BL
 		}
 		public List<TBViewFAQDescription> GetAllv(int IdFAQDescreption)
 		{
-			List<TBViewFAQDescription> MySlIdFAQDescreptioner = dbcontext.ViewFAQDescription.OrderByDescending(n => n.IdFAQ == IdFAQDescreption).Where(a => a.IdFAQ == IdFAQDescreption).Where(a => a.CurrentState == true).ToList();
+			List<TBViewFAQDescription> MySlIdFAQDescreptioner = dbcontext.ViewFAQDescription.OrderByDescending(n => n.IdFAQDescreption == IdFAQDescreption).Where(a => a.IdFAQDescreption == IdFAQDescreption).Where(a => a.CurrentState == true).ToList();
 			return MySlIdFAQDescreptioner;
 		}
 
+        // //////////////////////////APIs/////////////////////////////////////////////////////////////////
 
-	}
+        public async Task<List<TBViewFAQDescription>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.ViewFAQDescription.OrderByDescending(n => n.IdFAQDescreption).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBViewFAQDescription>> GetAllvAsync(int IdFAQDescreption)
+        {
+            var myDatd = await dbcontext.ViewFAQDescription.OrderByDescending(n => n.IdFAQDescreption).Where(a => a.IdFAQDescreption == IdFAQDescreption).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBViewFAQDescription>> GetAllDataentryAsync(string dataEntry)
+        {
+            var MySlider = await dbcontext.ViewFAQDescription.Where(a => a.DateEntry == dataEntry && a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<List<TBViewFAQDescription>> GetAllActiveAsync()
+        {
+            var MySlider = await dbcontext.ViewFAQDescription.OrderByDescending(n => n.IdFAQDescreption).Where(a => a.CurrentState == true).Where(a => a.Active == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBFAQDescreption> GetByIdAsync(int IdFAQDescreption)
+        {
+            var sslid = await dbcontext.TBFAQDescreptions.FirstOrDefaultAsync(a => a.IdFAQDescreption == IdFAQDescreption);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBFAQDescreption savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBFAQDescreption>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdFAQDescreption)
+        {
+            try
+            {
+                var fakDescription = await GetByIdAsync(IdFAQDescreption);
+                fakDescription.CurrentState = false;
+                dbcontext.Entry(fakDescription).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> UpdateDataAsync(TBFAQDescreption update)
+        {
+            try
+            {
+                dbcontext.Entry(update).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+    }
 }

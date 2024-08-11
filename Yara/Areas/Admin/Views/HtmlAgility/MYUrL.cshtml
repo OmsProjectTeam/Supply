@@ -41,8 +41,22 @@ else
 }
 else
 {
-    <p>No data found.</p>
+    @if (ViewBag.html1 != null)
+    {
+        <div>
+            <H1>@ViewBag.html1</H1>
+        </div>
+    }
+    else
+    {
+        <p>No data found.</p>
+    }
 }
+
+
+
+
+
 
 @if (ViewBag.Error != null)
 {

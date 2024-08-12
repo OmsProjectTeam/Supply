@@ -31,6 +31,7 @@
                                 <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
                                 <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
                                 <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                                <input type="hidden" asp-for="@Model.ProductInformation.Photo" id="imageUrlInput">
                             </div>
 
                             <div class="row small-spacing">
@@ -153,6 +154,7 @@
                     success: function (response) {
                         if (response.success) {
                             $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
+                            $("#imageUrlInput").val(response.imageUrl); // Set the image URL in the hidden input field
                         } else {
                             alert(response.message); // Show an alert if there was an issue fetching the image
                             $("#output").hide(); // Hide the image element if there's no image to display
@@ -176,6 +178,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 }
+
 
 
 @* @model ViewmMODeElMASTER

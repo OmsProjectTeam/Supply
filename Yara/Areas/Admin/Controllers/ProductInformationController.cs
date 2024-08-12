@@ -1,4 +1,6 @@
 ﻿using HtmlAgilityPack;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -30,7 +32,9 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.TypesProduct = iTypesProduct.GetAll();
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            vmodel.ProductInformation = new TBProductInformation();
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
+
             if (IdProductInformation != null)
             {
                 vmodel.ProductInformation = iProductInformation.GetById(Convert.ToInt32(IdProductInformation));
@@ -45,11 +49,18 @@ namespace Yara.Areas.Admin.Controllers
         {
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
+
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
+
             if (IdProductInformation != null)
             {
-                vmodel.ProductInformation = iProductInformation.GetById(Convert.ToInt32(IdProductInformation));
+               var productInfo = iProductInformation.GetById(Convert.ToInt32(IdProductInformation));
+                if (productInfo != null)
+                {
+                    vmodel.ProductInformation = productInfo;
+                }
                 return View(vmodel);
             }
             else
@@ -200,6 +211,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.DataEntry = model.ProductInformation.DataEntry;
                 slider.CurrentState = model.ProductInformation.CurrentState;
                 slider.Model = model.ProductInformation.Model;
+                //slider.Photo = model.ProductInformation.Photo;
 
                 var file = Files.FirstOrDefault(); // Assuming a single file upload for the image
                 if (file != null && file.Length > 0)
@@ -221,6 +233,11 @@ namespace Yara.Areas.Admin.Controllers
                 {
                     TempData["Message"] = "Please upload an image."; // Message indicating that an image upload is required
                     return RedirectToAction("AddEditProductInformation");
+                }
+                // If no file is uploaded, use the photo URL from the hidden input field
+                if (string.IsNullOrEmpty(slider.Photo))
+                {
+                    slider.Photo = model.ProductInformation.Photo;
                 }
 
                 // Save or update the product information

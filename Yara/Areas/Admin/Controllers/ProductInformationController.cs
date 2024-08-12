@@ -211,34 +211,32 @@ namespace Yara.Areas.Admin.Controllers
                 slider.DataEntry = model.ProductInformation.DataEntry;
                 slider.CurrentState = model.ProductInformation.CurrentState;
                 slider.Model = model.ProductInformation.Model;
-                //slider.Photo = model.ProductInformation.Photo;
-
-                var file = Files.FirstOrDefault(); // Assuming a single file upload for the image
-                if (file != null && file.Length > 0)
+                slider.Photo = model.ProductInformation.Photo;
+                if (slider.Photo==null)
                 {
-                    // Generate a unique filename
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-
-                    // Save the file to the server
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Product", fileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    var file = Files.FirstOrDefault(); // Assuming a single file upload for the image
+                    if (file != null && file.Length > 0)
                     {
-                        await file.CopyToAsync(stream);
-                    }
+                        // Generate a unique filename
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
-                    // Save the filename in the database
-                    slider.Photo = "/Images/Product/" + fileName;
+                        // Save the file to the server
+                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Product", fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        // Save the filename in the database
+                        slider.Photo = "/Images/Product/" + fileName;
+                    }
+                    else if (slider.IdProductInformation == 0 || string.IsNullOrEmpty(slider.Photo))
+                    {
+                        TempData["Message"] = "Please upload an image."; // Message indicating that an image upload is required
+                        return RedirectToAction("AddEditProductInformation");
+                    }
                 }
-                else if (slider.IdProductInformation == 0 || string.IsNullOrEmpty(slider.Photo))
-                {
-                    TempData["Message"] = "Please upload an image."; // Message indicating that an image upload is required
-                    return RedirectToAction("AddEditProductInformation");
-                }
-                // If no file is uploaded, use the photo URL from the hidden input field
-                if (string.IsNullOrEmpty(slider.Photo))
-                {
-                    slider.Photo = model.ProductInformation.Photo;
-                }
+               
 
                 // Save or update the product information
                 if (slider.IdProductInformation == 0)

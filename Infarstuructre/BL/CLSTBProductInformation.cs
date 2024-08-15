@@ -1,5 +1,8 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 namespace Infarstuructre.BL
 {
     public interface IIProductInformation
@@ -12,6 +15,15 @@ namespace Infarstuructre.BL
         List<TBViewProductInformation> GetAllv(int IdProductInformation);
         bool DELETPHOTO(int IdProductInformation);
         bool DELETPHOTOWethError(string PhotoNAme);
+        // ///////////////////API///////////////////////////////////////////////
+        Task<List<TBViewProductInformation>> GetAllAsync();
+        Task<List<TBViewProductInformation>> GetAllvAsync(int id);
+        Task<TBProductInformation> GetByIdAsync(int id);
+        Task<bool> AddDataAsync(TBProductInformation data);
+        Task<bool> DeleteDataAsync(int id);
+        Task<bool> UpdateDataAsync(TBProductInformation data);
+        Task<bool> DELETPHOTOAsync(int id);
+        Task<bool> DELETPHOTOWITHERRORAsync(string name);
     }
     public class CLSTBProductInformation: IIProductInformation
     {
@@ -147,6 +159,81 @@ namespace Infarstuructre.BL
                 // يفضل ألا تترك البرنامج يتجاوز الأخطاء بصمت، يفضل تسجيل الخطأ أو إعادة رميه
                 return false;
             }
+        }
+
+        // ///////////////////////////APIs///////////////////////////////////////////////////////////
+        public async Task<List<TBViewProductInformation>> GetAllAsync()
+        {
+            var allData = await dbcontext.ViewProductInformation.OrderByDescending(n => n.IdProductInformation).Where(a => a.CurrentState == true).ToListAsync();
+            return allData;
+        }
+
+        public async Task<List<TBViewProductInformation>> GetAllvAsync(int id)
+        {
+            List<TBViewProductInformation> MySlider = await dbcontext.ViewProductInformation.OrderByDescending(n => n.IdProductInformation == id).Where(a => a.IdProductInformation == id).Where(a => a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBProductInformation> GetByIdAsync(int id)
+        {
+            TBProductInformation sslid = dbcontext.TBProductInformations.FirstOrDefault(a => a.IdProductInformation == id);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBProductInformation data)
+        {
+            try
+            {
+                dbcontext.Add<TBProductInformation>(data);
+                dbcontext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteDataAsync(int id)
+        {
+            try
+            {
+                var catr = await GetByIdAsync(id);
+                catr.CurrentState = false;
+                dbcontext.Entry(catr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                dbcontext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateDataAsync(TBProductInformation data)
+        {
+            try
+            {
+                dbcontext.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                dbcontext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DELETPHOTOAsync(int id)
+        {
+             var result = DELETPHOTO(id);
+             return result;
+        }
+
+        public async Task<bool> DELETPHOTOWITHERRORAsync(string name)
+        {
+            var result = DELETPHOTOWethError(name);
+            return result;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Yara.Areas.Admin.Controllers;
 
 namespace Yara.Areas.Admin.APIsControllers
@@ -18,12 +19,15 @@ namespace Yara.Areas.Admin.APIsControllers
 
         [HttpPost("AddRolesAsync")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddRolesAsync([FromBody] ViewmMODeElMASTER model)
+        public async Task<IActionResult> AddRolesAsync([FromBody] IdentityRole model)
         {
+            ViewmMODeElMASTER viewm = new ViewmMODeElMASTER();
+
+            viewm.sIdentityRole = model;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.Roles(model);
+            var result = await _accountsController.Roles(viewm);
             return Ok(result);
         }
 
@@ -55,12 +59,14 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPost("ChangePasswordAsync")]
-        public async Task<IActionResult> ChangePasswordAsync([FromBody] RegisterViewModel? model)
+        public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordViewModel? model)
         {
+            RegisterViewModel registerViewModel = new RegisterViewModel();
+            registerViewModel.ChangePassword = model;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.ChangePassword1(new ViewmMODeElMASTER(), model);
+            var result = await _accountsController.ChangePassword1(new ViewmMODeElMASTER(), registerViewModel);
             return Ok(result);
         }
 
@@ -122,23 +128,27 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPost("RegistersEdite/{Id}")]
-        public async Task<IActionResult> RegistersEdite([FromBody] ViewmMODeElMASTER model, [FromHeader] List<IFormFile> Files, string returnUrl, string? Id)
+        public async Task<IActionResult> RegistersEdite([FromBody] ApplicationUser model, [FromHeader] List<IFormFile> Files, string returnUrl, string? Id)
         {
+            ViewmMODeElMASTER viewm = new ViewmMODeElMASTER();
+            viewm.sUser = model;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.RegistersEdite(model, Files, returnUrl, Id);
+            var result = await _accountsController.RegistersEdite(viewm, Files, returnUrl, Id);
             return Ok(result);
         }
 
         [HttpPost("AddEditRolesUserAsync")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddEditRolesUserAsync([FromBody] ViewmMODeElMASTER model)
+        public async Task<IActionResult> AddEditRolesUserAsync([FromBody] List<SelectListItem> model)
         {
+            ViewmMODeElMASTER viewm = new ViewmMODeElMASTER();
+            viewm.Roles1 = model;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.AddEditRolesUser(model);
+            var result = await _accountsController.AddEditRolesUser(viewm);
             return Ok(result);
         }
     }

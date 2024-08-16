@@ -39,7 +39,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdBondType">@ResourceWeb.LbBondType</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdBondType" asp-items="@(new SelectList(ViewBag.BondType, "IdBondType", "BondType"))" id="SelectFAQ"></select>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBondType" asp-items="@(new SelectList(ViewBag.BondType, "IdBondType", "BondType"))" id="SelectBondType"></select>
                                 <span asp-validation-for="@Model.Order.IdBondType" class="text-danger"></span>
 
                             </div>
@@ -48,7 +48,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectFAQ"></select>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectMerchant"></select>
                                 <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdProductCategory">@ResourceWeb.LbProductCategory</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductCategory" asp-items="@(new SelectList(ViewBag.ProductCategory, "IdProductCategory", "ProductCategory"))" id="SelectFAQ"></select>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductCategory" asp-items="@(new SelectList(ViewBag.ProductCategory, "IdProductCategory", "ProductCategory"))" id="SelectProductCategory"></select>
                                 <span asp-validation-for="@Model.Order.IdProductCategory" class="text-danger"></span>
 
                             </div>
@@ -66,7 +66,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdTypesProduct">@ResourceWeb.LbBondType</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectFAQ"></select>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
                                 <span asp-validation-for="@Model.Order.IdTypesProduct" class="text-danger"></span>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectFAQ"></select>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation"></select>
                                 <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
 
                             </div>
@@ -85,7 +85,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectFAQ"></select>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
                                 <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectFAQ"></select>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
                                 <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
 
                             </div>
@@ -103,7 +103,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
-                                <input asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" maxlength="300">
+                                <input id="OrderNoumber" asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
                                
                             </div>
@@ -114,7 +114,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
-                                <input asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
+                                <input id="PurchasePrice" asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.PurchasePrice" class="text-danger"></span>
 
                             </div>
@@ -122,7 +122,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.sellingPrice">@ResourceWeb.LbsellingPrice</label>
-                                <input asp-for="@Model.Order.sellingPrice" type="text" placeholder="@ResourceWeb.LbsellingPrice ...." class="form-control" maxlength="300">
+                                <input id="sellingPrice" asp-for="@Model.Order.sellingPrice" type="text" placeholder="@ResourceWeb.LbsellingPrice ...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.sellingPrice" class="text-danger"></span>
 
                             </div>
@@ -133,7 +133,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
-                                <input asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300">
+                                <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
 
                             </div>
@@ -141,7 +141,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
-                                <input asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
+                                <input id="SpecialSalePrice" asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
 
                             </div>
@@ -152,7 +152,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
-                                <input asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control" >
+                                <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
                                 <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
                             </div>
@@ -160,9 +160,17 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000"rows="8"></textarea>
+                                <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
                                 <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                            <div>
+                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
                             </div>
                         </div>
                     </div>
@@ -194,6 +202,87 @@
                 console.log("Selected FAQ changed");
                 updateCosting();
             });
+
+
+            // Generate random 5-character string
+            function generateRandomString(length) {
+                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                var result = '';
+                var charactersLength = characters.length;
+                for (var i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                }
+                return result;
+            }
+
+
+
+            function printWarehouseDetails1() {
+                var Merchant = $('#SelectMerchant option:selected').text();
+                var WareHouse = $('#SelectWareHouse option:selected').text();
+                var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
+                var ProductInformation = $('#SelectProductInformation option:selected').text();
+                var sellingPrice = $('#sellingPrice').val();
+                var qrCodeSrc = $('#QRCodeImage').attr('src');
+
+                var url1 = '@Url.Action("PrintWareHouseDetails", "Order")';
+
+                // ترميز مكونات URI للتعامل مع الأحرف الخاصة
+                url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+
+                // إرسال طلب GET للحصول على محتوى الطباعة
+                $.get(url, function (data) {
+                    var printWindow = window.open('', '_blank');
+                    printWindow.document.open();
+                    printWindow.document.write(data);
+                    printWindow.document.close();
+
+                    // التأكد من أن المحتوى قد تم تحميله بالكامل قبل الطباعة
+                    printWindow.onload = function () {
+                        printWindow.print();
+                    };
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error: ", textStatus, errorThrown);
+                    alert("Failed to load print content. Please try again.");
+                });
+            }
+
+            // Bind change events to WareHouseType and Description fields
+
+            $('#sellingPrice').on('change keyup', function () {
+                updateCodeField();
+            });
+
+
+            function updateQRCode() {
+                var code = $('#Qrcode').val();
+                if (code) {
+                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
+                } else {
+                    $('#QRCodeImage').attr('src', '');
+                }
+            }
+
+            // Function to update the Code field
+            function updateCodeField() {
+                var Merchant = $('#SelectMerchant option:selected').text();
+                var WareHouse = $('#SelectWareHouse option:selected').text();
+                var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
+                var ProductInformation = $('#SelectProductInformation option:selected').text();
+                var sellingPrice = $('#sellingPrice').val();
+
+                var randomString = generateRandomString(5);
+
+                if (Merchant && WareHouse) {
+                    var code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString;
+                    $('#Qrcode').val(code);
+                    updateQRCode();
+                }
+            }
+
+
+        });
+
     </script>
     <script>
         $("#url").val(window.location.href);

@@ -40,21 +40,6 @@ namespace Yara.Areas.Admin.Controllers
 
 			ViewBag.UserRole = role.FirstOrDefault();
 
-			// جلب البيانات وإعداد النموذج
-		//	vmodel.ListViewOrderNew = iOrderNew.GetAll();
-			//var filteredOrders = vmodel.ListViewOrderNew=iOrderNew.GetAll();
-
-			//ViewBag.Favorit = filteredOrders.Sum(c => c.CostPrice);
-
-		//	ViewBag.price = filteredOrders.Sum(c => c.Price);
-		//	ViewBag.total = ViewBag.price - ViewBag.Favorit;
-
-		//	vmodel.ListViewPaings = iPaidings.GetAll();
-		//	var paidings = vmodel.ListViewPaings = iPaidings.GetAll();
-
-			//ViewBag.paidings = paidings.Sum(p => p.ResivedMony);
-
-			// إرسال النموذج إلى العرض
 			return View(vmodel);
 		}
 

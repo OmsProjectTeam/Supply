@@ -1,6 +1,10 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Imaging;
+using System.Drawing;
+using ZXing.QrCode;
+using ZXing;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -146,6 +150,61 @@ namespace Yara.Areas.Admin.Controllers
 
 
 
+        }
+
+        public IActionResult GenerateQRCode(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return Content("No text provided");
+
+            // إعداد خيارات التشفير
+            var encodingOptions = new QrCodeEncodingOptions
+            {
+                Width = 200,
+                Height = 200,
+                Margin = 1
+            };
+
+            // إنشاء كائن BarcodeWriter
+            var barcodeWriter = new BarcodeWriterPixelData
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = encodingOptions
+            };
+
+            // توليد الصورة
+            var pixelData = barcodeWriter.Write(text);
+            using (var bitmap = new Bitmap(pixelData.Width, pixelData.Height, PixelFormat.Format32bppRgb))
+            {
+                var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
+                IntPtr ptr = bitmapData.Scan0;
+                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, ptr, pixelData.Pixels.Length);
+                bitmap.UnlockBits(bitmapData);
+
+                using (var stream = new MemoryStream())
+                {
+                    bitmap.Save(stream, ImageFormat.Png);
+                    return File(stream.ToArray(), "image/png");
+                }
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse, string ProductInformation, string WareHouseBranch, string sellingPrice, string qrCodeSrc)
+        {
+            var htmlContent = new StringBuilder();
+
+            htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
+            htmlContent.AppendFormat("<h1>WareHouse Type: {0}</h1>", Merchant);
+            htmlContent.AppendFormat("<h2>Warehouse: {0}</h2>", WareHouse);
+            htmlContent.AppendFormat("<h3>Description: {0}</h3>", WareHouseBranch);
+            htmlContent.AppendFormat("<h3>Description: {0}</h3>", ProductInformation);
+            htmlContent.AppendFormat("<h3>Description: {0}</h3>", sellingPrice);
+            htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
+            htmlContent.Append("</body></html>");
+
+            return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
     }
 }

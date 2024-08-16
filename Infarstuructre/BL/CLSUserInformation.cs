@@ -14,6 +14,14 @@ namespace Infarstuructre.BL
         ApplicationUser GetByName(string name);
         List<VwUser> GetAllbyRole();
         List<VwUser> GetActiveSupport();
+	public interface IIUserInformation
+	{
+		List<VwUser> GetAll();
+		ApplicationUser GetById(string? Id);
+		List<ApplicationUser> GetAllByName(string name);
+		List<VwUser> GetAllbyId(string userId);
+		List<ApplicationUser> GetAllByNameall();
+        List<ApplicationUser> GetAllByRole(string role);
 
 
 

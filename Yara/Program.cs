@@ -107,6 +107,8 @@ builder.Services.AddScoped<IIMerchants, CLSTBMerchants>();
 builder.Services.AddScoped<IIWareHouseBranch, CLSTBWareHouseBranch>();
 builder.Services.AddScoped<IITypesProduct, CLSTBTypesProduct>();
 builder.Services.AddScoped<IIProductInformation, CLSTBProductInformation>();
+builder.Services.AddScoped<IIBondType, CLSTBBondType>();
+builder.Services.AddScoped<IIOrder, CLSTBOrder>();
 builder.Services.AddScoped<IIMessageChat, CLSTBMessageChat>();
 builder.Services.AddScoped<IIConnectAndDisconnect, CLSTBConnectAndDisconnect>();
 

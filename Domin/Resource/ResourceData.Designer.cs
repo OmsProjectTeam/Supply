@@ -295,6 +295,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the type of bond for the process to be completed successfully...!.
+        /// </summary>
+        public static string VlBondType {
+            get {
+                return ResourceManager.GetString("VlBondType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VlBuilding.
         /// </summary>
         public static string VlBuilding {
@@ -709,11 +718,29 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the bond number to complete the process successfully..!.
+        /// </summary>
+        public static string VlPurchaseOrderNoumber {
+            get {
+                return ResourceManager.GetString("VlPurchaseOrderNoumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include Qrcode  to complete successfully..!.
         /// </summary>
         public static string VlQrcode {
             get {
                 return ResourceManager.GetString("VlQrcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the quantity for the process to be completed successfully...!.
+        /// </summary>
+        public static string VlQuantityIn {
+            get {
+                return ResourceManager.GetString("VlQuantityIn", resourceCulture);
             }
         }
         

@@ -1,0 +1,145 @@
+﻿@model ViewmMODeElMASTER
+@inject UserManager<ApplicationUser> userManager
+@inject SignInManager<ApplicationUser> signInManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    var user = await userManager.GetUserAsync(User);
+    var roles = await userManager.GetRolesAsync(user);
+    var userRole = roles.FirstOrDefault();
+}
+<link rel="stylesheet" href="~/css/home.css">
+
+<div class="row small-spacing">
+    <div class="col-xs-12">
+        <div class="box-content">
+            <div class="row">
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="EmailAlartSetting" asp-action="MyEmailAlartSetting" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-envelope-o"style="color:red"></i>
+                            <h4>@ResourceWeb.LBMyEmailAlartSetting</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="CustomerMessages" asp-action="MyCustomerMessages" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-star"></i>
+                            <h4>@ResourceWeb.LBMyCustomerMessages</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="WareHouseType" asp-action="MyWareHouseType" asp-route-userId="@user.Id" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-user"></i>
+                            <h4>@ResourceWeb.LBMyWareHouseType</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="productCategory" asp-action="MyproductCategory" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-users"></i>
+                            <h4>@ResourceWeb.LBMyproductCategory</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="TypesProduct" asp-action="MyTypesProduct" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-group"></i>
+                            <h4>@ResourceWeb.LBMyTypesProduct</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="BondType" asp-action="MyBondType" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-archive"></i>
+                            <h4>@ResourceWeb.LBMyBondType</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="HtmlAgility" asp-action="myLodeHtml" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-envelope"></i>
+                            <h4>إختبار عنوان</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-pencil"></i>
+                            <h4>Create</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-book"></i>
+                            <h4>Blog</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-gift"></i>
+                            <h4>Gift Cards</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-shopping-cart"></i>
+                            <h4>Official Store</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-cog"></i>
+                            <h4>Settings</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-info-circle"></i>
+                            <h4>About</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-life-ring"></i>
+                            <h4>Help & Safety</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a href="#" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-sign-in"></i>
+                            <h4>Quick Sign In</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="logout-button-container">
+                <a href="#" class="logout-button">Log Out</a>
+            </div>
+        </div>
+    </div>
+</div>

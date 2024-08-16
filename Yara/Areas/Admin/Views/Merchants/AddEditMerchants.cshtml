@@ -32,19 +32,20 @@
 
                             <div class="card-content">
                                 <div class="row small-spacing">
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label asp-for="@Model.Merchants.MerchantName" for="exampleInputEmail1">@ResourceWeb.lbMerchantName</label>
-                                            <input asp-for="@Model.Merchants.MerchantName" type="text" placeholder="@ResourceWeb.lbMerchantName ...." class="form-control" maxlength="200">
-                                            <span asp-validation-for="@Model.Merchants.MerchantName" class="text-danger"></span>
-                                            <span style="color:red"> <strong>@TempData["MerchantName"]</strong></span>
-                                        </div>
-                                    </div>
 
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label asp-for="@Model.Merchants.MerchantPhone" for="exampleInputEmail1">@ResourceWeb.lbMerchantPhone</label>
-                                            <input asp-for="@Model.Merchants.MerchantPhone" type="text" placeholder="@ResourceWeb.lbMerchantPhone ...." class="form-control" maxlength="20"></input>
+                                            <label asp-for="@Model.Merchants.IdUserIdentity" for="merchant-select">@ResourceWeb.LbDescriptionClint</label>
+                                            <select id="merchant-select" class="form-control" asp-for="@Model.Merchants.IdUserIdentity" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))">
+                                            </select>
+                                            <span asp-validation-for="@Model.Merchants.IdUserIdentity" class="text-danger"></span>
+                                            <span style="color:red"> <strong>@TempData["MerchantName"]</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantPhone" for="merchantPhone">@ResourceWeb.lbMerchantPhone</label>
+                                            <input asp-for="@Model.Merchants.MerchantPhone" type="text" placeholder="@ResourceWeb.lbMerchantPhone ...." class="form-control">
                                             <span asp-validation-for="@Model.Merchants.MerchantPhone" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -55,8 +56,8 @@
                                 <div class="row small-spacing">
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label asp-for="@Model.Merchants.MerchantEmaile" for="exampleInputEmail1">@ResourceWeb.lbMerchantEmaile</label>
-                                            <input asp-for="@Model.Merchants.MerchantEmaile" type="email" placeholder="@ResourceWeb.lbMerchantEmaile ...." class="form-control" maxlength="300">
+                                            <label asp-for="@Model.Merchants.MerchantEmaile" for="merchantEmail">@ResourceWeb.lbMerchantEmaile</label>
+                                            <input asp-for="@Model.Merchants.MerchantEmaile" type="email" placeholder="@ResourceWeb.lbMerchantEmaile ...." class="form-control">
                                             <span asp-validation-for="@Model.Merchants.MerchantEmaile" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -191,6 +192,27 @@
                     });
                 } else {
                     $('#area-select').empty();
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#merchant-select').change(function () {
+                var userId = $(this).val();
+                if (userId) {
+                    $.getJSON('@Url.Action("GetUserDetails", "Merchants")', { id: userId }, function (data) {
+                        // تحديث الحقول في النموذج بناءً على البيانات المسترجعة
+                        $('input[name="Merchants.MerchantPhone"]').val(data.merchantPhone);
+                        $('input[name="Merchants.MerchantEmaile"]').val(data.merchantEmaile);
+                    });
+                } else {
+                    // إذا لم يتم تحديد أي مستخدم، يمكنك مسح الحقول أو تعيين قيم افتراضية
+                    $('input[name="Merchants.MerchantPhone"]').val('');
+                    $('input[name="Merchants.MerchantEmaile"]').val('');
                 }
             });
         });

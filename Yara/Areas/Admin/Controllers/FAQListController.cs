@@ -120,60 +120,7 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> SaveAr(ViewmMODeElMASTER model, TBFAQList slider, List<IFormFile> Files, string returnUrl)
-        {
-            try
-            {
-                slider.IdFAQ = model.FAQList.IdFAQ;
-                slider.IdFAQList = model.FAQList.IdFAQList;
-                slider.DateEntry = model.FAQList.DateEntry;
-                slider.ListFAQ = model.FAQList.ListFAQ;
-                slider.DateTimeEntry = model.FAQList.DateTimeEntry;
-                slider.CurrentState = model.FAQList.CurrentState;
-                if (slider.IdFAQList == 0 || slider.IdFAQList == null)
-                {
-                    if (dbcontext.TBFAQLists.Where(a => a.ListFAQ == slider.ListFAQ).ToList().Count > 0)
-                    {
-                        TempData["FAQ"] = ResourceWebAr.VLFAQDoplceted;
-                        return RedirectToAction("AddFAQListAr", model);
-                    }
-
-                    var reqwest = iFAQList.saveData(slider);
-                    if (reqwest == true)
-                    {
-                        TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-                        return RedirectToAction("MyFAQListAr");
-                    }
-                    else
-                    {
-                        TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                        return Redirect(returnUrl);
-                    }
-                }
-                else
-                {
-                    var reqestUpdate = iFAQList.UpdateData(slider);
-                    if (reqestUpdate == true)
-                    {
-                        TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-                        return RedirectToAction("MyFAQListAr");
-                    }
-                    else
-                    {
-                        TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-                        return Redirect(returnUrl);
-                    }
-                }
-            }
-            catch
-            {
-                TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-                return Redirect(returnUrl);
-            }
-        }
-
+       
 
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteData(int IdFAQ)
@@ -196,25 +143,6 @@ namespace Yara.Areas.Admin.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteDataAr(int IdFAQ)
-        {
-            var reqwistDelete = iFAQList.deleteData(IdFAQ);
-            if (reqwistDelete == true)
-            {
-                TempData["Saved successfully"] = ResourceWebAr.VLdELETESuccessfully;
-                return RedirectToAction("MyFAQAr");
-            }
-            else
-            {
-                TempData["ErrorSave"] = ResourceWebAr.VLErrorDeleteData;
-                return RedirectToAction("MyFAQAr");
-
-            }
-            // تمرير التاسكات  من الادارة 
-            // استخدام نظام أجايا وجيرا 
-
-
-        }
+       
     }
 }

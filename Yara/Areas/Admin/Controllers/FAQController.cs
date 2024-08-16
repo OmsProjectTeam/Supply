@@ -123,59 +123,7 @@ namespace Yara.Areas.Admin.Controllers
 			}
 		}
 
-		[HttpPost]
-		[AutoValidateAntiforgeryToken]
-		public async Task<IActionResult> SaveAr(ViewmMODeElMASTER model, TBFAQ slider, List<IFormFile> Files, string returnUrl)
-		{
-			try
-			{
-				slider.IdFAQ = model.FAQ.IdFAQ;
-				slider.FAQ = model.FAQ.FAQ;
-				slider.Active = model.FAQ.Active;
-				slider.DateEntry = model.FAQ.DateEntry;
-				slider.DateTimeEntry = model.FAQ.DateTimeEntry;
-				slider.CurrentState = model.FAQ.CurrentState;
-				if (slider.IdFAQ == 0 || slider.IdFAQ == null)
-				{
-					if (dbcontext.TBFAQs.Where(a => a.FAQ == slider.FAQ).ToList().Count > 0)
-					{
-						TempData["FAQ"] = ResourceWebAr.VLFAQDoplceted;
-						return RedirectToAction("AddFAQAr", model);
-					}
-
-					var reqwest = iFAQ.saveData(slider);
-					if (reqwest == true)
-					{
-						TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-						return RedirectToAction("MyFAQAr");
-					}
-					else
-					{
-						TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-						return Redirect(returnUrl);
-					}
-				}
-				else
-				{
-					var reqestUpdate = iFAQ.UpdateData(slider);
-					if (reqestUpdate == true)
-					{
-						TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-						return RedirectToAction("MyFAQAr");
-					}
-					else
-					{
-						TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-						return Redirect(returnUrl);
-					}
-				}
-			}
-			catch
-			{
-				TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-				return Redirect(returnUrl);
-			}
-		}
+	
 
 
 		[Authorize(Roles = "Admin")]
@@ -199,25 +147,6 @@ namespace Yara.Areas.Admin.Controllers
 
 		}
 
-		[Authorize(Roles = "Admin")]
-		public IActionResult DeleteDataAr(int IdFAQ)
-		{
-			var reqwistDelete = iFAQ.deleteData(IdFAQ);
-			if (reqwistDelete == true)
-			{
-				TempData["Saved successfully"] = ResourceWebAr.VLdELETESuccessfully;
-				return RedirectToAction("MyFAQAr");
-			}
-			else
-			{
-				TempData["ErrorSave"] = ResourceWebAr.VLErrorDeleteData;
-				return RedirectToAction("MyFAQAr");
-
-			}
-			// تمرير التاسكات  من الادارة 
-			// استخدام نظام أجايا وجيرا 
-
-
-		}
+	
 	}
 }

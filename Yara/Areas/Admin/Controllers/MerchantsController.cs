@@ -111,7 +111,7 @@
                 }
                 else
                 {
-                    //var reqweistDeletPoto = iMerchants.DELETPHOTO(slider.IdMerchants);
+                   
                     if (file.Count() == 0)
 
                     {

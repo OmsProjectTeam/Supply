@@ -15,7 +15,7 @@ namespace Yara.Areas.Admin.Controllers
             dbcontext = dbcontext1;
             iProductCategory = iProductCategory1;
         }
-        public IActionResult MyproductCategory(string? userId)
+        public IActionResult MyproductCategory()
         {
             ViewmMODeElMASTER viewmMODeElMASTER = new ViewmMODeElMASTER();
             viewmMODeElMASTER.ViewProductCategory = iProductCategory.GetAll();

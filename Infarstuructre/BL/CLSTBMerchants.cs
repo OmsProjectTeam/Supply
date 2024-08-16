@@ -6,7 +6,7 @@ namespace Infarstuructre.BL
 {
     public interface IIMerchants
     {
-        List<TBMerchants> GetAll();
+        List<TBViewMerchants> GetAll();
         TBMerchants GetById(int IdMerchants);
         bool saveData(TBMerchants savee);
         bool UpdateData(TBMerchants updatss);
@@ -15,7 +15,7 @@ namespace Infarstuructre.BL
         bool DELETPHOTO(int IdMerchants);
         bool DELETPHOTOWethError(string PhotoNAme);
         // /////////////APIs////////////////////////////////////////////////
-        Task<List<TBMerchants>> GetAllAsync();
+        Task<List<TBViewMerchants>> GetAllAsync();
         Task<List<TBMerchants>> GetAllActiveAsync();
         Task<TBMerchants> GetByIdAsync(int IdMerchants);
         Task<bool> AddDataAsync(TBMerchants savee);
@@ -31,9 +31,9 @@ namespace Infarstuructre.BL
         {
             dbcontext = dbcntext1;
         }
-        public List<TBMerchants> GetAll()
+        public List<TBViewMerchants> GetAll()
         {
-            List<TBMerchants> MySlider = dbcontext.TBMerchantss.OrderByDescending(n => n.IdMerchants).Where(a => a.CurrentState == true).ToList();
+            List<TBViewMerchants> MySlider = dbcontext.ViewMerchants.OrderByDescending(n => n.IdMerchants).Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
         public TBMerchants GetById(int IdMerchants)
@@ -162,9 +162,9 @@ namespace Infarstuructre.BL
 
         //// ///////////////////APIs////////////////////////////////////////////////////////////////
 
-        public async Task<List<TBMerchants>> GetAllAsync()
+        public async Task<List<TBViewMerchants>> GetAllAsync()
         {
-            var myDatd = await dbcontext.TBMerchantss.OrderByDescending(n => n.IdMerchants).Where(a => a.CurrentState == true).ToListAsync();
+            var myDatd = await dbcontext.ViewMerchants.OrderByDescending(n => n.IdMerchants).Where(a => a.CurrentState == true).ToListAsync();
             return myDatd;
         }
 

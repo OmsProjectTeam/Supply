@@ -88,6 +88,20 @@ namespace Infarstuructre.Data
                 entity.HasNoKey();
                 entity.ToView("ViewProductInformation");
             });
+            //************************************************************  
+            //************************************************************
+            builder.Entity<TBViewMerchants>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewMerchants");
+            });
+            //************************************************************
+              //************************************************************
+            builder.Entity<TBViewOrder>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewOrder");
+            });
             //************************************************************
 
             //---------------------------------
@@ -222,6 +236,26 @@ namespace Infarstuructre.Data
             builder.Entity<TBProductInformation>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
+            //---------------------------------  
+            //---------------------------------
+            builder.Entity<TBBondType>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBBondType>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBBondType>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+            //---------------------------------     
+             //---------------------------------
+            builder.Entity<TBOrder>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBOrder>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+      
             //---------------------------------     
 
         }
@@ -248,6 +282,10 @@ namespace Infarstuructre.Data
         public DbSet<TBTypesProduct> TBTypesProducts { get; set; }
         public DbSet<TBProductInformation> TBProductInformations { get; set; }
         public DbSet<TBViewProductInformation> ViewProductInformation { get; set; }
+        public DbSet<TBViewMerchants> ViewMerchants { get; set; }
+        public DbSet<TBBondType> TBBondTypes { get; set; }
+        public DbSet<TBOrder> TBOrders { get; set; }
+        public DbSet<TBViewOrder> ViewOrder { get; set; }
   
 
     }

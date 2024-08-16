@@ -132,6 +132,9 @@
   <data name="LBAddAreaDeliveryTariffs" xml:space="preserve">
     <value>Adding and modifying the pricing of delivery companies for the regions</value>
   </data>
+  <data name="LBAddBondType" xml:space="preserve">
+    <value>Add and modify the Bond Types</value>
+  </data>
   <data name="LBAddCity" xml:space="preserve">
     <value>Adding and modifying city data</value>
   </data>
@@ -242,6 +245,9 @@
   </data>
   <data name="Lbbgw" xml:space="preserve">
     <value>bgw</value>
+  </data>
+  <data name="LbBondType" xml:space="preserve">
+    <value>Bond Type</value>
   </data>
   <data name="Lbbranch" xml:space="preserve">
     <value>branch</value>
@@ -453,6 +459,12 @@
   <data name="LbInformaitionMerchantsOner" xml:space="preserve">
     <value>Informaition Merchants Oner</value>
   </data>
+  <data name="LbInformaitionOrder" xml:space="preserve">
+    <value>Informaition Order</value>
+  </data>
+  <data name="LbInformaitionOrderProdact" xml:space="preserve">
+    <value>Product Information</value>
+  </data>
   <data name="LbInformaitionProductInformation" xml:space="preserve">
     <value>Informaition Product</value>
   </data>
@@ -551,6 +563,9 @@
   </data>
   <data name="LBMyAreaDeliveryTariffs" xml:space="preserve">
     <value>Pricing of delivery companies to the regions</value>
+  </data>
+  <data name="LBMyBondType" xml:space="preserve">
+    <value>Bond Types</value>
   </data>
   <data name="LBMyCity" xml:space="preserve">
     <value>Cities data</value>
@@ -953,6 +968,9 @@
   </data>
   <data name="VLAreadoplceted" xml:space="preserve">
     <value>Pricing has already been added to the region. Please check and try again later...!</value>
+  </data>
+  <data name="VLBondTypeDoplceted" xml:space="preserve">
+    <value>The bond type has already been entered. Please check and try again later....!</value>
   </data>
   <data name="VLCatchReceiptNoDoplceted" xml:space="preserve">
     <value>The receipt voucher number has already been entered. Please verify and try again later...!</value>

@@ -203,25 +203,10 @@ namespace Yara.Areas.Admin.Controllers
 
 		}
 
-		[Authorize(Roles = "Admin")]
-		public IActionResult DeleteDataAr(int IdEmailAlartSetting)
-		{
-			var reqwistDelete = iEmailAlartSetting.deleteData(IdEmailAlartSetting);
-			if (reqwistDelete == true)
-			{
-				TempData["Saved successfully"] = ResourceWebAr.VLdELETESuccessfully;
-				return RedirectToAction("MyEmailAlartSettingAr");
-			}
-			else
-			{
-				TempData["ErrorSave"] = ResourceWebAr.VLErrorDeleteData;
-				return RedirectToAction("MyEmailAlartSettingAr");
-
-			}
 			// تمرير التاسكات  من الادارة 
 			// استخدام نظام أجايا وجيرا 
 
 
 		}
 	}
-}
+

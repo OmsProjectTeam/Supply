@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,53 +12,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240815222227_TBMerchantsEdite")]
+    partial class TBMerchantsEdite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Domin.Entity.TBBondType", b =>
-                {
-                    b.Property<int>("IdBondType")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBondType"));
-
-                    b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("BondType")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<bool>("CurrentState")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.HasKey("IdBondType");
-
-                    b.ToTable("TBBondTypes");
-                });
 
             modelBuilder.Entity("Domin.Entity.TBCustomerMessages", b =>
                 {
@@ -334,85 +300,6 @@ namespace Infarstuructre.Migrations
                     b.HasKey("IdMerchants");
 
                     b.ToTable("TBMerchantss");
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBOrder", b =>
-                {
-                    b.Property<int>("IdPurchaseOrder")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPurchaseOrder"));
-
-                    b.Property<bool>("CurrentState")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<decimal?>("GlobalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("IdBWareHouse")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdBWareHouseBranch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdBondType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdMerchants")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProductCategory")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProductInformation")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTypesProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PurchaseAuotNoumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PurchaseOrderNoumber")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<decimal?>("PurchasePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Qrcode")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int?>("QuantityIn")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("QuantityOute")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("SpecialSalePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("sellingPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdPurchaseOrder");
-
-                    b.ToTable("TBOrders");
                 });
 
             modelBuilder.Entity("Domin.Entity.TBProductCategory", b =>
@@ -712,187 +599,6 @@ namespace Infarstuructre.Migrations
                     b.ToTable((string)null);
 
                     b.ToView("ViewFAQList", (string)null);
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBViewMerchants", b =>
-                {
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CurrentState")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdMerchants")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IdUserIdentity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantAddres")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantEmaile")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantOnerEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantOnerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantOnerPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantWeb")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Photo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ViewMerchants", (string)null);
-                });
-
-            modelBuilder.Entity("Domin.Entity.TBViewOrder", b =>
-                {
-                    b.Property<string>("BondType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("CurrentState")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DataEntry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("GlobalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("IdBWareHouse")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdBWareHouseBranch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdBondType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdMerchants")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProductCategory")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProductInformation")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPurchaseOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTypesProduct")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Make")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantEmaile")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Photo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductCategory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PurchaseAuotNoumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PurchaseOrderNoumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("PurchasePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Qrcode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("QuantityIn")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("QuantityOute")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("SpecialSalePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TypesProduct")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UPC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WareHouseBranchName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("sellingPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ViewOrder", (string)null);
                 });
 
             modelBuilder.Entity("Domin.Entity.TBViewProductCategory", b =>

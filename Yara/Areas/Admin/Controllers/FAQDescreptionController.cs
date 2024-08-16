@@ -195,25 +195,6 @@ namespace Yara.Areas.Admin.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteDataAr(int IdFAQDesc)
-        {
-            var reqwistDelete = iFAQDescreption.deleteData(IdFAQDesc);
-            if (reqwistDelete == true)
-            {
-                TempData["Saved successfully"] = ResourceWebAr.VLdELETESuccessfully;
-                return RedirectToAction("MyFAQDescreptionAr");
-            }
-            else
-            {
-                TempData["ErrorSave"] = ResourceWebAr.VLErrorDeleteData;
-                return RedirectToAction("MyFAQDescreptionAr");
-
-            }
-            // تمرير التاسكات  من الادارة 
-            // استخدام نظام أجايا وجيرا 
-
-
-        }
+       
     }
 }

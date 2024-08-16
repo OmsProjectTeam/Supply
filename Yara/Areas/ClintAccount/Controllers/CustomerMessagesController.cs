@@ -318,20 +318,6 @@ namespace Yara.Areas.ClintAccount.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteDataAr(int IdCustomerMessages)
-        {
-            var reqwistDelete = iCustomerMessages.deleteData(IdCustomerMessages);
-            if (reqwistDelete == true)
-            {
-                TempData["Saved successfully"] = ResourceWebAr.VLdELETESuccessfully;
-                return RedirectToAction("MyCustomerMessagesAr");
-            }
-            else
-            {
-                TempData["ErrorSave"] = ResourceWebAr.VLErrorDeleteData;
-                return RedirectToAction("MyCustomerMessagesAr");
-            }
-        }
+       
     }
 }

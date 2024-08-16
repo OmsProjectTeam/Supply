@@ -106,6 +106,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add and modify the Bond Types.
+        /// </summary>
+        public static string LBAddBondType {
+            get {
+                return ResourceManager.GetString("LBAddBondType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding and modifying city data.
         /// </summary>
         public static string LBAddCity {
@@ -435,6 +444,15 @@ namespace Yara.Resource {
         public static string Lbbgw {
             get {
                 return ResourceManager.GetString("Lbbgw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bond Type.
+        /// </summary>
+        public static string LbBondType {
+            get {
+                return ResourceManager.GetString("LbBondType", resourceCulture);
             }
         }
         
@@ -1069,6 +1087,24 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informaition Order.
+        /// </summary>
+        public static string LbInformaitionOrder {
+            get {
+                return ResourceManager.GetString("LbInformaitionOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Information.
+        /// </summary>
+        public static string LbInformaitionOrderProdact {
+            get {
+                return ResourceManager.GetString("LbInformaitionOrderProdact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informaition Product.
         /// </summary>
         public static string LbInformaitionProductInformation {
@@ -1362,6 +1398,15 @@ namespace Yara.Resource {
         public static string LBMyAreaDeliveryTariffs {
             get {
                 return ResourceManager.GetString("LBMyAreaDeliveryTariffs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bond Types.
+        /// </summary>
+        public static string LBMyBondType {
+            get {
+                return ResourceManager.GetString("LBMyBondType", resourceCulture);
             }
         }
         
@@ -2568,6 +2613,15 @@ namespace Yara.Resource {
         public static string VLAreadoplceted {
             get {
                 return ResourceManager.GetString("VLAreadoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The bond type has already been entered. Please check and try again later....!.
+        /// </summary>
+        public static string VLBondTypeDoplceted {
+            get {
+                return ResourceManager.GetString("VLBondTypeDoplceted", resourceCulture);
             }
         }
         

@@ -75,14 +75,20 @@ namespace Infarstuructre.ViewModel
         public TBWareHouseType WareHouseType { get; set; }
         public TBProductCategory ProductCategory { get; set; }
         public IEnumerable<TBViewProductCategory> ViewProductCategory { get; set; }
-        public IEnumerable<TBMerchants> listMerchants { get; set; }
+        public IEnumerable<TBViewMerchants> listViewMerchants { get; set; }
         public TBMerchants Merchants { get; set; }   
         public IEnumerable<TBTypesProduct> ListTypesProduct { get; set; }
         public TBTypesProduct TypesProduct { get; set; }
         public TBWareHouseBranch WareHouseBranch { get; set; }
         public IEnumerable<TBViewWareHouseBranch> ViewWareHouseBranch { get; set; }
         public IEnumerable<TBViewProductInformation> ListViewProductInformation { get; set; }
-        public TBProductInformation ProductInformation { get; set; }
+        public TBProductInformation ProductInformation { get; set; }  
+        public IEnumerable<TBBondType> ListBondType { get; set; }
+        public TBBondType BondType { get; set; }
+
+
+        public IEnumerable<TBViewOrder> ListViewOrder { get; set; }
+        public TBOrder Order { get; set; }
     }
 }
 

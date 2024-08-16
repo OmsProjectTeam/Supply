@@ -6,21 +6,26 @@
     {
         MasterDbcontext dbcontext;
         IIMerchants iMerchants;
-        public MerchantsController(MasterDbcontext dbcontext1,IIMerchants iMerchants1)
+        IIUserInformation iUserInformation;
+        UserManager<ApplicationUser> _userManager;
+        public MerchantsController(MasterDbcontext dbcontext1,IIMerchants iMerchants1, UserManager<ApplicationUser> userManager, IIUserInformation iUserInformation1)
         {
             dbcontext = dbcontext1;
             iMerchants = iMerchants1;
+            iUserInformation = iUserInformation1;
+            _userManager = userManager;
         }
         public IActionResult MYMerchants()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.listMerchants = iMerchants.GetAll();
+            vmodel.listViewMerchants = iMerchants.GetAll();
             return View(vmodel);
         }
         public IActionResult AddEditMerchants(int? IdMerchants)
-        {      
+        {
+            ViewBag.user = iUserInformation.GetAllByRole("Merchant,Admin");
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.listMerchants = iMerchants.GetAll();
+            vmodel.listViewMerchants = iMerchants.GetAll();
             if (IdMerchants != null)
             {
                 vmodel.Merchants = iMerchants.GetById(Convert.ToInt32(IdMerchants));
@@ -32,9 +37,10 @@
             }
         }
         public IActionResult AddEditMerchantsImage(int? IdMerchants)
-        {   
+        {
+            ViewBag.user = iUserInformation.GetAllByRole("Merchant");
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
-            vmodel.listMerchants = iMerchants.GetAll();
+            vmodel.listViewMerchants = iMerchants.GetAll();
             if (IdMerchants != null)
             {
                 vmodel.Merchants = iMerchants.GetById(Convert.ToInt32(IdMerchants));
@@ -52,7 +58,7 @@
             try
             {
                 slider.IdMerchants = model.Merchants.IdMerchants;
-                slider.MerchantName = model.Merchants.MerchantName;
+                slider.IdUserIdentity = model.Merchants.IdUserIdentity;
                 slider.MerchantPhone = model.Merchants.MerchantPhone;
                 slider.MerchantEmaile = model.Merchants.MerchantEmaile;
                 slider.MerchantWeb = model.Merchants.MerchantWeb;
@@ -81,7 +87,7 @@
                         TempData["Message"] = ResourceWeb.VLimageuplode;
                         return RedirectToAction("AddEditMerchants");
                     }
-                    if (dbcontext.TBMerchantss.Where(a => a.MerchantName == slider.MerchantName).ToList().Count > 0)
+                    if (dbcontext.TBMerchantss.Where(a => a.IdUserIdentity == slider.IdUserIdentity).ToList().Count > 0)
                     {
                         var PhotoNAme = slider.Photo;
                         var delet = iMerchants.DELETPHOTOWethError(PhotoNAme);
@@ -179,6 +185,26 @@
                 TempData["ErrorSave"] = ResourceWeb.VLErrorDeleteData;
                 return RedirectToAction("MYMerchants");
             }
-        }     
+        }
+
+
+
+
+
+        [HttpGet]
+        public JsonResult GetUserDetails(string id)
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                return Json(new
+                {
+                    MerchantPhone = user.PhoneNumber,
+                    MerchantEmaile = user.Email,
+                    // أضف هنا المزيد من الخصائص إذا كنت بحاجة إليها
+                });
+            }
+            return Json(new { });
+        }
     }
 }

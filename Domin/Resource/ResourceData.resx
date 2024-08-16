@@ -390,4 +390,13 @@
   <data name="VlModel" xml:space="preserve">
     <value>Please include the Model to complete successfully..!</value>
   </data>
+  <data name="VlBondType" xml:space="preserve">
+    <value>Please enter the type of bond for the process to be completed successfully...!</value>
+  </data>
+  <data name="VlPurchaseOrderNoumber" xml:space="preserve">
+    <value>Please enter the bond number to complete the process successfully..!</value>
+  </data>
+  <data name="VlQuantityIn" xml:space="preserve">
+    <value>Please enter the quantity for the process to be completed successfully...!</value>
+  </data>
 </root>

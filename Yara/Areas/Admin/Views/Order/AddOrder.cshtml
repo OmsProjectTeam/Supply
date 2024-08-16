@@ -1,8 +1,203 @@
-﻿
+﻿@model ViewmMODeElMASTER
 @{
-    ViewData["Title"] = "AddOrder";
+    ViewData["Title"] = ResourceWeb.LBAddOrder;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>AddOrder</h2>
+<div class="row small-spacing">
+    <div class="col-12">
+        <div class="box-content">
+            <ul class="list-inline">
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddOrder</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                </li>
+            </ul>
+            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-12">
+        <div class="box-content card white">
+            <h4 class="box-title">@ResourceWeb.LBAddOrder</h4>
+            <div class="card-content">
+                <form role="form" method="post" asp-controller="Order" asp-action="Save" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.Order.DataEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.Order.IdPurchaseOrder" class="form-control">
+                        <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdBondType">@ResourceWeb.LbBondType</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBondType" asp-items="@(new SelectList(ViewBag.BondType, "IdBondType", "BondType"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.Order.IdBondType" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdProductCategory">@ResourceWeb.LbProductCategory</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductCategory" asp-items="@(new SelectList(ViewBag.ProductCategory, "IdProductCategory", "ProductCategory"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.Order.IdProductCategory" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdTypesProduct">@ResourceWeb.LbBondType</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.Order.IdTypesProduct" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectFAQ"></select>
+                                <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
+                                <input asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row small-spacing">
+                       
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
+                                <input asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Order.PurchasePrice" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.sellingPrice">@ResourceWeb.LbsellingPrice</label>
+                                <input asp-for="@Model.Order.sellingPrice" type="text" placeholder="@ResourceWeb.LbsellingPrice ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Order.sellingPrice" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row small-spacing">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
+                                <input asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
+                                <input asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row small-spacing">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
+                                <input asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control" >
+                                <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
+                                <textarea asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000"rows="8"></textarea>
+                                <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("Document is ready");
+            $('.select2_1').select2({
+                placeholder: "Select an option",
+                allowClear: true
+            });
+
+            // Bind change event to the selected company
+            $('#SelectFAQ').change(function () {
+                console.log("Selected FAQ changed");
+                updateCosting();
+            });
+    </script>
+    <script>
+        $("#url").val(window.location.href);
+    </script>
+}
+
 

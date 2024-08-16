@@ -16,7 +16,7 @@
         </ul>
         <!-- /.box-title -->
         <div class="dropdown js__drop_down">
-            <a asp-area="Admin" asp-controller="Order" asp-action="AddEditOrder"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
+            <a asp-area="Admin" asp-controller="Order" asp-action="AddOrder"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
         </div>
         <!-- /.dropdown js__dropdown -->
         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -30,8 +30,9 @@
                                     <ul>
                                         <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbInformaitionOrder</a></li>
                                         <li><a href="#tab-progress-4" data-toggle="tab">@ResourceWeb.LbInformaitionOrderProdact</a></li>
+                                        <li><a href="#tab-progress-5" data-toggle="tab">@ResourceWeb.LbInformaitionOrderprice</a></li>
                                         <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbOpration</a></li>
-                                        @* <li><a href="#tab-progress-5" data-toggle="tab">Fifth</a></li> *@
+                                       
                                     </ul>
                                 </div>
                                 <div class="box-content">
@@ -53,20 +54,22 @@
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbBondType</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseAuotNoumber</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseOrderNoumber</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantPhone</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantEmaile</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantWeb</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbMerchantAddres</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbBondType</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbPurchaseAuotNoumber</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbPurchaseOrderNoumber</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantPhone</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantEmaile</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantWeb</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbMerchantAddres</th>
                                             </tfoot>
                                             <tbody>
                                                         @foreach (var item in Model.ListViewOrder)
@@ -77,6 +80,7 @@
                                                             <img src="@item.Photo" class="img-bordered img-circle img-circle"
                                                                  style="width:100px; height:100px">
                                                         </td>
+                                                        <td class="truncate-50">@item.BondType</td>
                                                         <td class="truncate-50">@item.PurchaseAuotNoumber</td>
                                                         <td class="truncate-50">@item.PurchaseOrderNoumber</td>
                                                         <td class="truncate-50">@item.Name</td>
@@ -97,27 +101,95 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantOnerName</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantOnerPhone</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantOnerEmail</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbProductCategory</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbTypesProduct</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantOnerName</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantOnerPhone</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantOnerEmail</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbProductCategory</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbTypesProduct</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
                                             </tfoot>
                                             <tbody>
                                                         @foreach (var item in Model.ListViewOrder)
                                                         {
                                                     <tr role="row" class="odd">
                                                         <td>@item.IdPurchaseOrder</td>
-                                                      @*   <td class="truncate-50">@item.MerchantOnerName</td>
-                                                        <td class="truncate-50">@item.MerchantOnerPhone</td>
-                                                        <td class="truncate-50">@item.MerchantOnerEmail</td> *@
-                                                       
+                                                        <td class="sorting_1">
+                                                            <img src="@item.Photo" class="img-bordered img-circle img-circle"
+                                                                 style="width:100px; height:100px">
+                                                        </td>
+                                                        <td class="truncate-50">@item.ProductCategory</td>
+                                                        <td class="truncate-50">@item.TypesProduct</td>
+                                                        <td class="truncate-50">@item.ProductName</td>
+                                                        <td class="truncate-50">@item.Make</td>
+                                                        <td class="truncate-50">@item.UPC</td>
+                                                        <td class="truncate-50">@item.Qrcode</td>                                                                                                             
+                                                    </tr>
+                                                        }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-progress-5">
+                                <div class='table-responsive'>
+                                    <div style="overflow-x:auto;">
+                                        <table id="example5" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouse</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseBranchName</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPurchasePrice</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbsellingPrice</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbGlobalPrice</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbSpecialSalePrice</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQuantityIn</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQuantityOute</th>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouse</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseBranchName</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbPurchasePrice</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbsellingPrice</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbGlobalPrice</th>                                                
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbSpecialSalePrice</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQuantityIn</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQuantityOute</th>
+                                            </tfoot>
+                                            <tbody>
+                                                        @foreach (var item in Model.ListViewOrder)
+                                                        {
+                                                    <tr role="row" class="odd">
+                                                        <td>@item.IdPurchaseOrder</td>
+                                                        <td class="sorting_1">
+                                                            <img src="@item.Photo" class="img-bordered img-circle img-circle"
+                                                                 style="width:100px; height:100px">
+                                                        </td>
+                                                        <td class="truncate-50">@item.ProductName</td>
+                                                        <td class="truncate-50">@item.Description</td>
+                                                        <td class="truncate-50">@item.WareHouseBranchName</td>
+                                                        <td class="truncate-50">@item.PurchasePrice</td>
+                                                        <td class="truncate-50">@item.sellingPrice</td>
+                                                        <td class="truncate-50">@item.GlobalPrice</td>
+                                                        <td class="truncate-50">@item.SpecialSalePrice</td>
+                                                        <td class="truncate-50">@item.QuantityIn</td>
+                                                        <td class="truncate-50">@item.QuantityOute</td>
                                                     </tr>
                                                         }
                                             </tbody>
@@ -134,7 +206,7 @@
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantName</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
@@ -143,7 +215,7 @@
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantName</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
@@ -155,10 +227,11 @@
                                                     <tr role="row" class="odd">
                                                         <td>@item.IdPurchaseOrder</td>
                                                         <td class="sorting_1">
-                                                            <img src="@string.Format("/Images/Home/{0}",item.Photo)" class="img-bordered img-circle img-circle"
+                                                            <img src="@item.Photo" class="img-bordered img-circle img-circle"
                                                                  style="width:100px; height:100px">
                                                         </td>
-                                                        <td>@item.Name</td>
+                                                        <td>@item.ProductName</td>
+                                                      
                                                         <td>@item.DataEntry</td>
                                                         <td>@item.DateTimeEntry</td>
                                                         <td>
@@ -166,7 +239,7 @@
                                                         </td>
                                                         <td>
                                                             <ul class="list-inline">
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="AddEditOrderImage" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="AddOrder" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
                                                                 <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="DeleteData" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
                                                             </ul>
                                                         </td>
@@ -241,6 +314,19 @@
         $(function () {
             $("#example4").DataTable().fnDestroy();
             $('#example4').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#example5").DataTable().fnDestroy();
+            $('#example5').DataTable({
                 "paging": false,
                 "lengthChange": false,
                 "searching": false,

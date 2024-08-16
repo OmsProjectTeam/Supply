@@ -107,8 +107,8 @@ builder.Services.AddScoped<IIMerchants, CLSTBMerchants>();
 builder.Services.AddScoped<IIWareHouseBranch, CLSTBWareHouseBranch>();
 builder.Services.AddScoped<IITypesProduct, CLSTBTypesProduct>();
 builder.Services.AddScoped<IIProductInformation, CLSTBProductInformation>();
-
-
+builder.Services.AddScoped<IIMessageChat, CLSTBMessageChat>();
+builder.Services.AddScoped<IIConnectAndDisconnect, CLSTBConnectAndDisconnect>();
 
 
 
@@ -165,10 +165,13 @@ app.MapControllerRoute(
 	pattern: "{area:exists}/{controller=Accounts}/{action=Login}/{id?}"
 );
 
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+	endpoints.MapHub<ChatHub>("/chatHub");
+});
 
 app.UseSwagger();
 

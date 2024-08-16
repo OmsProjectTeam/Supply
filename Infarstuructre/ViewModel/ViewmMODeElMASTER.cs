@@ -1,4 +1,5 @@
 ﻿using Domin.Entity;
+using Domin.Entity.SignalR;
 using Domin.Resource;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -83,6 +84,9 @@ namespace Infarstuructre.ViewModel
         public IEnumerable<TBViewWareHouseBranch> ViewWareHouseBranch { get; set; }
         public IEnumerable<TBViewProductInformation> ListViewProductInformation { get; set; }
         public TBProductInformation ProductInformation { get; set; }
+        public IEnumerable<TBConnectAndDisConnect> ConnectAndDisConnect { get; set; }
+        public TBMessageChat TBMessageChat { get; set; }
+        public IEnumerable<TBViewChatMessage> ViewChatMessage { get; set; }
     }
 }
 

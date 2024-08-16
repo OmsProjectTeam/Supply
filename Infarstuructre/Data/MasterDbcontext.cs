@@ -1,5 +1,5 @@
 ﻿using Domin.Entity;
-
+using Domin.Entity.SignalR;
 using Infarstuructre.ViewModel;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -89,6 +89,12 @@ namespace Infarstuructre.Data
                 entity.ToView("ViewProductInformation");
             });
             //************************************************************
+            //************************************************************
+            builder.Entity<TBViewChatMessage>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewChat");
+            });
 
             //---------------------------------
             builder.Entity<TBFAQ>()
@@ -222,7 +228,26 @@ namespace Infarstuructre.Data
             builder.Entity<TBProductInformation>()
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
-            //---------------------------------     
+            //---------------------------------
+            //--------------------------------- 
+
+            builder.Entity<TBMessageChat>()
+           .Property(m => m.MessageeTime)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBMessageChat>()
+           .Property(m => m.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBMessageChat>()
+           .Property(m => m.IsRead)
+           .HasDefaultValueSql("((0))");
+
+            //---------------------------------
+            //--------------------------------- 
+
+            builder.Entity<TBConnectAndDisConnect>()
+           .Property(m => m.TimeConnection)
+           .HasDefaultValueSql("getdate()");
+            //---------------------------------
 
         }
         //***********************************
@@ -248,7 +273,8 @@ namespace Infarstuructre.Data
         public DbSet<TBTypesProduct> TBTypesProducts { get; set; }
         public DbSet<TBProductInformation> TBProductInformations { get; set; }
         public DbSet<TBViewProductInformation> ViewProductInformation { get; set; }
-  
-
+        public virtual DbSet<TBMessageChat> TBMessageChats { get; set; }
+        public virtual DbSet<TBViewChatMessage> ViewChatMessage { get; set; }
+        public DbSet<TBConnectAndDisConnect> TBConnectAndDisConnects { get; set; }
     }
 }

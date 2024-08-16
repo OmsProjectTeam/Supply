@@ -164,6 +164,22 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
+         [HttpGet]
+        public IActionResult PrintWareHouseDetails(string warehouseType, string description, string code, string qrCodeSrc)
+        {
+            var htmlContent = new StringBuilder();
+
+            htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
+            htmlContent.AppendFormat("<h1>WareHouse: {0}</h1>", warehouseType);
+            htmlContent.AppendFormat("<h2>Description: {0}</h2>", description);
+            htmlContent.AppendFormat("<h3>Code: {0}</h3>", code);
+            htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
+
+            htmlContent.Append("</body></html>");
+
+            return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
+        }
+
 
     }
 }

@@ -1,4 +1,8 @@
 ﻿using HtmlAgilityPack;
+using System.Drawing.Imaging;
+using System.Drawing;
+using ZXing.QrCode;
+using ZXing;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
@@ -351,6 +355,61 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+        }
+
+        public IActionResult GenerateQRCode(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return Content("No text provided");
+
+            // إعداد خيارات التشفير
+            var encodingOptions = new QrCodeEncodingOptions
+            {
+                Width = 200,
+                Height = 200,
+                Margin = 1
+            };
+
+            // إنشاء كائن BarcodeWriter
+            var barcodeWriter = new BarcodeWriterPixelData
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = encodingOptions
+            };
+
+            // توليد الصورة
+            var pixelData = barcodeWriter.Write(text);
+            using (var bitmap = new Bitmap(pixelData.Width, pixelData.Height, PixelFormat.Format32bppRgb))
+            {
+                var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
+                IntPtr ptr = bitmapData.Scan0;
+                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, ptr, pixelData.Pixels.Length);
+                bitmap.UnlockBits(bitmapData);
+
+                using (var stream = new MemoryStream())
+                {
+                    bitmap.Save(stream, ImageFormat.Png);
+                    return File(stream.ToArray(), "image/png");
+                }
+            }
+        }
+
+        [HttpGet]
+        public IActionResult PrintWareHouseDetails(string Category, string TypesProduct, string Product, string Model, string UPC, string qrCodeSrc)
+        {
+            var htmlContent = new StringBuilder();
+
+            htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
+            htmlContent.AppendFormat("<h1>Category: {0}</h1>", Category);
+            htmlContent.AppendFormat("<h2>Product Type: {0}</h2>", TypesProduct);
+            htmlContent.AppendFormat("<h3>Model: {0}</h3>", Model);
+            htmlContent.AppendFormat("<h3>Product: {0}</h3>", Product);
+            htmlContent.AppendFormat("<h3>UPC: {0}</h3>", UPC);
+            htmlContent.AppendFormat("<img src='{0}' alt='UPC' />", qrCodeSrc);
+
+            htmlContent.Append("</body></html>");
+
+            return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
 
     }

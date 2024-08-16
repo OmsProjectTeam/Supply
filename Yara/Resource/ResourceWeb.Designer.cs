@@ -2077,6 +2077,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QRCode.
+        /// </summary>
+        public static string LbQRCode1 {
+            get {
+                return ResourceManager.GetString("LbQRCode1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quastion.
         /// </summary>
         public static string LbQuastion {

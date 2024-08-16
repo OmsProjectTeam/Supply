@@ -50,6 +50,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseType</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDescription1</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.Lbcode</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">QR</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
                                             <tfoot>
                                                 <tr>
@@ -57,17 +58,24 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseType</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDescription1</th>                                           
                                                     <th rowspan="1" colspan="1">@ResourceWeb.Lbcode</th>
+                                                    <th rowspan="1" colspan="1">QR</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
                                             </tfoot>
-                                            <tbody>
+                                            <tbody id="b1">
                                                         @foreach (var item in Model.ViewWareHouse)
                                                         {
                                                     <tr role="row" class="odd">
                                                         <td>@item.IdBWareHouse</td>
                                                         <td>@item.WareHouseType</td>
                                                         <td>@item.Description</td>
-                                                        <td>@item.Code</td>
-                                                     
+                                                        <td class="Code">@item.Code</td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div hidden class="Code">@item.Code</div>
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                            </div>
+                                                        </td>
+
                                                         <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.Active" IdTypesOfMessage="switch-3" disabled><label for="switch-3">@item.Active</label></div>
                                                         </td>
@@ -194,6 +202,7 @@
     <script>
         $(document).ready(function () {
             // Function to truncate text to a specified length
+             updateQRCode();
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
                     return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
@@ -201,6 +210,21 @@
                     return text;
                 }
             }
+
+            // Update the QR code image
+            function updateQRCode() {
+                $('.QRCodeImage').each(function () {
+                    var code = $(this).siblings('.Code').text();
+                    if (code) {
+                        console.log(code);
+                        $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                    } else {
+                        $(this).attr('src', '');
+                    }
+                });
+            }
+
+
 
             // Loop through each table cell with class 'truncate-50'
             $('.truncate-50').each(function () {

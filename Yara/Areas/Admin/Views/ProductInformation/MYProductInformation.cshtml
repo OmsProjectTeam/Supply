@@ -57,6 +57,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbTypesProduct</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
@@ -65,7 +66,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbTypesProduct</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
-                                                  
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
                                             </tfoot>
                                             <tbody>
                                                         @foreach (var item in Model.ListViewProductInformation)
@@ -76,11 +77,15 @@
                                                             <img src="@item.Photo" class="img-bordered img-circle img-circle"
                                                                  style="width:100px; height:100px">
                                                         </td>
-                                                        <td class="truncate-50">@item.ProductCategory</td>
-                                                        <td class="truncate-50">@item.TypesProduct</td>
+                                                        <td class="truncate-50 Category">@item.ProductCategory</td>
+                                                        <td class="truncate-50 TypesProduct">@item.TypesProduct</td>
                                                         <td class="truncate-50">@item.ProductName</td>
-                                                        <td class="truncate-50">@item.Qrcode</td>
-                                                        
+                                                        <td class="truncate-50 Codee">@item.Qrcode</td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                         }
                                             </tbody>
@@ -120,10 +125,10 @@
                                                             <img src="@string.Format("/Images/Product/{0}",item.Photo)" class="img-bordered img-circle img-circle"
                                                                  style="width:100px; height:100px">
                                                         </td>
-                                                        <td class="truncate-50">@item.ProductName</td>
+                                                        <td class="truncate-50 ProductName">@item.ProductName</td>
                                                         <td class="truncate-50">@item.Make</td>
-                                                        <td class="truncate-50">@item.UPC</td>
-                                                        <td class="truncate-50">@item.Model</td>
+                                                        <td class="truncate-50 UPC">@item.UPC</td>
+                                                        <td class="truncate-50 Model">@item.Model</td>
                                                         <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.Active" IdProductInformation="switch-3" disabled><label for="switch-3">@item.Active</label></div>
                                                         </td>
@@ -260,6 +265,7 @@
     </script>
     <script>
         $(document).ready(function () {
+            updateQRCode();
             // Function to truncate text to a specified length
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
@@ -268,6 +274,42 @@
                     return text;
                 }
             }
+
+            //  function updateQRCode() {
+            //     $('.QRCodeImage').each(function () {
+            //         var Category = $(this).siblings('.Code').text();
+            //         var ProductName = $(this).siblings('.Code').text();
+            //         var Model = $(this).siblings('.Code').text();
+            //         var UPC = $(this).siblings('.Code').text();
+            //         var TypeProduct = $(this).siblings('.Code').text();
+
+            //         var code = Category + ProductName + Model + UPC + TypeProduct
+            //         if (code) {
+            //             console.log(code);
+            //             $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+            //         } else {
+            //             $(this).attr('src', '');
+            //         }
+            //     });
+            // }
+
+            function updateQRCode() {
+                $('.QRCodeImage').each(function () {
+                    var code = $(this).closest('tr').find('.Codee').text().trim();
+
+                    console.log(code);
+                    // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
+                    if (code) {
+                        console.log(code);
+                        $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+                    } else {
+                        console.log("code");
+                        $(this).attr('src', '');
+                    }
+                });
+            }
+
+
             // Loop through each table cell with class 'truncate-50'
             $('.truncate-50').each(function () {
                 var text = $(this).text(); // Get the text content of the cell

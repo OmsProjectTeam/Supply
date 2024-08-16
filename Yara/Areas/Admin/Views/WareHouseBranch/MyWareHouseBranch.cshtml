@@ -51,6 +51,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouse</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDescription1</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.Lbcode</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
@@ -58,6 +59,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouse</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDescription1</th>                                          
                                                     <th rowspan="1" colspan="1">@ResourceWeb.Lbcode</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
 
                                             </tfoot>
                                             <tbody>
@@ -69,6 +71,12 @@
                                                         <td>@item.Description</td>
                                                         <td>@item.WareHouseBranchName</td>
                                                         <td>@item.Code</td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="Code">@item.Code</div>
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                            </div>
+                                                        </td>
                                                        
                                                         
                                                     </tr>
@@ -202,12 +210,25 @@
     <script>
         $(document).ready(function () {
             // Function to truncate text to a specified length
+            updateQRCode();
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
                     return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
                 } else {
                     return text;
                 }
+            }
+
+            function updateQRCode() {
+                $('.QRCodeImage').each(function () {
+                    var code = $(this).siblings('.Code').text();
+                    if (code) {
+                        console.log(code);
+                        $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                    } else {
+                        $(this).attr('src', '');
+                    }
+                });
             }
 
             // Loop through each table cell with class 'truncate-50'

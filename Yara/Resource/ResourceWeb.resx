@@ -789,6 +789,9 @@
   <data name="lbQrcode" xml:space="preserve">
     <value>Qrcode</value>
   </data>
+  <data name="LbQRCode1" xml:space="preserve">
+    <value>QRCode</value>
+  </data>
   <data name="LbQuastion" xml:space="preserve">
     <value>Quastion</value>
   </data>

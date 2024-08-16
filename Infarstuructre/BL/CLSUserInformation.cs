@@ -105,6 +105,7 @@ namespace Infarstuructre.BL
             return usersWithRoles;
         }
 
+
         // دالة تستخدم للتحقق مما إذا كان للمستخدم صلاحية معينة
         private bool UserHasRole(ApplicationUser user, string role)
         {

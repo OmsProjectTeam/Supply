@@ -38,7 +38,7 @@
         }
         public IActionResult AddEditMerchantsImage(int? IdMerchants)
         {
-            ViewBag.user = iUserInformation.GetAllByRole("Merchant");
+            ViewBag.user = iUserInformation.GetAllByRole("Merchant,Admin");
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.listViewMerchants = iMerchants.GetAll();
             if (IdMerchants != null)

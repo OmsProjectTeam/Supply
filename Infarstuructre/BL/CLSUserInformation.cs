@@ -21,7 +21,7 @@ namespace Infarstuructre.BL
         List<ApplicationUser> GetAllByRole(string role);
 
 
-        // /////////////////////APIs/////////////////////////////
+        // /////////////////////APIs////////////////////////////////
 
         Task<List<VwUser>> GetAllAsync();
         Task<ApplicationUser> GetByIdAsync(string? Id);

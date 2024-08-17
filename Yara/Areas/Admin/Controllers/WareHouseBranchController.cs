@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using ZXing.QrCode;
 using ZXing;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -181,5 +182,18 @@ namespace Yara.Areas.Admin.Controllers
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
 
-    }
+		//[HttpGet]
+		//public JsonResult GetSubWarehouses(int IdSubWarehouse)
+		//{
+		//	var subWarehouses = iWareHouseBranch.GetById(IdSubWarehouse);
+		//	return Json(new SelectList(subWarehouses, "IdSubWarehouse", "Description"));
+		//}
+		public IActionResult GetSubWarehouses(int IdSubWarehouse)
+		{
+			var subWarehouses = iWareHouseBranch.GetAllv(IdSubWarehouse);
+			var selectList = new SelectList(subWarehouses, "IdSubWarehouse", "Description");
+			return Json(selectList);
+		}
+
+	}
 }

@@ -14,6 +14,7 @@
 	<title>Home - Ninja Admin Template</title>
 
 	<script src="~/js/signalr.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	@* <script>
 				var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
@@ -24,7 +25,7 @@
 			console.error("SignalR connection error: ", err.toString());
 				});
 	</script> *@
-	<script>
+	@* <script>
 		var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 		connection.start().catch(function (err) {
@@ -83,7 +84,7 @@
 				console.error("Error sending message:", err.toString());
 			});
 		}
-	</script>
+	</script> *@
 
 	<!-- Main Styles -->
 	<link rel="stylesheet" href="~/Admin/assets/styles/style.min.css">

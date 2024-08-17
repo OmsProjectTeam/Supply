@@ -259,6 +259,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must enter the user name...!.
         /// </summary>
         public static string userName {
@@ -489,6 +498,15 @@ namespace Domin.Resource {
         public static string VlFloor {
             get {
                 return ResourceManager.GetString("VlFloor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Follow Up Mail to complete successfully..!.
+        /// </summary>
+        public static string VlFollowUpMail {
+            get {
+                return ResourceManager.GetString("VlFollowUpMail", resourceCulture);
             }
         }
         
@@ -795,6 +813,33 @@ namespace Domin.Resource {
         public static string VlStreet {
             get {
                 return ResourceManager.GetString("VlStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Support Ticket Status to complete successfully..!.
+        /// </summary>
+        public static string VlSupportTicketStatus {
+            get {
+                return ResourceManager.GetString("VlSupportTicketStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Ware Support Ticket Type to complete successfully..!.
+        /// </summary>
+        public static string VlSupportTicketType {
+            get {
+                return ResourceManager.GetString("VlSupportTicketType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Titel to complete successfully..!.
+        /// </summary>
+        public static string VlTitel {
+            get {
+                return ResourceManager.GetString("VlTitel", resourceCulture);
             }
         }
         

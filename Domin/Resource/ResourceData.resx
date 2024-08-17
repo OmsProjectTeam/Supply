@@ -399,4 +399,19 @@
   <data name="VlQuantityIn" xml:space="preserve">
     <value>Please enter the quantity for the process to be completed successfully...!</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VlFollowUpMail" xml:space="preserve">
+    <value>Please include the Follow Up Mail to complete successfully..!</value>
+  </data>
+  <data name="VlSupportTicketStatus" xml:space="preserve">
+    <value>Please include the Support Ticket Status to complete successfully..!</value>
+  </data>
+  <data name="VlSupportTicketType" xml:space="preserve">
+    <value>Please include the Ware Support Ticket Type to complete successfully..!</value>
+  </data>
+  <data name="VlTitel" xml:space="preserve">
+    <value>Please include the Titel to complete successfully..!</value>
+  </data>
 </root>

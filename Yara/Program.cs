@@ -112,8 +112,9 @@ builder.Services.AddScoped<IIBondType, CLSTBBondType>();
 builder.Services.AddScoped<IIOrder, CLSTBOrder>();
 builder.Services.AddScoped<IIMessageChat, CLSTBMessageChat>();
 builder.Services.AddScoped<IIConnectAndDisconnect, CLSTBConnectAndDisconnect>();
-
-
+builder.Services.AddScoped<IISupportTicketType, CLSTBSupportTicketType>();
+builder.Services.AddScoped<IISupportTicketStatus, CLSTBSupportTicketStatus>();
+builder.Services.AddScoped<IISupportTicket, CLSTBSupportTicket>();
 
 
 

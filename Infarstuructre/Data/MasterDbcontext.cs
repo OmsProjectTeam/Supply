@@ -109,6 +109,12 @@ namespace Infarstuructre.Data
             {
                 entity.HasNoKey();
                 entity.ToView("ViewChat");
+            }); 
+            //************************************************************
+            builder.Entity<TBViewSupportTicket>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewSupportTicket");
             });
 
             //---------------------------------
@@ -284,6 +290,33 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");
       
             //---------------------------------     
+              //---------------------------------
+            builder.Entity<TBSupportTicketType>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBSupportTicketType>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+      
+            //-   
+            //---------------------------------
+            builder.Entity<TBSupportTicketStatus>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBSupportTicketStatus>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+      
+            //---------------------------------     
+             //---------------------------------
+            builder.Entity<TBSupportTicket>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBSupportTicket>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+      
+            //---------------------------------     
 
         }
         //***********************************
@@ -313,9 +346,13 @@ namespace Infarstuructre.Data
         public DbSet<TBBondType> TBBondTypes { get; set; }
         public DbSet<TBOrder> TBOrders { get; set; }
         public DbSet<TBViewOrder> ViewOrder { get; set; }
-  
         public virtual DbSet<TBMessageChat> TBMessageChats { get; set; }
         public virtual DbSet<TBViewChatMessage> ViewChatMessage { get; set; }
         public DbSet<TBConnectAndDisConnect> TBConnectAndDisConnects { get; set; }
+        public DbSet<TBSupportTicketType> TBSupportTicketTypes { get; set; }
+        public DbSet<TBSupportTicketStatus> TBSupportTicketStatuss { get; set; }
+        public DbSet<TBSupportTicket> TBSupportTickets { get; set; }
+        public DbSet<TBViewSupportTicket> ViewSupportTicket { get; set; }
+
     }
 }

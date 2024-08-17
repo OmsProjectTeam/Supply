@@ -57,10 +57,18 @@
                     </a>
                 </div>
                 <div class="col-5 col-md-4 col-sm-6 col-xs-12">
-                    <a asp-area="Admin" asp-controller="BondType" asp-action="MyBondType" class="box-content-link">
+                    <a asp-area="Admin" asp-controller="BondType" asp-action="AddBondType" class="box-content-link">
                         <div class="icon-box">
                             <i class="fa fa-archive"></i>
                             <h4>@ResourceWeb.LBMyBondType</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
+                    <a asp-area="Admin" asp-controller="SupportTicketType" asp-action="MySupportTicketType" class="box-content-link">
+                        <div class="icon-box">
+                            <i class="fa fa-pencil"></i>
+                            <h4>Support Ticket Type</h4>
                         </div>
                     </a>
                 </div>
@@ -72,19 +80,12 @@
                         </div>
                     </a>
                 </div>
+             
                 <div class="col-5 col-md-4 col-sm-6 col-xs-12">
-                    <a href="#" class="box-content-link">
+                    <a asp-area="Admin" asp-controller="SupportTicketStatus" asp-action="AddSupportTicketStatus" class="box-content-link">
                         <div class="icon-box">
-                            <i class="fa fa-pencil"></i>
-                            <h4>Create</h4>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-5 col-md-4 col-sm-6 col-xs-12">
-                    <a href="#" class="box-content-link">
-                        <div class="icon-box">
-                            <i class="fa fa-book"></i>
-                            <h4>Blog</h4>
+                            <i class="fa fa-plug"></i>
+                            <h4>Support Ticket Status</h4>
                         </div>
                     </a>
                 </div>

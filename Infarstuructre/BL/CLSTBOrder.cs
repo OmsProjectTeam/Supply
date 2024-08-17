@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Infarstuructre.BL
 {
     public interface IIOrder
@@ -11,6 +13,16 @@ namespace Infarstuructre.BL
         bool UpdateData(TBOrder updatss);
         bool deleteData(int IdPurchaseOrder);
         List<TBViewOrder> GetAllv(int IdPurchaseOrder);
+
+        //////////////////////////APIs/////////////////////////////////////////////////////////////////
+        Task<List<TBOrder>> GetAllAsync();
+        Task<List<TBOrder>> GetAllvAsync(int IdPurchaseOrder);
+        Task<List<TBOrder>> GetAllDataentryAsync(string dataEntry);
+        Task<TBOrder> GetByIdAsync(int IdPurchaseOrder);
+        Task<List<TBOrder>> GetAllActiveAsync();
+        Task<bool> AddDataAsync(TBOrder savee);
+        Task<bool> DeleteDataAsync(int TBOrder);
+        Task<bool> UpdateDataAsync(TBOrder update);
 
     }
     public class CLSTBOrder: IIOrder
@@ -84,6 +96,82 @@ namespace Infarstuructre.BL
         {
             List<TBViewOrder> MySlider = dbcontext.ViewOrder.OrderByDescending(n => n.IdPurchaseOrder == IdPurchaseOrder).Where(a => a.IdPurchaseOrder == IdPurchaseOrder).Where(a => a.CurrentState == true).ToList();
             return MySlider;
+        }
+        // //////////////////////////APIs/////////////////////////////////////////////////////////////////
+
+        public async Task<List<TBOrder>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.TBOrders.OrderByDescending(n => n.IdPurchaseOrder).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBOrder>> GetAllvAsync(int IdOrder)
+        {
+            var myDatd = await dbcontext.TBOrders.OrderByDescending(n => n.IdPurchaseOrder).Where(a => a.IdPurchaseOrder == IdOrder).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBOrder>> GetAllDataentryAsync(string dataEntry)
+        {
+            var MySlider = await dbcontext.TBOrders.Where(a => a.DataEntry == dataEntry && a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<List<TBOrder>> GetAllActiveAsync()
+        {
+            List<TBOrder> MySlider = await dbcontext.TBOrders.OrderByDescending(n => n.IdPurchaseOrder).Where(a => a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBOrder> GetByIdAsync(int IdPurchaseOrder)
+        {
+            var sslid = await dbcontext.TBOrders.FirstOrDefaultAsync(a => a.IdPurchaseOrder == IdPurchaseOrder);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBOrder savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBOrder>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdPurchaseOrder)
+        {
+            try
+            {
+                var email = await GetByIdAsync(IdPurchaseOrder);
+                email.CurrentState = false;
+                dbcontext.Entry(email).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> UpdateDataAsync(TBOrder update)
+        {
+            try
+            {
+                dbcontext.Entry(update).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
     }

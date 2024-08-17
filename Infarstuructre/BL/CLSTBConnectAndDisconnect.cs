@@ -1,4 +1,6 @@
 ﻿using Domin.Entity.SignalR;
+using Infarstuructre.BL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,16 @@ namespace Infarstuructre.BL
         bool RemoveConnection(string ConnectId);
         TBConnectAndDisConnect GetById(string ConnectId);
         TBConnectAndDisConnect GetByName(string name);
+        //////////////////////////APIs/////////////////////////////////////////////////////////////////
+        ///
+        Task<List<TBConnectAndDisConnect>> GetAllAsync();
+        Task<TBConnectAndDisConnect> GetByIdAsync(int IdConnectAndDisConnect);
+        Task<TBConnectAndDisConnect> GetByNameAsync(int IdConnectAndDisConnect);
+        Task<bool> AddDataAsync(TBConnectAndDisConnect savee);
+        Task<bool> DeleteDataAsync(int IdConnectAndDisConnect);
+
     }
+}
     public class CLSTBConnectAndDisconnect : IIConnectAndDisconnect
     {
         MasterDbcontext dbcontext;
@@ -72,6 +83,54 @@ namespace Infarstuructre.BL
             }
         }
 
+        // //////////////////////////APIs/////////////////////////////////////////////////////////////////
 
+        public async Task<List<TBConnectAndDisConnect>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.TBConnectAndDisConnects.OrderByDescending(n => n.IdConnectAndDisConnect).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<TBConnectAndDisConnect> GetByIdAsync(int IdConnectAndDisConnect)
+        {
+            var sslid = await dbcontext.TBConnectAndDisConnects.FirstOrDefaultAsync(a => a.IdConnectAndDisConnect == IdConnectAndDisConnect);
+            return sslid;
+        }
+
+        public async Task<TBConnectAndDisConnect> GetByNameAsync(int IdConnectAndDisConnect)
+        {
+            var sslid = await dbcontext.TBConnectAndDisConnects.FirstOrDefaultAsync(a => a.IdConnectAndDisConnect == IdConnectAndDisConnect);
+            return sslid;
+        }
+
+    public async Task<bool> AddDataAsync(TBConnectAndDisConnect savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBConnectAndDisConnect>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdConnectAndDisConnect)
+        {
+            try
+            {
+                var conn = await GetByIdAsync(IdConnectAndDisConnect);
+                dbcontext.Remove<TBConnectAndDisConnect>(conn);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
     }
-}
+

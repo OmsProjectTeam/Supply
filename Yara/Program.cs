@@ -4,6 +4,7 @@
 using static Infarstuructre.BL.IIRolsInformation;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -141,6 +142,7 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -167,6 +169,7 @@ app.MapControllerRoute(
 	pattern: "{area:exists}/{controller=Accounts}/{action=Login}/{id?}"
 );
 
+app.UseCors();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -176,7 +179,7 @@ app.UseEndpoints(endpoints =>
 });
 
 app.UseSwagger();
-
+app.UseCors();
 app.UseSwaggerUI(c =>
 {
 	c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Shipping System V1");

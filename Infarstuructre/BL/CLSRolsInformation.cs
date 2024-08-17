@@ -18,14 +18,14 @@ namespace Infarstuructre.BL
         Task<List<IdentityRole>> GetAlAPIl();
         Task<IdentityRole> GetByIdAPI(string Id);
 
-        public class CLSRolsInformation: IIRolsInformation
+        public class CLSRolsInformation : IIRolsInformation
         {
-        RoleManager<IdentityRole> _roleManager;
+            RoleManager<IdentityRole> _roleManager;
 
-        public CLSRolsInformation(RoleManager<IdentityRole> roleManager)
-        {
-            _roleManager=roleManager;
-        }
+            public CLSRolsInformation(RoleManager<IdentityRole> roleManager)
+            {
+                _roleManager = roleManager;
+            }
 
             public List<IdentityRole> GetAll()
             {
@@ -33,23 +33,23 @@ namespace Infarstuructre.BL
                 return MySlider;
             }
 
-        public IdentityRole GetById(string Id)
-        {
-            IdentityRole sslid = _roleManager.Roles.FirstOrDefault(a => a.Id == Id);
-            return sslid;
-        }
+            public IdentityRole GetById(string Id)
+            {
+                IdentityRole sslid = _roleManager.Roles.FirstOrDefault(a => a.Id == Id);
+                return sslid;
+            }
             ///////////////////////////////APIs//////////////////////////////////////////////
 
-        public async Task<List<IdentityRole>> GetAlAPIl()
-        {
-            var MySlider = await _roleManager.Roles.OrderBy(x => x.Name).ToListAsync();
-            return MySlider;
+            public async Task<List<IdentityRole>> GetAlAPIl()
+            {
+                var MySlider = await _roleManager.Roles.OrderBy(x => x.Name).ToListAsync();
+                return MySlider;
+            }
+            public async Task<IdentityRole> GetByIdAPI(string Id)
+            {
+                var sslid = await _roleManager.Roles.FirstOrDefaultAsync(a => a.Id == Id);
+                return sslid;
+            }
         }
-        public async Task<IdentityRole> GetByIdAPI(string Id)
-        {
-            var sslid = await _roleManager.Roles.FirstOrDefaultAsync(a => a.Id == Id);
-            return sslid;
-        }
-        }
-}
+    }
 }

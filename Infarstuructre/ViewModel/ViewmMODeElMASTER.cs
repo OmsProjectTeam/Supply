@@ -90,7 +90,7 @@ namespace Infarstuructre.ViewModel
 
         public IEnumerable<TBViewOrder> ListViewOrder { get; set; }
         public TBOrder Order { get; set; }
-        public TBProductInformation ProductInformation { get; set; }
+  
         public IEnumerable<TBConnectAndDisConnect> ConnectAndDisConnect { get; set; }
         public TBMessageChat TBMessageChat { get; set; }
         public IEnumerable<TBViewChatMessage> ViewChatMessage { get; set; }

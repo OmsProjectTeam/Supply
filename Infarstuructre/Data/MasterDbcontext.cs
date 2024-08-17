@@ -314,7 +314,6 @@ namespace Infarstuructre.Data
         public DbSet<TBOrder> TBOrders { get; set; }
         public DbSet<TBViewOrder> ViewOrder { get; set; }
   
-
         public virtual DbSet<TBMessageChat> TBMessageChats { get; set; }
         public virtual DbSet<TBViewChatMessage> ViewChatMessage { get; set; }
         public DbSet<TBConnectAndDisConnect> TBConnectAndDisConnects { get; set; }

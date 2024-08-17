@@ -1,0 +1,406 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/merchantAccount/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* General styles */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container-fluid {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row {
+        flex: 1;
+        display: flex;
+    }
+
+    /* Sidebar (Contacts List) */
+    .sidebar {
+        background-color: #f5f5f5;
+        border-right: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search-box {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .contact-list {
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .contact {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .contact:hover {
+            background-color: #e6e6e6;
+        }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .contact-info {
+        flex: 1;
+    }
+
+    .contact-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .contact-last-message {
+        color: #888;
+        font-size: 12px;
+    }
+
+    .contact-time {
+        font-size: 12px;
+        color: #888;
+    }
+
+    /* Chat Area */
+    .chat-area {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #ddd;
+        height: 100%;
+    }
+
+    .chat-header {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .chat-user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .chat-username {
+        margin-left: 10px;
+        font-weight: bold;
+    }
+
+    .chat-status {
+        color: #888;
+        font-size: 12px;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+        max-height: calc(100vh - 120px);
+    }
+
+    .message {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message.received {
+            justify-content: flex-start;
+        }
+
+    .message-content {
+        padding: 10px;
+        border-radius: 15px;
+        max-width: 60%;
+    }
+
+    .message.sent .message-content {
+        background-color: #DCF8C6;
+    }
+
+    .message.received .message-content {
+        background-color: #f1f1f1;
+    }
+
+    .message-time {
+        font-size: 10px;
+        color: #888;
+        margin-top: 5px;
+        text-align: right;
+    }
+
+    .chat-input {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-top: 1px solid #ddd;
+        background-color: #fff;
+    }
+
+        .chat-input input {
+            flex: 1;
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    /* User Details Sidebar */
+    .user-details {
+        background-color: #f5f5f5;
+        padding: 15px;
+    }
+
+    .user-info {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .user-info .avatar {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+    .username {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .bio {
+        color: #888;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .user-actions .btn {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar (Contacts List) -->
+        <div class="col-md-3 col-lg-3 sidebar">
+            <div class="search-box">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="contact-list">
+                @foreach (var contact in Model.ViewChatMessage.GroupBy(m => m.SenderId)
+                .Select(m => m.OrderByDescending(m => m.MessageeTime).FirstOrDefault()))
+                {
+                    <div class="contact">
+                        <a asp-area="merchantAccount" asp-controller="Chat" asp-action="Index" asp-route-anotherId="@contact.SenderId">
+                            <img src="@Helper.PathImageuser@contact.SenderImage" alt="Avatar" class="avatar">
+                            <div class="contact-info">
+                                <div class="contact-name">@contact.SenderName</div>
+                                <div class="contact-last-message">@contact.Message</div>
+                            </div>
+                            <div class="contact-time">@contact.MessageeTime.ToString("hh:mm tt")</div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="col-md-6 col-lg-6 chat-area">
+            <div class="chat-header">
+                <div class="chat-user-info">
+                    <img src="@Helper.PathImageuser@ViewBag.img" alt="Avatar" class="avatar">
+                    <div class="chat-username">@ViewBag.another</div>
+                </div>
+                <div class="chat-status">Last seen @ViewBag.LastSeen</div>
+            </div>
+            <div id="messagesList" class="chat-messages">
+                @foreach (var message in Model.ViewChatMessage.OrderBy(m => m.MessageeTime))
+                {
+                    <div class="message @(message.SenderId == ViewBag.UserId ? "sent" : "received")">
+                        <div class="message-content">@message.Message</div>
+                        <div class="message-time">@message.MessageeTime.ToString("hh:mm tt")</div>
+                    </div>
+                }
+            </div>
+            <div class="chat-input">
+                <input type="text" id="messageInput1" class="form-control" placeholder="Write a message...">
+                <input type="text" hidden id="sendTo" value="@ViewBag.another" />
+                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <!-- User Details Sidebar -->
+        <div class="col-md-3 col-lg-3 user-details">
+            <div class="user-info">
+                <img src="@Helper.PathImageuser@ViewBag.img" alt="User Avatar" class="avatar">
+                <div class="username">@ViewBag.another</div>
+                <div class="bio">@ViewBag.another, I like talk shows</div>
+            </div>
+            <div class="user-actions">
+                <button class="btn btn-block btn-light">Block user</button>
+                <button class="btn btn-block btn-light">Clear history</button>
+                <button class="btn btn-block btn-light">Delete conversation</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        let connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        connection.on("ReceiveMessage", function (user, message, pathImg, img, time) {
+            appendMessage(user, message, pathImg, img, time);
+        });
+
+        async function sendMessage() {
+            const message = document.getElementById("messageInput1").value;
+            const to = document.getElementById("sendTo").value;
+
+            if (!to) {
+                console.error("Recipient name (to) is null or undefined. Cannot send message.");
+                alert("Please select a user to chat with.");
+                return;
+            }
+
+            const fileInput = document.getElementById("ImgSend");
+            let filePath = null;
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                try {
+                    filePath = await uploadFile(file);
+                } catch (error) {
+                    console.error("Error uploading file:", error);
+                    return;
+                }
+            }
+
+            document.getElementById("messageInput1").value = "";
+
+            connection.invoke("SendMessageToClients", message, to, filePath).then(() => {
+                // Append the message to the message list in the UI
+                appendMessage('@ViewBag.UserId', message, filePath, '@ViewBag.img', new Date().toLocaleTimeString());
+            }).catch(function (err) {
+                console.error("Error sending message:", err.toString());
+            });
+        }
+
+        async function uploadFile(file) {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const response = await fetch("/merchantAccount/chat/uploadFile", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data.filePath;
+            } else {
+                throw new Error("File upload failed");
+            }
+        }
+
+        function appendMessage(user, message, pathImg, img, time) {
+            const messageList = document.getElementById("messagesList");
+            const isSender = user === '@ViewBag.UserId'; // Compare with the current user's ID or name
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", isSender ? "sent" : "received");
+
+            let content = `<div class="message-content">${message}</div><div class="message-time">${time}</div>`;
+
+            // If there is an image attached to the message, add it to the content
+            if (pathImg) {
+                content = `<img src="${pathImg}" alt="Image message" class="message-image" />` + content;
+            }
+
+            messageDiv.innerHTML = content;
+            messageList.appendChild(messageDiv);
+            messageList.scrollTop = messageList.scrollHeight; // Scroll to the bottom after adding the message
+        }
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        window.onload = function () {
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            const messagesList = document.getElementById("messagesList");
+            messagesList.scrollTop = messagesList.scrollHeight;
+        }
+    </script>
+}
+
+@* <div>
+    <ul>
+        @{
+            foreach (var item in Model.ViewChatMessage.GroupBy(m => m.SenderId).Select(m => m.OrderBy(m => m.MessageeTime).LastOrDefault()))
+            {
+                <li>
+                    <a asp-area="Admin" asp-controller="Chat" asp-action="OwnChat" asp-route-anotherId="@item.SenderId" />
+                    <div style="display:flex; flex-direction: row; justify-content:space-between">
+                        <img style="width:50px; height:50px; border-radius: 50%;" src="@Helper.PathImageuser@item.SenderImage" alt="" />
+                        <div style="display:flex; flex-direction:column">
+                            <h3>@item.SenderName</h3>
+                            <h3>@item.Message</h3>
+                        </div>
+                        <h4>@item.MessageeTime.ToString()</h4>
+                    </div>
+                </li>
+            }
+        }
+
+    </ul>
+</div> *@
+
+
+
+
+
+
+
+
+
+
+
+
+

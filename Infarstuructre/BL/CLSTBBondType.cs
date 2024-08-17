@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+
 namespace Infarstuructre.BL
 {
     public interface IIBondType
@@ -9,6 +11,15 @@ namespace Infarstuructre.BL
         bool UpdateData(TBBondType updatss);
         bool deleteData(int IdBondType);
         List<TBBondType> GetAllv(int IdBondType);
+        //////////////////////////APIs/////////////////////////////////////////////////////////////////
+        Task<List<TBBondType>> GetAllAsync();
+        Task<List<TBBondType>> GetAllvAsync(int IdCustomerMessages);
+        Task<List<TBBondType>> GetAllDataentryAsync(string dataEntry);
+        Task<TBBondType> GetByIdAsync(int IdCustomerMessages);
+        Task<List<TBBondType>> GetAllActiveAsync();
+        Task<bool> AddDataAsync(TBBondType savee);
+        Task<bool> DeleteDataAsync(int TBBondType);
+        Task<bool> UpdateDataAsync(TBBondType update);
     }
     public class CLSTBBondType: IIBondType
     {
@@ -76,6 +87,83 @@ namespace Infarstuructre.BL
         {
             List<TBBondType> MySlider = dbcontext.TBBondTypes.OrderByDescending(n => n.IdBondType == IdBondType).Where(a => a.IdBondType == IdBondType).Where(a => a.CurrentState == true).ToList();
             return MySlider;
+        }
+
+        // //////////////////////////APIs/////////////////////////////////////////////////////////////////
+
+        public async Task<List<TBBondType>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.TBBondTypes.OrderByDescending(n => n.IdBondType).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBBondType>> GetAllvAsync(int IdBondType)
+        {
+            var myDatd = await dbcontext.TBBondTypes.OrderByDescending(n => n.IdBondType).Where(a => a.IdBondType == IdBondType).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<List<TBBondType>> GetAllDataentryAsync(string dataEntry)
+        {
+            var MySlider = await dbcontext.TBBondTypes.Where(a => a.DataEntry == dataEntry && a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<List<TBBondType>> GetAllActiveAsync()
+        {
+            List<TBBondType> MySlider = await dbcontext.TBBondTypes.OrderByDescending(n => n.IdBondType).Where(a => a.CurrentState == true).Where(a => a.Active == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBBondType> GetByIdAsync(int IdBondType)
+        {
+            var sslid = await dbcontext.TBBondTypes.FirstOrDefaultAsync(a => a.IdBondType == IdBondType);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBBondType savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBBondType>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdBondType)
+        {
+            try
+            {
+                var email = await GetByIdAsync(IdBondType);
+                email.CurrentState = false;
+                dbcontext.Entry(email).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> UpdateDataAsync(TBBondType update)
+        {
+            try
+            {
+                dbcontext.Entry(update).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

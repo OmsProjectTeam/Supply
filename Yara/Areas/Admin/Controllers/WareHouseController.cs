@@ -57,7 +57,7 @@ namespace Yara.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("/Admin/Chat/OwnChat/{anotherId}")]
+        [Route("/Admin/WareHouse/Chat/OwnChat/{anotherId}")]
         public async Task<IActionResult> OwnChat(string anotherId)
         {
             var viewModel = new ViewmMODeElMASTER();

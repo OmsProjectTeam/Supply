@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<ViewmMODeElMASTER>();
 
 // إضافة خدمات إلى الحاوية
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MasterDbcontext>(options => {
 	options.UseSqlServer(
 		builder.Configuration.GetConnectionString("MasterConnection"),

@@ -55,31 +55,31 @@
                     var userRole = roles.FirstOrDefault();
                 }
 
-                <a href="#" class="avatar">
-                    <img src="@Helper.PathImageuser@user.ImageUser" alt="">
-                    <span class="status online"></span>
-                </a>
-                <h5 class="name">
-                    <a href="profile.html" style="font-size:8px">@user.Name</a>
-                </h5>
-                <h5 class="position">
-                    @userRole
-                </h5>
-                <!-- /.name -->
-                <div class="control-wrap js__drop_down">
-                    <i class="fa fa-caret-down js__drop_down_button"></i>
-                    <div class="control-list">
-                        <div class="control-item"><a asp-area="Admin" asp-controller="Accounts" asp-action="Logout1"><i class="fa fa-sign-out"></i> Log out</a></div>
-                        <div class="control-item"><a asp-area="merchantAccount" asp-controller="Home" asp-action="IndexAr">اللغة العربية</a></div>
-                    </div>
-                    <!-- /.control-list -->
-                </div>
-                <!-- /.control-wrap -->
-            </div>
-            <!-- /.user -->
-        </header>
-        <!-- /.header -->
-        <div class="content">
+				<a href="#" class="avatar">
+					<img src="@Helper.PathImageuser@user.ImageUser" alt="">
+					<span class="status online"></span>
+				</a>
+				<h5 class="name">
+					<a href="profile.html" style="font-size:8px">@user.Name</a>
+				</h5>
+				<h5 class="position">
+					@userRole
+				</h5>
+				<!-- /.name -->
+				<div class="control-wrap js__drop_down">
+					<i class="fa fa-caret-down js__drop_down_button"></i>
+					<div class="control-list">
+						<div class="control-item"><a asp-area="Admin" asp-controller="Accounts" asp-action="Logout1"><i class="fa fa-sign-out"></i> Log out</a></div>
+						<div class="control-item"><a asp-area="merchantAccount" asp-controller="Home" asp-action="IndexAr">اللغة العربية</a></div>
+					</div>
+					<!-- /.control-list -->
+				</div>
+				<!-- /.control-wrap -->
+			</div>
+			<!-- /.user -->
+		</header>
+		<!-- /.header -->
+		<div class="content">
 
             <div class="navigation">
                 <h5 class="title">Navigation</h5>
@@ -517,7 +517,7 @@
     <script src="~/Admin/assets/plugin/fullcalendar/fullcalendar.min.js"></script>
     <script src="~/Admin/assets/scripts/fullcalendar.init.js"></script>
     <script src="~/Admin/assets/scripts/main.min.js"></script>
-    @*    <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+ @*    <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 

@@ -819,6 +819,9 @@
   <data name="LbProductCategory" xml:space="preserve">
     <value>Product Category</value>
   </data>
+  <data name="LbProductImage" xml:space="preserve">
+    <value>Product Image</value>
+  </data>
   <data name="lbProductName" xml:space="preserve">
     <value>Product Name</value>
   </data>

@@ -2167,6 +2167,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Image.
+        /// </summary>
+        public static string LbProductImage {
+            get {
+                return ResourceManager.GetString("LbProductImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product Name.
         /// </summary>
         public static string lbProductName {

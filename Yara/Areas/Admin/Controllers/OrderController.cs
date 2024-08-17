@@ -206,5 +206,21 @@ namespace Yara.Areas.Admin.Controllers
 
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
+
+        public JsonResult GetProductImageUrl(int id)
+        {
+            // Fetch the image URL from your data source based on the product ID
+            var product = dbcontext.TBProductInformations.FirstOrDefault(p => p.IdProductInformation == id);
+
+            if (product != null)
+            {
+                return Json(new { imageUrl = product.Photo }); // Assuming `ImageUrl` is the property holding the image URL
+            }
+            else
+            {
+                return Json(new { imageUrl = "http://placehold.it/220x180" }); // Fallback image
+            }
+        }
+
     }
 }

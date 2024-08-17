@@ -370,28 +370,6 @@
     </script>
 }
 
-@* <div>
-    <ul>
-        @{
-            foreach (var item in Model.ViewChatMessage.GroupBy(m => m.SenderId).Select(m => m.OrderBy(m => m.MessageeTime).LastOrDefault()))
-            {
-                <li>
-                    <a asp-area="Admin" asp-controller="Chat" asp-action="OwnChat" asp-route-anotherId="@item.SenderId" />
-                    <div style="display:flex; flex-direction: row; justify-content:space-between">
-                        <img style="width:50px; height:50px; border-radius: 50%;" src="@Helper.PathImageuser@item.SenderImage" alt="" />
-                        <div style="display:flex; flex-direction:column">
-                            <h3>@item.SenderName</h3>
-                            <h3>@item.Message</h3>
-                        </div>
-                        <h4>@item.MessageeTime.ToString()</h4>
-                    </div>
-                </li>
-            }
-        }
-
-    </ul>
-</div> *@
-
 
 
 

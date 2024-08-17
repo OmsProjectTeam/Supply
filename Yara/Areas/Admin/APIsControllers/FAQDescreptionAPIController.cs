@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class FAQDescreptionAPIController : ControllerBase
     {
-        IIFAQDescreption iFAQDscription;
-        MasterDbcontext dbcontext;
+        private readonly IIFAQDescreption iFAQDscription;
+        private readonly MasterDbcontext dbcontext;
         public FAQDescreptionAPIController(IIFAQDescreption iFAQDscription1, MasterDbcontext dbcontext1)
         {
             iFAQDscription = iFAQDscription1;

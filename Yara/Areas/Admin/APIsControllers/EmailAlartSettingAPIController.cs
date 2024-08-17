@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class EmailAlartSettingAPIController : ControllerBase
     {
-        IIEmailAlartSetting iEmailAlartSetting;
-        MasterDbcontext dbcontext;
+        private readonly IIEmailAlartSetting iEmailAlartSetting;
+        private readonly MasterDbcontext dbcontext;
         public EmailAlartSettingAPIController(IIEmailAlartSetting iEmailAlartSetting1, MasterDbcontext dbcontext1)
         {
             iEmailAlartSetting = iEmailAlartSetting1;

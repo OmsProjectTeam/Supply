@@ -9,12 +9,12 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class ChatMessageAPIController : ControllerBase
     {
-        IIMessageChat iMessageChat;
-        MasterDbcontext dbcontext;
-        public ChatMessageAPIController(IIMessageChat iMessageChat, MasterDbcontext dbcontext)
+        private readonly IIMessageChat iMessageChat;
+        private readonly MasterDbcontext dbcontext;
+        public ChatMessageAPIController(IIMessageChat iMessageChat1, MasterDbcontext dbcontext1)
         {
-            this.iMessageChat = iMessageChat;
-            this.dbcontext = dbcontext;
+            iMessageChat = iMessageChat1;
+            dbcontext = dbcontext1;
         }
 
         [HttpGet("GetAllBySenderId/{SenderId}")]

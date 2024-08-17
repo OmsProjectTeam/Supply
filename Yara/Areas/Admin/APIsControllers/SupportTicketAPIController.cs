@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class SupportTicketAPIController : ControllerBase
     {
-        IISupportTicket iSupportTicket;
-        MasterDbcontext dbcontext;
+        private readonly IISupportTicket iSupportTicket;
+        private readonly MasterDbcontext dbcontext;
         public SupportTicketAPIController(IISupportTicket iSupportTicket1, MasterDbcontext dbcontext1)
         {
             iSupportTicket = iSupportTicket1;
@@ -20,6 +20,7 @@ namespace Yara.Areas.Admin.APIsControllers
         public async Task<IActionResult> GetAll()
         {
             var allData = await iSupportTicket.GetAllAsync();
+
             return Ok(allData);
         }
 

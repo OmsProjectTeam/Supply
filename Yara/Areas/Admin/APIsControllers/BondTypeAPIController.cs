@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class BondTypeAPIController : ControllerBase
     {
-        IIBondType iBondType;
-        MasterDbcontext dbcontext;
+        private readonly IIBondType iBondType;
+        private readonly MasterDbcontext dbcontext;
         public BondTypeAPIController(IIBondType iBondType1, MasterDbcontext dbcontext1)
         {
             iBondType = iBondType1;

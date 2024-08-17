@@ -9,8 +9,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class TypeProductsAPIController : ControllerBase
     {
-        IITypesProduct iTypeProduct;
-        MasterDbcontext dbcontext;
+        private readonly IITypesProduct iTypeProduct;
+        private readonly MasterDbcontext dbcontext;
         public TypeProductsAPIController(IITypesProduct iTypeProduct1, MasterDbcontext dbcontext1)
         {
             iTypeProduct = iTypeProduct1;

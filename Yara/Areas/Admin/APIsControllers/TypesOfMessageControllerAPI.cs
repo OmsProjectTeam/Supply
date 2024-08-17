@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class TypesOfMessageControllerAPI : ControllerBase
     {
-        IITypesOfMessage iTypesOfMessage;
-        MasterDbcontext dbcontext;
+        private readonly IITypesOfMessage iTypesOfMessage;
+        private readonly MasterDbcontext dbcontext;
         public TypesOfMessageControllerAPI(IITypesOfMessage iTypesOfMessage1, MasterDbcontext dbcontext1)
         {
             iTypesOfMessage = iTypesOfMessage1;

@@ -230,7 +230,7 @@ namespace Yara.Areas.Admin.Controllers
             if (product != null)
             {
                 // Fetch the global price using HtmlAgilityPack and the mode field
-                string globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
+                decimal globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
 
                 return Json(new
                 {

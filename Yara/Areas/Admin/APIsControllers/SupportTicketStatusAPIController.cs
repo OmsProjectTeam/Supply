@@ -6,66 +6,60 @@ namespace Yara.Areas.Admin.APIsControllers
     [Authorize(Roles = "Admin,ApiRoles")]
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderAPIController : ControllerBase
+    public class SupportTicketStatusAPIController : ControllerBase
     {
-        IIOrder iOrder;
+
+        IISupportTicketStatus iSupportTicketStatus;
         MasterDbcontext dbcontext;
-        public OrderAPIController(IIOrder iOrder1, MasterDbcontext dbcontext1)
+        public SupportTicketStatusAPIController(IISupportTicketStatus iSupportTicketStatus1, MasterDbcontext dbcontext1)
         {
-            iOrder = iOrder1;
+            iSupportTicketStatus = iSupportTicketStatus1;
             dbcontext = dbcontext1;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iOrder.GetAllAsync();
-            return Ok(allData);
-        }
-
-        [HttpGet("GetAllV/{id}")]
-        public async Task<IActionResult> GetAllV(int id)
-        {
-            var allData = await iOrder.GetAllvAsync(id);
+            var allData = await iSupportTicketStatus.GetAllAsync();
             return Ok(allData);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iOrder.GetByIdAsync(id);
+            var Data = await iSupportTicketStatus.GetByIdAsync(id);
             return Ok(Data);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddData(TBOrder model)
+        public async Task<IActionResult> AddData([FromBody] TBSupportTicketStatus model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await iOrder.AddDataAsync(model);
+            await iSupportTicketStatus.AddDataAsync(model);
             return Ok(model);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateData(TBOrder model)
+        public async Task<IActionResult> UpdateData([FromBody] TBSupportTicketStatus model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await iOrder.UpdateDataAsync(model);
+            await iSupportTicketStatus.UpdateDataAsync(model);
             return Ok(model);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await iOrder.GetByIdAsync(id);
+            var item = await iSupportTicketStatus.GetByIdAsync(id);
             if (item == null)
-                return NoContent();
+                return NotFound();
 
-            await iOrder.DeleteDataAsync(id);
+            await iSupportTicketStatus.DeleteDataAsync(id);
             return Ok(item);
         }
     }

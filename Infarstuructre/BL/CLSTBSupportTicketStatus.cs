@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Infarstuructre.BL
 {
     public interface IISupportTicketStatus
@@ -10,6 +12,13 @@ namespace Infarstuructre.BL
         bool UpdateData(TBSupportTicketStatus updatss);
         bool deleteData(int IdSupportTicketStatus);
         List<TBSupportTicketStatus> GetAllv(int IdSupportTicketStatus);
+
+        // /////////////APIs////////////////////////////////////////////////
+        Task<List<TBSupportTicketStatus>> GetAllAsync();
+        Task<TBSupportTicketStatus> GetByIdAsync(int IdSupportTicket);
+        Task<bool> AddDataAsync(TBSupportTicketStatus savee);
+        Task<bool> DeleteDataAsync(int IdSupportTicket);
+        Task<bool> UpdateDataAsync(TBSupportTicketStatus update);
     }
     public class CLSTBSupportTicketStatus: IISupportTicketStatus
     {
@@ -79,6 +88,63 @@ namespace Infarstuructre.BL
             return MySlider;
         }
 
+        //// ///////////////////APIs////////////////////////////////////////////////////////////////
 
+        public async Task<List<TBSupportTicketStatus>> GetAllAsync()
+        {
+            var myDatd = await dbcontext.TBSupportTicketStatuss.OrderByDescending(n => n.IdSupportTicketStatus).Where(a => a.CurrentState == true).ToListAsync();
+            return myDatd;
+        }
+
+        public async Task<TBSupportTicketStatus> GetByIdAsync(int IdSupportTicketStatus)
+        {
+            var sslid = await dbcontext.TBSupportTicketStatuss.FirstOrDefaultAsync(a => a.IdSupportTicketStatus == IdSupportTicketStatus);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBSupportTicketStatus savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBSupportTicketStatus>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public async Task<bool> DeleteDataAsync(int IdSupportTicketStatus)
+        {
+            try
+            {
+                var SupportTicketStatus = await GetByIdAsync(IdSupportTicketStatus);
+                SupportTicketStatus.CurrentState = false;
+                dbcontext.Entry(SupportTicketStatus).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> UpdateDataAsync(TBSupportTicketStatus update)
+        {
+            try
+            {
+                dbcontext.Entry(update).State = EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace Yara.Areas.Admin.APIsControllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddData(TBTypesProduct model)
+        public async Task<IActionResult> AddData([FromBody] TBTypesProduct model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -43,7 +43,7 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateData(TBTypesProduct model)
+        public async Task<IActionResult> UpdateData([FromBody] TBTypesProduct model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -52,12 +52,12 @@ namespace Yara.Areas.Admin.APIsControllers
             return Ok(model);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await GetById(id);
+            var item = await iTypeProduct.GetByIdAsync(id);
             if (item == null)
-                return NoContent();
+                return NotFound();
 
             await iTypeProduct.DeleteDataAsync(id);
             return Ok(item);

@@ -38,7 +38,7 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPost("AddData")]
-        public async Task<IActionResult> AddData(TBProductInformation model)
+        public async Task<IActionResult> AddData([FromBody] TBProductInformation model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -48,7 +48,7 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateData(TBProductInformation model)
+        public async Task<IActionResult> UpdateData([FromBody] TBProductInformation model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,10 +57,10 @@ namespace Yara.Areas.Admin.APIsControllers
             return Ok(model);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await GetById(id);
+            var item = await iProductInformation.GetByIdAsync(id);
             if (item == null)
                 return NoContent();
 
@@ -68,14 +68,14 @@ namespace Yara.Areas.Admin.APIsControllers
             return Ok(item);
         }
 
-        [HttpPost("DeletePhoto")]
+        [HttpPost("DeletePhoto/{id}")]
         public async Task<bool> DeletePhoto(int id)
         {
             var result = await iProductInformation.DELETPHOTOAsync(id);
             return result;
         }
 
-        [HttpPost("DeletePhotoWithError")]
+        [HttpPost("DeletePhotoWithError/{name}")]
         public async Task<bool> DeletePhotoWithError(string name)
         {
             var result = await iProductInformation.DELETPHOTOWITHERRORAsync(name);

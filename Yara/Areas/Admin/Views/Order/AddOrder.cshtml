@@ -82,35 +82,48 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        @* <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
                                 <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
                                 <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
                             </div>
+                        </div> *@
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse" onchange="loadWarehouseBranches()"></select>
+                                <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="row small-spacing">
-                        <div class="col-sm-6">
+                        @* <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
                                 <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
                                 <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
 
                             </div>
+                        </div> *@
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
+                                <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
+                            </div>
                         </div>
-
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
                                 <input id="OrderNoumber" asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
-                               
+
                             </div>
                         </div>
                     </div>
                     <div class="row small-spacing">
-                       
+
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
@@ -131,12 +144,18 @@
                     <div class="row small-spacing">
 
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            @* <div class="form-group">
                                 <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
                                 <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
 
+                            </div> *@
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
+                                <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300" readonly>
+                                <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
                             </div>
+
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -205,19 +224,48 @@
             var productId = $('#SelectProductInformation').val();
             if (productId) {
                 $.ajax({
-                    url: '@Url.Action("GetProductImageUrl", "Order")',
+                    url: '@Url.Action("GetProductDetails", "Order")',
                     type: 'GET',
                     data: { id: productId },
                     success: function (data) {
                         $('#ProductImage').attr('src', data.imageUrl);
+                        $('#GlobalPrice').val(data.globalPrice); // Assuming you have a text field to show the global price
                     },
                     error: function (xhr, status, error) {
-                        console.error("Error fetching product image: ", error);
+                        console.error("Error fetching product details: ", error);
                         $('#ProductImage').attr('src', 'http://placehold.it/220x180'); // Default image
+                        $('#GlobalPrice').val("N/A");
                     }
                 });
             } else {
                 $('#ProductImage').attr('src', 'http://placehold.it/220x180'); // Default image
+                $('#GlobalPrice').val("N/A");
+            }
+        }
+        function loadWarehouseBranches() {
+            var warehouseId = $('#SelectWareHouse').val();
+            if (warehouseId) {
+                $.ajax({
+                    url: '@Url.Action("GetSubWarehouses", "Order")',
+                    type: 'GET',
+                    data: { IdBWareHouse: warehouseId },
+                    success: function (data) {
+                        var $branchSelect = $('#SelectWareHouseBranch');
+                        $branchSelect.empty();
+                        $.each(data, function (index, item) {
+                            $branchSelect.append($('<option>', {
+                                value: item.value,
+                                text: item.text
+                            }));
+                        });
+                        $branchSelect.trigger('change'); // Trigger change event for the updated list
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching warehouse branches: ", error);
+                    }
+                });
+            } else {
+                $('#SelectWareHouseBranch').empty();
             }
         }
     </script>

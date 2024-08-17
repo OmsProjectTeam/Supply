@@ -207,19 +207,87 @@ namespace Yara.Areas.Admin.Controllers
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
 
-        public JsonResult GetProductImageUrl(int id)
+        //public JsonResult GetProductImageUrl(int id)
+        //{
+        //    // Fetch the image URL from your data source based on the product ID
+        //    var product = dbcontext.TBProductInformations.FirstOrDefault(p => p.IdProductInformation == id);
+
+        //    if (product != null)
+        //    {
+        //        return Json(new { imageUrl = product.Photo }); // Assuming `ImageUrl` is the property holding the image URL
+        //    }
+        //    else
+        //    {
+        //        return Json(new { imageUrl = "http://placehold.it/220x180" }); // Fallback image
+        //    }
+        //}
+        [HttpGet]
+        public async Task<JsonResult> GetProductDetails(int id)
         {
-            // Fetch the image URL from your data source based on the product ID
             var product = dbcontext.TBProductInformations.FirstOrDefault(p => p.IdProductInformation == id);
 
             if (product != null)
             {
-                return Json(new { imageUrl = product.Photo }); // Assuming `ImageUrl` is the property holding the image URL
+                // Fetch the global price using HtmlAgilityPack and the mode field
+                string globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
+
+                return Json(new
+                {
+                    imageUrl = product.Photo,
+                    globalPrice = globalPrice
+                });
             }
             else
             {
-                return Json(new { imageUrl = "http://placehold.it/220x180" }); // Fallback image
+                return Json(new
+                {
+                    imageUrl = "http://placehold.it/220x180", // Fallback image
+                    globalPrice = "N/A"
+                });
             }
+        }
+
+        private async Task<string> FetchGlobalPrice(string model)
+        {
+            string globalPrice = "N/A";
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
+
+                var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
+                if (priceNode != null)
+                {
+                    globalPrice = priceNode.InnerText.Trim();
+                }
+                else
+                {
+                    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+                    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+                    {
+                        globalPrice = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                globalPrice = "Error fetching price";
+            }
+
+            return globalPrice;
+        }
+        [HttpGet]
+        public IActionResult GetSubWarehouses(int IdBWareHouse)
+        {
+            var subWarehouses = dbcontext.TBWareHouseBranchs
+                .Where(b => b.IdBWareHouse == IdBWareHouse)
+                .Select(b => new
+                {
+                    value = b.IdBWareHouseBranch,
+                    text = b.Description
+                }).ToList();
+
+            return Json(subWarehouses);
         }
 
     }

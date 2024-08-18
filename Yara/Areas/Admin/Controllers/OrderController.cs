@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using ZXing.QrCode;
 using ZXing;
+using System.Text.RegularExpressions;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -229,7 +230,7 @@ namespace Yara.Areas.Admin.Controllers
             if (product != null)
             {
                 // Fetch the global price using HtmlAgilityPack and the mode field
-                string globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
+                decimal globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
 
                 return Json(new
                 {
@@ -247,35 +248,73 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        private async Task<string> FetchGlobalPrice(string model)
+        //private async Task<string> FetchGlobalPrice(string model)
+        //{
+        //    string globalPrice = "N/A";
+        //    try
+        //    {
+        //        HtmlWeb web = new HtmlWeb();
+        //        var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
+
+        //        var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
+        //        if (priceNode != null)
+        //        {
+        //            globalPrice = priceNode.InnerText.Trim();
+        //        }
+        //        else
+        //        {
+        //            var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+        //            if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+        //            {
+        //                globalPrice = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        globalPrice = "Error fetching price";
+        //    }
+
+        //    return globalPrice;
+        //}
+        private async Task<decimal> FetchGlobalPrice(string model)
         {
-            string globalPrice = "N/A";
+            decimal globalPrice = 0;
             try
             {
                 HtmlWeb web = new HtmlWeb();
                 var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
 
                 var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
-                if (priceNode != null)
-                {
-                    globalPrice = priceNode.InnerText.Trim();
-                }
-                else
+                string priceText = priceNode?.InnerText.Trim();
+
+                if (string.IsNullOrEmpty(priceText))
                 {
                     var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
                     if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
                     {
-                        globalPrice = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
                     }
+                }
+
+                // Remove any non-numeric characters (e.g., currency symbols, commas)
+                priceText = Regex.Replace(priceText, "[^0-9.]", "");
+
+                // Convert the cleaned string to a decimal value
+                if (!string.IsNullOrEmpty(priceText))
+                {
+                    globalPrice = Convert.ToDecimal(priceText);
                 }
             }
             catch (Exception ex)
             {
-                globalPrice = "Error fetching price";
+                // Handle the exception (e.g., logging) and return 0 as a fallback
+                globalPrice = 0;
             }
 
             return globalPrice;
         }
+
         [HttpGet]
         public IActionResult GetSubWarehouses(int IdBWareHouse)
         {

@@ -9,8 +9,8 @@ namespace Yara.Areas.Admin.APIsControllers
     public class SupportTicketStatusAPIController : ControllerBase
     {
 
-        IISupportTicketStatus iSupportTicketStatus;
-        MasterDbcontext dbcontext;
+        private readonly IISupportTicketStatus iSupportTicketStatus;
+        private readonly MasterDbcontext dbcontext;
         public SupportTicketStatusAPIController(IISupportTicketStatus iSupportTicketStatus1, MasterDbcontext dbcontext1)
         {
             iSupportTicketStatus = iSupportTicketStatus1;

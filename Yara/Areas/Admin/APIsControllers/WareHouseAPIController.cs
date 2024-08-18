@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class WareHouseAPIController : ControllerBase
     {
-        IIWareHouse iWareHouse;
-        MasterDbcontext dbcontext;
+        private readonly IIWareHouse iWareHouse;
+        private readonly MasterDbcontext dbcontext;
         public WareHouseAPIController(IIWareHouse iWareHouse1, MasterDbcontext dbcontext1)
         {
             iWareHouse = iWareHouse1;

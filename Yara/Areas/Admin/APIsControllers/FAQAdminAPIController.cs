@@ -6,11 +6,11 @@ namespace Yara.Areas.Admin.APIsControllers
     [Authorize(Roles = "Admin,ApiRoles")]
     [Route("api/[controller]")]
     [ApiController]
-    public class FAQControllerAPI : ControllerBase
+    public class FAQAdminAPIController : ControllerBase
     {
-        IIFAQ iFAQ;
-        MasterDbcontext dbcontext;
-        public FAQControllerAPI(IIFAQ iFAQ1, MasterDbcontext dbcontext1)
+        private readonly IIFAQ iFAQ;
+        private readonly MasterDbcontext dbcontext;
+        public FAQAdminAPIController(IIFAQ iFAQ1, MasterDbcontext dbcontext1)
         {
             iFAQ = iFAQ1;
             dbcontext = dbcontext1;

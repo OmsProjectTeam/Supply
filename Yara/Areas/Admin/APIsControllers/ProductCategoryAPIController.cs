@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class ProductCategoryAPIController : ControllerBase
     {
-        IIProductCategory iProductCategory;
-        MasterDbcontext dbcontext;
+        private readonly IIProductCategory iProductCategory;
+        private readonly MasterDbcontext dbcontext;
         public ProductCategoryAPIController(IIProductCategory iProductCategory1, MasterDbcontext dbcontext1)
         {
             iProductCategory = iProductCategory1;

@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class MerchantsControllerAPI : ControllerBase
     {
-        IIMerchants iMerchants;
-        MasterDbcontext dbcontext;
+        private readonly IIMerchants iMerchants;
+        private readonly MasterDbcontext dbcontext;
         public MerchantsControllerAPI(IIMerchants iMerchants1, MasterDbcontext dbcontext1)
         {
             iMerchants = iMerchants1;

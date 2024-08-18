@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class OrderAPIController : ControllerBase
     {
-        IIOrder iOrder;
-        MasterDbcontext dbcontext;
+        private readonly IIOrder iOrder;
+        private readonly MasterDbcontext dbcontext;
         public OrderAPIController(IIOrder iOrder1, MasterDbcontext dbcontext1)
         {
             iOrder = iOrder1;
@@ -20,6 +20,8 @@ namespace Yara.Areas.Admin.APIsControllers
         public async Task<IActionResult> GetAll()
         {
             var allData = await iOrder.GetAllAsync();
+            if (allData == null)
+                return NotFound();
             return Ok(allData);
         }
 
@@ -27,6 +29,9 @@ namespace Yara.Areas.Admin.APIsControllers
         public async Task<IActionResult> GetAllV(int id)
         {
             var allData = await iOrder.GetAllvAsync(id);
+            if (allData == null)
+                return NotFound();
+
             return Ok(allData);
         }
 
@@ -34,6 +39,8 @@ namespace Yara.Areas.Admin.APIsControllers
         public async Task<IActionResult> GetById(int id)
         {
             var Data = await iOrder.GetByIdAsync(id);
+            if (Data == null)
+                return NotFound();
             return Ok(Data);
         }
 

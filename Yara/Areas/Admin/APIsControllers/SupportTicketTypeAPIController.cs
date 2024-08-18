@@ -8,8 +8,8 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class SupportTicketTypeAPIController : ControllerBase
     {
-        IISupportTicketType iSupportTicketType;
-        MasterDbcontext dbcontext;
+        private readonly IISupportTicketType iSupportTicketType;
+        private readonly MasterDbcontext dbcontext;
         public SupportTicketTypeAPIController(IISupportTicketType iSupportTicketType1, MasterDbcontext dbcontext1)
         {
             iSupportTicketType = iSupportTicketType1;

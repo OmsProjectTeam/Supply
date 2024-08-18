@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Yara.Areas.Admin.APIsControllers
 {
+    [Authorize(Roles = "Admin,ApiRoles")]
     [Route("api/[controller]")]
     [ApiController]
     public class ChatMessageAPIController : ControllerBase
@@ -16,25 +17,25 @@ namespace Yara.Areas.Admin.APIsControllers
             this.dbcontext = dbcontext;
         }
 
-        [HttpGet("GetAllBySenderId/{id}")]
-        public async Task<IActionResult> GetAllBySenderId(string id)
+        [HttpGet("GetAllBySenderId/{SenderId}")]
+        public async Task<IActionResult> GetAllBySenderId(string SenderId)
         {
-            var allData = await iMessageChat.GetBySenderIdAsync(id);
+            var allData = await iMessageChat.GetBySenderIdAsync(SenderId);
             if (allData == null)
-            
+
                 return NoContent();
-            
+
             return Ok(allData);
         }
 
-        [HttpGet("GetAllByReciverId/{id}")]
-        public async Task<IActionResult> GetAllByReciverId(string id)
+        [HttpGet("GetAllByReciverId/{ReciverId}")]
+        public async Task<IActionResult> GetAllByReciverId(string ReciverId)
         {
-            var allData = await iMessageChat.GetByReciverIdAsync(id);
+            var allData = await iMessageChat.GetByReciverIdAsync(ReciverId);
             if (allData == null)
-            
+
                 return NoContent();
-            
+
             return Ok(allData);
         }
 
@@ -43,9 +44,9 @@ namespace Yara.Areas.Admin.APIsControllers
         {
             var allData = await iMessageChat.GetBySenderIdAndReciverIdAsync(sId, rId);
             if (allData == null)
-            
+
                 return NoContent();
-            
+
             return Ok(allData);
         }
 
@@ -54,9 +55,9 @@ namespace Yara.Areas.Admin.APIsControllers
         {
             var allData = await iMessageChat.GetByReciverIdLastAsync(rId);
             if (allData == null)
-            
+
                 return NoContent();
-            
+
             return Ok(allData);
         }
 
@@ -66,13 +67,13 @@ namespace Yara.Areas.Admin.APIsControllers
             var allData = await iMessageChat.GetByIdAsync(id);
             if (allData == null)
                 return NoContent();
-            
+
             return Ok(allData);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddData(TBMessageChat model)
+        public async Task<IActionResult> AddData([FromBody] TBMessageChat model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -82,7 +83,7 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateData(TBMessageChat model)
+        public async Task<IActionResult> UpdateData([FromBody] TBMessageChat model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -91,12 +92,12 @@ namespace Yara.Areas.Admin.APIsControllers
             return Ok(model);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await GetById(id);
+            var item = await iMessageChat.GetByIdAsync(id);
             if (item == null)
-                return NoContent();
+                return NotFound();
 
             await iMessageChat.deleteDataAsync(id);
             return Ok(item);

@@ -32,7 +32,7 @@ namespace Yara.Areas.Admin.APIsControllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddData(TBSupportTicketType model)
+        public async Task<IActionResult> AddData([FromBody] TBSupportTicketType model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -42,7 +42,7 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateData(TBSupportTicketType model)
+        public async Task<IActionResult> UpdateData([FromBody] TBSupportTicketType model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -51,10 +51,10 @@ namespace Yara.Areas.Admin.APIsControllers
             return Ok(model);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await GetById(id);
+            var item = await iSupportTicketType.GetByIdAsync(id);
             if (item == null)
                 return NoContent();
 

@@ -51,10 +51,10 @@ namespace Yara.Areas.Admin.APIsControllers
             return Ok(model);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await GetById(id);
+            var item = await iFAQList.GetByIdAsync(id);
             if (item == null)
                 return NoContent();
 

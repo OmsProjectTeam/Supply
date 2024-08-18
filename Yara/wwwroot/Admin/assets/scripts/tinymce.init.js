@@ -12,7 +12,6 @@
 	tinymce.init({
 		selector: '#tinymce',
 		height: 500,
-		directionality : 'rtl',
 		plugins: [
 			'advlist autolink lists link image charmap print preview anchor',
 			'searchreplace visualblocks code fullscreen',
@@ -25,7 +24,6 @@
 	tinymce.init({
 		selector: 'h2.editable',
 		inline: true,
-		directionality : 'rtl',
 		toolbar: 'undo redo',
 		menubar: false
 	});
@@ -33,7 +31,6 @@
 	tinymce.init({
 		selector: 'div.editable',
 		inline: true,
-		directionality : 'rtl',
 		plugins: [
 		'advlist autolink lists link image charmap print preview anchor',
 		'searchreplace visualblocks code fullscreen',

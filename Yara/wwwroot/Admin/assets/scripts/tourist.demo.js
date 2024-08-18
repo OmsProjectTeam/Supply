@@ -12,7 +12,7 @@
 		highlightTarget: true,
 		nextButton: true,
 		target: $('#tour-1'),
-		my: 'top right',
+		my: 'top left',
 		at: 'bottom center'
 	}, {
 		content: "<h4>Page title</h4><p>This is page title.</p>",
@@ -26,7 +26,7 @@
 		highlightTarget: false,
 		nextButton: true,
 		target: $('#tour-3'),
-		my: 'top left',
+		my: 'top right',
 		at: 'bottom center'
 	}, {
 		content: "<h4>Search</h4><p>Find somthing userful here!</p>",

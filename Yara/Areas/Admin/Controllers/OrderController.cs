@@ -360,5 +360,38 @@ namespace Yara.Areas.Admin.Controllers
             return Json(subWarehouses);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetProductDetailsForOrder(string productId)
+        {
+            var product = dbcontext.TBProductInformations.FirstOrDefault(p => p.Qrcode == productId);
+
+            if (product != null)
+            {
+                // Fetch the global price using HtmlAgilityPack and the model field
+                decimal globalPrice = await FetchGlobalPrice(product.Model);
+
+                return Json(new
+                {
+                    imageUrl = product.Photo,
+                    globalPrice = globalPrice,
+                    productCategoryId = product.IdProductCategory,
+                    bondTypeId = product.IdTypesProduct,  // Assuming this field exists
+                    typesProductId = product.IdTypesProduct
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    imageUrl = "http://placehold.it/220x180",
+                    globalPrice = "0.00",
+                    productCategoryId = 0,
+                    bondTypeId = 0,
+                    typesProductId = 0
+                });
+            }
+        }
+
+
     }
 }

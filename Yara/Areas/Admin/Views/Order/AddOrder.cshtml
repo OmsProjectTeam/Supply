@@ -34,7 +34,7 @@
                         <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
                         <input type="hidden" asp-for="@Model.returnUrl" id="url">
                     </div>
-                    <input id="product12" />
+                    <input id="product12" placeholder="Enter QR Code" />
                     <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -219,7 +219,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
-    <script>
+    @* <script>
         // function updateProductImage() {
         //     var productId = $('#SelectProductInformation').val();
         //     if (productId) {
@@ -363,7 +363,7 @@
             }
         }
 
-    </script>
+    </script> *@
 
     <script>
         $(document).ready(function () {
@@ -460,6 +460,39 @@
             });
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#product12').on('change keyup', function () {
+                var productId = $(this).val();
+                if (productId) {
+                    $.ajax({
+                        url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+                        type: 'GET',
+                        data: { productId: productId },
+                        success: function (data) {
+                            $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+                            $('#GlobalPrice').val(data.globalPrice.toFixed(2));
+                            $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
+                            $('#SelectBondType').val(data.bondTypeId).trigger('change');
+                            $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching product details: ", error);
+                            $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                            $('#GlobalPrice').val("0.00");
+                        }
+                    });
+                } else {
+                    $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                    $('#GlobalPrice').val("0.00");
+                    $('#SelectProductCategory').val('').trigger('change');
+                    $('#SelectBondType').val('').trigger('change');
+                    $('#SelectTypesProduct').val('').trigger('change');
+                }
+            });
+        });
+    </script>
+
 }
 
 

@@ -43,6 +43,7 @@ namespace Yara.Areas.Admin.Controllers
         }
         #endregion
 
+
         #region Method
         [Authorize(Roles = "Admin,User")]
         public IActionResult Roles()

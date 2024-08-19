@@ -6,6 +6,7 @@ using System.Drawing;
 using ZXing.QrCode;
 using ZXing;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -247,6 +248,36 @@ namespace Yara.Areas.Admin.Controllers
                 });
             }
         }
+
+        [HttpGet("GetProductByName")]
+        public async Task<IActionResult> GetProductByName(string modelName)
+        {
+            if (string.IsNullOrWhiteSpace(modelName))
+            {
+                return BadRequest("Product name cannot be empty");
+            }
+
+            try
+            {
+                var product = await dbcontext.TBProductInformations
+                           .FirstOrDefaultAsync(p => p.Model == modelName);
+                if (product != null)
+                {
+                    return Ok(product);
+                }
+            }
+            catch(Exception ex) { ex.ToString();
+
+            }
+
+
+            return NotFound("Product not found");
+
+
+
+        }
+
+
 
         //private async Task<string> FetchGlobalPrice(string model)
         //{

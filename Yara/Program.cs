@@ -1,6 +1,7 @@
 ﻿
 
 
+using Yara.Areas.Admin.Controllers;
 using static Infarstuructre.BL.IIRolsInformation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -115,6 +116,8 @@ builder.Services.AddScoped<IIConnectAndDisconnect, CLSTBConnectAndDisconnect>();
 builder.Services.AddScoped<IISupportTicketType, CLSTBSupportTicketType>();
 builder.Services.AddScoped<IISupportTicketStatus, CLSTBSupportTicketStatus>();
 builder.Services.AddScoped<IISupportTicket, CLSTBSupportTicket>();
+
+builder.Services.AddScoped<AccountsController>();
 
 
 

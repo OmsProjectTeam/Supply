@@ -34,7 +34,7 @@
                         <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
                         <input type="hidden" asp-for="@Model.returnUrl" id="url">
                     </div>
-
+                    <input id="product12" />
                     <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -242,6 +242,71 @@
         //         $('#GlobalPrice').val("N/A");
         //     }
         // }
+
+        // function bringProductData(){
+
+        //     var product = $('#Product').val();
+
+        //     $('#product').on('change keyup', function () {
+        //         $.ajax({
+        //             url: '@Url.Action("GetProductByName", "Order")',
+        //             type: 'GET',
+        //             data: { productName: product },
+        //             success: function (data) {
+                        
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 console.error("no data");
+        //             }
+        //         });
+        //     } else {
+        //         $('#SelectWareHouseBranch').empty();
+        //     }
+        //     });
+        // }
+
+        $('#product12').on('change keyup', function () {
+            console.log("Input changed");
+            var product = $(this).val();
+
+            if (product) {
+                $.ajax({
+                    url: '@Url.Action("GetProductByName", "Order")',
+                    type: 'GET',
+                    data: { modelName: product },
+                    success: function (data) {
+                        if (data) {
+                            console.log(data);
+                            console.log("data");
+                            $('#SelectBondType').val(data.IdBondType).trigger('change');
+                            $('#SelectMerchant').val(data.IdMerchants).trigger('change');
+                            $('#SelectProductCategory').val(data.idProductCategory).trigger('change');
+                            $('#SelectTypesProduct').val(data.idTypesProduct).trigger('change');
+                            $('#SelectProductInformation').val(data.idProductInformation).trigger('change');
+                            $('#SelectWareHouse').val(data.IdBWareHouse).trigger('change');
+                            $('#SelectWareHouseBranch').val(data.IdBWareHouseBranch).trigger('change');
+
+                            $('#ProductImage').attr('src', data.photo || 'http://placehold.it/220x180');
+                        } else {
+                            console.error("Product not found.");
+                            alert("Product not found.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error: " + error);
+                        alert("An error occurred while fetching the product.");
+                    }
+                });
+            } else {
+                // إذا لم يتم إدخال قيمة للمنتج، يمكن ترك الحقول كما هي أو إعادة تعيينها
+                $('#SelectBondType, #SelectMerchant, #SelectProductCategory, #SelectTypesProduct, #SelectProductInformation, #SelectWareHouse, #SelectWareHouseBranch').val('').trigger('change');
+                $('#OrderNoumber, #PurchasePrice, #sellingPrice, #GlobalPrice, #SpecialSalePrice, #QuantityIn, #Qrcode').val('');
+                $('#ProductImage').attr('src', '');
+            }
+        });
+
+        
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
         function loadWarehouseBranches() {
             var warehouseId = $('#SelectWareHouse').val();
             if (warehouseId) {

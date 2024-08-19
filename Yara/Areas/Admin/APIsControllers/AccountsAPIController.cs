@@ -76,7 +76,7 @@ namespace Yara.Areas.Admin.APIsControllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.Login(model, returnUrl);
+            var result = await _accountsController.Login(model);
             return Ok(result);
         }
 

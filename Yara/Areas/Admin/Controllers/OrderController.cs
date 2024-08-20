@@ -53,6 +53,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.WareHouseBranch = iWareHouseBranch.GetAll();
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
+            vmodel.ListViewProductInformation = iProductInformation.GetAll();
             if (IdPurchaseOrder != null)
             {
                 vmodel.Order = iOrder.GetById(Convert.ToInt32(IdPurchaseOrder));
@@ -363,7 +364,9 @@ namespace Yara.Areas.Admin.Controllers
         [HttpGet]
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
         {
-            var product = dbcontext.TBProductInformations.FirstOrDefault(p => p.Qrcode == productId);
+            var product = dbcontext.TBProductInformations
+                         .Where(p => p.Qrcode == productId || p.Model == productId|| p.UPC == productId|| p.ProductName == productId|| p.Make == productId).FirstOrDefault();
+
 
             if (product != null)
             {

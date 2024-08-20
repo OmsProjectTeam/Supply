@@ -40,10 +40,14 @@ namespace Yara.Areas.Admin.Controllers
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
+            vmodel.ListViewProductInformation = iProductInformation.GetAll();
             return View(vmodel);
         }
         public IActionResult AddOrder(int? IdPurchaseOrder)
         {
+            ViewBag.Category = iProductCategory.GetAll();
+            ViewBag.TypesProduct = iTypesProduct.GetAll();
+
             ViewBag.BondType = iBondType.GetAll();
             ViewBag.Merchants = iMerchants.GetAll();
             ViewBag.ProductCategory = iProductCategory.GetAll();
@@ -379,7 +383,8 @@ namespace Yara.Areas.Admin.Controllers
                     globalPrice = globalPrice,
                     productCategoryId = product.IdProductCategory,
                     bondTypeId = product.IdTypesProduct,  // Assuming this field exists
-                    typesProductId = product.IdTypesProduct
+                    typesProductId = product.IdTypesProduct,
+                    productName = product.ProductName,
                 });
             }
             else

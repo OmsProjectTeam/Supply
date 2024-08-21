@@ -85,7 +85,7 @@
             </ul>
             <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
             <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
-            
+
         </div>
     </div>
 
@@ -259,14 +259,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
-                            <div>
-                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
-                            </div>
-                        </div>
+                    @* <div class="col-sm-6">
+                    <div class="form-group">
+                    <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                    <div>
+                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
                     </div>
+                    </div>
+                    </div> *@
 
 
                     <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
@@ -288,14 +288,14 @@
 
         <div class="box-content">
             @* <ul class="list-inline">
-                <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
-                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-                <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
 
             </ul> *@
             <!-- /.box-title -->
             @* <div class="dropdown js__drop_down">
-                <a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformation"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
+            <a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformation"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
             </div> *@
             <!-- /.dropdown js__dropdown -->
             <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -882,8 +882,6 @@
             }
         });
 
-
-
         // $('#product12').on('change keyup', function () {
         //     console.log("Product search triggered");
         //     var productId = $(this).val();
@@ -1261,6 +1259,22 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Sync the product12 input with the table search box
+            $('#product12').on('input', function () {
+                var searchText = $(this).val();
+                var searchBox = $('#example_filter input[type="search"]');
+                searchBox.val(searchText);
+
+                // Trigger keyup event on the search box
+                searchBox.trigger('keyup');
+            });
+        });
+    </script>
+
+
 
 }
 

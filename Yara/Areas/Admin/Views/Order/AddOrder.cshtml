@@ -4,6 +4,71 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<style>
+    /* Modal container */
+    .custom-modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    }
+
+    /* Modal content box */
+    .custom-modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 600px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+    }
+
+    /* Modal header */
+    .custom-modal-header {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Modal body */
+    .custom-modal-body {
+        padding: 20px 10px;
+    }
+
+    /* Modal footer */
+    .custom-modal-footer {
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+    }
+
+    /* Close button */
+    .close-modal {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+</style>
+
 <div class="row small-spacing">
     <div class="col-12">
         <div class="box-content">
@@ -20,12 +85,16 @@
             </ul>
             <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
             <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+            
         </div>
     </div>
 
     <div class="col-lg-6 col-xs-12">
         <div class="box-content card white">
             <h4 class="box-title">@ResourceWeb.LBAddOrder</h4>
+            @* <button type="button" class="btn btn-primary margin-bottom-10 waves-effect waves-light" data-toggle="modal" data-target="#boostrapModal-1">Standard modal</button> *@
+            <!-- Modal Trigger Button -->
+
             <div class="card-content">
                 <form role="form" method="post" asp-controller="Order" asp-action="Save" enctype="multipart/form-data">
                     <div class="form-group">
@@ -35,6 +104,11 @@
                         <input type="hidden" asp-for="@Model.returnUrl" id="url">
                     </div>
                     <input id="product12" placeholder="Enter QR Code" />
+                    @* <button type="button" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()">Standard modal</button> *@
+                    <button type="button" id="modalButton" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()" disabled>
+                        Add New Product
+                    </button>
+
                     <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -415,73 +489,162 @@
 
     </div>
 
-    <!-- Modal for adding new product -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form role="form" method="post" asp-controller="ProductInformation" asp-action="Save" enctype="multipart/form-data">
-                        <!-- Hidden fields for data entry -->
-                        <input type="hidden" asp-for="ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
-                        <input type="hidden" asp-for="ProductInformation.IdProductInformation" class="form-control">
-                        <input type="hidden" asp-for="ProductInformation.DateTimeEntry" value="@DateTime.Now">
-                        <input type="hidden" asp-for="ProductInformation.Photo" id="imageUrlInput">
+    <!-- Custom Modal -->
+    <div id="customModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <h2>Custom Modal Header</h2>
+            </div>
+            <div class="custom-modal-body">
+                <form role="form" method="post" asp-controller="ProductInformation" asp-action="SaveModal" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
+                        <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                        <input type="hidden" asp-for="@Model.ProductInformation.Photo" id="imageUrlInput">
+                    </div>
 
-                        <!-- Product Category and Type -->
-                        <div class="form-group">
-                            <label asp-for="ProductInformation.IdProductCategory">Product Category</label>
-                            <select class="form-control" asp-for="ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))" id="SelectCategory"></select>
-                            <span asp-validation-for="ProductInformation.IdProductCategory" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="ProductInformation.IdTypesProduct">Product Type</label>
-                            <select class="form-control" asp-for="ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
-                            <span asp-validation-for="ProductInformation.IdTypesProduct" class="text-danger"></span>
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
+                                <select class="form-control" asp-for="@Model.ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))" id="SelectCategory"></select>
+                                <span asp-validation-for="@Model.ProductInformation.IdProductCategory" class="text-danger"></span>
+                            </div>
                         </div>
 
-                        <!-- Product Name, Model, and UPC -->
-                        <div class="form-group">
-                            <label asp-for="ProductInformation.ProductName">Product Name</label>
-                            <input asp-for="ProductInformation.ProductName" type="text" placeholder="Enter Product Name" class="form-control" id="ProductName">
-                            <span asp-validation-for="ProductInformation.ProductName" class="text-danger"></span>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductInformation.IdTypesProduct">@ResourceWeb.LbTypesProduct</label>
+                                <select class="form-control" asp-for="@Model.ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
+                                <span asp-validation-for="@Model.ProductInformation.IdTypesProduct" class="text-danger"></span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="ProductInformation.Model">Model</label>
-                            <input asp-for="ProductInformation.Model" type="text" placeholder="Enter Model" class="form-control" id="modelInput">
-                            <span asp-validation-for="ProductInformation.Model" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="ProductInformation.UPC">UPC</label>
-                            <input asp-for="ProductInformation.UPC" type="text" placeholder="Enter UPC" class="form-control" id="UPC">
-                            <span asp-validation-for="ProductInformation.UPC" class="text-danger"></span>
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
+                                <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
+                                <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
+                            </div>
                         </div>
 
-                        <!-- QR Code and Image Upload -->
-                        <div class="form-group">
-                            <label asp-for="ProductInformation.Qrcode">QR Code</label>
-                            <textarea asp-for="ProductInformation.Qrcode" placeholder="Enter QR Code" class="form-control" maxlength="1000" rows="5" id="Code"></textarea>
-                            <span asp-validation-for="ProductInformation.Qrcode" class="text-danger"></span>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductInformation.Make">@ResourceWeb.lbMake</label>
+                                <input asp-for="@Model.ProductInformation.Make" type="text" placeholder="@ResourceWeb.lbMake ...." class="form-control" maxlength="100">
+                                <span asp-validation-for="@Model.ProductInformation.Make" class="text-danger"></span>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-12 col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
+                                <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
+                                <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
+                                <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
+                                <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Code"></textarea>
+                                <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Upload Image</label>
-                            <input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)">
-                            <img id="output" width="450" height="300" src="" />
+                            <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                            <div>
+                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload and Display Section -->
+                    <div class="form-group">
+                        <p>
+                            <input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;">
+                        </p>
+                        <p>
+                            <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
+                        </p>
+                        <p>
+                            @*   <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? "" /> *@
+
+
+                            <!-- عرض الصورة في الصفحة -->
+                            <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
+                            <!-- عرض الصورة في الصفحة -->
+                            <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? " " " />
+
+                            <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
                             <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
-                        </div>
 
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
+                            <!-- سكريبت لتحديث الحقل المخفي عند تغيير الصورة -->
+                            <script>
+                                // تحديث قيمة الحقل المخفي بقيمة رابط الصورة عند تحميل الصفحة
+                                document.getElementById('hiddenPhotoUrl').value = document.getElementById('output').src;
+
+                                // تحديث قيمة الحقل المخفي عند تغيير الصورة
+                                function updateHiddenPhotoUrl() {
+                                    var outputImg = document.getElementById('output');
+                                    var hiddenPhotoUrl = document.getElementById('hiddenPhotoUrl');
+                                    hiddenPhotoUrl.value = outputImg.src;
+                                }
+
+                                // نداء الدالة لتحديث الحقل المخفي عند تغيير الصورة
+                                document.getElementById('output').addEventListener('load', updateHiddenPhotoUrl);
+                            </script>
+
+
+
+
+
+                        </p>
+                        <span style="color:red"><strong>@TempData["Message"]</strong></span>
+                    </div>
+
+                    <div class="checkbox margin-bottom-20">
+                        <div class="switch success">
+                            <input type="checkbox" asp-for="@Model.ProductInformation.Active" id="switch-9" checked="checked">
+                            <label for="switch-9">@ResourceWeb.LbActive</label>
+                        </div>
+                    </div>
+
+                    <div class="checkbox margin-bottom-20">
+                        <div class="switch success">
+                            <input type="checkbox" asp-for="@Model.ProductInformation.CurrentState" id="switch-10" checked="checked">
+                            <label for="switch-10">@ResourceWeb.lbCurrentState</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+
+                    <div class="custom-modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" onclick="closeModal()">Close</button>
+                        <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
 </div>
 
 @section Scripts {
@@ -499,151 +662,6 @@
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
 
-    @* <script>
-        // function updateProductImage() {
-        //     var productId = $('#SelectProductInformation').val();
-        //     if (productId) {
-        //         $.ajax({
-        //             url: '@Url.Action("GetProductDetails", "Order")',
-        //             type: 'GET',
-        //             data: { id: productId },
-        //             success: function (data) {
-        //                 $('#ProductImage').attr('src', data.imageUrl);
-        //                 $('#GlobalPrice').val(data.globalPrice); // Assuming you have a text field to show the global price
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("Error fetching product details: ", error);
-        //                 $('#ProductImage').attr('src', 'http://placehold.it/220x180'); // Default image
-        //                 $('#GlobalPrice').val("N/A");
-        //             }
-        //         });
-        //     } else {
-        //         $('#ProductImage').attr('src', 'http://placehold.it/220x180'); // Default image
-        //         $('#GlobalPrice').val("N/A");
-        //     }
-        // }
-
-        // function bringProductData(){
-
-        //     var product = $('#Product').val();
-
-        //     $('#product').on('change keyup', function () {
-        //         $.ajax({
-        //             url: '@Url.Action("GetProductByName", "Order")',
-        //             type: 'GET',
-        //             data: { productName: product },
-        //             success: function (data) {
-
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("no data");
-        //             }
-        //         });
-        //     } else {
-        //         $('#SelectWareHouseBranch').empty();
-        //     }
-        //     });
-        // }
-
-        $('#product12').on('change keyup', function () {
-            console.log("Input changed");
-            var product = $(this).val();
-
-            if (product) {
-                $.ajax({
-                    url: '@Url.Action("GetProductByName", "Order")',
-                    type: 'GET',
-                    data: { modelName: product },
-                    success: function (data) {
-                        if (data) {
-                            console.log(data);
-                            console.log("data");
-                            $('#SelectBondType').val(data.IdBondType).trigger('change');
-                            $('#SelectMerchant').val(data.IdMerchants).trigger('change');
-                            $('#SelectProductCategory').val(data.idProductCategory).trigger('change');
-                            $('#SelectTypesProduct').val(data.idTypesProduct).trigger('change');
-                            $('#SelectProductInformation').val(data.idProductInformation).trigger('change');
-                            $('#SelectWareHouse').val(data.IdBWareHouse).trigger('change');
-                            $('#SelectWareHouseBranch').val(data.IdBWareHouseBranch).trigger('change');
-
-                            $('#ProductImage').attr('src', data.photo || 'http://placehold.it/220x180');
-                        } else {
-                            console.error("Product not found.");
-                            alert("Product not found.");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error: " + error);
-                        alert("An error occurred while fetching the product.");
-                    }
-                });
-            } else {
-                // إذا لم يتم إدخال قيمة للمنتج، يمكن ترك الحقول كما هي أو إعادة تعيينها
-                $('#SelectBondType, #SelectMerchant, #SelectProductCategory, #SelectTypesProduct, #SelectProductInformation, #SelectWareHouse, #SelectWareHouseBranch').val('').trigger('change');
-                $('#OrderNoumber, #PurchasePrice, #sellingPrice, #GlobalPrice, #SpecialSalePrice, #QuantityIn, #Qrcode').val('');
-                $('#ProductImage').attr('src', '');
-            }
-        });
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        function loadWarehouseBranches() {
-            var warehouseId = $('#SelectWareHouse').val();
-            if (warehouseId) {
-                $.ajax({
-                    url: '@Url.Action("GetSubWarehouses", "Order")',
-                    type: 'GET',
-                    data: { IdBWareHouse: warehouseId },
-                    success: function (data) {
-                        var $branchSelect = $('#SelectWareHouseBranch');
-                        $branchSelect.empty();
-                        $.each(data, function (index, item) {
-                            $branchSelect.append($('<option>', {
-                                value: item.value,
-                                text: item.text
-                            }));
-                        });
-                        $branchSelect.trigger('change'); // Trigger change event for the updated list
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error fetching warehouse branches: ", error);
-                    }
-                });
-            } else {
-                $('#SelectWareHouseBranch').empty();
-            }
-        }
-        function updateProductImage() {
-            var productId = $('#SelectProductInformation').val();
-            if (productId) {
-                $.ajax({
-                    url: '@Url.Action("GetProductDetails", "Order")',
-                    type: 'GET',
-                    data: { id: productId },
-                    success: function (data) {
-                        $('#ProductImage').attr('src', data.imageUrl);
-
-                        // Ensure the global price is numeric
-                        var globalPrice = parseFloat(data.globalPrice.replace(/[^0-9.-]+/g, ""));
-                        if (!isNaN(globalPrice)) {
-                            $('#GlobalPrice').val(globalPrice.toFixed(2)); // Display the global price with two decimal places
-                        } else {
-                            $('#GlobalPrice').val("0.00"); // Default to 0.00 if the price is not a number
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error fetching product details: ", error);
-                        $('#ProductImage').attr('src', 'http://placehold.it/220x180'); // Default image
-                        $('#GlobalPrice').val("0.00"); // Default to 0.00 in case of error
-                    }
-                });
-            } else {
-                $('#ProductImage').attr('src', 'http://placehold.it/220x180'); // Default image
-                $('#GlobalPrice').val("0.00"); // Default to 0.00 if no product is selected
-            }
-        }
-
-    </script> *@
 
     <script>
         $(document).ready(function () {
@@ -742,10 +760,25 @@
     </script>
 
     <script>
-        $('#product12').on('change keyup', function () {
-            console.log("Product search triggered");
-            var productId = $(this).val();
-            if (productId) {
+        $(document).ready(function () {
+            let typingTimer;                // Timer identifier
+            const typingDelay = 500;        // Time delay in milliseconds (e.g., 500ms)
+
+            $('#product12').on('input', function () {
+                clearTimeout(typingTimer);  // Clear the previous timer
+                const productId = $(this).val().trim();
+
+                if (productId) {
+                    typingTimer = setTimeout(function () {
+                        checkProductAvailability(productId);
+                    }, typingDelay);
+                } else {
+                    // If the input is cleared, disable the modal button
+                    $('#modalButton').prop('disabled', true);
+                }
+            });
+
+            function checkProductAvailability(productId) {
                 $.ajax({
                     url: '@Url.Action("GetProductDetailsForOrder", "Order")',
                     type: 'GET',
@@ -764,47 +797,75 @@
                             $('#SelectProductInformation').empty(); // Clear the dropdown first
                             $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
 
+                            // Disable the modal button since a product was found
+                            $('#modalButton').prop('disabled', true);
                         } else {
-                            // Show modal to add new product if not found
-                            $('#addProductModal').modal('show');
-                            $('#ProductName').val(productId);
+                            // Show SweetAlert and enable the modal button
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No product available',
+                                text: 'Create a new one, please click the modal button',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                position: 'top-end',
+                                toast: true
+                            });
+
+                            // Enable the modal button
+                            $('#modalButton').prop('disabled', false);
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error("Error fetching product details: ", error);
                         $('#ProductImage').attr('src', 'http://placehold.it/220x180');
                         $('#GlobalPrice').val("0.00");
+
+                        // Disable the modal button if there is an error
+                        $('#modalButton').prop('disabled', true);
                     }
                 });
-            } else {
-                // Reset dropdowns and image if no product is selected
-                $('#SelectProductCategory, #SelectBondType, #SelectTypesProduct, #SelectProductInformation').val('').trigger('change');
-                $('#GlobalPrice').val('');
-                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+            }
+
+            // Function to open the modal
+            function openModal() {
+                document.getElementById("customModal").style.display = "block";
+            }
+
+            // Function to close the modal
+            function closeModal() {
+                document.getElementById("customModal").style.display = "none";
             }
         });
 
+
+
         // $('#product12').on('change keyup', function () {
-        //     console.log("Basic test");
-        //     console.log("Product search triggered"); // Log for confirmation
+        //     console.log("Product search triggered");
         //     var productId = $(this).val();
+
         //     if (productId) {
         //         $.ajax({
         //             url: '@Url.Action("GetProductDetailsForOrder", "Order")',
         //             type: 'GET',
         //             data: { productId: productId },
         //             success: function (data) {
-        //                 console.log("Data received: ", data); // Log data to inspect it
-        //                 if (data.productCategoryId > 0) {
-        //                     $('#ProductName').val(productId);
+        //                 if (data && data.productCategoryId > 0) {
+        //                     // Populate the fields with the received data
+        //                     $('#ProductName').val(productId);  // Set the product name input
         //                     $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
         //                     $('#SelectBondType').val(data.bondTypeId).trigger('change');
         //                     $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
         //                     $('#GlobalPrice').val(data.globalPrice);
         //                     $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+
+        //                     // Populate or update the Product Information dropdown
+        //                     $('#SelectProductInformation').empty(); // Clear the dropdown first
+        //                     $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
+
         //                 } else {
-        //                     $('#addProductModal').modal('show');
-        //                     $('#ProductName').val(productId);
+        //                     // If no data is returned, show the modal for adding a new product
+        //                     openModal();
+        //                     $('#ProductName').val(productId); // Pre-fill the product name with the searched term
         //                 }
         //             },
         //             error: function (xhr, status, error) {
@@ -814,43 +875,28 @@
         //             }
         //         });
         //     } else {
-        //         $('#SelectProductCategory, #SelectBondType, #SelectTypesProduct').val('').trigger('change');
+        //         // Reset dropdowns and image if no product is selected
+        //         $('#SelectProductCategory, #SelectBondType, #SelectTypesProduct, #SelectProductInformation').val('').trigger('change');
         //         $('#GlobalPrice').val('');
         //         $('#ProductImage').attr('src', 'http://placehold.it/220x180');
         //     }
         // });
 
+        // function openModal() {
+        //     document.getElementById("customModal").style.display = "block";
+        // }
 
-        // $(document).ready(function () {
-        //     $('#product12').on('change keyup', function () {
-        //         var productId = $(this).val();
-        //         if (productId) {
-        //             $.ajax({
-        //                 url: '@Url.Action("GetProductDetailsForOrder", "Order")',
-        //                 type: 'GET',
-        //                 data: { productId: productId },
-        //                 success: function (data) {
-        //                     $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
-        //                     $('#GlobalPrice').val(data.globalPrice.toFixed(2));
-        //                     $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
-        //                     $('#SelectBondType').val(data.bondTypeId).trigger('change');
-        //                     $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
-        //                 },
-        //                 error: function (xhr, status, error) {
-        //                     console.error("Error fetching product details: ", error);
-        //                     $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-        //                     $('#GlobalPrice').val("0.00");
-        //                 }
-        //             });
-        //         } else {
-        //             $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-        //             $('#GlobalPrice').val("0.00");
-        //             $('#SelectProductCategory').val('').trigger('change');
-        //             $('#SelectBondType').val('').trigger('change');
-        //             $('#SelectTypesProduct').val('').trigger('change');
-        //         }
-        //     });
-        // });
+        // function closeModal() {
+        //     document.getElementById("customModal").style.display = "none";
+        // }
+
+        // // Close the modal if the user clicks outside of it
+        // window.onclick = function (event) {
+        //     var modal = document.getElementById("customModal");
+        //     if (event.target == modal) {
+        //         modal.style.display = "none";
+        //     }
+        // }
     </script>
 
 
@@ -976,7 +1022,38 @@
             console.log("jQuery is ready");
         });
     </script>
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+    </script>
 
+    <script>
+        // Function to open the modal
+        function openModal() {
+            document.getElementById("customModal").style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById("customModal").style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function (event) {
+            var modal = document.getElementById("customModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 }
 

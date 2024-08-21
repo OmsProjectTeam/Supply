@@ -1202,25 +1202,6 @@
         });
     </script>
 
-    @* <script>
-        // Function to handle file selection and preview the image
-        function loadFile(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function () {
-                URL.revokeObjectURL(output.src) // Free memory
-            }
-            updateHiddenPhotoUrl(); // Update the hidden input field
-        }
-
-        // Function to update the hidden photo URL input field
-        function updateHiddenPhotoUrl() {
-            var outputImg = document.getElementById('output');
-            var hiddenPhotoUrl = document.getElementById('hiddenPhotoUrl');
-            hiddenPhotoUrl.value = outputImg.src;
-        }
-    </script> *@
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -1270,8 +1251,14 @@
 
                 // Trigger keyup event on the search box
                 searchBox.trigger('keyup');
+
+                // Simulate 'Enter' key press to start the search
+                var e = jQuery.Event('keypress');
+                e.which = 13; // Character code for Enter key
+                searchBox.trigger(e);
             });
         });
+
     </script>
 
 

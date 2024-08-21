@@ -287,16 +287,16 @@
         </div>
 
         <div class="box-content">
-            <ul class="list-inline">
+            @* <ul class="list-inline">
                 <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
                 <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
                 <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
 
-            </ul>
+            </ul> *@
             <!-- /.box-title -->
-            <div class="dropdown js__drop_down">
+            @* <div class="dropdown js__drop_down">
                 <a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformation"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
-            </div>
+            </div> *@
             <!-- /.dropdown js__dropdown -->
             <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">
@@ -310,7 +310,6 @@
                                             <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformation</a></li>
                                             <li><a href="#tab-progress-4" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformationMake</a></li>
                                             <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbOpration</a></li>
-                                            @* <li><a href="#tab-progress-5" data-toggle="tab">Fifth</a></li> *@
                                         </ul>
                                     </div>
                                     <div class="box-content">
@@ -494,7 +493,7 @@
         <div class="custom-modal-content">
             <div class="custom-modal-header">
                 <span class="close-modal" onclick="closeModal()">&times;</span>
-                <h2>Custom Modal Header</h2>
+                <h2>Add New Product</h2>
             </div>
             <div class="custom-modal-body">
                 <form role="form" method="post" asp-controller="ProductInformation" asp-action="SaveModal" enctype="multipart/form-data">
@@ -635,7 +634,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                    @* <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button> *@
 
                     <div class="custom-modal-footer">
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" onclick="closeModal()">Close</button>
@@ -762,7 +761,7 @@
     <script>
         $(document).ready(function () {
             let typingTimer;                // Timer identifier
-            const typingDelay = 500;        // Time delay in milliseconds (e.g., 500ms)
+            const typingDelay = 700;        // Time delay in milliseconds (e.g., 500ms)
 
             $('#product12').on('input', function () {
                 clearTimeout(typingTimer);  // Clear the previous timer
@@ -811,8 +810,12 @@
                                 toast: true
                             });
 
+                            // Set the search text in the modal product name field
+                            $('#ProductName').val(productId);
+
                             // Enable the modal button
                             $('#modalButton').prop('disabled', false);
+                            openModal();
                         }
                     },
                     error: function (xhr, status, error) {
@@ -826,6 +829,7 @@
                 });
             }
 
+
             // Function to open the modal
             function openModal() {
                 document.getElementById("customModal").style.display = "block";
@@ -833,7 +837,50 @@
 
             // Function to close the modal
             function closeModal() {
-                document.getElementById("customModal").style.display = "none";
+                // document.getElementById("customModal").style.display = "none";
+                var previousSearchText = '';
+
+                function openModal() {
+                    previousSearchText = $('#product12').val(); // Store the current search text
+                    document.getElementById("customModal").style.display = "block";
+                }
+
+                function closeModal() {
+                    document.getElementById("customModal").style.display = "none";
+                    $('#product12').val(previousSearchText); // Restore the search text
+                }
+
+                // Close the modal if the user clicks outside of it
+                window.onclick = function (event) {
+                    var modal = document.getElementById("customModal");
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                }
+
+                // Handle form submission inside the modal
+                $('form[asp-action="SaveModal"]').on('submit', function (event) {
+                    event.preventDefault(); // Prevent default form submission
+
+                    var form = $(this);
+
+                    // Optionally handle the form submission via AJAX
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        success: function (response) {
+                            // Close the modal
+                            closeModal();
+                            // Repopulate the search field with the stored search text
+                            $('#product12').val(previousSearchText);
+                        },
+                        error: function (response) {
+                            console.error("Error during form submission", response);
+                            // Handle the error (display a message, etc.)
+                        }
+                    });
+                });
             }
         });
 
@@ -898,6 +945,53 @@
         //     }
         // }
     </script>
+    <script>
+        var previousSearchText = '';
+
+        function openModal() {
+            previousSearchText = $('#product12').val(); // Store the current search text
+            $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
+            document.getElementById("customModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("customModal").style.display = "none";
+            $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
+        }
+
+        // Handle form submission inside the modal
+        $('form[asp-action="SaveModal"]').on('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var form = $(this);
+
+            // Optionally handle the form submission via AJAX
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    // Close the modal
+                    closeModal();
+                    // Repopulate the search field with the stored search text
+                    $('#product12').val($('#product12').data('previous-value'));
+                },
+                error: function (response) {
+                    console.error("Error during form submission", response);
+                    // Handle the error (display a message, etc.)
+                }
+            });
+        });
+
+        // Repopulate the search box on page load
+        $(document).ready(function () {
+            var storedSearchText = $('#product12').data('previous-value'); // Get the value from the data attribute
+            if (storedSearchText) {
+                $('#product12').val(storedSearchText); // Set it in the search box
+            }
+        });
+    </script>
+
 
 
     <!-- Data Tables -->

@@ -255,17 +255,16 @@ namespace Yara.Areas.Admin.Controllers
         }
 
         [HttpGet("GetProductByName")]
-        public async Task<IActionResult> GetProductByName(string modelName)
+        public async Task<IActionResult> GetProductByName(string qrCode)
         {
-            if (string.IsNullOrWhiteSpace(modelName))
+            if (string.IsNullOrWhiteSpace(qrCode))
             {
                 return BadRequest("Product name cannot be empty");
             }
 
             try
             {
-                var product = await dbcontext.TBProductInformations
-                           .FirstOrDefaultAsync(p => p.Model == modelName);
+                var product = await dbcontext.TBProductInformations.FirstOrDefaultAsync(p => p.Qrcode.StartsWith(qrCode));
                 if (product != null)
                 {
                     return Ok(product);

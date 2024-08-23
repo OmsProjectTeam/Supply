@@ -41,12 +41,14 @@ namespace Yara.Areas.Admin.APIsControllers
 
         [HttpPost("RegisterAsync")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> RegisterAsync([FromBody] NewRegister model)
         {
+            RegisterViewModel rModel = new RegisterViewModel();
+            rModel.NewRegister = model;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.Registers(model);
+            var result = await _accountsController.Registers(rModel);
             return Ok(result);
         }
 
@@ -88,42 +90,39 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [HttpPost("RegistersAsync")]
-        public async Task<IActionResult> RegistersAsync([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> RegistersAsync([FromBody] NewRegister model)
         {
+            RegisterViewModel rModel = new RegisterViewModel();
+            rModel.NewRegister = model;
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.Registers1(model);
+            var result = await _accountsController.Registers1(rModel);
             return Ok(result);
         }
 
         [HttpPost("RegistersCustomerAsync")]
-        public async Task<IActionResult> RegistersCustomerAsync([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> RegistersCustomerAsync([FromBody] NewRegister model)
         {
+            RegisterViewModel rModel = new RegisterViewModel();
+            rModel.NewRegister = model;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.RegistersCustomer(model);
+            var result = await _accountsController.RegistersCustomer(rModel);
             return Ok(result);
         }
 
         [HttpPost("RegistersMerchantAsync")]
-        public async Task<IActionResult> RegistersMerchantAsync([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> RegistersMerchantAsync([FromBody] NewRegister model)
         {
+            RegisterViewModel rModel = new RegisterViewModel();
+            rModel.NewRegister = model;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _accountsController.RegistersMerchant(model);
-            return Ok(result);
-        }
-
-        [HttpPost("RegistersAirFreightAsync")]
-        public async Task<IActionResult> RegistersAirFreightAsync([FromBody] RegisterViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _accountsController.RegistersAirFreight(model);
+            var result = await _accountsController.RegistersMerchant(rModel);
             return Ok(result);
         }
 

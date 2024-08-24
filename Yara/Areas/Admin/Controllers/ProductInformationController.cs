@@ -261,6 +261,7 @@ namespace Yara.Areas.Admin.Controllers
         //}
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> FetchImageByModel(string model)
         {
             try

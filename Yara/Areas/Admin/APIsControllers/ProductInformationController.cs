@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Yara.Areas.Admin.APIsControllers
@@ -11,11 +12,14 @@ namespace Yara.Areas.Admin.APIsControllers
         private readonly IIProductInformation iProductInformation;
         private readonly MasterDbcontext dbcontext;
         ApiResponse ApiResponse;
-        public ProductInformationController(IIProductInformation iProductInfo1, MasterDbcontext dbcontext1)
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public ProductInformationController(IIProductInformation iProductInfo1, MasterDbcontext dbcontext1, IHttpClientFactory httpClientFactory)
         {
             iProductInformation = iProductInfo1;
             dbcontext = dbcontext1;
             ApiResponse = new ApiResponse();
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
@@ -95,6 +99,25 @@ namespace Yara.Areas.Admin.APIsControllers
             }
             return Ok(ApiResponse);
 
+        }
+
+        [HttpPost("ReturnPhotoUrl/{modelName}")]
+        public async Task<IActionResult> ReturnPhotoUrl(string modelName)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri("https://localhost:7124");
+            var url = $"/Admin/ProductInformation/FetchImageByModel?model={modelName}";
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                return Ok(content);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut]

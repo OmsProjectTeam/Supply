@@ -104,6 +104,7 @@ namespace Yara.Areas.Admin.APIsControllers
         [HttpPost("ReturnPhotoUrl/{modelName}")]
         public async Task<IActionResult> ReturnPhotoUrl(string modelName)
         {
+
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri("https://localhost:7124");
             var url = $"/Admin/ProductInformation/FetchImageByModel?model={modelName}";

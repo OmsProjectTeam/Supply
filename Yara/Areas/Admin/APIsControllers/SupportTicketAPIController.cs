@@ -10,57 +10,113 @@ namespace Yara.Areas.Admin.APIsControllers
     {
         private readonly IISupportTicket iSupportTicket;
         private readonly MasterDbcontext dbcontext;
+        ApiResponse ApiResponse;
         public SupportTicketAPIController(IISupportTicket iSupportTicket1, MasterDbcontext dbcontext1)
         {
             iSupportTicket = iSupportTicket1;
             dbcontext = dbcontext1;
+            ApiResponse = new ApiResponse();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iSupportTicket.GetAllAsync();
+            try
+            {
+                var allData = await iSupportTicket.GetAllAsync();
+                if (allData == null)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
 
-            return Ok(allData);
+                ApiResponse.Result = allData;
+                return Ok(ApiResponse);
+            }catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iSupportTicket.GetByIdAsync(id);
-            return Ok(Data);
+            try
+            {
+                var data = await iSupportTicket.GetByIdAsync(id);
+                if (data == null)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                ApiResponse.Result = data;
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
 
         [HttpPost]
         public async Task<IActionResult> AddData([FromBody] TBSupportTicket model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    ApiResponse.StatusCode=System.Net.HttpStatusCode.BadRequest;
 
-            await iSupportTicket.AddDataAsync(model);
-            return Ok(model);
+                ApiResponse.Result = model;
+                await iSupportTicket.AddDataAsync(model);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
+
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateData([FromBody] TBSupportTicket model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iSupportTicket.UpdateDataAsync(model);
-            return Ok(model);
+                ApiResponse.Result = model;
+                await iSupportTicket.UpdateDataAsync(model);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await GetById(id);
-            if (item == null)
-                return NoContent();
+            try
+            {
+                var item = await iSupportTicket.GetByIdAsync(id);
+                if (item == null)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.NoContent;
 
-            await iSupportTicket.DeleteDataAsync(id);
-            return Ok(item);
+                await iSupportTicket.DeleteDataAsync(id);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.IsSuccess = false;
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(ApiResponse);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Yara.Areas.Admin.APIsControllers
@@ -10,56 +11,113 @@ namespace Yara.Areas.Admin.APIsControllers
     {
         private readonly IIFAQList iFAQList;
         private readonly MasterDbcontext dbcontext;
+        ApiResponse ApiResponse;
         public FAQListAPIController(IIFAQList iFAQList1, MasterDbcontext dbcontext1)
         {
             iFAQList = iFAQList1;
             dbcontext = dbcontext1;
+            ApiResponse = new ApiResponse();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iFAQList.GetAllAsync();
-            return Ok(allData);
+            try
+            {
+                var allData = await iFAQList.GetAllAsync();
+                if (allData == null)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                ApiResponse.Result = allData;
+                return Ok(ApiResponse);
+
+            }catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iFAQList.GetByIdAsync(id);
-            return Ok(Data);
+            try
+            {
+                var allData = await iFAQList.GetByIdAsync(id);
+                if (allData == null)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                ApiResponse.Result = allData;
+                return Ok(ApiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
 
         [HttpPost]
         public async Task<IActionResult> AddData(TBFAQList model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iFAQList.AddDataAsync(model);
-            return Ok(model);
+                await iFAQList.AddDataAsync(model);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
+
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateData(TBFAQList model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iFAQList.UpdateDataAsync(model);
-            return Ok(model);
+                await iFAQList.UpdateDataAsync(model);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await iFAQList.GetByIdAsync(id);
-            if (item == null)
-                return NoContent();
+            try
+            {
+                var item = await iFAQList.GetByIdAsync(id);
+                if (item == null)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.NoContent;
 
-            await iFAQList.DeleteDataAsync(id);
-            return Ok(item);
+                await iFAQList.DeleteDataAsync(id);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.IsSuccess = false;
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(ApiResponse);
         }
     }
 }

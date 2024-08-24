@@ -10,70 +10,127 @@ namespace Yara.Areas.Admin.APIsControllers
     {
         private readonly IIOrder iOrder;
         private readonly MasterDbcontext dbcontext;
+        ApiResponse response;
         public OrderAPIController(IIOrder iOrder1, MasterDbcontext dbcontext1)
         {
             iOrder = iOrder1;
             dbcontext = dbcontext1;
+            response = new ApiResponse();   
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iOrder.GetAllAsync();
-            if (allData == null)
-                return NotFound();
-            return Ok(allData);
+            try
+            {
+                var allData = await iOrder.GetAllAsync();
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                response.Result = allData;
+                return Ok(response);
+            }catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetAllV/{id}")]
         public async Task<IActionResult> GetAllV(int id)
         {
-            var allData = await iOrder.GetAllvAsync(id);
-            if (allData == null)
-                return NotFound();
-
-            return Ok(allData);
+            try
+            {
+                var allData = await iOrder.GetAllvAsync(id);
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                response.Result = allData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iOrder.GetByIdAsync(id);
-            if (Data == null)
-                return NotFound();
-            return Ok(Data);
+            try
+            {
+                var allData = await iOrder.GetByIdAsync(id);
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                response.Result = allData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
 
         [HttpPost]
         public async Task<IActionResult> AddData(TBOrder model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    response.StatusCode = System.Net.HttpStatusCode.BadGateway;
 
-            await iOrder.AddDataAsync(model);
-            return Ok(model);
+                await iOrder.AddDataAsync(model);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateData(TBOrder model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    response.StatusCode = System.Net.HttpStatusCode.BadGateway;
 
-            await iOrder.UpdateDataAsync(model);
-            return Ok(model);
+                await iOrder.UpdateDataAsync(model);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await iOrder.GetByIdAsync(id);
-            if (item == null)
-                return NoContent();
+            try
+            {
+                var item = await iOrder.GetByIdAsync(id);
+                if (item == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NoContent;
 
-            await iOrder.DeleteDataAsync(id);
-            return Ok(item);
+                await iOrder.DeleteDataAsync(id);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(response);
         }
     }
 }

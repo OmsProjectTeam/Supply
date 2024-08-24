@@ -10,6 +10,7 @@ namespace Yara.Areas.Admin.APIsControllers
     {
         private readonly IIWareHouseType iWareHouseType;
         private readonly MasterDbcontext dbcontext;
+        ApiResponse response;
         public WareHouseTypeAPIController(IIWareHouseType iWareHouseType1, MasterDbcontext dbcontext1)
         {
             iWareHouseType = iWareHouseType1;
@@ -19,63 +20,139 @@ namespace Yara.Areas.Admin.APIsControllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iWareHouseType.GetAllAPI();
-            return Ok(allData);
+            try
+            {
+                var allData = await iWareHouseType.GetAllAPI();
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                response.Result = allData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetAllV/{id}")]
         public async Task<IActionResult> GetAllV(int id)
         {
-            var allData = await iWareHouseType.GetAllvAPI(id);
-            return Ok(allData);
+            try
+            {
+                var allData = await iWareHouseType.GetAllvAPI(id);
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                response.Result = allData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iWareHouseType.GetByIdAPI(id);
-            return Ok(Data);
+            try
+            {
+                var allData = await iWareHouseType.GetByIdAPI(id);
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                response.Result = allData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetByName/{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
-            var Data = await iWareHouseType.GetByNameAPI(name);
-            if (Data == null)
-                return NotFound();
+            try
+            {
+                var allData = await iWareHouseType.GetByNameAPI(name);
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
 
-            return Ok(Data);
+                response.Result = allData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddData(TBWareHouseType model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iWareHouseType.SaveDataAPI(model);
-            return Ok(model);
+                await iWareHouseType.SaveDataAPI(model);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateData(TBWareHouseType model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iWareHouseType.UpdateDataAPI(model);
-            return Ok(model);
+                await iWareHouseType.UpdateDataAPI(model);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response); ;
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
-        {   
-            var item = await iWareHouseType.GetByIdAPI(id);
-            if (item == null)
-                return NotFound();
+        {
+            try
+            {
+                var item = await iWareHouseType.GetByIdAPI(id);
+                if (item == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NoContent;
 
-            await iWareHouseType.DeleteDataAPI(id);
-            return Ok(item);
+                await iWareHouseType.DeleteDataAPI(id);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(response);
         }
     }
 }

@@ -10,76 +10,171 @@ namespace Yara.Areas.Admin.APIsControllers
     {
         private readonly IIProductInformation iProductInformation;
         private readonly MasterDbcontext dbcontext;
+        ApiResponse ApiResponse;
         public ProductInformationController(IIProductInformation iProductInfo1, MasterDbcontext dbcontext1)
         {
             iProductInformation = iProductInfo1;
             dbcontext = dbcontext1;
+            ApiResponse = new ApiResponse();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iProductInformation.GetAllAsync();
-            return Ok(allData);
+            try
+            {
+                var allData = await iProductInformation.GetAllAsync();
+                ApiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                ApiResponse.Result = allData;
+                return Ok(ApiResponse);
+
+            }catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpGet("GetAllV/{id}")]
         public async Task<IActionResult> GetAllV(int id)
         {
-            var allData = await iProductInformation.GetAllvAsync(id);
-            return Ok(allData);
+            try
+            {
+                var allData = await iProductInformation.GetAllvAsync(id);
+                ApiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                ApiResponse.Result = allData;
+                return Ok(ApiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iProductInformation.GetByIdAsync(id);
-            return Ok(Data);
+            try
+            {
+                var allData = await iProductInformation.GetByIdAsync(id);
+                ApiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                ApiResponse.Result = allData;
+                return Ok(ApiResponse);
+
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpPost("AddData")]
         public async Task<IActionResult> AddData([FromBody] TBProductInformation model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iProductInformation.AddDataAsync(model);
-            return Ok(model);
+                await iProductInformation.AddDataAsync(model);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
+
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateData([FromBody] TBProductInformation model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iProductInformation.UpdateDataAsync(model);
-            return Ok(model);
+                await iProductInformation.UpdateDataAsync(model);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await iProductInformation.GetByIdAsync(id);
-            if (item == null)
-                return NoContent();
+            try
+            {
+                var item = await iProductInformation.GetByIdAsync(id);
+                if (item == null)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.NoContent;
 
-            await iProductInformation.DeleteDataAsync(id);
-            return Ok(item);
+                await iProductInformation.DeleteDataAsync(id);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.IsSuccess = false;
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpPost("DeletePhoto/{id}")]
-        public async Task<bool> DeletePhoto(int id)
+        public async Task<IActionResult> DeletePhoto(int id)
         {
-            var result = await iProductInformation.DELETPHOTOAsync(id);
-            return result;
+            try
+            {
+                var result = await iProductInformation.DELETPHOTOAsync(id);
+                if(!result)
+                    ApiResponse.StatusCode =System.Net.HttpStatusCode.BadRequest;
+
+                ApiResponse.Result = result;
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.IsSuccess = false;
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(ApiResponse);
         }
 
         [HttpPost("DeletePhotoWithError/{name}")]
-        public async Task<bool> DeletePhotoWithError(string name)
+        public async Task<IActionResult> DeletePhotoWithError(string name)
         {
-            var result = await iProductInformation.DELETPHOTOWITHERRORAsync(name);
-            return result;
+            try
+            {
+                var result = await iProductInformation.DELETPHOTOWITHERRORAsync(name);
+                if (!result)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+
+                ApiResponse.Result = result;
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.IsSuccess = false;
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(ApiResponse);
+
         }
     }
 }

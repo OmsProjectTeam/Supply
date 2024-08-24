@@ -32,10 +32,10 @@ namespace Yara.Areas.Admin.APIsControllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("DeleteRoleAsync/{Id}")]
-        public async Task<IActionResult> DeleteRoleAsync(string Id)
+        [HttpDelete("DeleteRoleAsync/{roleName}")]
+        public async Task<IActionResult> DeleteRoleAsync(string roleName)
         {
-            var result = await _accountsController.DeleteRole(Id);
+            var result = await _accountsController.DeleteRole(roleName);
             return Ok(result);
         }
 

@@ -134,9 +134,9 @@ namespace Yara.Areas.Admin.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteRole(string Id)
+        public async Task<IActionResult> DeleteRole(string name)
         {
-            var role = _roleManager.Roles.FirstOrDefault(x => x.Id == Id);
+            var role = _roleManager.Roles.FirstOrDefault(x => x.Name == name);
             if ((await _roleManager.DeleteAsync(role)).Succeeded)
             {
                 TempData["Delete successful"] = ResourceWeb.VLDeletesuccessful;

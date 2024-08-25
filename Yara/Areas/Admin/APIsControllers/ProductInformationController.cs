@@ -106,10 +106,15 @@ namespace Yara.Areas.Admin.APIsControllers
         {
             try
             {
-                var urlImg = await ReturnPhotoUrl(model.Model);
-
                 var actionResult = await ReturnPhotoUrl(model.Model);
-                model.Photo = actionResult.Value;
+                if (actionResult.Value != null)
+                {
+                    model.Photo = actionResult.Value;
+                }
+                else
+                {
+                    model.Photo = "Can`t Scrape The WebSite";
+                }
 
 
                 if (!ModelState.IsValid)

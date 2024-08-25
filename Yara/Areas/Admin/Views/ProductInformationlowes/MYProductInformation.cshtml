@@ -275,23 +275,23 @@
                 }
             }
 
-            //  function updateQRCode() {
-            //     $('.QRCodeImage').each(function () {
-            //         var Category = $(this).siblings('.Code').text();
-            //         var ProductName = $(this).siblings('.Code').text();
-            //         var Model = $(this).siblings('.Code').text();
-            //         var UPC = $(this).siblings('.Code').text();
-            //         var TypeProduct = $(this).siblings('.Code').text();
+          
 
-            //         var code = Category + ProductName + Model + UPC + TypeProduct
-            //         if (code) {
-            //             console.log(code);
-            //             $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-            //         } else {
-            //             $(this).attr('src', '');
-            //         }
-            //     });
-            // }
+            <script>
+                $(document).ready(function () {
+                    // تهيئة DataTable
+                    var table = $('#example').DataTable({
+                        // إعدادات DataTable الخاصة بك مثل التصفح بين الصفحات، البحث، الترتيب، إلخ.
+                    });
+
+                    // ربط دالة updateQRCode مع حدث draw.dt لتعمل عند كل تحديث للجدول
+                    table.on('draw.dt', function () {
+                        updateQRCode();
+                    });
+
+                    // استدعاء الدالة لأول مرة عند تحميل الصفحة
+                    updateQRCode();
+                });
 
             function updateQRCode() {
                 $('.QRCodeImage').each(function () {
@@ -300,16 +300,16 @@
                     console.log(code);
                     // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
                     if (code) {
-                        console.log(code);
                         $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
                     } else {
-                        console.log("code");
                         $(this).attr('src', '');
                     }
                 });
             }
+    </script>
 
 
+    <script>
             // Loop through each table cell with class 'truncate-50'
             $('.truncate-50').each(function () {
                 var text = $(this).text(); // Get the text content of the cell

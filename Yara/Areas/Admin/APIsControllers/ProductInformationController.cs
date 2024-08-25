@@ -81,28 +81,8 @@ namespace Yara.Areas.Admin.APIsControllers
             return Ok(ApiResponse);
         }
 
-        [HttpPost("AddData")]
-        public async Task<IActionResult> AddData([FromBody] TBProductInformation model)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-
-                await iProductInformation.AddDataAsync(model);
-                return Ok(ApiResponse);
-            }
-            catch (Exception ex)
-            {
-                ApiResponse.ErrorMessage = new List<string> { ex.Message };
-                ApiResponse.IsSuccess = false;
-            }
-            return Ok(ApiResponse);
-
-        }
-
         [HttpPost("ReturnPhotoUrl/{modelName}")]
-        public async Task<IActionResult> ReturnPhotoUrl(string modelName)
+        public async Task<ActionResult<string>> ReturnPhotoUrl(string modelName)
         {
 
             var client = _httpClientFactory.CreateClient();
@@ -120,6 +100,34 @@ namespace Yara.Areas.Admin.APIsControllers
                 return BadRequest();
             }
         }
+
+        [HttpPost("AddData")]
+        public async Task<IActionResult> AddData([FromBody] TBProductInformation model)
+        {
+            try
+            {
+                var urlImg = await ReturnPhotoUrl(model.Model);
+
+                var actionResult = await ReturnPhotoUrl(model.Model);
+                model.Photo = actionResult.Value;
+
+
+                if (!ModelState.IsValid)
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+
+                await iProductInformation.AddDataAsync(model);
+                return Ok(ApiResponse);
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.ErrorMessage = new List<string> { ex.Message };
+                ApiResponse.IsSuccess = false;
+            }
+            return Ok(ApiResponse);
+
+        }
+
+
 
         [HttpPut]
         public async Task<IActionResult> UpdateData([FromBody] TBProductInformation model)

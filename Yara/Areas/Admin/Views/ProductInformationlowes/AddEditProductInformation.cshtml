@@ -114,40 +114,31 @@
                                     <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
                                 </p>
                                 <p>
-                                    @*   <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? "" /> *@
-
-
-                                    <!-- عرض الصورة في الصفحة -->
-                                    <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
-                                    <!-- عرض الصورة في الصفحة -->
+                                    <!-- Display the image on the page -->
                                     <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? " " " />
 
-                                    <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
+                                    <!-- Hidden field to send the image URL to the Save function -->
                                     <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
 
-                                    <!-- سكريبت لتحديث الحقل المخفي عند تغيير الصورة -->
+                                    <!-- Script to update the hidden field when the image changes -->
                                     <script>
-                                        // تحديث قيمة الحقل المخفي بقيمة رابط الصورة عند تحميل الصفحة
+                                        // Update the hidden field with the image URL value on page load
                                         document.getElementById('hiddenPhotoUrl').value = document.getElementById('output').src;
 
-                                        // تحديث قيمة الحقل المخفي عند تغيير الصورة
+                                        // Update the hidden field when the image changes
                                         function updateHiddenPhotoUrl() {
                                             var outputImg = document.getElementById('output');
                                             var hiddenPhotoUrl = document.getElementById('hiddenPhotoUrl');
                                             hiddenPhotoUrl.value = outputImg.src;
                                         }
 
-                                        // نداء الدالة لتحديث الحقل المخفي عند تغيير الصورة
+                                        // Call the function to update the hidden field when the image changes
                                         document.getElementById('output').addEventListener('load', updateHiddenPhotoUrl);
                                     </script>
-
-
-
-
-
                                 </p>
                                 <span style="color:red"><strong>@TempData["Message"]</strong></span>
                             </div>
+
 
                             <div class="checkbox margin-bottom-20">
                                 <div class="switch success">

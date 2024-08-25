@@ -258,78 +258,91 @@ namespace Yara.Areas.Admin.Controllers
         //        return Json(new { success = false, message = ex.Message });
         //    }
         //}
-        [HttpGet]
-        public async Task<IActionResult> FetchImageByModel(string model)
+       [HttpGet]
+public async Task<IActionResult> FetchImageByModel(string model)
+{
+    try
+    {
+        using (HttpClient client = new HttpClient())
         {
-            try
+            client.Timeout = TimeSpan.FromSeconds(30); // تعيين المهلة إلى 30 ثانية
+
+            // تعيين وكيل المستخدم ليبدو كأنه متصفح حقيقي بدون استخدام أي أحرف غير ASCII
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+
+            var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
+            var response = await client.GetAsync(searchUrl);
+
+            if (response.IsSuccessStatusCode)
             {
-                using (HttpClient client = new HttpClient())
+                // الحصول على الرابط الجديد بعد إعادة التوجيه
+                var redirectedUrl = response.RequestMessage.RequestUri.ToString();
+
+                // تحميل محتوى الصفحة الجديدة
+                var pageContents = await response.Content.ReadAsStringAsync();
+                var document = new HtmlDocument();
+                document.LoadHtml(pageContents);
+
+                // محاولة استخراج الصور من العنصر المطلوب
+                var imageNodes = document.DocumentNode.SelectNodes("//div[@class='ImageContainerstyles__ImageTileWrapper-sc-1l8vild-0 cfyBCn tile']//img");
+
+                if (imageNodes != null && imageNodes.Any())
                 {
-                    client.Timeout = TimeSpan.FromSeconds(30); // تعيين المهلة إلى 30 ثانية
+                            var firstImageUrl = imageNodes
+                               .Select(node => node.GetAttributeValue("src", ""))
+                               .FirstOrDefault(src => !string.IsNullOrEmpty(src));
 
-                    // تعيين وكيل المستخدم ليبدو كأنه متصفح حقيقي بدون استخدام أي أحرف غير ASCII
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-
-                    var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
-                    var response = await client.GetAsync(searchUrl);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        // الحصول على الرابط الجديد بعد إعادة التوجيه
-                        var redirectedUrl = response.RequestMessage.RequestUri.ToString();
-
-                        // تحميل محتوى الصفحة الجديدة
-                        var pageContents = await response.Content.ReadAsStringAsync();
-                        var document = new HtmlDocument();
-                        document.LoadHtml(pageContents);
-
-                        // محاولة استخراج الصورة من المصدر الرئيسي
-                        var imageNodes = document.DocumentNode.SelectNodes("//div[@class='MediaTilestyles__MediaTile-sc-vhmy2w-0']//img");
-
-                        if (imageNodes != null && imageNodes.Any())
-                        {
-                            var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
-                            return Json(new { success = true, imageUrl, redirectedUrl });
-                        }
-                        else
-                        {
-                            // فحص الرابط بعد إعادة التوجيه لاستخراج الصورة إذا لم تجدها في الرابط الأول
-                            var redirectedResponse = await client.GetAsync(redirectedUrl);
-
-                            if (redirectedResponse.IsSuccessStatusCode)
+                            if (!string.IsNullOrEmpty(firstImageUrl))
                             {
-                                var redirectedPageContents = await redirectedResponse.Content.ReadAsStringAsync();
-                                var redirectedDocument = new HtmlDocument();
-                                redirectedDocument.LoadHtml(redirectedPageContents);
-
-                                // محاولة استخراج الصورة من المصدر البديل بعد إعادة التوجيه
-                                var imageNodesFallback = redirectedDocument.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
-
-                                if (imageNodesFallback != null && imageNodesFallback.Any())
-                                {
-                                    var firstImageUrl = imageNodesFallback
-                                        .Select(node => node.GetAttributeValue("src", ""))
-                                        .FirstOrDefault();
-
-                                    return Json(new { success = true, imageUrl = firstImageUrl, redirectedUrl });
-                                }
+                                return Json(new { success = true, imageUrl = firstImageUrl, redirectedUrl });
+                            }
+                            else
+                            {
+                                // إذا لم يتم العثور على أي صورة
+                                return Json(new { success = false, message = "Image not found in the specified div.", redirectedUrl });
                             }
                         }
+                else
+                {
+                            var imageNodes2 = document.DocumentNode.SelectNodes("//img");
+                            // إذا لم يتم العثور على أي صورة
+                            if (imageNodes2 != null && imageNodes2.Any())
+                            {
+                                var firstImageUrl = imageNodes2
+                                   .Select(node => node.GetAttributeValue("src", ""))
+                                   .FirstOrDefault(src => !string.IsNullOrEmpty(src));
 
-                        // إذا لم يتم العثور على أي صورة
-                        return Json(new { success = false, message = "Image not found.", redirectedUrl });
-                    }
-                    else
-                    {
-                        return Json(new { success = false, message = "Failed to load the page." });
-                    }
-                }
+                                if (!string.IsNullOrEmpty(firstImageUrl))
+                                {
+                                    return Json(new { success = true, imageUrl = firstImageUrl, redirectedUrl });
+                                }
+                                else
+                                {
+                                    // إذا لم يتم العثور على أي صورة
+                                    return Json(new { success = false, message = "Image not found in the specified div.", redirectedUrl });
+                                }
+                            }
+
+
+
+
+
+                            return Json(new { success = false, message = "Image not found in the specified div.", redirectedUrl });
+                        }
             }
-            catch (Exception ex)
+            else
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = "Failed to load the page." });
             }
         }
+    }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, message = ex.Message });
+    }
+}
+
+
 
 
 

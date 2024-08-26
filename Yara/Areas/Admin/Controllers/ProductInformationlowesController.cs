@@ -324,9 +324,6 @@ public async Task<IActionResult> FetchImageByModel(string model)
                             }
 
 
-
-
-
                             return Json(new { success = false, message = "Image not found in the specified div.", redirectedUrl });
                         }
             }

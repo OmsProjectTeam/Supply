@@ -6,7 +6,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="~/Admin/assets/plugin/waves/waves.min.css">
 
 	<!-- RTL -->
-	<link rel="stylesheet" href="~/Admin/assets/styles/style-rtl.min.css">
+	@* <link rel="stylesheet" href="~/Admin/assets/styles/style-rtl.min.css"> *@
 </head>
 
 <body>
@@ -30,7 +30,7 @@
 		<form asp-action="Login" asp-controller="Accounts" method="post" class="frm-single">
 	
 			<div class="inside">
-				<div class="title"><strong>Ninja</strong>Admin</div>
+				<div class="title"><strong>Inventory System </strong>Admin</div>
 				<!-- /.title -->
 				<div class="frm-title">Login</div>
 
@@ -65,28 +65,28 @@
 						<!-- /.checkbox -->
 					</div>
 					<!-- /.pull-left -->
-					<div class="pull-right"><a href="page-recoverpw.html" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div>
+				@* 	<div class="pull-right"><a href="page-recoverpw.html" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div> *@
 					<!-- /.pull-right -->
 				</div>
 				<!-- /.clearfix -->
 				<button type="submit" class="frm-submit">Login<i class="fa fa-arrow-circle-right"></i></button>
 
-				<div class="row small-spacing">
+			@* 	<div class="row small-spacing">
 					<div class="col-sm-12">
 						<div class="txt-login-with txt-center">or login with</div>
 						<!-- /.txt-login-with -->
 					</div>
 
-					<!-- /.col-sm-12 -->
+				 	<!-- /.col-sm-12 -->
 					<div class="col-sm-6"><button type="button" class="btn btn-sm btn-icon btn-icon-left btn-social-with-text btn-facebook text-white waves-effect waves-light"><i class="ico fa fa-facebook"></i><span>Facebook</span></button></div>
 					<!-- /.col-sm-6 -->
 					<div class="col-sm-6"><button type="button" class="btn btn-sm btn-icon btn-icon-left btn-social-with-text btn-google-plus text-white waves-effect waves-light"><i class="ico fa fa-google-plus"></i>Google+</button></div>
-					<!-- /.col-sm-6 -->
-				</div>
+					<!-- /.col-sm-6 --> 
+				</div> *@
 				<!-- /.row -->
 
-				<a asp-area="Admin" asp-controller="Accounts" asp-action="Register" class="a-link"><i class="fa fa-key"></i>New to NinjaAdmin? Register.</a>
-				<div class="frm-footer">NinjaAdmin © 2016.</div>
+				<a asp-area="Admin" asp-controller="Accounts" asp-action="Register" class="a-link"><i class="fa fa-key"></i> Register.</a>
+				<div class="frm-footer">Inventory System © 2024.</div>
 				<!-- /.footer -->
 			</div>
 			<!-- .inside -->

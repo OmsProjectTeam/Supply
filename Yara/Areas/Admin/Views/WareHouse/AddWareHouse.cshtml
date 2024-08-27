@@ -327,7 +327,7 @@
             }
 
             // Function to update the Code field
-            function updateCodeField() {
+            function updateCodeFieldForWareHouse() {
                 var warehouseType = $('#SelectWareHouseType option:selected').text();
                 var description = $('#Description').val();
                 var randomString = generateRandomString(5);
@@ -335,17 +335,17 @@
                 if (warehouseType && description) {
                     var code = warehouseType + description + randomString;
                     $('#Code').val(code);
-                    updateQRCode(); // Update QR code when code is updated
+                    updateQRCodeForAddWareHouse(); // Update QR code when code is updated
                 }
             }
 
             // Bind change events to WareHouseType and Description fields
             $('#SelectWareHouseType, #Description').on('change keyup', function () {
-                updateCodeField();
+                updateCodeFieldForWareHouse();
             });
 
             // Update the QR code image
-            function updateQRCode() {
+            function updateQRCodeForAddWareHouse() {
                 var code = $('#Code').val();
                 if (code) {
                     $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
@@ -356,7 +356,7 @@
 
             // Bind change event to Code field to update QR code
             $('#Code').on('change keyup', function () {
-                updateQRCode();
+                updateQRCodeForAddWareHouse();
             });
 
             // Update the URL field with the current page URL

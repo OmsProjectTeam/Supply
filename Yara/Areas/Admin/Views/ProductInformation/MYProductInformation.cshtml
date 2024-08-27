@@ -278,7 +278,7 @@
     <script>
 
         $(document).ready(function () {
-            updateQRCode();
+            updateQRCodeForProductInformation();
             // Function to truncate text to a specified length
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
@@ -296,7 +296,7 @@
             });
         });
 
-        function updateQRCode() {
+        function updateQRCodeForProductInformation() {
             $('.QRCodeImage').each(function () {
                 var code = $(this).closest('tr').find('.Cod').text().trim();
 
@@ -312,11 +312,11 @@
         }
 
         $('#example_previous').click(function () {
-            updateQRCode();
+            updateQRCodeForProductInformation();
         });
 
         $('#example_next').click(function () {
-            updateQRCode();
+            updateQRCodeForProductInformation();
         });
     </script>
 }

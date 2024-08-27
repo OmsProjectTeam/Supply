@@ -202,7 +202,7 @@
     <script>
         $(document).ready(function () {
             // Function to truncate text to a specified length
-             updateQRCode();
+            updateQRCodeWareHouse();
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
                     return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
@@ -212,7 +212,7 @@
             }
 
             // Update the QR code image
-            function updateQRCode() {
+            function updateQRCodeWareHouse() {
                 $('.QRCodeImage').each(function () {
                     var code = $(this).siblings('.Code').text();
                     if (code) {
@@ -224,7 +224,13 @@
                 });
             }
 
+            $('#example_previous').click(function () {
+                updateQRCodeWareHouse();
+            });
 
+            $('#example_next').click(function () {
+                updateQRCodeWareHouse();
+            });
 
             // Loop through each table cell with class 'truncate-50'
             $('.truncate-50').each(function () {

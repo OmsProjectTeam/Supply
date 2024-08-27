@@ -210,7 +210,7 @@
     <script>
         $(document).ready(function () {
             // Function to truncate text to a specified length
-            updateQRCode();
+            updateQRCodeWareHouseBr();
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
                     return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
@@ -231,7 +231,7 @@
         });
 
 
-        function updateQRCode() {
+        function updateQRCodeWareHouseBr() {
             $('.QRCodeImage').each(function () {
                 var code = $(this).siblings('.Code').text();
                 if (code) {
@@ -244,11 +244,13 @@
         }
 
         $('#example_previous').click(function () {
-            updateQRCode();
+            console.log("dddddd");
+            updateQRCodeWareHouseBr();
         });
 
         $('#example_next').click(function () {
-            updateQRCode();
+            console.log("dddddd");
+            updateQRCodeWareHouseBr();
         });
 
     </script>

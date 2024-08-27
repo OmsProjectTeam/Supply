@@ -747,7 +747,6 @@
                 printWindow.document.write(data);
                 printWindow.document.close();
 
-                // التأكد من أن المحتوى قد تم تحميله بالكامل قبل الطباعة
                 printWindow.onload = function () {
                     printWindow.print();
                 };

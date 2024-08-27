@@ -263,53 +263,64 @@
             });
         });
     </script>
+
+
     <script>
+
         $(document).ready(function () {
-            updateQRCode();
+            updateQRCodelowes();
+            console.log("fgfddfhgdf");
+
+
             // Function to truncate text to a specified length
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
                     return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
-                } else {
+                }
+                else {
                     return text;
                 }
             }
+        });
+        
+
 
           
-
-            <script>
-                $(document).ready(function () {
-                    // تهيئة DataTable
-                    var table = $('#example').DataTable({
-                        // إعدادات DataTable الخاصة بك مثل التصفح بين الصفحات، البحث، الترتيب، إلخ.
-                    });
-
-                    // ربط دالة updateQRCode مع حدث draw.dt لتعمل عند كل تحديث للجدول
-                    table.on('draw.dt', function () {
-                        updateQRCode();
-                    });
-
-                    // استدعاء الدالة لأول مرة عند تحميل الصفحة
-                    updateQRCode();
+        $(document).ready(function () {
+            updateQRCodelowes();
+            console.log("fgfddfhgdf");
+                // تهيئة DataTable
+                var table = $('#example').DataTable({
+                    // إعدادات DataTable الخاصة بك مثل التصفح بين الصفحات، البحث، الترتيب، إلخ.
                 });
 
-            function updateQRCode() {
-                $('.QRCodeImage').each(function () {
-                    var code = $(this).closest('tr').find('.Codee').text().trim();
-
-                    console.log(code);
-                    // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
-                    if (code) {
-                        $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-                    } else {
-                        $(this).attr('src', '');
-                    }
+                // ربط دالة updateQRCode مع حدث draw.dt لتعمل عند كل تحديث للجدول
+                table.on('draw.dt', function () {
+                updateQRCodelowes();
                 });
-            }
+            updateQRCodelowes();
+            });
+
+        function updateQRCodelowes() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).closest('tr').find('.Codee').text().trim();
+
+                console.log(code);
+                // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+
     </script>
 
 
     <script>
+
+
             // Loop through each table cell with class 'truncate-50'
             $('.truncate-50').each(function () {
                 var text = $(this).text(); // Get the text content of the cell

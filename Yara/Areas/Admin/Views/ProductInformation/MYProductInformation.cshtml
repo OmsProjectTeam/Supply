@@ -12,7 +12,6 @@
             <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
-
         </ul>
         <!-- /.box-title -->
         <div class="dropdown js__drop_down">
@@ -310,7 +309,8 @@
                 }
             });
         }
-
+    </script>
+    <script>
         $('#example_previous').click(function () {
             updateQRCodeForProductInformation();
         });

@@ -100,6 +100,16 @@ namespace Infarstuructre.ViewModel
         public TBSupportTicketStatus SupportTicketStatus { get; set; }
         public IEnumerable<TBViewSupportTicket> ListViewSupportTicket { get; set; }
         public TBSupportTicket SupportTicket { get; set; }
+
+
+        public IEnumerable<TBViewNewsLetterGroup> ListNewsLetterGroup { get; set; }
+        public TBNewsletterGroup NewsletterGroup { get; set; }
+        public IEnumerable<TBViewNewsLetter> ListNewsLetter { get; set; }
+        public TBNewsletter Newsletter { get; set; }
+        public IEnumerable<TBTemplate> ListTemplate { get; set; }
+        public TBTemplate Template { get; set; }
+
+
     }
 }
 

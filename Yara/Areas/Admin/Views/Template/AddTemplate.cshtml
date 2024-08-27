@@ -1,0 +1,88 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = "AddFAQ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row small-spacing">
+    <div class="col-12">
+        <div class="box-content">
+            <ul class="list-inline">
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbTemplate</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                </li>
+            </ul>
+            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-12">
+        <div class="box-content card white">
+            <h4 class="box-title">@ResourceWeb.LBAddNewsLetter</h4>
+            <div class="card-content">
+                <form role="form" method="post" asp-controller="Template" asp-action="Save" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.Template.DateEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.Template.IdTemplate" class="form-control">
+                        <input type="hidden" asp-for="@Model.Template.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.Template" id="url">
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Template.TemplateName">@ResourceWeb.LbTemplateName</label>
+                                <input asp-for="@Model.Template.TemplateName" type="text" placeholder="@ResourceWeb.LbTemplateName ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Template.TemplateName" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Title"]</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Template.Containt">@ResourceWeb.LbContaint</label>
+                                <input asp-for="@Model.Template.Containt" type="text" placeholder="@ResourceWeb.LbContaint ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Template.Containt" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Title"]</strong></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.Template.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                <input asp-for="@Model.Template.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Template.CurrentState" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.Template.Active">@ResourceWeb.LbActive</label>
+                                <input asp-for="@Model.Template.Active" type="checkbox" checked class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Template.Active" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+}

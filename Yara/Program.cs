@@ -1,7 +1,4 @@
-﻿
-
-
-using Yara.Areas.Admin.Controllers;
+﻿using Yara.Areas.Admin.Controllers;
 using static Infarstuructre.BL.IIRolsInformation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -116,6 +113,10 @@ builder.Services.AddScoped<IIConnectAndDisconnect, CLSTBConnectAndDisconnect>();
 builder.Services.AddScoped<IISupportTicketType, CLSTBSupportTicketType>();
 builder.Services.AddScoped<IISupportTicketStatus, CLSTBSupportTicketStatus>();
 builder.Services.AddScoped<IISupportTicket, CLSTBSupportTicket>();
+builder.Services.AddScoped<IINewsLettersGroup, CLSTBNewsLettersGroup>();
+builder.Services.AddScoped<IINewsLetters, CLSTBNewsLetter>();
+builder.Services.AddScoped<IISendLog, CLSTBSendLog>();
+builder.Services.AddScoped<IITemplate, CLSTBTemplate>();
 
 builder.Services.AddScoped<AccountsController>();
 

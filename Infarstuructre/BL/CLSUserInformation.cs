@@ -39,6 +39,7 @@ namespace Infarstuructre.BL
         public CLSUserInformation(UserManager<ApplicationUser> userManager, MasterDbcontext dbcontext1)
         {
             _userManager = userManager;
+            dbcontext = dbcontext1;
 
         }
         public List<VwUser> GetAll()

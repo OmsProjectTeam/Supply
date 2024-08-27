@@ -664,6 +664,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the News letter Group to complete successfully..!.
+        /// </summary>
+        public static string VlNewletterGroup {
+            get {
+                return ResourceManager.GetString("VlNewletterGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the nickname for the process to complete successfully..!.
         /// </summary>
         public static string VlNikeNAme {
@@ -831,6 +840,42 @@ namespace Domin.Resource {
         public static string VlSupportTicketType {
             get {
                 return ResourceManager.GetString("VlSupportTicketType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the News letter Content to complete successfully..!.
+        /// </summary>
+        public static string VlTBNewsletterContent {
+            get {
+                return ResourceManager.GetString("VlTBNewsletterContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the News letter Title to complete successfully..!.
+        /// </summary>
+        public static string VlTBNewsletterTitle {
+            get {
+                return ResourceManager.GetString("VlTBNewsletterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include Template Content to complete successfully..!.
+        /// </summary>
+        public static string VlTemplateContent {
+            get {
+                return ResourceManager.GetString("VlTemplateContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include Template Name to complete successfully..!.
+        /// </summary>
+        public static string VlTemplateName {
+            get {
+                return ResourceManager.GetString("VlTemplateName", resourceCulture);
             }
         }
         

@@ -414,4 +414,19 @@
   <data name="VlTitel" xml:space="preserve">
     <value>Please include the Titel to complete successfully..!</value>
   </data>
+  <data name="VlNewletterGroup" xml:space="preserve">
+    <value>Please include the News letter Group to complete successfully..!</value>
+  </data>
+  <data name="VlTemplateName" xml:space="preserve">
+    <value>Please include Template Name to complete successfully..!</value>
+  </data>
+  <data name="VlTemplateContent" xml:space="preserve">
+    <value>Please include Template Content to complete successfully..!</value>
+  </data>
+  <data name="VlTBNewsletterContent" xml:space="preserve">
+    <value>Please include the News letter Content to complete successfully..!</value>
+  </data>
+  <data name="VlTBNewsletterTitle" xml:space="preserve">
+    <value>Please include the News letter Title to complete successfully..!</value>
+  </data>
 </root>

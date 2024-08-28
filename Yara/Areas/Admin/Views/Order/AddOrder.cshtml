@@ -260,6 +260,12 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.Order.CurrentState">@ResourceWeb.lbCurrentState</label>
+                            <input asp-for="@Model.Order.CurrentState" checked type="checkbox" placeholder="@ResourceWeb.lbCurrentState...." class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                     <div class="form-group">
                     <img id="QRCodeImage1" src="" alt="QR Code" class="img-fluid" />
                     <div>

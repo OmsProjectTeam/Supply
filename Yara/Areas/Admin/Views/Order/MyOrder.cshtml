@@ -346,6 +346,19 @@
         });
     </script>
     <script>
+
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    console.log(code);
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+
         $(document).ready(function () {
             updateQRCode();
             // Function to truncate text to a specified length
@@ -362,19 +375,9 @@
                 var truncatedText = truncateText(text, 100); // Truncate the text to 50 characters
                 $(this).text(truncatedText); // Set the truncated text back to the cell
             });
-
-            function updateQRCode() {
-                $('.QRCodeImage').each(function () {
-                    var code = $(this).siblings('.Code').text();
-                    if (code) {
-                        console.log(code);
-                        $(this).attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
-                    } else {
-                        $(this).attr('src', '');
-                    }
-                });
-            }
+            
         });
+
     </script>
 }
 

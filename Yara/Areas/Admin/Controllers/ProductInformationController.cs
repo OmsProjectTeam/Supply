@@ -25,6 +25,7 @@ namespace Yara.Areas.Admin.Controllers
         }
         public IActionResult MYProductInformation()
         {
+
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
             return View(vmodel);

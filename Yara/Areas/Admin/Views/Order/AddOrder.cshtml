@@ -994,13 +994,7 @@
             //     });
             // }
 
-            $('#example_previous').click(function () {
-                updateQRCode1();
-            });
 
-            $('#example_next').click(function () {
-                updateQRCode1();
-            });
 
             function updateQRCode1() {
                 $('.QRCodeImage').each(function () {
@@ -1017,7 +1011,22 @@
                     }
                 });
             }
+            $('#example_previous').click(function () {
+                updateQRCode1();
+            });
 
+            $('#example_next').click(function () {
+                updateQRCode1();
+            });
+
+            // // Update QR Codes when pagination is changed
+            // table1.on('draw.dt', function () {
+            //     updateQRCodeWareHouseBr();
+            // });
+
+            // table2.on('draw.dt', function () {
+            //     updateQRCodeWareHouseBr();
+            // });
 
             // Loop through each table cell with class 'truncate-50'
             $('.truncate-50').each(function () {

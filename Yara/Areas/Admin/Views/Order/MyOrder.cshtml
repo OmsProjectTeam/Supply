@@ -60,6 +60,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantPhone</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantEmaile</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
@@ -70,6 +71,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantPhone</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantEmaile</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
                                             </tfoot>
                                             <tbody>
                                                         @foreach (var item in Model.ListViewOrder)
@@ -86,6 +88,12 @@
                                                         <td class="truncate-50">@item.Name</td>
                                                         <td class="truncate-50">@item.MerchantPhone</td>
                                                         <td class="truncate-50">@item.MerchantEmaile</td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div hidden class="Code">@item.Qrcode</div>
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                         }
                                             </tbody>
@@ -107,8 +115,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
+
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
@@ -118,8 +125,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
+
 
                                             </tfoot>
                                             <tbody>
@@ -136,13 +142,7 @@
                                                         <td class="truncate-50">@item.ProductName</td>
                                                         <td class="truncate-50">@item.Make</td>
                                                         <td class="truncate-50">@item.UPC</td>
-                                                        <td class="truncate-50">@item.Qrcode</td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div hidden class="Code">@item.Qrcode</div>
-                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
-                                                            </div>
-                                                        </td>
+
                                                     </tr>
                                                         }
                                             </tbody>

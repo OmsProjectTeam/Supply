@@ -197,32 +197,39 @@
                 "info": true,
                 "autoWidth": false,
             });
-
-            // Update QR Codes when pagination is changed
-            table1.on('draw.dt', function () {
-                updateQRCodeWareHouseBr();
-            });
-
-            table2.on('draw.dt', function () {
-                updateQRCodeWareHouseBr();
-            });
-
-            // Function to update QR Codes
-            function updateQRCodeWareHouseBr() {
-                $('.QRCodeImage').each(function () {
-                    var code = $(this).siblings('.Code').text();
-                    if (code) {
-                        console.log(code);
-                        $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-                    } else {
-                        $(this).attr('src', '');
-                    }
-                });
-            }
-
             // Initial QR Code update
             updateQRCodeWareHouseBr();
         });
+
+        // // Update QR Codes when pagination is changed
+        // table1.on('draw.dt', function () {
+        //     updateQRCodeWareHouseBr();
+        // });
+
+        // table2.on('draw.dt', function () {
+        //     updateQRCodeWareHouseBr();
+        // });
+
+        $('#example_previous').click(function () {
+            updateQRCodeWareHouseBr();
+        });
+
+        $('#example_next').click(function () {
+            updateQRCodeWareHouseBr();
+        });
+
+        // Function to update QR Codes
+        function updateQRCodeWareHouseBr() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    console.log(code);
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
     </script>
 
 

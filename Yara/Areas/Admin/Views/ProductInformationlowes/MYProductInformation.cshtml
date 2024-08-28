@@ -45,6 +45,7 @@
                             <div id="bar" class="progress">
                                 <div class="progress-bar active progress-bar-info progress-bar-striped bar"></div>
                             </div>
+
                             <div class="tab-pane" id="tab-progress-1">
                                 <div class='table-responsive'>
                                     <div style="overflow-x:auto;">
@@ -215,54 +216,8 @@
 @section Scripts
 {
     <!-- Data Tables -->
-    <script src="~/Admin/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/scripts/datatables.demo.min.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/prettify.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
-    <script>
-        $(function () {
-            $("#example2").DataTable().fnDestroy();
-            $('#example2').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example3").DataTable().fnDestroy();
-            $('#example3').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example4").DataTable().fnDestroy();
-            $('#example4').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
+ 
+  
 
 
     <script>
@@ -318,17 +273,7 @@
     </script>
 
 
-    <script>
-
-
-            // Loop through each table cell with class 'truncate-50'
-            $('.truncate-50').each(function () {
-                var text = $(this).text(); // Get the text content of the cell
-                var truncatedText = truncateText(text, 100); // Truncate the text to 50 characters
-                $(this).text(truncatedText); // Set the truncated text back to the cell
-            });
-        });
-    </script>
+  
 }
 
 

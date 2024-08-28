@@ -190,7 +190,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
-                                <input id="OrderNoumber" asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" maxlength="300">
+                                <input id="OrderNoumber" asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" id="PurchaseOrderNoumber11" maxlength="300">
                                 <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
 
                             </div>
@@ -718,11 +718,12 @@
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
             var ProductInformation = $('#SelectProductInformation option:selected').text();
             var sellingPrice = $('#sellingPrice').val();
+            var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
 
             var randomString = generateRandomString(5);
 
             if (Merchant && WareHouse) {
-                var code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString;
+                var code = Merchant+WareHouse+WareHouseBranch+ProductInformation+sellingPrice+randomString+PurchaseOrderNoumber;
                 $('#Qrcode').val(code);
                 updateQRCode();
             }
@@ -733,29 +734,33 @@
     </script>
     <script>
         $("#url").val(window.location.href);
+
         function printWarehouseDetails1() {
             var Merchant = $('#SelectMerchant option:selected').text();
             var WareHouse = $('#SelectWareHouse option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
             var ProductInformation = $('#SelectProductInformation option:selected').text();
             var sellingPrice = $('#sellingPrice').val();
-            var qrCodeSrc = $('#QRCodeImage').attr('src');
+            var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
+            var qrCodeSrc = $('#QRCodeImage1').attr('src');
 
             var url1 = '@Url.Action("PrintWareHouseDetails", "Order")';
 
             // ترميز مكونات URI للتعامل مع الأحرف الخاصة
-            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
 
             // إرسال طلب GET للحصول على محتوى الطباعة
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');
                 printWindow.document.open();
                 printWindow.document.write(data);
-                printWindow.document.close();
+
 
                 printWindow.onload = function () {
                     printWindow.print();
                 };
+
+                printWindow.document.close();
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Error: ", textStatus, errorThrown);
                 alert("Failed to load print content. Please try again.");
@@ -1138,7 +1143,7 @@
 
                             // Populate or update the Product Information dropdown
                             $('#SelectProductInformation').empty(); // Clear the dropdown first
-                            $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
+                            $('#SelectProductInformation').append(new Option(data.productName, data.id, true, true)).trigger('change');
 
                             // Disable the modal button since a product was found
                             $('#modalButton').prop('disabled', true);

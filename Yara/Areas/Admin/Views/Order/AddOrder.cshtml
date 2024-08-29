@@ -838,93 +838,14 @@
             }
         });
 
-        // function generateRandomString(length) {
-        //     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        //     var result = '';
-        //     var charactersLength = characters.length;
-        //     for (var i = 0; i < length; i++) {
-        //         result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        //     }
-        //     return result;
-        // }
-
-        // // Function to update the Code field
-        // function updateCodeField() {
-        //     var Category = $('#SelectCategory option:selected').text();
-        //     var TypesProduct = $('#SelectTypesProduct option:selected').text();
-        //     var Product = $('#ProductName').val();
-        //     var Model = $('#modelInput').val();
-        //     var UPC = $('#UPC').val();
-
-        //     var randomString = generateRandomString(5);
-
-        //     if (Category && TypesProduct && Product && Model && UPC) {
-        //         var code = randomString + Category + TypesProduct + Product + Model + UPC;
-        //         $('#Code').val(code);
-        //         updateQRCode(); // Update QR code when code is updated
-        //     }
-        // }
-
-        // // Bind change events to WareHouseType and Description fields
-        // $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
-        //     updateCodeField();
-        // });
-
-        // // Update the QR code image
-        // function updateQRCode() {
-        //     var code = $('#Code').val();
-        //     if (code) {
-        //         $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-        //     } else {
-        //         $('#QRCodeImage').attr('src', '');
-        //     }
-        // }
-
-        // // Bind change event to Code field to update QR code
-        // $(document).ready(function () {
-        //     $('#Code').on('change', function () {
-        //         var code = $('#Code').val(); // احصل على قيمة حقل الإدخال
-        //         $('#QRCode').val(code); // تحديث قيمة الـ textarea
-        //     });
-        // });
-
-        // function printWarehouseDetails() {
-        //     var Category = $('#SelectCategory option:selected').text();
-        //     var TypesProduct = $('#SelectTypesProduct option:selected').text();
-        //     var Product = $('#ProductName').val();
-        //     var Model = $('#modelInput').val();
-        //     var UPC = $('#UPC').val();
-        //     var qrCodeSrc = $('#QRCodeImage').attr('src');
-
-        //     var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
-
-        //     // Encode URI components to handle special characters
-        //     url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
-
-        //     $.get(url, function (data) {
-        //         var printWindow = window.open('', '_blank');
-        //         printWindow.document.open();
-        //         printWindow.document.write(data);
-        //         printWindow.document.close();
-
-        //         // Ensure the image is fully loaded before printing
-        //         printWindow.onload = function () {
-        //             printWindow.print();
-        //         };
-        //     }).fail(function (jqXHR, textStatus, errorThrown) {
-        //         console.error("Error: ", textStatus, errorThrown);
-        //     });
-        // }
-
-        // // Set the URL of the form to the current page URL
-        // $("#url").val(window.location.href);
+      
     </script>
 
 
 
     <!-- Data Tables -->
 
-    
+
     <script>
         function updateQRCode() {
             $('.QRCodeImage').each(function () {
@@ -936,10 +857,6 @@
                 }
             });
         }
-
-
-
-
     </script>
     <script>
         $(document).on('click', '.paginate_button', function () {
@@ -1131,64 +1048,7 @@
             }
         });
 
-        // $('#product12').on('change keyup', function () {
-        //     console.log("Product search triggered");
-        //     var productId = $(this).val();
-
-        //     if (productId) {
-        //         $.ajax({
-        //             url: '@Url.Action("GetProductDetailsForOrder", "Order")',
-        //             type: 'GET',
-        //             data: { productId: productId },
-        //             success: function (data) {
-        //                 if (data && data.productCategoryId > 0) {
-        //                     // Populate the fields with the received data
-        //                     $('#ProductName').val(productId);  // Set the product name input
-        //                     $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
-        //                     $('#SelectBondType').val(data.bondTypeId).trigger('change');
-        //                     $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
-        //                     $('#GlobalPrice').val(data.globalPrice);
-        //                     $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
-
-        //                     // Populate or update the Product Information dropdown
-        //                     $('#SelectProductInformation').empty(); // Clear the dropdown first
-        //                     $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
-
-        //                 } else {
-        //                     // If no data is returned, show the modal for adding a new product
-        //                     openModal();
-        //                     $('#ProductName').val(productId); // Pre-fill the product name with the searched term
-        //                 }
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("Error fetching product details: ", error);
-        //                 $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-        //                 $('#GlobalPrice').val("0.00");
-        //             }
-        //         });
-        //     } else {
-        //         // Reset dropdowns and image if no product is selected
-        //         $('#SelectProductCategory, #SelectBondType, #SelectTypesProduct, #SelectProductInformation').val('').trigger('change');
-        //         $('#GlobalPrice').val('');
-        //         $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-        //     }
-        // });
-
-        // function openModal() {
-        //     document.getElementById("customModal").style.display = "block";
-        // }
-
-        // function closeModal() {
-        //     document.getElementById("customModal").style.display = "none";
-        // }
-
-        // // Close the modal if the user clicks outside of it
-        // window.onclick = function (event) {
-        //     var modal = document.getElementById("customModal");
-        //     if (event.target == modal) {
-        //         modal.style.display = "none";
-        //     }
-        // }
+   
     </script>
 
 }

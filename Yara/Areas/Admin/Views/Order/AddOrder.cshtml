@@ -367,6 +367,7 @@
                                                             <td class="truncate-50 Codee">@item.Qrcode</td>
                                                             <td>
                                                                 <div class="form-group">
+                                                                    <div class="Code">@item.Qrcode</div>
                                                                     <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                                 </div>
                                                             </td>
@@ -650,7 +651,23 @@
 </div>
 
 @section Scripts {
- 
+    <script>
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+        });
+    </script>
 
 
     <script>
@@ -688,16 +705,6 @@
         $('#sellingPrice').on('change keyup', function () {
             updateCodeField();
         });
-
-
-        function updateQRCode() {
-            var code = $('#Qrcode').val();
-            if (code) {
-                $('#QRCodeImage1').attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
-            } else {
-                $('#QRCodeImage1').attr('src', '');
-            }
-        }
 
         // Function to update the Code field
         function updateCodeField() {
@@ -742,7 +749,6 @@
                 var printWindow = window.open('', '_blank');
                 printWindow.document.open();
                 printWindow.document.write(data);
-
 
                 printWindow.onload = function () {
                     printWindow.print();
@@ -846,23 +852,7 @@
     <!-- Data Tables -->
 
 
-    <script>
-        function updateQRCode() {
-            $('.QRCodeImage').each(function () {
-                var code = $(this).siblings('.Code').text();
-                if (code) {
-                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-                } else {
-                    $(this).attr('src', '');
-                }
-            });
-        }
-    </script>
-    <script>
-        $(document).on('click', '.paginate_button', function () {
-            updateQRCode();
-        });
-    </script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {

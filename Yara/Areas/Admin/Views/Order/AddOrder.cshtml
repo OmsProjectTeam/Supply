@@ -650,19 +650,7 @@
 </div>
 
 @section Scripts {
-    <script src="~/Admin/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/scripts/datatables.demo.min.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/prettify.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+ 
 
 
     <script>
@@ -936,94 +924,7 @@
 
     <!-- Data Tables -->
 
-    <script>
-        $(function () {
-            $("#example2").DataTable().fnDestroy();
-            $('#example2').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example3").DataTable().fnDestroy();
-            $('#example3').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example4").DataTable().fnDestroy();
-            $('#example4').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            updateQRCode1();
-            // Function to truncate text to a specified length
-            function truncateText(text, maxLength) {
-                if (text.length > maxLength) {
-                    return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
-                } else {
-                    return text;
-                }
-            }
-
-            //  function updateQRCode() {
-            //     $('.QRCodeImage').each(function () {
-            //         var Category = $(this).siblings('.Code').text();
-            //         var ProductName = $(this).siblings('.Code').text();
-            //         var Model = $(this).siblings('.Code').text();
-            //         var UPC = $(this).siblings('.Code').text();
-            //         var TypeProduct = $(this).siblings('.Code').text();
-
-            //         var code = Category + ProductName + Model + UPC + TypeProduct
-            //         if (code) {
-            //             console.log(code);
-            //             $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-            //         } else {
-            //             $(this).attr('src', '');
-            //         }
-            //     });
-            // }
-
-
-            // // Update QR Codes when pagination is changed
-            // table1.on('draw.dt', function () {
-            //     updateQRCodeWareHouseBr();
-            // });
-
-            // table2.on('draw.dt', function () {
-            //     updateQRCodeWareHouseBr();
-            // });
-
-            // Loop through each table cell with class 'truncate-50'
-            $('.truncate-50').each(function () {
-                var text = $(this).text(); // Get the text content of the cell
-                var truncatedText = truncateText(text, 100); // Truncate the text to 50 characters
-                $(this).text(truncatedText); // Set the truncated text back to the cell
-            });
-        });
-
-    </script>
+    
     <script>
         function updateQRCode() {
             $('.QRCodeImage').each(function () {

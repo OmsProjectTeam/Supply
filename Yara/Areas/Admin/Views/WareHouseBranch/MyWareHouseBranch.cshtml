@@ -29,7 +29,6 @@
                                 <div class="navbar-inner">
                                     <ul>
                                         <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LBMyWareHouseBranch</a></li>
-
                                         <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbInformaition</a></li>
                                     </ul>
                                 </div>
@@ -76,9 +75,7 @@
                                                                 <div class="Code">@item.Code</div>
                                                                 <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                             </div>
-                                                        </td>
-                                                       
-                                                        
+                                                        </td>                                                                                                              
                                                     </tr>
                                                         }
                                             </tbody>
@@ -86,7 +83,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="tab-pane" id="tab-progress-3">
                                 <div class='table-responsive'>
                                     <div style="overflow-x:auto;">
@@ -137,7 +133,6 @@
                                                         }
                                             </tbody>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
@@ -162,13 +157,9 @@
 <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
 
 @* <img src="~/images/user gide/TypesOfMessage.png" width="1920" height="1077" /> *@
-
 @section Scripts
 {
     <!-- Data Tables -->
-
-
-
     <script>
         function updateQRCode() {
             $('.QRCodeImage').each(function () {
@@ -180,18 +171,12 @@
                 }
             });
         }
-
-
-
-
     </script>
     <script>
         $(document).on('click', '.paginate_button', function () {
             updateQRCode();
         });
     </script>
-
-
 }
 
 

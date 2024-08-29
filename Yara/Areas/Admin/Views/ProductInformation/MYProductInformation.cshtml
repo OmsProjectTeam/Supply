@@ -226,58 +226,28 @@
 @section Scripts
 {
     <!-- Data Tables -->
-   
- 
-
 
     <script>
-
-        $(document).ready(function () {
-            updateQRCodelowes();
-            console.log("fgfddfhgdf");
-
-
-            // Function to truncate text to a specified length
-            function truncateText(text, maxLength) {
-                if (text.length > maxLength) {
-                    return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
-                }
-                else {
-                    return text;
-                }
-            }
-        });
-        $(document).ready(function () {
-            updateQRCodelowes();
-            console.log("fgfddfhgdf");
-            // تهيئة DataTable
-            var table = $('#example').DataTable({
-                // إعدادات DataTable الخاصة بك مثل التصفح بين الصفحات، البحث، الترتيب، إلخ.
-            });
-
-            // ربط دالة updateQRCode مع حدث draw.dt لتعمل عند كل تحديث للجدول
-            table.on('draw.dt', function () {
-                updateQRCodelowes();
-            });
-            updateQRCodelowes();
-        });
-
-        function updateQRCodelowes() {
+        function updateQRCode() {
             $('.QRCodeImage').each(function () {
-                var code = $(this).closest('tr').find('.Codee').text().trim();
-
-                console.log(code);
-                // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
+                var code = $(this).siblings('.Code').text();
                 if (code) {
-                    $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
                 } else {
                     $(this).attr('src', '');
                 }
             });
         }
 
-    </script>
 
+
+
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+        });
+    </script>
 
 }
 

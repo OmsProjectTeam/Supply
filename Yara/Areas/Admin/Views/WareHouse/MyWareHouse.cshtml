@@ -164,32 +164,25 @@
 
 
     <script>
-     
-
-            // Update the QR code image
-            function updateQRCodeWareHouse() {
-                $('.QRCodeImage').each(function () {
-                    var code = $(this).siblings('.Code').text();
-                    if (code) {
-                        console.log(code);
-                        $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-                    } else {
-                        $(this).attr('src', '');
-                    }
-                });
-            }
-
-            $('#example_previous').click(function () {
-                updateQRCodeWareHouse();
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
             });
+        }
 
-            $('#example_next').click(function () {
-                updateQRCodeWareHouse();
-            });
 
-          
-          
- 
+
+
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+        });
     </script>
 
 

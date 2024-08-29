@@ -1,25 +1,38 @@
 ﻿
-    $(function () {
-            // Array of table IDs to initialize DataTables on
-            var tableIds = ["example","example1","example2", "example3", "example4", "example5","example6","example7"];
+$(function () {
+        // Array of table IDs to initialize DataTables on
+        var tableIds = ["example","example1","example2", "example3", "example4", "example5","example6","example7"];
 
-    // Loop through each table ID and initialize DataTable
-    $.each(tableIds, function (index, tableId) {
-        // Destroy any existing DataTable instance on this table
-        $("#" + tableId).DataTable().fnDestroy();
+// Loop through each table ID and initialize DataTable
+$.each(tableIds, function (index, tableId) {
+    // Destroy any existing DataTable instance on this table
+    $("#" + tableId).DataTable().fnDestroy();
 
-    // Initialize DataTable with options
-    $('#' + tableId).DataTable({
-        "paging": false,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false
-                });
+// Initialize DataTable with options
+$('#' + tableId).DataTable({
+    "paging": false,
+"lengthChange": false,
+"searching": false,
+"ordering": true,
+"info": true,
+"autoWidth": false
             });
         });
+}
+);
+
+function updateQRCode() {
+    $('.QRCodeImage').each(function () {
+        var code = $(this).siblings('.Code').text();
+        if (code) {
+            $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+        } else {
+            $(this).attr('src', '');
+        }
+    });
+}
 $(document).ready(function () {
+    updateQRCode();
     // Function to truncate text to a specified length
     function truncateText(text, maxLength) {
         if (text.length > maxLength) {
@@ -36,3 +49,5 @@ $(document).ready(function () {
         $(this).text(truncatedText); // Set the truncated text back to the cell
     });
 });
+
+

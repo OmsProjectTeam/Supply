@@ -273,7 +273,18 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 4 of 4 entries (filtered from 57 total entries)</div>
-            </div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li></ul></div></div>
+            </div>
+
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                    <ul class="pagination">
+                        <li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li>
+                        <li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li>
+                        <li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="box-content">
@@ -283,21 +294,16 @@
 </div>
 <!-- /.box-content -->
 @* <img src="~/images/user gide/Order.png" width="1920" height="1077" /> *@
+
 @section Scripts
 {
-    <!-- Data Tables -->
 
-
-
-  
     <script>
-
         function updateQRCode() {
             $('.QRCodeImage').each(function () {
                 var code = $(this).siblings('.Code').text();
                 if (code) {
-                    console.log(code);
-                    $(this).attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
                 } else {
                     $(this).attr('src', '');
                 }
@@ -305,6 +311,15 @@
         }
 
 
+
+
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            console.log("ggggggg");
+            console.log("a");
+            updateQRCode();
+        });
     </script>
 }
 

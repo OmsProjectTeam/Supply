@@ -170,29 +170,25 @@
 
 
     <script>
-    
-
-       
-        $('#example_previous').click(function () {
-            updateQRCodeWareHouseBr();
-        });
-
-        $('#example_next').click(function () {
-            updateQRCodeWareHouseBr();
-        });
-
-        // Function to update QR Codes
-        function updateQRCodeWareHouseBr() {
+        function updateQRCode() {
             $('.QRCodeImage').each(function () {
                 var code = $(this).siblings('.Code').text();
                 if (code) {
-                    console.log(code);
                     $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
                 } else {
                     $(this).attr('src', '');
                 }
             });
         }
+
+
+
+
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+        });
     </script>
 
 

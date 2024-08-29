@@ -1006,30 +1006,6 @@
             // }
 
 
-
-            function updateQRCode1() {
-                $('.QRCodeImage').each(function () {
-                    var code = $(this).closest('tr').find('.Codee').text().trim();
-
-                    console.log(code);
-                    // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
-                    if (code) {
-                        console.log(code);
-                        $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-                    } else {
-                        console.log("code");
-                        $(this).attr('src', '');
-                    }
-                });
-            }
-            $('#example_previous').click(function () {
-                updateQRCode1();
-            });
-
-            $('#example_next').click(function () {
-                updateQRCode1();
-            });
-
             // // Update QR Codes when pagination is changed
             // table1.on('draw.dt', function () {
             //     updateQRCodeWareHouseBr();
@@ -1046,8 +1022,29 @@
                 $(this).text(truncatedText); // Set the truncated text back to the cell
             });
         });
-    </script>
 
+    </script>
+    <script>
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+
+
+
+
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {

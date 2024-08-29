@@ -82,7 +82,7 @@
                                                         <td class="truncate-50 Codee">@item.Qrcode</td>
                                                         <td>
                                                             <div class="form-group">
-                                                        <div hidden class="truncate-50 Cod">@item.Qrcode</div>
+                                                                <div hidden class="truncate-50 Code">@item.Qrcode</div>
                                                                 <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                             </div>
                                                         </td>
@@ -225,8 +225,6 @@
 @* <img src="~/images/user gide/ProductInformation.png" width="1920" height="1077" /> *@
 @section Scripts
 {
-    <!-- Data Tables -->
-
     <script>
         function updateQRCode() {
             $('.QRCodeImage').each(function () {

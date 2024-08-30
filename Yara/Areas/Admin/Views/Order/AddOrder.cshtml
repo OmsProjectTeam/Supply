@@ -267,7 +267,7 @@
                     </div>
                     <div class="col-sm-6">
                     <div class="form-group">
-                    <img id="QRCodeImage1" src="" alt="QR Code" class="img-fluid" />
+                    <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
                     <div>
                     <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
                     </div>
@@ -706,6 +706,15 @@
             updateCodeField();
         });
 
+        function updateQRCodeForxxx() {
+            var code = $('#Qrcode').val();
+            if (code) {
+                $('#QRCodeImage11').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+            } else {
+                $('#QRCodeImage11').attr('src', '');
+            }
+        }
+
         // Function to update the Code field
         function updateCodeField() {
             var Merchant = $('#SelectMerchant option:selected').text();
@@ -720,7 +729,7 @@
             if (Merchant && WareHouse) {
                 var code = Merchant+WareHouse+WareHouseBranch+ProductInformation+sellingPrice+randomString+PurchaseOrderNoumber;
                 $('#Qrcode').val(code);
-                updateQRCode();
+                updateQRCodeForxxx();
             }
         }
         //////////////////////////////////////////////////////////////////////////////

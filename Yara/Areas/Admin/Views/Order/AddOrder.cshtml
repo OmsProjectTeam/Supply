@@ -719,6 +719,7 @@
         function updateCodeField() {
             var Merchant = $('#SelectMerchant option:selected').text();
             var WareHouse = $('#SelectWareHouse option:selected').text();
+            var BondType = $('#SelectBondType option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
             var ProductInformation = $('#SelectProductInformation option:selected').text();
             var sellingPrice = $('#sellingPrice').val();
@@ -731,7 +732,7 @@
             var randomString = generateRandomString(5);
 
             if (Merchant && WareHouse) {
-                var code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString + PurchaseOrderNoumber + GlobalPr + QouantityIn + PurchasePrice + SpecialSalePrice;
+                var code = Merchant + '-' + WareHouse + '-' + BondType+'-' + WareHouseBranch + '-' + ProductInformation + '-' + sellingPrice + '-' + randomString + '-' + PurchaseOrderNoumber + '-' + GlobalPr + '-' + QouantityIn + '-' + PurchasePrice + '-' + SpecialSalePrice;
                 $('#Qrcode').val(code);
                 updateQRCodeForxxx();
             }
@@ -746,6 +747,7 @@
         function printWarehouseDetails1() {
             var Merchant = $('#SelectMerchant option:selected').text();
             var WareHouse = $('#SelectWareHouse option:selected').text();
+            var BondType = $('#SelectBondType option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
             var ProductInformation = $('#SelectProductInformation option:selected').text();
             var sellingPrice = $('#sellingPrice').val();
@@ -759,7 +761,7 @@
             var url1 = '@Url.Action("PrintWareHouseDetails", "Order")';
 
             // ترميز مكونات URI للتعامل مع الأحرف الخاصة
-            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
 
             // إرسال طلب GET للحصول على محتوى الطباعة
             $.get(url, function (data) {

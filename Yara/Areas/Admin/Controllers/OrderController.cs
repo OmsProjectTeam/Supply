@@ -204,6 +204,7 @@ namespace Yara.Areas.Admin.Controllers
             string QouantityIn,
             string PurchasePrice,
             string SpecialSalePrice,
+            string BondType,
             string qrCodeSrc)
         {
             var htmlContent = new StringBuilder();
@@ -218,6 +219,7 @@ namespace Yara.Areas.Admin.Controllers
             htmlContent.AppendFormat("<h3>QouantityIn: {0}</h3>", QouantityIn);
             htmlContent.AppendFormat("<h3>PurchasePrice: {0}</h3>", PurchasePrice);
             htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
+            htmlContent.AppendFormat("<h3>BondType: {0}</h3>", BondType);
             htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
             htmlContent.Append("</body></html>");
 

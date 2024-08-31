@@ -198,7 +198,13 @@ namespace Yara.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse, string PurchaseOrderNoumber, string ProductInformation, string WareHouseBranch, string sellingPrice, string qrCodeSrc)
+        public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
+            string PurchaseOrderNoumber, string ProductInformation,
+            string WareHouseBranch, string sellingPrice,
+            string QouantityIn,
+            string PurchasePrice,
+            string SpecialSalePrice,
+            string qrCodeSrc)
         {
             var htmlContent = new StringBuilder();
 
@@ -206,9 +212,12 @@ namespace Yara.Areas.Admin.Controllers
             htmlContent.AppendFormat("<h1>WareHouse Type: {0}</h1>", Merchant);
             htmlContent.AppendFormat("<h2>Warehouse: {0}</h2>", WareHouse);
             htmlContent.AppendFormat("<h2>PurchaseOrderNoumber: {0}</h2>", PurchaseOrderNoumber);
-            htmlContent.AppendFormat("<h3>Description: {0}</h3>", WareHouseBranch);
-            htmlContent.AppendFormat("<h3>Description: {0}</h3>", ProductInformation);
-            htmlContent.AppendFormat("<h3>Description: {0}</h3>", sellingPrice);
+            htmlContent.AppendFormat("<h3>WareHouseBranch: {0}</h3>", WareHouseBranch);
+            htmlContent.AppendFormat("<h3>ProductInformation: {0}</h3>", ProductInformation);
+            htmlContent.AppendFormat("<h3>sellingPrice: {0}</h3>", sellingPrice);
+            htmlContent.AppendFormat("<h3>QouantityIn: {0}</h3>", QouantityIn);
+            htmlContent.AppendFormat("<h3>PurchasePrice: {0}</h3>", PurchasePrice);
+            htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
             htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
             htmlContent.Append("</body></html>");
 

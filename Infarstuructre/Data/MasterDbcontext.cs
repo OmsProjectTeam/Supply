@@ -372,7 +372,15 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("getdate()");
 
             //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBCompanyInformation>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBCompanyInformation>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
 
+            //--------------------------------- 
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -414,7 +422,9 @@ namespace Infarstuructre.Data
         public DbSet<TBNewsletterGroup> TBNewsletterGroups { get; set; }
         public DbSet<TBViewNewsLetter> ViewNewsLetter { get; set; }
         public DbSet<TBViewNewsLetterGroup> ViewNewsLetterGroup { get; set; }
-        public DbSet<TBViewSendLog> ViewSendLog { get; set; }
+        public DbSet<TBViewSendLog> ViewSendLog { get; set; } 
+        public DbSet<TBCompanyInformation> TBCompanyInformations { get; set; }
+     
 
     }
 }

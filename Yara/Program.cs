@@ -117,8 +117,9 @@ builder.Services.AddScoped<IINewsLettersGroup, CLSTBNewsLettersGroup>();
 builder.Services.AddScoped<IINewsLetters, CLSTBNewsLetter>();
 builder.Services.AddScoped<IISendLog, CLSTBSendLog>();
 builder.Services.AddScoped<IITemplate, CLSTBTemplate>();
-
 builder.Services.AddScoped<AccountsController>();
+builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
+
 
 
 

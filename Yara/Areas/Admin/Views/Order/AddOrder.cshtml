@@ -726,13 +726,12 @@
             var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
             var GlobalPr = $('#GlobalPrice').val();
             var QouantityIn = $('#QuantityIn').val();
-            var PurchasePrice = $('#PurchasePrice').val();
             var SpecialSalePrice = $('#SpecialSalePrice').val();
 
             var randomString = generateRandomString(5);
 
             if (Merchant && WareHouse) {
-                var code = Merchant + '-' + WareHouse + '-' + BondType+'-' + WareHouseBranch + '-' + ProductInformation + '-' + sellingPrice + '-' + randomString + '-' + PurchaseOrderNoumber + '-' + GlobalPr + '-' + QouantityIn + '-' + PurchasePrice + '-' + SpecialSalePrice;
+                var code = Merchant + '-' + WareHouse + '-' + BondType + '-' + WareHouseBranch + '-' + ProductInformation + '-' + 'selling Price:' + sellingPrice + '-' + 'Purchase Order Noumber:'+ PurchaseOrderNoumber + '-' + 'GlobalPr' + GlobalPr + '-' + 'Qouantity In:' + QouantityIn + '-' + 'Special Sale Price:' + SpecialSalePrice + '-' + randomString;
                 $('#Qrcode').val(code);
                 updateQRCodeForxxx();
             }

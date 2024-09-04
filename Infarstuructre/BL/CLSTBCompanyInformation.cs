@@ -195,8 +195,34 @@ namespace Infarstuructre.BL
 
         public async Task<TBCompanyInformation> GetByIdAsync(int id)
         {
+            var scheme = _httpContextAccessor.HttpContext.Request.Scheme;
+            var host = _httpContextAccessor.HttpContext.Request.Host.Value;
+
             var sslid = await dbcontext.TBCompanyInformations.FirstOrDefaultAsync(a => a.IdCompanyInformation == id);
-            return sslid;
+
+            if(sslid == null)
+            return null;
+
+            var company = new TBCompanyInformation
+            {
+                IdCompanyInformation = sslid.IdCompanyInformation,
+                Photo = $"{scheme}://{host}/Images/Home/{sslid.Photo}",
+                CompanyName = sslid.CompanyName,
+                PhoneNumber = sslid.PhoneNumber,
+                EmailCompany = sslid.EmailCompany,
+                AddressEn = sslid.AddressEn,
+                ShortDescriptionEn = sslid.ShortDescriptionEn,
+                UrlFaceBook = sslid.UrlFaceBook,
+                UrlTwitter = sslid.UrlTwitter,
+                UrlInstgram = sslid.UrlInstgram,
+                UrlMap = sslid.UrlMap,
+                PhoneNumber2 = sslid.PhoneNumber2,
+                DateTimeEntry = sslid.DateTimeEntry,
+                DataEntry = sslid.DataEntry,
+                CurrentState = sslid.CurrentState,
+            };
+
+            return company;
         }
 
         public async Task<bool> AddDataAsync(TBCompanyInformation savee)

@@ -160,6 +160,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MaxLengthTitel20 {
+            get {
+                return ResourceManager.GetString("MaxLengthTitel20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number of characters entered must not be less than one character, and the # symbol can be used to indicate the same page....!.
         /// </summary>
         public static string MinLength1 {

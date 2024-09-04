@@ -65,7 +65,6 @@
                 <h5 class="position">
                     @userRole
                 </h5>
-
                 <!-- /.name -->
                 <div class="control-wrap js__drop_down">
                     <i class="fa fa-caret-down js__drop_down_button"></i>
@@ -82,7 +81,6 @@
         </header>
         <!-- /.header -->
         <div class="content">
-
 		<div class="navigation">
 			<h5 class="title">Navigation</h5>
 			<!-- /.title -->
@@ -111,15 +109,11 @@
                             <li><a asp-area="Admin" asp-controller="SupportTicketStatus" asp-action="MySupportTicketStatus" asp-route-userId="@user.Id">@ResourceWeb.lbMySupportTicketStatus</a></li>
                             <li><a asp-area="Admin" asp-controller="NewsLetterGroup" asp-action="MyNewsLetterGroups" asp-route-userId="@user.Id">@ResourceWeb.LbMyNewsLetterGroups</a></li>
                             <li><a asp-area="Admin" asp-controller="Template" asp-action="MyTemplates" asp-route-userId="@user.Id">@ResourceWeb.LbMyTemplates</a></li>
+                            <li><a asp-area="Admin" asp-controller="CompanyInformation" asp-action="MYCompanyInformation" asp-route-userId="@user.Id">@ResourceWeb.BlMYCompanyInformation</a></li>
                             <li><a asp-area="Admin" asp-controller="HtmlAgility" asp-action="myLodeHtml" asp-route-userId="@user.Id">إختبار عنوان </a></li>			
 					</ul>
 					<!-- /.sub-menu js__content -->
-				</li>
-
-
-					
-
-
+				</li>		
 				@* <li>
 					<a class="waves-effect" href="widgets.html"><i class="menu-icon fa fa-code"></i><span>Widgets</span><span class="notice notice-yellow">6</span></a>
 				</li> *@
@@ -133,9 +127,7 @@
                         <ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="WareHouse" asp-action="MyWareHouse" asp-route-userId="@user.Id">@ResourceWeb.LBMyWareHouse</a></li>
                             <li><a asp-area="Admin" asp-controller="WareHouseBranch" asp-action="MyWareHouseBranch" asp-route-userId="@user.Id">@ResourceWeb.LBMyWareHouseBranch</a></li>
-
-
-                        </ul>
+                       </ul>
                         <!-- /.sub-menu js__content -->
                     </li>
                     <li>
@@ -143,7 +135,6 @@
                         <ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="ProductInformation" asp-action="MYProductInformation" asp-route-userId="@user.Id">@ResourceWeb.LBMYProductInformation</a></li>
                @*              <li><a asp-area="Admin" asp-controller="ProductInformationlowes" asp-action="MYProductInformation" asp-route-userId="@user.Id">@ResourceWeb.LBMYProductInformation</a></li> *@
-
                         </ul>
                         <!-- /.sub-menu js__content -->
                     </li>
@@ -151,7 +142,6 @@
                         <a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-bar-chart"></i><span>@ResourceWeb.LBPurchasingandSales</span><span class="menu-arrow fa fa-angle-down"></span></a>
 					<ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="Order" asp-action="MyOrder" asp-route-userId="@user.Id">@ResourceWeb.LBMyOrder</a></li>
-
 					</ul>
 					<!-- /.sub-menu js__content -->
 				</li>
@@ -161,20 +151,10 @@
 					<ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="CustomerMessages" asp-action="MyCustomerMessages" asp-route-userId="@user.Id">@ResourceWeb.LBMyCustomerMessages</a></li>
                             <li><a asp-area="Admin" asp-controller="SupportTicket" asp-action="MYSupportTicket" asp-route-userId="@user.Id">@ResourceWeb.LBMYSupportTicket</a></li>
-                            <li><a asp-area="Admin" asp-controller="NewsLetter" asp-action="MyNewsLetters" asp-route-userId="@user.Id">@ResourceWeb.LbMyNewsLetter</a></li>
-							
-					
+                            <li><a asp-area="Admin" asp-controller="NewsLetter" asp-action="MyNewsLetters" asp-route-userId="@user.Id">@ResourceWeb.LbMyNewsLetter</a></li>												
 					</ul>
 					<!-- /.sub-menu js__content -->
-				</li>
-
-                
-
-
-                    
-
-              
-                 
+				</li>    
 					<li>
 						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-th-large"></i><span>@ResourceWeb.LBMerchants</span></a>
 						<ul class="sub-menu js__content">

@@ -669,12 +669,12 @@
         });
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
+    <script src="~/js/custom-scripts.js"></script>
 
-        // This for add <a href="#"></a>////////////////////////
-        //////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////
+    @* <script>
         $(document).ready(function () {
             console.log("Document is ready");
             $('.select2_1').select2({
@@ -1134,6 +1134,159 @@
         }
     </script>
 
+
+
+    <!-- Data Tables -->
+
+    <script>
+        $(function () {
+            $("#example2").DataTable().fnDestroy();
+            $('#example2').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#example3").DataTable().fnDestroy();
+            $('#example3').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#example4").DataTable().fnDestroy();
+            $('#example4').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            updateQRCode();
+            // Function to truncate text to a specified length
+            function truncateText(text, maxLength) {
+                if (text.length > maxLength) {
+                    return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
+                } else {
+                    return text;
+                }
+            }
+
+            //  function updateQRCode() {
+            //     $('.QRCodeImage').each(function () {
+            //         var Category = $(this).siblings('.Code').text();
+            //         var ProductName = $(this).siblings('.Code').text();
+            //         var Model = $(this).siblings('.Code').text();
+            //         var UPC = $(this).siblings('.Code').text();
+            //         var TypeProduct = $(this).siblings('.Code').text();
+
+            //         var code = Category + ProductName + Model + UPC + TypeProduct
+            //         if (code) {
+            //             console.log(code);
+            //             $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+            //         } else {
+            //             $(this).attr('src', '');
+            //         }
+            //     });
+            // }
+
+            function updateQRCode() {
+                $('.QRCodeImage').each(function () {
+                    var code = $(this).closest('tr').find('.Codee').text().trim();
+
+                    console.log(code);
+                    // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
+                    if (code) {
+                        console.log(code);
+                        $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+                    } else {
+                        console.log("code");
+                        $(this).attr('src', '');
+                    }
+                });
+            }
+
+
+            // Loop through each table cell with class 'truncate-50'
+            $('.truncate-50').each(function () {
+                var text = $(this).text(); // Get the text content of the cell
+                var truncatedText = truncateText(text, 100); // Truncate the text to 50 characters
+                $(this).text(truncatedText); // Set the truncated text back to the cell
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            console.log("jQuery is ready");
+        });
+    </script>
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+    </script>
+
+    <script>
+        // Function to open the modal
+        function openModal() {
+            document.getElementById("customModal").style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById("customModal").style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function (event) {
+            var modal = document.getElementById("customModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Sync the product12 input with the table search box
+            $('#product12').on('input', function () {
+                var searchText = $(this).val();
+                var searchBox = $('#example_filter input[type="search"]');
+                searchBox.val(searchText);
+
+                // Trigger keyup event on the search box
+                searchBox.trigger('keyup');
+
+                // Simulate 'Enter' key press to start the search
+                var e = jQuery.Event('keypress');
+                e.which = 13; // Character code for Enter key
+                searchBox.trigger(e);
+            });
+        });
+
+    </script> *@
 }
 
 

@@ -281,7 +281,8 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript">
+    <script src="~/js/custom-scripts.js"></script>
+    @* <script type="text/javascript">
         let connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
         connection.on("ReceiveMessage", function (user, message, pathImg, img, time) {
@@ -367,7 +368,7 @@
             const messagesList = document.getElementById("messagesList");
             messagesList.scrollTop = messagesList.scrollHeight;
         }
-    </script>
+    </script> *@
 }
 
 

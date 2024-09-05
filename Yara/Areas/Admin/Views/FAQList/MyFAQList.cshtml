@@ -152,13 +152,31 @@
 {
     <!-- Data Tables -->
 
-
+    <script src="~/js/custom-scripts.js"></script>
     
+    @* <script>
+        $(function () {
+            $("#example2").DataTable().fnDestroy();
+            $('#example2').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
 
 
-
-
-
+            // Loop through each table cell with class 'truncate-50'
+            $('.truncate-50').each(function () {
+                var text = $(this).text(); // Get the text content of the cell
+                var truncatedText = truncateText(text, 100); // Truncate the text to 50 characters
+                $(this).text(truncatedText); // Set the truncated text back to the cell
+            });
+        });
+    </script> *@
 }
 
 

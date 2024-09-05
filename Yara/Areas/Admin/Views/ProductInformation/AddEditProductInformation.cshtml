@@ -175,7 +175,15 @@
 </div>
 
 @section Scripts {
-    <script>
+    <!-- Include necessary scripts for Select2 and other plugins -->
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script src="~/js/custom-scripts.js"></script>
+
+    @* <script>
         // Function to load a local file and display it
         var loadFile = function (event) {
             var image = document.getElementById('output');
@@ -288,11 +296,5 @@
 
         // Set the URL of the form to the current page URL
         $("#url").val(window.location.href);
-    </script>
-
-    <!-- Include necessary scripts for Select2 and other plugins -->
-    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    </script> *@
 }

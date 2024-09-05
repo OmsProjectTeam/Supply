@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\custom-scripts.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\custom-scripts.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Domin\Domin.csproj" />
     <ProjectReference Include="..\Infarstuructre\Infarstuructre.csproj" />
   </ItemGroup>
@@ -37,6 +45,10 @@
     <Folder Include="wwwroot\Images\Product\" />
     <Folder Include="wwwroot\Images\Users\" />
     <Folder Include="wwwroot\Web\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\custom-scripts.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -90,20 +90,14 @@
 </div>
 
 @section Scripts {
-    <script>
-        var loadFile = function (event) {
-            var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
-        };
-    </script>
-    <script>
-        $("#url").val(window.location.href);
-    </script>
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script>
+
+    <script src="~/js/custom-scripts.js"></script>
+
+    @* <script>
         $(document).ready(function () {
             $('.select2_1').select2({
                 placeholder: "Select an option",
@@ -152,5 +146,5 @@
                 }
             });
         });
-    </script>
+    </script> *@
 }

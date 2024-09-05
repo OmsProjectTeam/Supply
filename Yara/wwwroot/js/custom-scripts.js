@@ -831,3 +831,15 @@ function printWarehouseDetails() {
     });
 }
 // ================== WAREHOUSE ===================
+
+// ================== CLIENT AREA ===================
+
+// ===================== FAQ =====================
+$(document).ready(function () {
+    $("#accordion-1").accordion({
+        collapsible: true,
+        active: false
+    });
+});
+// ===================== FAQ =====================
+// ================== CLIENT AREA ===================

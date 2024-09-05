@@ -227,7 +227,7 @@
         }
 
         // Function to update the Code field
-        function updateCodeField() {
+        function updateCodeFieldForProductInformation() {
             var Category = $('#SelectCategory option:selected').text();
             var TypesProduct = $('#SelectTypesProduct option:selected').text();
             var Product = $('#ProductName').val();
@@ -239,17 +239,17 @@
             if (Category && TypesProduct && Product && Model && UPC) {
                 var code = randomString + Category + TypesProduct + Product + Model + UPC;
                 $('#Code').val(code);
-                updateQRCode(); // Update QR code when code is updated
+                updateQRCodeForAddProductInformation(); // Update QR code when code is updated
             }
         }
 
         // Bind change events to WareHouseType and Description fields
         $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
-            updateCodeField();
+            updateCodeFieldForProductInformation();
         });
 
         // Update the QR code image
-        function updateQRCode() {
+        function updateQRCodeForAddProductInformation() {
             var code = $('#Code').val();
             if (code) {
                 $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));

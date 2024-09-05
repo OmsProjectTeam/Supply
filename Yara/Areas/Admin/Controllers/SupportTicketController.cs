@@ -27,9 +27,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewSupportTicket = iSupportTicket.GetAll();
             return View(vmodel);
-        }
-
-       
+        } 
         public async Task<IActionResult> AddEditSupportTicket(int? IdSupportTicket)
         {
 
@@ -55,9 +53,6 @@ namespace Yara.Areas.Admin.Controllers
                 return View(vmodel);
             }
         }
-
-    
-
         public async Task<IActionResult> AddEditSupportTicketImage(int? IdSupportTicket)
         {
             var maxTicketNo = await dbcontext.TBSupportTickets.MaxAsync(ticket => (int?)ticket.SupportTicketNo) ?? 0;
@@ -77,9 +72,7 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return View(vmodel);
             }
-        }
-
-       
+        }  
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBSupportTicket slider, List<IFormFile> Files, string returnUrl)
@@ -233,11 +226,6 @@ namespace Yara.Areas.Admin.Controllers
 
             }
         }
-     
-
-   
-
-
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteData(int IdSupportTicket)
         {

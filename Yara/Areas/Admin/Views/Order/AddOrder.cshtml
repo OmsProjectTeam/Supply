@@ -190,7 +190,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
-                                <input id="OrderNoumber" asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" maxlength="300">
+                                <input asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" id="PurchaseOrderNoumber11" maxlength="300">
                                 <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
 
                             </div>
@@ -259,14 +259,20 @@
                             </div>
                         </div>
                     </div>
-                    @* <div class="col-sm-6">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.Order.CurrentState">@ResourceWeb.lbCurrentState</label>
+                            <input asp-for="@Model.Order.CurrentState" checked type="checkbox" placeholder="@ResourceWeb.lbCurrentState...." class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                     <div class="form-group">
-                    <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                    <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
                     <div>
                     <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
                     </div>
                     </div>
-                    </div> *@
+                    </div>
 
 
                     <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
@@ -361,6 +367,7 @@
                                                             <td class="truncate-50 Codee">@item.Qrcode</td>
                                                             <td>
                                                                 <div class="form-group">
+                                                                    <div hidden class="Code">@item.Qrcode</div>
                                                                     <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                                 </div>
                                                             </td>
@@ -533,7 +540,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.ProductInformation.Make">@ResourceWeb.lbMake</label>
-                                <input asp-for="@Model.ProductInformation.Make" type="text" placeholder="@ResourceWeb.lbMake ...." class="form-control" maxlength="100">
+                                <input id="mak" asp-for="@Model.ProductInformation.Make" type="text" placeholder="@ResourceWeb.lbMake ...." class="form-control" maxlength="100">
                                 <span asp-validation-for="@Model.ProductInformation.Make" class="text-danger"></span>
                             </div>
                         </div>
@@ -559,14 +566,14 @@
                         <div class="col-12 col-sm-4">
                             <div class="form-group">
                                 <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Code"></textarea>
+                                <textarea  asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
                                 <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                            <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
                             <div>
                                 <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
                             </div>
@@ -644,19 +651,23 @@
 </div>
 
 @section Scripts {
-    <script src="~/Admin/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/scripts/datatables.demo.min.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/prettify.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script>
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -676,82 +687,94 @@
                 console.log("Selected FAQ changed");
                 updateCosting();
             });
-
-
-            // Generate random 5-character string
-            function generateRandomString(length) {
-                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                var result = '';
-                var charactersLength = characters.length;
-                for (var i = 0; i < length; i++) {
-                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-                }
-                return result;
-            }
-
-            // Bind change events to WareHouseType and Description fields
-
-            $('#sellingPrice').on('change keyup', function () {
-                updateCodeField();
-            });
-
-
-            function updateQRCode() {
-                var code = $('#Qrcode').val();
-                if (code) {
-                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
-                } else {
-                    $('#QRCodeImage').attr('src', '');
-                }
-            }
-
-            // Function to update the Code field
-            function updateCodeField() {
-                var Merchant = $('#SelectMerchant option:selected').text();
-                var WareHouse = $('#SelectWareHouse option:selected').text();
-                var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
-                var ProductInformation = $('#SelectProductInformation option:selected').text();
-                var sellingPrice = $('#sellingPrice').val();
-
-                var randomString = generateRandomString(5);
-
-                if (Merchant && WareHouse) {
-                    var code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString;
-                    $('#Qrcode').val(code);
-                    updateQRCode();
-                }
-            }
-
-
         });
+
+        // Generate random 5-character string
+        function generateRandomString(length) {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var result = '';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        // Bind change events to WareHouseType and Description fields
+
+        $('#QuantityIn').on('change keyup', function () {
+            updateCodeField();
+        });
+
+        function updateQRCodeForxxx() {
+            var code = $('#Qrcode').val();
+            if (code) {
+                $('#QRCodeImage11').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+            } else {
+                $('#QRCodeImage11').attr('src', '');
+            }
+        }
+
+        // Function to update the Code field
+        function updateCodeField() {
+            var Merchant = $('#SelectMerchant option:selected').text();
+            var WareHouse = $('#SelectWareHouse option:selected').text();
+            var BondType = $('#SelectBondType option:selected').text();
+            var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
+            var ProductInformation = $('#SelectProductInformation option:selected').text();
+            var sellingPrice = $('#sellingPrice').val();
+            var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
+            var GlobalPr = $('#GlobalPrice').val();
+            var QouantityIn = $('#QuantityIn').val();
+            var SpecialSalePrice = $('#SpecialSalePrice').val();
+
+            var randomString = generateRandomString(5);
+
+            if (Merchant && WareHouse) {
+                var code = Merchant + '-' + WareHouse + '-' + BondType + '-' + WareHouseBranch + '-' + ProductInformation + '-' + 'selling Price:' + sellingPrice + '-' + 'Purchase Order Noumber:'+ PurchaseOrderNoumber + '-' + 'GlobalPr' + GlobalPr + '-' + 'Qouantity In:' + QouantityIn + '-' + 'Special Sale Price:' + SpecialSalePrice + '-' + randomString;
+                $('#Qrcode').val(code);
+                updateQRCodeForxxx();
+            }
+        }
+        //////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     </script>
     <script>
         $("#url").val(window.location.href);
+
         function printWarehouseDetails1() {
             var Merchant = $('#SelectMerchant option:selected').text();
             var WareHouse = $('#SelectWareHouse option:selected').text();
+            var BondType = $('#SelectBondType option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
             var ProductInformation = $('#SelectProductInformation option:selected').text();
             var sellingPrice = $('#sellingPrice').val();
-            var qrCodeSrc = $('#QRCodeImage').attr('src');
+            var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
+            var GlobalPr = $('#GlobalPrice').val();
+            var QouantityIn = $('#QuantityIn').val();
+            var PurchasePrice = $('#PurchasePrice').val();
+            var SpecialSalePrice = $('#SpecialSalePrice').val();
+            var qrCodeSrc = $('#QRCodeImage11').attr('src');
 
             var url1 = '@Url.Action("PrintWareHouseDetails", "Order")';
 
             // ترميز مكونات URI للتعامل مع الأحرف الخاصة
-            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
 
             // إرسال طلب GET للحصول على محتوى الطباعة
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');
+
                 printWindow.document.open();
                 printWindow.document.write(data);
                 printWindow.document.close();
 
-                // التأكد من أن المحتوى قد تم تحميله بالكامل قبل الطباعة
                 printWindow.onload = function () {
                     printWindow.print();
                 };
+
+
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Error: ", textStatus, errorThrown);
                 alert("Failed to load print content. Please try again.");
@@ -760,6 +783,155 @@
     </script>
 
     <!-- Handel Product-->
+   
+    <script>
+        var previousSearchText = '';
+
+        function openModal() {
+            previousSearchText = $('#product12').val(); // Store the current search text
+            $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
+            document.getElementById("customModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("customModal").style.display = "none";
+            $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
+        }
+
+        // Handle form submission inside the modal
+        $('form[asp-action="SaveModal"]').on('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var form = $(this);
+
+            // Optionally handle the form submission via AJAX
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    // Close the modal
+                    closeModal();
+                    // Repopulate the search field with the stored search text
+                    $('#product12').val($('#product12').data('previous-value'));
+                },
+                error: function (response) {
+                    console.error("Error during form submission", response);
+                    // Handle the error (display a message, etc.)
+                }
+            });
+        });
+
+        // Repopulate the search box on page load
+        $(document).ready(function () {
+            var storedSearchText = $('#product12').data('previous-value'); // Get the value from the data attribute
+            if (storedSearchText) {
+                $('#product12').val(storedSearchText); // Set it in the search box
+            }
+        });
+    </script>
+
+    <script>
+        // Function to load a local file and display it
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        // Event listener for when the model input field changes
+        $("#modelInput").on("change", function () {
+            var model = $(this).val(); // Get the model input value
+
+            if (model) {
+                $.ajax({
+                    url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })',
+                    type: 'GET',
+                    data: { model: model }, // Send the model as a parameter
+                    success: function (response) {
+                        if (response.success) {
+                            $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
+                            $("#imageUrlInput").val(response.imageUrl); // Set the image URL in the hidden input field
+                        } else {
+                            alert(response.message); // Show an alert if there was an issue fetching the image
+                            $("#output").hide(); // Hide the image element if there's no image to display
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error fetching the image."); // Alert the user about the error
+                        $("#output").hide(); // Hide the image element in case of an error
+                    }
+                });
+            }
+        });
+
+      
+    </script>
+
+
+
+    <!-- Data Tables -->
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("jQuery is ready");
+        });
+    </script>
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+    </script>
+
+    <script>
+        // Function to open the modal
+        function openModal() {
+            document.getElementById("customModal").style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById("customModal").style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function (event) {
+            var modal = document.getElementById("customModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Sync the product12 input with the table search box
+            $('#product12').on('input', function () {
+                var searchText = $(this).val();
+                var searchBox = $('#example_filter input[type="search"]');
+                searchBox.val(searchText);
+
+                // Trigger keyup event on the search box
+                searchBox.trigger('keyup');
+
+                // Simulate 'Enter' key press to start the search
+                var e = jQuery.Event('keypress');
+                e.which = 13; // Character code for Enter key
+                searchBox.trigger(e);
+            });
+        });
+
+    </script>
+
     <script>
         $(document).ready(function () {
             let typingTimer;                // Timer identifier
@@ -796,7 +968,7 @@
 
                             // Populate or update the Product Information dropdown
                             $('#SelectProductInformation').empty(); // Clear the dropdown first
-                            $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
+                            $('#SelectProductInformation').append(new Option(data.productName, data.id, true, true)).trigger('change');
 
                             // Disable the modal button since a product was found
                             $('#modalButton').prop('disabled', true);
@@ -886,146 +1058,11 @@
             }
         });
 
-        // $('#product12').on('change keyup', function () {
-        //     console.log("Product search triggered");
-        //     var productId = $(this).val();
-
-        //     if (productId) {
-        //         $.ajax({
-        //             url: '@Url.Action("GetProductDetailsForOrder", "Order")',
-        //             type: 'GET',
-        //             data: { productId: productId },
-        //             success: function (data) {
-        //                 if (data && data.productCategoryId > 0) {
-        //                     // Populate the fields with the received data
-        //                     $('#ProductName').val(productId);  // Set the product name input
-        //                     $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
-        //                     $('#SelectBondType').val(data.bondTypeId).trigger('change');
-        //                     $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
-        //                     $('#GlobalPrice').val(data.globalPrice);
-        //                     $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
-
-        //                     // Populate or update the Product Information dropdown
-        //                     $('#SelectProductInformation').empty(); // Clear the dropdown first
-        //                     $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
-
-        //                 } else {
-        //                     // If no data is returned, show the modal for adding a new product
-        //                     openModal();
-        //                     $('#ProductName').val(productId); // Pre-fill the product name with the searched term
-        //                 }
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("Error fetching product details: ", error);
-        //                 $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-        //                 $('#GlobalPrice').val("0.00");
-        //             }
-        //         });
-        //     } else {
-        //         // Reset dropdowns and image if no product is selected
-        //         $('#SelectProductCategory, #SelectBondType, #SelectTypesProduct, #SelectProductInformation').val('').trigger('change');
-        //         $('#GlobalPrice').val('');
-        //         $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-        //     }
-        // });
-
-        // function openModal() {
-        //     document.getElementById("customModal").style.display = "block";
-        // }
-
-        // function closeModal() {
-        //     document.getElementById("customModal").style.display = "none";
-        // }
-
-        // // Close the modal if the user clicks outside of it
-        // window.onclick = function (event) {
-        //     var modal = document.getElementById("customModal");
-        //     if (event.target == modal) {
-        //         modal.style.display = "none";
-        //     }
-        // }
-    </script>
-    <script>
-        var previousSearchText = '';
-
-        function openModal() {
-            previousSearchText = $('#product12').val(); // Store the current search text
-            $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
-            document.getElementById("customModal").style.display = "block";
-        }
-
-        function closeModal() {
-            document.getElementById("customModal").style.display = "none";
-            $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
-        }
-
-        // Handle form submission inside the modal
-        $('form[asp-action="SaveModal"]').on('submit', function (event) {
-            event.preventDefault(); // Prevent default form submission
-
-            var form = $(this);
-
-            // Optionally handle the form submission via AJAX
-            $.ajax({
-                type: form.attr('method'),
-                url: form.attr('action'),
-                data: form.serialize(),
-                success: function (response) {
-                    // Close the modal
-                    closeModal();
-                    // Repopulate the search field with the stored search text
-                    $('#product12').val($('#product12').data('previous-value'));
-                },
-                error: function (response) {
-                    console.error("Error during form submission", response);
-                    // Handle the error (display a message, etc.)
-                }
-            });
-        });
-
-        // Repopulate the search box on page load
-        $(document).ready(function () {
-            var storedSearchText = $('#product12').data('previous-value'); // Get the value from the data attribute
-            if (storedSearchText) {
-                $('#product12').val(storedSearchText); // Set it in the search box
-            }
-        });
+   
     </script>
 
     <script>
-        // Function to load a local file and display it
-        var loadFile = function (event) {
-            var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
-        };
-
-        // Event listener for when the model input field changes
-        $("#modelInput").on("change", function () {
-            var model = $(this).val(); // Get the model input value
-
-            if (model) {
-                $.ajax({
-                    url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })',
-                    type: 'GET',
-                    data: { model: model }, // Send the model as a parameter
-                    success: function (response) {
-                        if (response.success) {
-                            $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
-                            $("#imageUrlInput").val(response.imageUrl); // Set the image URL in the hidden input field
-                        } else {
-                            alert(response.message); // Show an alert if there was an issue fetching the image
-                            $("#output").hide(); // Hide the image element if there's no image to display
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Error fetching the image."); // Alert the user about the error
-                        $("#output").hide(); // Hide the image element in case of an error
-                    }
-                });
-            }
-        });
-
-        function generateRandomString(length) {
+        function generateRandomStringrr(length) {
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             var result = '';
             var charactersLength = characters.length;
@@ -1035,45 +1072,38 @@
             return result;
         }
 
+        // Bind change events to WareHouseType and Description fields
+
+        $('#UPC').on('change keyup', function () {
+            updateCodeFieldmodal();
+        });
+
+        function updateQRCodeForAA() {
+            var code = $('#Codeeee').val();
+            if (code) {
+                $('#QRCodeImage123').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+            } else {
+                $('#QRCodeImage123').attr('src', '');
+            }
+        }
+
         // Function to update the Code field
-        function updateCodeField() {
+        function updateCodeFieldmodal() {
             var Category = $('#SelectCategory option:selected').text();
-            var TypesProduct = $('#SelectTypesProduct option:selected').text();
-            var Product = $('#ProductName').val();
-            var Model = $('#modelInput').val();
+            var TypePro = $('#SelectTypesProduct option:selected').text();
+            var ProductName = $('#ProductName').val();
+            var mak = $('#mak').val();
+            var modelInput = $('#modelInput').val();
             var UPC = $('#UPC').val();
 
-            var randomString = generateRandomString(5);
+            var randomString = generateRandomStringrr(5);
 
-            if (Category && TypesProduct && Product && Model && UPC) {
-                var code = randomString + Category + TypesProduct + Product + Model + UPC;
-                $('#Code').val(code);
-                updateQRCode(); // Update QR code when code is updated
+            if (Category && ProductName) {
+                var code = Category + TypePro + ProductName + mak + modelInput + UPC + randomString;
+                $('#Codeeee').val(code);
+                updateQRCodeForAA();
             }
         }
-
-        // Bind change events to WareHouseType and Description fields
-        $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
-            updateCodeField();
-        });
-
-        // Update the QR code image
-        function updateQRCode() {
-            var code = $('#Code').val();
-            if (code) {
-                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-            } else {
-                $('#QRCodeImage').attr('src', '');
-            }
-        }
-
-        // Bind change event to Code field to update QR code
-        $(document).ready(function () {
-            $('#Code').on('change', function () {
-                var code = $('#Code').val(); // احصل على قيمة حقل الإدخال
-                $('#QRCode').val(code); // تحديث قيمة الـ textarea
-            });
-        });
 
         function printWarehouseDetails() {
             var Category = $('#SelectCategory option:selected').text();
@@ -1081,7 +1111,7 @@
             var Product = $('#ProductName').val();
             var Model = $('#modelInput').val();
             var UPC = $('#UPC').val();
-            var qrCodeSrc = $('#QRCodeImage').attr('src');
+            var qrCodeSrc = $('#QRCodeImage123').attr('src');
 
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
@@ -1102,9 +1132,6 @@
                 console.error("Error: ", textStatus, errorThrown);
             });
         }
-
-        // Set the URL of the form to the current page URL
-        $("#url").val(window.location.href);
     </script>
 
 

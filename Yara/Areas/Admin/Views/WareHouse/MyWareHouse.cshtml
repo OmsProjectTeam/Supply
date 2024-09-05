@@ -169,6 +169,32 @@
     <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
 
 
+
+
+
+    <script>
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+
+
+
+
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+        });
+    </script>
+
+
     <script src="~/js/custom-scripts.js"></script>
 }
 

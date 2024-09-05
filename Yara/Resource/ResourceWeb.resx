@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BlMYCompanyInformation" xml:space="preserve">
+    <value>Company Information</value>
+  </data>
   <data name="IdFAQDescreption" xml:space="preserve">
     <value>FAQ Descreption</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="LBAddCustomerMessages" xml:space="preserve">
     <value>Add and modify the Customer Messages</value>
   </data>
+  <data name="LBAddEditCompanyInformation" xml:space="preserve">
+    <value>Adding and modifying Company Information</value>
+  </data>
   <data name="LbAddEditInformationCompanies" xml:space="preserve">
     <value>Add and modify company data</value>
   </data>
@@ -177,6 +183,12 @@
   <data name="LBAddFAQList" xml:space="preserve">
     <value>Add FAQ List</value>
   </data>
+  <data name="LBAddNewsLetter" xml:space="preserve">
+    <value>Add News Letter</value>
+  </data>
+  <data name="LBAddNewsLetterGroup" xml:space="preserve">
+    <value>Add News Letter Group</value>
+  </data>
   <data name="LBAddOrder" xml:space="preserve">
     <value>Adding and modifying Order</value>
   </data>
@@ -202,6 +214,9 @@
     <value>Address</value>
   </data>
   <data name="LbAddresCompany" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="lbAddressEn" xml:space="preserve">
     <value>Address</value>
   </data>
   <data name="LBAddRolesName" xml:space="preserve">
@@ -309,6 +324,12 @@
   <data name="LbCompanyURl" xml:space="preserve">
     <value>الموقع الاكتروني</value>
   </data>
+  <data name="LbConstEmail" xml:space="preserve">
+    <value>Constant Email</value>
+  </data>
+  <data name="LbContaint" xml:space="preserve">
+    <value>Content</value>
+  </data>
   <data name="LbConvertedAmount" xml:space="preserve">
     <value>المبلغ المحول</value>
   </data>
@@ -332,6 +353,9 @@
   </data>
   <data name="LbCurrency" xml:space="preserve">
     <value>Currency</value>
+  </data>
+  <data name="LbCurrentEmail" xml:space="preserve">
+    <value>Current Email</value>
   </data>
   <data name="lbCurrentState" xml:space="preserve">
     <value>status</value>
@@ -399,6 +423,9 @@
   <data name="LBEmageSise" xml:space="preserve">
     <value>Image size 150*150</value>
   </data>
+  <data name="LbEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="LbEmailAlartSetting" xml:space="preserve">
     <value>EmailAlart Setting</value>
   </data>
@@ -444,6 +471,9 @@
   <data name="LbGlobalPrice" xml:space="preserve">
     <value>Global Price</value>
   </data>
+  <data name="LbGroupName" xml:space="preserve">
+    <value>Group Name</value>
+  </data>
   <data name="Lbhexcode" xml:space="preserve">
     <value>code</value>
   </data>
@@ -465,6 +495,12 @@
   <data name="LbIdFAQList" xml:space="preserve">
     <value>Id FAQ List</value>
   </data>
+  <data name="LbIdTemplate" xml:space="preserve">
+    <value>Id Template</value>
+  </data>
+  <data name="LbImageUser" xml:space="preserve">
+    <value>User Photo</value>
+  </data>
   <data name="LbInformaition" xml:space="preserve">
     <value>information</value>
   </data>
@@ -473,6 +509,12 @@
   </data>
   <data name="LbInformaitionco" xml:space="preserve">
     <value>company information</value>
+  </data>
+  <data name="LbInformaitionCompanyInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LbInformaitionCompanyInformationMake" xml:space="preserve">
+    <value>Link Url</value>
   </data>
   <data name="LbInformaitionMerchants" xml:space="preserve">
     <value>Informaition Merchants</value>
@@ -633,6 +675,12 @@
   <data name="LBMYMerchants" xml:space="preserve">
     <value>Merchants Information</value>
   </data>
+  <data name="LbMyNewsLetter" xml:space="preserve">
+    <value>My NewsLetter</value>
+  </data>
+  <data name="LbMyNewsLetterGroups" xml:space="preserve">
+    <value>My News Letter Groups</value>
+  </data>
   <data name="LBMyOrder" xml:space="preserve">
     <value>Order</value>
   </data>
@@ -675,6 +723,9 @@
   <data name="LBMyTaskStatus" xml:space="preserve">
     <value>Task Status</value>
   </data>
+  <data name="LbMyTemplates" xml:space="preserve">
+    <value>My Templates</value>
+  </data>
   <data name="LBMyTransaction" xml:space="preserve">
     <value>Currency calculator</value>
   </data>
@@ -713,6 +764,15 @@
   </data>
   <data name="LbNameRols" xml:space="preserve">
     <value>NameRols</value>
+  </data>
+  <data name="LbNewsLetter" xml:space="preserve">
+    <value>News Letter</value>
+  </data>
+  <data name="LbNewsLetterGroup" xml:space="preserve">
+    <value>News Letter Group</value>
+  </data>
+  <data name="LbNewsLetterGroups" xml:space="preserve">
+    <value>News Letter Groups</value>
   </data>
   <data name="LbNikeNAme" xml:space="preserve">
     <value>Nick name</value>
@@ -800,6 +860,12 @@
   </data>
   <data name="LbPhoneCompanySecand" xml:space="preserve">
     <value>Phone 2</value>
+  </data>
+  <data name="LbPhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="lbPhoneNumber2" xml:space="preserve">
+    <value>Phone Number 2</value>
   </data>
   <data name="LbPhoto" xml:space="preserve">
     <value>Photo</value>
@@ -915,6 +981,9 @@
   <data name="LBShippingAddressLocation" xml:space="preserve">
     <value>Shipping Address Location</value>
   </data>
+  <data name="LbShortDescriptionEn" xml:space="preserve">
+    <value>Short DescriptionEn</value>
+  </data>
   <data name="Lbsms_alert" xml:space="preserve">
     <value> sms alert</value>
   </data>
@@ -947,6 +1016,15 @@
   </data>
   <data name="LbTaskStatus" xml:space="preserve">
     <value>Task Status</value>
+  </data>
+  <data name="LbTemplate" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="LbTemplateName" xml:space="preserve">
+    <value>Template Name</value>
+  </data>
+  <data name="LbTemplates" xml:space="preserve">
+    <value>Templates</value>
   </data>
   <data name="LbTicketDate" xml:space="preserve">
     <value>Ticket Date</value>
@@ -993,11 +1071,26 @@
   <data name="LBUpload_image" xml:space="preserve">
     <value>upload</value>
   </data>
+  <data name="lbUrlFaceBook" xml:space="preserve">
+    <value> FaceBook Link</value>
+  </data>
+  <data name="lbUrlInstgram" xml:space="preserve">
+    <value>Instagram link</value>
+  </data>
+  <data name="LbUrlMap" xml:space="preserve">
+    <value>MAP Link</value>
+  </data>
+  <data name="lbUrlTwitter" xml:space="preserve">
+    <value>Twitter Link</value>
+  </data>
   <data name="LbUserEmage" xml:space="preserve">
     <value>Image</value>
   </data>
   <data name="LbUserEmail" xml:space="preserve">
     <value>User Email</value>
+  </data>
+  <data name="LbUserInformaition" xml:space="preserve">
+    <value>User Informaition</value>
   </data>
   <data name="LbUserName" xml:space="preserve">
     <value>Name</value>

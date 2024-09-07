@@ -124,6 +124,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding and modifying Brand Name Information.
+        /// </summary>
+        public static string LBAddBrandName {
+            get {
+                return ResourceManager.GetString("LBAddBrandName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding and modifying city data.
         /// </summary>
         public static string LBAddCity {
@@ -543,6 +552,15 @@ namespace Yara.Resource {
         public static string Lbbranch {
             get {
                 return ResourceManager.GetString("Lbbranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brand Name.
+        /// </summary>
+        public static string LbBrandName {
+            get {
+                return ResourceManager.GetString("LbBrandName", resourceCulture);
             }
         }
         
@@ -1605,6 +1623,15 @@ namespace Yara.Resource {
         public static string LBMyBondType {
             get {
                 return ResourceManager.GetString("LBMyBondType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brand Name Information.
+        /// </summary>
+        public static string LBMyBrandName {
+            get {
+                return ResourceManager.GetString("LBMyBrandName", resourceCulture);
             }
         }
         
@@ -3126,6 +3153,15 @@ namespace Yara.Resource {
         public static string VLBondTypeDoplceted {
             get {
                 return ResourceManager.GetString("VLBondTypeDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The brand has already been entered. Please check and try again later...!.
+        /// </summary>
+        public static string VLBrandNameDoplceted {
+            get {
+                return ResourceManager.GetString("VLBrandNameDoplceted", resourceCulture);
             }
         }
         

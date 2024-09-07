@@ -68,6 +68,10 @@ namespace Yara.Areas.Admin.Controllers
                 return View(vmodel);
             }
         }
+
+
+
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBOrder slider, List<IFormFile> Files, string returnUrl)

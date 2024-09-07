@@ -138,6 +138,9 @@
   <data name="LBAddBondType" xml:space="preserve">
     <value>Add and modify the Bond Types</value>
   </data>
+  <data name="LBAddBrandName" xml:space="preserve">
+    <value>Adding and modifying Brand Name Information</value>
+  </data>
   <data name="LBAddCity" xml:space="preserve">
     <value>Adding and modifying city data</value>
   </data>
@@ -278,6 +281,9 @@
   </data>
   <data name="Lbbranch" xml:space="preserve">
     <value>branch</value>
+  </data>
+  <data name="LbBrandName" xml:space="preserve">
+    <value>Brand Name</value>
   </data>
   <data name="LBBuilding" xml:space="preserve">
     <value>Building</value>
@@ -632,6 +638,9 @@
   </data>
   <data name="LBMyBondType" xml:space="preserve">
     <value>Bond Types</value>
+  </data>
+  <data name="LBMyBrandName" xml:space="preserve">
+    <value>Brand Name Information</value>
   </data>
   <data name="LBMyCity" xml:space="preserve">
     <value>Cities data</value>
@@ -1139,6 +1148,9 @@
   </data>
   <data name="VLBondTypeDoplceted" xml:space="preserve">
     <value>The bond type has already been entered. Please check and try again later....!</value>
+  </data>
+  <data name="VLBrandNameDoplceted" xml:space="preserve">
+    <value>The brand has already been entered. Please check and try again later...!</value>
   </data>
   <data name="VLCatchReceiptNoDoplceted" xml:space="preserve">
     <value>The receipt voucher number has already been entered. Please verify and try again later...!</value>

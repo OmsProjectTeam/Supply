@@ -90,7 +90,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
-
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IIRolsInformation, CLSRolsInformation>();
 builder.Services.AddScoped<IIFAQ, CLSTBFAQ>();
@@ -119,6 +118,7 @@ builder.Services.AddScoped<IISendLog, CLSTBSendLog>();
 builder.Services.AddScoped<IITemplate, CLSTBTemplate>();
 builder.Services.AddScoped<AccountsController>();
 builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
+builder.Services.AddScoped<IIBrandName, CLSTBBrandName>();
 
 
 

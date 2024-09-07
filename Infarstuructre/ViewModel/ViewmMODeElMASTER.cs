@@ -109,7 +109,9 @@ namespace Infarstuructre.ViewModel
         public IEnumerable<TBTemplate> ListTemplate { get; set; }
         public TBTemplate Template { get; set; } 
         public IEnumerable<TBCompanyInformation> ListCompanyInformatione { get; set; }
-        public TBCompanyInformation CompanyInformation { get; set; }
+        public TBCompanyInformation CompanyInformation { get; set; }  
+        public IEnumerable<TBBrandName> ListBrandName { get; set; }
+        public TBBrandName BrandName { get; set; }
 
 
     }

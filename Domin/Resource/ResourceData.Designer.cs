@@ -331,6 +331,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the Brand Name to complete successfully..!.
+        /// </summary>
+        public static string VlBrandName {
+            get {
+                return ResourceManager.GetString("VlBrandName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VlBuilding.
         /// </summary>
         public static string VlBuilding {

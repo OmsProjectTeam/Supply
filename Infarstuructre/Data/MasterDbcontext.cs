@@ -380,6 +380,18 @@ namespace Infarstuructre.Data
            .Property(b => b.CurrentState)
            .HasDefaultValueSql("((1))");
 
+            //---------------------------------    
+            //---------------------------------
+            builder.Entity<TBBrandName>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBBrandName>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))"); 
+            builder.Entity<TBBrandName>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
             //--------------------------------- 
         }
         //***********************************
@@ -424,6 +436,7 @@ namespace Infarstuructre.Data
         public DbSet<TBViewNewsLetterGroup> ViewNewsLetterGroup { get; set; }
         public DbSet<TBViewSendLog> ViewSendLog { get; set; } 
         public DbSet<TBCompanyInformation> TBCompanyInformations { get; set; }
+        public DbSet<TBBrandName> TBBrandNames { get; set; }
      
 
     }

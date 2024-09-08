@@ -20,6 +20,14 @@ namespace Yara.Areas.Admin.Controllers
 
             return View(viewmMODeElMASTER);
         }
+
+        public IActionResult MyBondTypeAr(string? userId)
+        {
+            ViewmMODeElMASTER viewmMODeElMASTER = new ViewmMODeElMASTER();
+            viewmMODeElMASTER.ListBondType = iBondType.GetAll();
+
+            return View(viewmMODeElMASTER);
+        }
         public IActionResult AddBondType(int? IdBondType)
         {
             ViewmMODeElMASTER viewmMODeElMASTER = new ViewmMODeElMASTER();

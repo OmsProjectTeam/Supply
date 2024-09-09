@@ -184,14 +184,21 @@
                         if (response.success) {
                             $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
                             $("#imageUrlInput").val(response.imageUrl); // Set the image URL in the hidden input field
+
+                            // Populate the ProductName field with the fetched product name
+                            if (response.productName) {
+                                $("#ProductName").val(response.productName);
+                            }
                         } else {
                             alert(response.message); // Show an alert if there was an issue fetching the image
                             $("#output").hide(); // Hide the image element if there's no image to display
+                            $("#ProductName").val('');
                         }
                     },
                     error: function (xhr, status, error) {
                         alert("Error fetching the image."); // Alert the user about the error
                         $("#output").hide(); // Hide the image element in case of an error
+                        $("#ProductName").val('');
                     }
                 });
             }

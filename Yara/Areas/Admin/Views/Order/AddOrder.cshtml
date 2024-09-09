@@ -547,7 +547,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
-                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
+                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" >
                                     <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
                                     <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
                                 </div>
@@ -555,9 +555,9 @@
 
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    @*  <label asp-for="@Model.ProductInformation.Make">@ResourceWeb.lbMake</label>
-                                    <input id="mak" asp-for="@Model.ProductInformation.Make" type="text" placeholder="@ResourceWeb.lbMake ...." class="form-control" maxlength="100">
-                                    <span asp-validation-for="@Model.ProductInformation.Make" class="text-danger"></span> *@
+                                    <label asp-for="@Model.ProductInformation.IdBrandName">@ResourceWeb.LbBrandName</label>
+                                    <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))"></select>
+                                    <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -566,7 +566,7 @@
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
-                                    <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
+                                    <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="ProductName">
                                     <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
                                 </div>
                             </div>
@@ -727,7 +727,6 @@
             $('#product12').on('input', function () {
                 // If product was selected from autocomplete, prevent further input handling
                 if (productSelectedFromAutocomplete) {
-                    productSelectedFromAutocomplete = false;  // Reset the flag
                     return;  // Skip search logic if product was selected from autocomplete
                 }
 
@@ -752,7 +751,7 @@
 
                 // If product was selected from autocomplete, skip the search logic
                 if (productSelectedFromAutocomplete) {
-                    productSelectedFromAutocomplete = false;
+                    productSelectedFromAutocomplete = false;  // Reset the flag after skipping
                     return;
                 }
 
@@ -883,6 +882,7 @@
             });
         });
     </script>
+
 
 
     @* <script>

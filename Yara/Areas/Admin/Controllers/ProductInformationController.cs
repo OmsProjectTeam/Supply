@@ -16,12 +16,14 @@ namespace Yara.Areas.Admin.Controllers
         IIProductCategory iProductCategory;
         IIProductInformation iProductInformation;
         IITypesProduct iTypesProduct;
-        public ProductInformationController(MasterDbcontext dbcontext1,IIProductCategory iProductCategory1,IIProductInformation iProductInformation1,IITypesProduct iTypesProduct1)
+        IIBrandName iBrandName;
+        public ProductInformationController(MasterDbcontext dbcontext1,IIProductCategory iProductCategory1,IIProductInformation iProductInformation1,IITypesProduct iTypesProduct1,IIBrandName iBrandName1)
         {
             dbcontext= dbcontext1;
             iProductCategory= iProductCategory1;
             iProductInformation= iProductInformation1;
             iTypesProduct= iTypesProduct1;
+            iBrandName = iBrandName1;
         }
         public IActionResult MYProductInformation()
         {
@@ -35,6 +37,7 @@ namespace Yara.Areas.Admin.Controllers
 
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
+            ViewBag.BrandName = iBrandName.GetAll();
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ProductInformation = new TBProductInformation();
@@ -54,6 +57,7 @@ namespace Yara.Areas.Admin.Controllers
         {
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
+            ViewBag.BrandName = iBrandName.GetAll();
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             
@@ -83,8 +87,10 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductInformation = model.ProductInformation.IdProductInformation;
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
+                slider.IdBrandName = model.ProductInformation.IdBrandName;
+
                 slider.ProductName = model.ProductInformation.ProductName;
-                slider.Make = model.ProductInformation.Make;
+             
                 slider.UPC = model.ProductInformation.UPC;
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
@@ -155,8 +161,11 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductInformation = model.ProductInformation.IdProductInformation;
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
+                slider.IdBrandName = model.ProductInformation.IdBrandName;
+
+
                 slider.ProductName = model.ProductInformation.ProductName;
-                slider.Make = model.ProductInformation.Make;
+              
                 slider.UPC = model.ProductInformation.UPC;
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
@@ -271,16 +280,47 @@ namespace Yara.Areas.Admin.Controllers
                 var document = web.Load("https://www.homedepot.com/s/" + model);
 
                 // Attempt to fetch the image from the primary source
+                //var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
+
+                //if (imageNodes != null && imageNodes.Any())
+                //{
+                //    var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
+                //    return Json(new { success = true, imageUrl });
+                //}
+                //else
+                //{
+                //    // Fallback to secondary image source if the primary is unavailable
+                //    var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
+
+                //    if (imageNodesFallback != null && imageNodesFallback.Any())
+                //    {
+                //        var firstImageUrl = imageNodesFallback
+                //            .Select(node => node.GetAttributeValue("src", ""))
+                //            .FirstOrDefault();
+
+                //        return Json(new { success = true, imageUrl = firstImageUrl });
+                //    }
+                //}
+
+
+                /////////////
+
+                // الحصول على روابط الصور
                 var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
 
                 if (imageNodes != null && imageNodes.Any())
                 {
                     var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
-                    return Json(new { success = true, imageUrl });
+
+                    // الحصول على اسم المنتج
+                    var productNode = document.DocumentNode.SelectSingleNode("//h3[@class='sui-block sui-flex-col sui-mt-1 sui-text-primary sui-font-regular sui-mb-1 sui-line-clamp-5 sui-text-ellipsis sui-inline']//span");
+                    var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                    return Json(new { success = true, imageUrl, productName });
                 }
                 else
                 {
-                    // Fallback to secondary image source if the primary is unavailable
+                    // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
                     var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
 
                     if (imageNodesFallback != null && imageNodesFallback.Any())
@@ -289,9 +329,21 @@ namespace Yara.Areas.Admin.Controllers
                             .Select(node => node.GetAttributeValue("src", ""))
                             .FirstOrDefault();
 
-                        return Json(new { success = true, imageUrl = firstImageUrl });
+                        // الحصول على اسم المنتج
+                        // تعديل XPath ليكون أكثر عمومية
+                        var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
+                        var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                        return Json(new { success = true, imageUrl = firstImageUrl, productName });
+
                     }
                 }
+
+
+
+
+
+
 
                 // If no image was found
                 return Json(new { success = false, message = "Image not found." });

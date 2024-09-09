@@ -68,6 +68,10 @@ namespace Yara.Areas.Admin.Controllers
                 return View(vmodel);
             }
         }
+
+
+
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBOrder slider, List<IFormFile> Files, string returnUrl)
@@ -379,7 +383,7 @@ namespace Yara.Areas.Admin.Controllers
         [HttpGet]
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
         {
-            var product = dbcontext.TBProductInformations
+            var product = dbcontext.ViewProductInformation
                          .Where(p => p.Qrcode == productId || p.Model == productId|| p.UPC == productId|| p.ProductName == productId|| p.Make == productId).FirstOrDefault();
 
 

@@ -15,12 +15,14 @@ namespace Yara.Areas.Admin.Controllers
         IIProductCategory iProductCategory;
         IIProductInformation iProductInformation;
         IITypesProduct iTypesProduct;
-        public ProductInformationlowesController(MasterDbcontext dbcontext1, IIProductCategory iProductCategory1, IIProductInformation iProductInformation1, IITypesProduct iTypesProduct1)
+        IIBrandName iBrandName;
+        public ProductInformationlowesController(MasterDbcontext dbcontext1, IIProductCategory iProductCategory1, IIProductInformation iProductInformation1, IITypesProduct iTypesProduct1,IIBrandName iBrandName1)
         {
             dbcontext = dbcontext1;
             iProductCategory = iProductCategory1;
             iProductInformation = iProductInformation1;
             iTypesProduct = iTypesProduct1;
+            iBrandName = iBrandName1;
         }
         public IActionResult MYProductInformation()
         {
@@ -33,6 +35,7 @@ namespace Yara.Areas.Admin.Controllers
 
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
+            ViewBag.BrandName = iBrandName.GetAll();
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ProductInformation = new TBProductInformation();
@@ -52,6 +55,7 @@ namespace Yara.Areas.Admin.Controllers
         {
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
+            ViewBag.BrandName = iBrandName.GetAll();
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 
@@ -82,7 +86,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
                 slider.ProductName = model.ProductInformation.ProductName;
-                slider.Make = model.ProductInformation.Make;
+                slider.IdBrandName = model.ProductInformation.IdBrandName;
                 slider.UPC = model.ProductInformation.UPC;
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
@@ -154,7 +158,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
                 slider.ProductName = model.ProductInformation.ProductName;
-                slider.Make = model.ProductInformation.Make;
+                slider.IdBrandName = model.ProductInformation.IdBrandName;
                 slider.UPC = model.ProductInformation.UPC;
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;

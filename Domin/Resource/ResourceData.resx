@@ -453,4 +453,7 @@
   <data name="MaxLengthTitel20" xml:space="preserve">
     <value />
   </data>
+  <data name="VlBrandName" xml:space="preserve">
+    <value>Please include the Brand Name to complete successfully..!</value>
+  </data>
 </root>

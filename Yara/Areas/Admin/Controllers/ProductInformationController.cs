@@ -312,12 +312,13 @@ namespace Yara.Areas.Admin.Controllers
                 {
                     var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
 
-                    // الحصول على اسم المنتج
-                    var productNode = document.DocumentNode.SelectSingleNode("//h3[@class='sui-block sui-flex-col sui-mt-1 sui-text-primary sui-font-regular sui-mb-1 sui-line-clamp-5 sui-text-ellipsis sui-inline']//span");
+                    // الحصول على اسم المنتج من h1 داخل div
+                    var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
                     var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
 
                     return Json(new { success = true, imageUrl, productName });
                 }
+
                 else
                 {
                     // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح

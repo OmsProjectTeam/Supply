@@ -69,6 +69,16 @@
 
 </style>
 
+<!-- QR Code input (visible at first) -->
+<div class="row small-spacing">
+    <div class="col-12">
+        <div class="box-content">
+            <input id="product12" placeholder="Enter QR Code" />
+        </div>
+    </div>
+</div>
+
+<div id="contentWrapper" style="display: none;">
 <div class="row small-spacing">
     <div class="col-12">
         <div class="box-content">
@@ -103,7 +113,7 @@
                         <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
                         <input type="hidden" asp-for="@Model.returnUrl" id="url">
                     </div>
-                    <input id="product12" placeholder="Enter QR Code" />
+                    @* <input id="product12" placeholder="Enter QR Code" /> *@
                     @* <button type="button" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()">Standard modal</button> *@
                    @*  <button type="button" id="modalButton" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()" disabled>
                         Add New Product
@@ -649,8 +659,28 @@
         </div>
     </div>
 </div>
+</div>
 
 @section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var productInput = document.getElementById('product12');
+
+            // Event listener for the Enter key in the product12 input
+            productInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the default form submission
+                    // If the input is not empty, show the hidden content
+                    if (productInput.value.trim() !== '') {
+                        document.getElementById('contentWrapper').style.display = 'block';
+                    } else {
+                        alert('Please enter a QR code.');
+                    }
+                }
+            });
+        });
+    </script>
+
     <script>
         function updateQRCode() {
             $('.QRCodeImage').each(function () {

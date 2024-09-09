@@ -727,7 +727,6 @@
             $('#product12').on('input', function () {
                 // If product was selected from autocomplete, prevent further input handling
                 if (productSelectedFromAutocomplete) {
-                    productSelectedFromAutocomplete = false;  // Reset the flag
                     return;  // Skip search logic if product was selected from autocomplete
                 }
 
@@ -752,7 +751,7 @@
 
                 // If product was selected from autocomplete, skip the search logic
                 if (productSelectedFromAutocomplete) {
-                    productSelectedFromAutocomplete = false;
+                    productSelectedFromAutocomplete = false;  // Reset the flag after skipping
                     return;
                 }
 
@@ -883,6 +882,7 @@
             });
         });
     </script>
+
 
 
     @* <script>

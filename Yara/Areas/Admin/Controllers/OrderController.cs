@@ -427,6 +427,7 @@ namespace Yara.Areas.Admin.Controllers
 
             try
             {
+
                 // Fetch products matching the query
                 var products = await dbcontext.ViewProductInformation
                     .Where(p => p.Qrcode.StartsWith(query) ||

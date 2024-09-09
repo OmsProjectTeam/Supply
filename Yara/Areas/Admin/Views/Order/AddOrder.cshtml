@@ -78,6 +78,12 @@
     </div>
 </div>
 
+
+
+
+
+
+
 <div id="contentWrapper" style="display: none;">
 <div class="row small-spacing">
     <div class="col-12">
@@ -667,7 +673,49 @@
     <!-- jQuery UI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
+    <!-- إضافة مكتبة jQuery و jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script>
+        $(document).ready(function () {
+            // تفعيل خاصية الاوتوكومبليت على الحقل
+            $("#product12").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/GetProductSuggestions", // استدعاء API
+                        type: "GET",
+                        data: { query: request.term }, // إرسال النص المدخل كـ "query"
+                        success: function (data) {
+                            // تعبئة الاقتراحات في القائمة
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.ProductName + " (" + item.Model + ")", // نص الاقتراح
+                                    value: item.ProductName, // القيمة التي سيتم ملؤها في الحقل
+                                    data: item // البيانات الإضافية عند الحاجة
+                                };
+                            }));
+                        },
+                        error: function () {
+                            response([]);
+                        }
+                    });
+                },
+                minLength: 2, // تفعيل الاوتوكومبليت بعد إدخال حرفين على الأقل
+                select: function (event, ui) {
+                    // عند اختيار منتج من القائمة
+                    console.log("Selected product:", ui.item.data);
+                }
+            });
+        });
+    </script>
+
+
+
+
+
     <script>
         $(document).ready(function () {
             // Trigger AJAX on every key input for autocomplete functionality
@@ -1503,6 +1551,12 @@
         });
 
     </script>
+
+
+
+
+   
+
 }
 
 

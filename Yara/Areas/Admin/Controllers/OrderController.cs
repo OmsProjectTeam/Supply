@@ -23,8 +23,10 @@ namespace Yara.Areas.Admin.Controllers
         IIWareHouse iWareHouse;
         IIWareHouseBranch iWareHouseBranch;
         MasterDbcontext dbcontext;
+        IIBrandName iBrandName;
 
-        public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1, IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1)
+        public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -35,6 +37,7 @@ namespace Yara.Areas.Admin.Controllers
             iWareHouse = iWareHouse1;
             iWareHouseBranch = iWareHouseBranch1;
             dbcontext = dbcontext1;
+            iBrandName = iBrandName1;
         }
         public IActionResult MyOrder()
         {
@@ -45,6 +48,7 @@ namespace Yara.Areas.Admin.Controllers
         }
         public IActionResult AddOrder(int? IdPurchaseOrder)
         {
+            ViewBag.BrandName = iBrandName.GetAll();
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
 

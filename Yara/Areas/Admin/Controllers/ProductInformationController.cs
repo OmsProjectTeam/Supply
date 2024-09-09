@@ -330,10 +330,12 @@ namespace Yara.Areas.Admin.Controllers
                             .FirstOrDefault();
 
                         // الحصول على اسم المنتج
-                        var productNode = document.DocumentNode.SelectSingleNode("//h3[@class='sui-block sui-flex-col sui-mt-1 sui-text-primary sui-font-regular sui-mb-1 sui-line-clamp-5 sui-text-ellipsis sui-inline']//span");
+                        // تعديل XPath ليكون أكثر عمومية
+                        var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
                         var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
 
                         return Json(new { success = true, imageUrl = firstImageUrl, productName });
+
                     }
                 }
 

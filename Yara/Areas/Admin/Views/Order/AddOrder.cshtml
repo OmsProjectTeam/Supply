@@ -3,7 +3,7 @@
     ViewData["Title"] = ResourceWeb.LBAddOrder;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
     /* Modal container */
     .custom-modal {
@@ -662,6 +662,192 @@
 </div>
 
 @section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        $(document).ready(function () {
+            // Trigger AJAX on every key input for autocomplete functionality
+            $('#product12').on('input', function () {
+                const productId = $(this).val().trim();
+
+                if (productId.length > 0) {
+                    // Show a non-blocking SweetAlert toast while searching
+                    Swal.fire({
+                        title: 'Searching...',
+                        text: 'Please wait while we search for the product',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading(); // Keep showing the loader during the search
+                        }
+                    });
+
+                    // Perform auto-complete for live suggestions
+                    $('#product12').autocomplete({
+                        source: function (request, response) {
+                            $.ajax({
+                                url: '@Url.Action("GetProductSuggestions", "Order")',
+                                type: 'GET',
+                                data: { query: request.term },  // Send the current input as the query
+                                success: function (data) {
+                                    Swal.close(); // Close SweetAlert on success
+                                    if (data.length > 0) {
+                                        response($.map(data, function (item) {
+                                            return {
+                                                label: item.ProductName + ' (' + item.Qrcode + ')',  // Display product name and QR code
+                                                value: item.Qrcode,  // The value that will be placed in the input
+                                                productDetails: item  // Additional details for use after selection
+                                            };
+                                        }));
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'No matching products found!',
+                                            text: 'Please try again or add a new product.',
+                                            toast: true,
+                                            position: 'top-end',
+                                            timer: 3000,
+                                            showConfirmButton: false
+                                        });
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    Swal.close(); // Close alert on error
+                                    console.error("Error fetching autocomplete suggestions: ", error);
+                                    response([]);  // Return an empty array in case of error
+                                }
+                            });
+                        },
+                        minLength: 2,  // Minimum characters before suggestions start showing
+                        select: function (event, ui) {
+                            // When a suggestion is selected
+                            $('#product12').val(ui.item.value);  // Set the input to the selected QR code
+                            populateProductDetails(ui.item.productDetails);  // Populate the details with the selected item
+                            return false;  // Prevent default behavior (inserting the label)
+                        }
+                    });
+
+                    checkProductAvailability(productId);  // Check for the selected product's availability
+                } else {
+                    clearProductDetails();  // Clear the details if input is empty
+                    $('#modalButton').prop('disabled', true);  // Disable the modal button
+                }
+            });
+
+            // Function to check product availability via AJAX
+            function checkProductAvailability(productId) {
+                $.ajax({
+                    url: '@Url.Action("GetProductDetailsForOrder", "Order")',  // Replace with the correct URL
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        if (data && data.productCategoryId > 0) {
+                            populateProductDetails(data);  // Populate the fields with the received data
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Product found!',
+                                text: 'Product details have been loaded successfully',
+                                timer: 1500,
+                                showConfirmButton: false,
+                                position: 'top-end',
+                                toast: true
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No product found!',
+                                text: 'Create a new one by clicking the modal button',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                position: 'top-end',
+                                toast: true
+                            });
+
+                            // Enable modal button for adding a new product
+                            $('#ProductName').val(productId);  // Set the search text in the modal product name field
+                            $('#modalButton').prop('disabled', false);
+                            openModal();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Search error',
+                            text: 'Unable to fetch product details',
+                            position: 'top-end',
+                            timer: 3000,
+                            showConfirmButton: false,
+                            toast: true
+                        });
+                        clearProductDetails();  // Clear details in case of error
+                        $('#modalButton').prop('disabled', true);  // Disable modal button in case of error
+                    }
+                });
+            }
+
+            // Function to populate the product details on the form
+            function populateProductDetails(data) {
+                if (data) {
+                    $('#ProductName').val(data.ProductName);
+                    $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
+                    $('#SelectBondType').val(data.bondTypeId).trigger('change');
+                    $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
+                    $('#GlobalPrice').val(data.globalPrice);
+                    $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+                    $('#SelectProductInformation').empty().append(new Option(data.productName, data.id, true, true)).trigger('change');
+                    $('#modalButton').prop('disabled', true);  // Disable the modal button since a product was found
+                } else {
+                    clearProductDetails();  // In case of undefined or invalid data, clear the fields
+                }
+            }
+
+            // Function to clear the product details when no match is found or input is cleared
+            function clearProductDetails() {
+                $('#ProductName').val('');
+                $('#SelectProductCategory').val('').trigger('change');
+                $('#SelectBondType').val('').trigger('change');
+                $('#SelectTypesProduct').val('').trigger('change');
+                $('#GlobalPrice').val('');
+                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                $('#SelectProductInformation').empty();
+            }
+
+            // Function to open the modal
+            function openModal() {
+                document.getElementById("customModal").style.display = "block";
+            }
+
+            // Function to close the modal
+            function closeModal() {
+                document.getElementById("customModal").style.display = "none";
+            }
+
+            // Handle form submission inside the modal
+            $('form[asp-action="SaveModal"]').on('submit', function (event) {
+                event.preventDefault();  // Prevent default form submission
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        closeModal();  // Close the modal on success
+                    },
+                    error: function (response) {
+                        console.error("Error during form submission", response);
+                    }
+                });
+            });
+        });
+
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var productInput = document.getElementById('product12');
@@ -680,6 +866,134 @@
             });
         });
     </script>
+    @* <script>
+        $(document).ready(function () {
+            let typingTimer;                // Timer identifier
+            const typingDelay = 1000;        // Time delay in milliseconds (e.g., 500ms)
+
+            $('#product12').on('input', function () {
+                clearTimeout(typingTimer);  // Clear the previous timer
+                const productId = $(this).val().trim();
+
+                if (productId) {
+                    typingTimer = setTimeout(function () {
+                        checkProductAvailability(productId);
+                    }, typingDelay);
+                } else {
+                    // If the input is cleared, disable the modal button
+                    $('#modalButton').prop('disabled', true);
+                }
+            });
+
+            function checkProductAvailability(productId) {
+                $.ajax({
+                    url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        if (data && data.productCategoryId > 0) {
+                            // Populate the fields with the received data
+                            $('#ProductName').val(productId);  // Set the product name input
+                            $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
+                            $('#SelectBondType').val(data.bondTypeId).trigger('change');
+                            $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
+                            $('#GlobalPrice').val(data.globalPrice);
+                            $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+
+                            // Populate or update the Product Information dropdown
+                            $('#SelectProductInformation').empty(); // Clear the dropdown first
+                            $('#SelectProductInformation').append(new Option(data.productName, data.id, true, true)).trigger('change');
+
+                            // Disable the modal button since a product was found
+                            $('#modalButton').prop('disabled', true);
+                        } else {
+                            // Show SweetAlert and enable the modal button
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No product available',
+                                text: 'Create a new one, please click the modal button',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                position: 'top-end',
+                                toast: true
+                            });
+
+                            // Set the search text in the modal product name field
+                            $('#ProductName').val(productId);
+
+                            // Enable the modal button
+                            $('#modalButton').prop('disabled', false);
+                            openModal();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching product details: ", error);
+                        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                        $('#GlobalPrice').val("0.00");
+
+                        // Disable the modal button if there is an error
+                        $('#modalButton').prop('disabled', true);
+                    }
+                });
+            }
+
+
+            // Function to open the modal
+            function openModal() {
+                document.getElementById("customModal").style.display = "block";
+            }
+
+            // Function to close the modal
+            function closeModal() {
+                // document.getElementById("customModal").style.display = "none";
+                var previousSearchText = '';
+
+                function openModal() {
+                    previousSearchText = $('#product12').val(); // Store the current search text
+                    document.getElementById("customModal").style.display = "block";
+                }
+
+                function closeModal() {
+                    document.getElementById("customModal").style.display = "none";
+                    $('#product12').val(previousSearchText); // Restore the search text
+                }
+
+                // Close the modal if the user clicks outside of it
+                window.onclick = function (event) {
+                    var modal = document.getElementById("customModal");
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                }
+
+                // Handle form submission inside the modal
+                $('form[asp-action="SaveModal"]').on('submit', function (event) {
+                    event.preventDefault(); // Prevent default form submission
+
+                    var form = $(this);
+
+                    // Optionally handle the form submission via AJAX
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        success: function (response) {
+                            // Close the modal
+                            closeModal();
+                            // Repopulate the search field with the stored search text
+                            $('#product12').val(previousSearchText);
+                        },
+                        error: function (response) {
+                            console.error("Error during form submission", response);
+                            // Handle the error (display a message, etc.)
+                        }
+                    });
+                });
+            }
+        });
+
+
+    </script> *@
 
     <script>
         function updateQRCode() {
@@ -699,8 +1013,7 @@
         });
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
 
  @*    <script src="~/js/custom-scripts.js"></script> *@
 
@@ -903,7 +1216,7 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
         $(document).ready(function () {
             console.log("jQuery is ready");
@@ -940,7 +1253,7 @@
             }
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <script>
         $(document).ready(function () {
@@ -962,134 +1275,7 @@
 
     </script>
 
-    <script>
-        $(document).ready(function () {
-            let typingTimer;                // Timer identifier
-            const typingDelay = 700;        // Time delay in milliseconds (e.g., 500ms)
-
-            $('#product12').on('input', function () {
-                clearTimeout(typingTimer);  // Clear the previous timer
-                const productId = $(this).val().trim();
-
-                if (productId) {
-                    typingTimer = setTimeout(function () {
-                        checkProductAvailability(productId);
-                    }, typingDelay);
-                } else {
-                    // If the input is cleared, disable the modal button
-                    $('#modalButton').prop('disabled', true);
-                }
-            });
-
-            function checkProductAvailability(productId) {
-                $.ajax({
-                    url: '@Url.Action("GetProductDetailsForOrder", "Order")',
-                    type: 'GET',
-                    data: { productId: productId },
-                    success: function (data) {
-                        if (data && data.productCategoryId > 0) {
-                            // Populate the fields with the received data
-                            $('#ProductName').val(productId);  // Set the product name input
-                            $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
-                            $('#SelectBondType').val(data.bondTypeId).trigger('change');
-                            $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
-                            $('#GlobalPrice').val(data.globalPrice);
-                            $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
-
-                            // Populate or update the Product Information dropdown
-                            $('#SelectProductInformation').empty(); // Clear the dropdown first
-                            $('#SelectProductInformation').append(new Option(data.productName, data.id, true, true)).trigger('change');
-
-                            // Disable the modal button since a product was found
-                            $('#modalButton').prop('disabled', true);
-                        } else {
-                            // Show SweetAlert and enable the modal button
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'No product available',
-                                text: 'Create a new one, please click the modal button',
-                                showConfirmButton: false,
-                                timer: 3000,
-                                position: 'top-end',
-                                toast: true
-                            });
-
-                            // Set the search text in the modal product name field
-                            $('#ProductName').val(productId);
-
-                            // Enable the modal button
-                            $('#modalButton').prop('disabled', false);
-                            openModal();
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error fetching product details: ", error);
-                        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-                        $('#GlobalPrice').val("0.00");
-
-                        // Disable the modal button if there is an error
-                        $('#modalButton').prop('disabled', true);
-                    }
-                });
-            }
-
-
-            // Function to open the modal
-            function openModal() {
-                document.getElementById("customModal").style.display = "block";
-            }
-
-            // Function to close the modal
-            function closeModal() {
-                // document.getElementById("customModal").style.display = "none";
-                var previousSearchText = '';
-
-                function openModal() {
-                    previousSearchText = $('#product12').val(); // Store the current search text
-                    document.getElementById("customModal").style.display = "block";
-                }
-
-                function closeModal() {
-                    document.getElementById("customModal").style.display = "none";
-                    $('#product12').val(previousSearchText); // Restore the search text
-                }
-
-                // Close the modal if the user clicks outside of it
-                window.onclick = function (event) {
-                    var modal = document.getElementById("customModal");
-                    if (event.target == modal) {
-                        closeModal();
-                    }
-                }
-
-                // Handle form submission inside the modal
-                $('form[asp-action="SaveModal"]').on('submit', function (event) {
-                    event.preventDefault(); // Prevent default form submission
-
-                    var form = $(this);
-
-                    // Optionally handle the form submission via AJAX
-                    $.ajax({
-                        type: form.attr('method'),
-                        url: form.attr('action'),
-                        data: form.serialize(),
-                        success: function (response) {
-                            // Close the modal
-                            closeModal();
-                            // Repopulate the search field with the stored search text
-                            $('#product12').val(previousSearchText);
-                        },
-                        error: function (response) {
-                            console.error("Error during form submission", response);
-                            // Handle the error (display a message, etc.)
-                        }
-                    });
-                });
-            }
-        });
-
-   
-    </script>
+    
 
     <script>
         function generateRandomStringrr(length) {

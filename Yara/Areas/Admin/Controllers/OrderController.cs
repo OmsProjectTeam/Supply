@@ -417,6 +417,42 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet("GetProductSuggestions")]
+        public async Task<IActionResult> GetProductSuggestions(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return BadRequest("Search query cannot be empty");
+            }
+
+            try
+            {
+                // Fetch products matching the query
+                var products = await dbcontext.ViewProductInformation
+                    .Where(p => p.Qrcode.StartsWith(query) ||
+                                p.Model.StartsWith(query) ||
+                                p.UPC.StartsWith(query) ||
+                                p.ProductName.StartsWith(query) ||
+                                p.Make.StartsWith(query))
+                    .Select(p => new { p.Qrcode, p.ProductName, p.Model, p.Photo })
+                    .ToListAsync();
+
+                if (products.Any())
+                {
+                    return Ok(products); // Return list of matching products
+                }
+                else
+                {
+                    return NotFound("No products found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception and return error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
     }
 }

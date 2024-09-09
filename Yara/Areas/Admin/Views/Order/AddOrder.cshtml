@@ -85,586 +85,586 @@
 
 
 <div id="contentWrapper" style="display: none;">
-<div class="row small-spacing">
-    <div class="col-12">
-        <div class="box-content">
-            <ul class="list-inline">
-                <li class="margin-bottom-10">
-                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddOrder</button></a>
-                </li>
-                <li class="margin-bottom-10">
-                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
-                </li>
-                <li class="margin-bottom-10">
-                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
-                </li>
-            </ul>
-            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
-            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+    <div class="row small-spacing">
+        <div class="col-12">
+            <div class="box-content">
+                <ul class="list-inline">
+                    <li class="margin-bottom-10">
+                        <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddOrder</button></a>
+                    </li>
+                    <li class="margin-bottom-10">
+                        <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                    </li>
+                    <li class="margin-bottom-10">
+                        <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                    </li>
+                </ul>
+                <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+                <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
 
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-6 col-xs-12">
-        <div class="box-content card white">
-            <h4 class="box-title">@ResourceWeb.LBAddOrder</h4>
-            @* <button type="button" class="btn btn-primary margin-bottom-10 waves-effect waves-light" data-toggle="modal" data-target="#boostrapModal-1">Standard modal</button> *@
-            <!-- Modal Trigger Button -->
+        <div class="col-lg-6 col-xs-12">
+            <div class="box-content card white">
+                <h4 class="box-title">@ResourceWeb.LBAddOrder</h4>
+                @* <button type="button" class="btn btn-primary margin-bottom-10 waves-effect waves-light" data-toggle="modal" data-target="#boostrapModal-1">Standard modal</button> *@
+                <!-- Modal Trigger Button -->
 
-            <div class="card-content">
-                <form role="form" method="post" asp-controller="Order" asp-action="Save" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <input type="hidden" asp-for="@Model.Order.DataEntry" class="form-control" value="@User.Identity.Name">
-                        <input type="hidden" asp-for="@Model.Order.IdPurchaseOrder" class="form-control">
-                        <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
-                        <input type="hidden" asp-for="@Model.returnUrl" id="url">
-                    </div>
-                    @* <input id="product12" placeholder="Enter QR Code" /> *@
-                    @* <button type="button" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()">Standard modal</button> *@
-                   @*  <button type="button" id="modalButton" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()" disabled>
+                <div class="card-content">
+                    <form role="form" method="post" asp-controller="Order" asp-action="Save" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="@Model.Order.DataEntry" class="form-control" value="@User.Identity.Name">
+                            <input type="hidden" asp-for="@Model.Order.IdPurchaseOrder" class="form-control">
+                            <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
+                            <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                        </div>
+                        @* <input id="product12" placeholder="Enter QR Code" /> *@
+                        @* <button type="button" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()">Standard modal</button> *@
+                        @*  <button type="button" id="modalButton" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()" disabled>
                         Add New Product
-                    </button> *@
+                        </button> *@
 
-                    <div class="row small-spacing">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdBondType">@ResourceWeb.LbBondType</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdBondType" asp-items="@(new SelectList(ViewBag.BondType, "IdBondType", "BondType"))" id="SelectBondType"></select>
-                                <span asp-validation-for="@Model.Order.IdBondType" class="text-danger"></span>
+                        <div class="row small-spacing">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdBondType">@ResourceWeb.LbBondType</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdBondType" asp-items="@(new SelectList(ViewBag.BondType, "IdBondType", "BondType"))" id="SelectBondType"></select>
+                                    <span asp-validation-for="@Model.Order.IdBondType" class="text-danger"></span>
 
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectMerchant"></select>
+                                    <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-spacing">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdProductCategory">@ResourceWeb.LbProductCategory</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductCategory" asp-items="@(new SelectList(ViewBag.ProductCategory, "IdProductCategory", "ProductCategory"))" id="SelectProductCategory"></select>
+                                    <span asp-validation-for="@Model.Order.IdProductCategory" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdTypesProduct">@ResourceWeb.LbBondType</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
+                                    <span asp-validation-for="@Model.Order.IdTypesProduct" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectMerchant"></select>
-                                <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                        <div class="row small-spacing">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" onchange="updateProductImage()"></select>
+                                    <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
+
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row small-spacing">
-                        <div class="col-sm-6">
+
+                            @* <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.Order.IdProductCategory">@ResourceWeb.LbProductCategory</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductCategory" asp-items="@(new SelectList(ViewBag.ProductCategory, "IdProductCategory", "ProductCategory"))" id="SelectProductCategory"></select>
-                                <span asp-validation-for="@Model.Order.IdProductCategory" class="text-danger"></span>
-
+                            <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
+                            <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
+                            <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
                             </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdTypesProduct">@ResourceWeb.LbBondType</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
-                                <span asp-validation-for="@Model.Order.IdTypesProduct" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row small-spacing">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" onchange="updateProductImage()"></select>
-                                <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
-
-                            </div>
-                        </div>
-
-                        @* <div class="col-sm-6">
-                        <div class="form-group">
-                        <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
-                        <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
-                        <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
-                        </div>
-                        </div> *@
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse" onchange="loadWarehouseBranches()"></select>
-                                <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row small-spacing">
-                        @* <div class="col-sm-6">
-                        <div class="form-group">
-                        <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
-                        <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
-                        <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
-
-                        </div>
-                        </div> *@
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
-                                <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
-                                <input asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" id="PurchaseOrderNoumber11" maxlength="300">
-                                <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row small-spacing">
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
-                                <input id="PurchasePrice" asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
-                                <span asp-validation-for="@Model.Order.PurchasePrice" class="text-danger"></span>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.sellingPrice">@ResourceWeb.LbsellingPrice</label>
-                                <input id="sellingPrice" asp-for="@Model.Order.sellingPrice" type="text" placeholder="@ResourceWeb.LbsellingPrice ...." class="form-control" maxlength="300">
-                                <span asp-validation-for="@Model.Order.sellingPrice" class="text-danger"></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row small-spacing">
-
-                        <div class="col-sm-6">
-                            @* <div class="form-group">
-                            <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
-                            <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300">
-                            <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
-
                             </div> *@
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse" onchange="loadWarehouseBranches()"></select>
+                                    <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-spacing">
+                            @* <div class="col-sm-6">
                             <div class="form-group">
+                            <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
+                            <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
+                            <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
+
+                            </div>
+                            </div> *@
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
+                                    <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
+                                    <input asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" id="PurchaseOrderNoumber11" maxlength="300">
+                                    <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-spacing">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
+                                    <input id="PurchasePrice" asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.Order.PurchasePrice" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.sellingPrice">@ResourceWeb.LbsellingPrice</label>
+                                    <input id="sellingPrice" asp-for="@Model.Order.sellingPrice" type="text" placeholder="@ResourceWeb.LbsellingPrice ...." class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.Order.sellingPrice" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-spacing">
+
+                            <div class="col-sm-6">
+                                @* <div class="form-group">
                                 <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
-                                <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300" readonly>
+                                <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300">
                                 <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
-                            </div>
 
+                                </div> *@
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
+                                    <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300" readonly>
+                                    <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
+                                    <input id="SpecialSalePrice" asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-spacing">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
+                                    <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
+                                    <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
+                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
+
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
-                                <input id="SpecialSalePrice" asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
-                                <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row small-spacing">
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
-                                <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
-                                <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
-
+                                <label asp-for="@Model.Order.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                <input asp-for="@Model.Order.CurrentState" checked type="checkbox" placeholder="@ResourceWeb.lbCurrentState...." class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
-                                <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
-
+                                <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label asp-for="@Model.Order.CurrentState">@ResourceWeb.lbCurrentState</label>
-                            <input asp-for="@Model.Order.CurrentState" checked type="checkbox" placeholder="@ResourceWeb.lbCurrentState...." class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                    <div class="form-group">
-                    <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
-                    <div>
-                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
-                    </div>
-                    </div>
-                    </div>
 
 
-                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-xs-12">
-        <div class="box-content">
-            <h4 class="box-title">Product Image</h4>
-            <div class="row">
-                <div class="col-md-3 col-xs-6">
-                    <a href="#" class="thumbnail">
-                        <img id="ProductImage" src="http://placehold.it/220x180" alt="Product Image" class="img-fluid" />
-                    </a>
+                        <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <div class="box-content">
-            @* <ul class="list-inline">
-            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
-
-            </ul> *@
-            <!-- /.box-title -->
-            @* <div class="dropdown js__drop_down">
-            <a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformation"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
-            </div> *@
-            <!-- /.dropdown js__dropdown -->
-            <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="col-lg-6 col-xs-12">
+            <div class="box-content">
+                <h4 class="box-title">Product Image</h4>
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div id="rootwizard-progress">
-                            <div class="tab-header">
-                                <div class="navbar">
+                    <div class="col-md-3 col-xs-6">
+                        <a href="#" class="thumbnail">
+                            <img id="ProductImage" src="http://placehold.it/220x180" alt="Product Image" class="img-fluid" />
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-                                    <div class="navbar-inner">
-                                        <ul>
-                                            <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformation</a></li>
-                                            <li><a href="#tab-progress-4" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformationMake</a></li>
-                                            <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbOpration</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="box-content">
-                                        <span style="color:royalblue"> <strong>@TempData["Saved successfully"]</strong></span>
-                                        <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
-                                    </div>
-                                </div>
+            <div class="box-content">
+                @* <ul class="list-inline">
+                <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
+                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
+                <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
 
-                            </div>
-                            <div class="tab-content">
-                                <div id="bar" class="progress">
-                                    <div class="progress-bar active progress-bar-info progress-bar-striped bar"></div>
-                                </div>
-                                <div class="tab-pane" id="tab-progress-1">
-                                    <div class='table-responsive'>
-                                        <div style="overflow-x:auto;">
-                                            <table id="example" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
-                                                <thead>
-                                                    <tr role="row">
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbProductCategory</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbTypesProduct</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbProductCategory</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbTypesProduct</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
-                                                </tfoot>
-                                                <tbody>
-                                                            @foreach (var item in Model.ListViewProductInformation)
-                                                            {
-                                                        <tr role="row" class="odd">
-                                                            <td>@item.IdProductInformation</td>
-                                                            <td class="sorting_1">
-                                                                <img src="@item.Photo" class="img-bordered img-circle img-circle"
-                                                                     style="width:100px; height:100px">
-                                                            </td>
-                                                            <td class="truncate-50 Category">@item.ProductCategory</td>
-                                                            <td class="truncate-50 TypesProduct">@item.TypesProduct</td>
-                                                            <td class="truncate-50">@item.ProductName</td>
-                                                            <td class="truncate-50 Codee">@item.Qrcode</td>
-                                                            <td>
-                                                                <div class="form-group">
-                                                                    <div hidden class="Code">@item.Qrcode</div>
-                                                                    <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                            }
-                                                </tbody>
-                                            </table>
+                </ul> *@
+                <!-- /.box-title -->
+                @* <div class="dropdown js__drop_down">
+                <a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformation"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
+                </div> *@
+                <!-- /.dropdown js__dropdown -->
+                <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="rootwizard-progress">
+                                <div class="tab-header">
+                                    <div class="navbar">
+
+                                        <div class="navbar-inner">
+                                            <ul>
+                                                <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformation</a></li>
+                                                <li><a href="#tab-progress-4" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformationMake</a></li>
+                                                <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbOpration</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="box-content">
+                                            <span style="color:royalblue"> <strong>@TempData["Saved successfully"]</strong></span>
+                                            <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="tab-pane" id="tab-progress-4">
-                                    <div class='table-responsive'>
-                                        <div style="overflow-x:auto;">
-                                            <table id="example4" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
-                                                <thead>
-                                                    <tr role="row">
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
-                                                </tfoot>
-                                                <tbody>
-                                                            @foreach (var item in Model.ListViewProductInformation)
-                                                            {
-                                                        <tr role="row" class="odd">
-                                                            <td>@item.IdProductInformation</td>
-                                                            <td class="sorting_1">
-                                                                <img src="@item.Photo" class="img-bordered img-circle img-circle"
-                                                                     style="width:100px; height:100px">
-                                                            </td>
-                                                            <td class="truncate-50 ProductName">@item.ProductName</td>
-                                                            <td class="truncate-50">@item.Make</td>
-                                                            <td class="truncate-50 UPC">@item.UPC</td>
-                                                            <td class="truncate-50 Model">@item.Model</td>
-                                                            <td>
-                                                                <div class="switch primary"><input type="checkbox" checked="@item.Active" IdProductInformation="switch-3" disabled><label for="switch-3">@item.Active</label></div>
-                                                            </td>
-                                                        </tr>
-                                                            }
-                                                </tbody>
-                                            </table>
+                                <div class="tab-content">
+                                    <div id="bar" class="progress">
+                                        <div class="progress-bar active progress-bar-info progress-bar-striped bar"></div>
+                                    </div>
+                                    <div class="tab-pane" id="tab-progress-1">
+                                        <div class='table-responsive'>
+                                            <div style="overflow-x:auto;">
+                                                <table id="example" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbProductCategory</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbTypesProduct</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbProductCategory</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbTypesProduct</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
+                                                    </tfoot>
+                                                    <tbody>
+                                                                @foreach (var item in Model.ListViewProductInformation)
+                                                                {
+                                                            <tr role="row" class="odd">
+                                                                <td>@item.IdProductInformation</td>
+                                                                <td class="sorting_1">
+                                                                    <img src="@item.Photo" class="img-bordered img-circle img-circle"
+                                                                         style="width:100px; height:100px">
+                                                                </td>
+                                                                <td class="truncate-50 Category">@item.ProductCategory</td>
+                                                                <td class="truncate-50 TypesProduct">@item.TypesProduct</td>
+                                                                <td class="truncate-50">@item.ProductName</td>
+                                                                <td class="truncate-50 Codee">@item.Qrcode</td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <div hidden class="Code">@item.Qrcode</div>
+                                                                        <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                                }
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="tab-progress-3">
-                                    <div class='table-responsive'>
-                                        <div style="overflow-x:auto;">
-                                            <table id="example2" class="table table-striped table-bordered display dataTable table-responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
-                                                <thead>
-                                                    <tr role="row">
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbOpration</th>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
-                                                        <th rowspan="1" colspan="1">@ResourceWeb.LbOpration</th>
-                                                </tfoot>
-                                                <tbody>
-                                                            @foreach (var item in Model.ListViewProductInformation)
-                                                            {
-                                                        <tr role="row" class="odd">
-                                                            <td>@item.IdProductInformation</td>
-                                                            <td class="sorting_1">
-                                                                <img src="@item.Photo" class="img-bordered img-circle img-circle"
-                                                                     style="width:100px; height:100px">
-                                                            </td>
-                                                            <td class="truncate-50">@item.ProductName</td>
-                                                            <td>@item.DataEntry</td>
-                                                            <td>@item.DateTimeEntry</td>
-                                                            <td>
-                                                                <div class="switch primary"><input type="checkbox" checked="@item.CurrentState" IdProductInformation="switch-2" disabled><label for="switch-2">@item.CurrentState</label></div>
-                                                            </td>
-                                                            <td>
-                                                                <ul class="list-inline">
-                                                                    <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformationImage" asp-route-IdProductInformation="@item.IdProductInformation"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
-                                                                    <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="ProductInformation" asp-action="DeleteData" asp-route-IdProductInformation="@item.IdProductInformation"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                            }
-                                                </tbody>
-                                            </table>
+                                    <div class="tab-pane" id="tab-progress-4">
+                                        <div class='table-responsive'>
+                                            <div style="overflow-x:auto;">
+                                                <table id="example4" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
+                                                    </tfoot>
+                                                    <tbody>
+                                                                @foreach (var item in Model.ListViewProductInformation)
+                                                                {
+                                                            <tr role="row" class="odd">
+                                                                <td>@item.IdProductInformation</td>
+                                                                <td class="sorting_1">
+                                                                    <img src="@item.Photo" class="img-bordered img-circle img-circle"
+                                                                         style="width:100px; height:100px">
+                                                                </td>
+                                                                <td class="truncate-50 ProductName">@item.ProductName</td>
+                                                                <td class="truncate-50">@item.Make</td>
+                                                                <td class="truncate-50 UPC">@item.UPC</td>
+                                                                <td class="truncate-50 Model">@item.Model</td>
+                                                                <td>
+                                                                    <div class="switch primary"><input type="checkbox" checked="@item.Active" IdProductInformation="switch-3" disabled><label for="switch-3">@item.Active</label></div>
+                                                                </td>
+                                                            </tr>
+                                                                }
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="tab-pane" id="tab-progress-3">
+                                        <div class='table-responsive'>
+                                            <div style="overflow-x:auto;">
+                                                <table id="example2" class="table table-striped table-bordered display dataTable table-responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbOpration</th>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
+                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbOpration</th>
+                                                    </tfoot>
+                                                    <tbody>
+                                                                @foreach (var item in Model.ListViewProductInformation)
+                                                                {
+                                                            <tr role="row" class="odd">
+                                                                <td>@item.IdProductInformation</td>
+                                                                <td class="sorting_1">
+                                                                    <img src="@item.Photo" class="img-bordered img-circle img-circle"
+                                                                         style="width:100px; height:100px">
+                                                                </td>
+                                                                <td class="truncate-50">@item.ProductName</td>
+                                                                <td>@item.DataEntry</td>
+                                                                <td>@item.DateTimeEntry</td>
+                                                                <td>
+                                                                    <div class="switch primary"><input type="checkbox" checked="@item.CurrentState" IdProductInformation="switch-2" disabled><label for="switch-2">@item.CurrentState</label></div>
+                                                                </td>
+                                                                <td>
+                                                                    <ul class="list-inline">
+                                                                        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformationImage" asp-route-IdProductInformation="@item.IdProductInformation"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
+                                                                        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="ProductInformation" asp-action="DeleteData" asp-route-IdProductInformation="@item.IdProductInformation"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                                }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="pager wizard">
+                                        <li class="previous"><a href="javascript:void(0)">Previous</a></li>
+                                        <li class="next"><a href="javascript:void(0)">Next</a></li>
+                                    </ul>
                                 </div>
-                                <ul class="pager wizard">
-                                    <li class="previous"><a href="javascript:void(0)">Previous</a></li>
-                                    <li class="next"><a href="javascript:void(0)">Next</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 4 of 4 entries (filtered from 57 total entries)</div>
-                </div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li></ul></div></div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 4 of 4 entries (filtered from 57 total entries)</div>
+                    </div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li></ul></div></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Custom Modal -->
-    <div id="customModal" class="custom-modal">
-        <div class="custom-modal-content">
-            <div class="custom-modal-header">
-                <span class="close-modal" onclick="closeModal()">&times;</span>
-                <h2>Add New Product</h2>
-            </div>
-            <div class="custom-modal-body">
-                <form role="form" method="post" asp-controller="ProductInformation" asp-action="SaveModal" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
-                        <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
-                        <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
-                        <input type="hidden" asp-for="@Model.returnUrl" id="url">
-                        <input type="hidden" asp-for="@Model.ProductInformation.Photo" id="imageUrlInput">
-                    </div>
-
-                    <div class="row small-spacing">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
-                                <select class="form-control" asp-for="@Model.ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))" id="SelectCategory"></select>
-                                <span asp-validation-for="@Model.ProductInformation.IdProductCategory" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.IdTypesProduct">@ResourceWeb.LbTypesProduct</label>
-                                <select class="form-control" asp-for="@Model.ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
-                                <span asp-validation-for="@Model.ProductInformation.IdTypesProduct" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row small-spacing">
-                        <div class="col-12 col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
-                                <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
-                                <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
-                                <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6">
-                            <div class="form-group">
-                               @*  <label asp-for="@Model.ProductInformation.Make">@ResourceWeb.lbMake</label>
-                                <input id="mak" asp-for="@Model.ProductInformation.Make" type="text" placeholder="@ResourceWeb.lbMake ...." class="form-control" maxlength="100">
-                                <span asp-validation-for="@Model.ProductInformation.Make" class="text-danger"></span> *@
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row small-spacing">
-                        <div class="col-12 col-sm-4">
-                            <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
-                                <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
-                                <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-4">
-                            <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
-                                <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
-                                <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-4">
-                            <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea  asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
-                                <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
+        <!-- Custom Modal -->
+        <div id="customModal" class="custom-modal">
+            <div class="custom-modal-content">
+                <div class="custom-modal-header">
+                    <span class="close-modal" onclick="closeModal()">&times;</span>
+                    <h2>Add New Product</h2>
+                </div>
+                <div class="custom-modal-body">
+                    <form role="form" method="post" asp-controller="ProductInformation" asp-action="SaveModal" enctype="multipart/form-data">
                         <div class="form-group">
-                            <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
-                            <div>
-                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                            <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
+                            <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
+                            <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
+                            <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                            <input type="hidden" asp-for="@Model.ProductInformation.Photo" id="imageUrlInput">
+                        </div>
+
+                        <div class="row small-spacing">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
+                                    <select class="form-control" asp-for="@Model.ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))" id="SelectCategory"></select>
+                                    <span asp-validation-for="@Model.ProductInformation.IdProductCategory" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.IdTypesProduct">@ResourceWeb.LbTypesProduct</label>
+                                    <select class="form-control" asp-for="@Model.ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
+                                    <span asp-validation-for="@Model.ProductInformation.IdTypesProduct" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Image Upload and Display Section -->
-                    <div class="form-group">
-                        <p>
-                            <input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;">
-                        </p>
-                        <p>
-                            <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
-                        </p>
-                        <p>
-                            @*   <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? "" /> *@
+                        <div class="row small-spacing">
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
+                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
+                                    <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
+                                    <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
+                                </div>
+                            </div>
 
-
-                            <!-- عرض الصورة في الصفحة -->
-                            <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
-                            <!-- عرض الصورة في الصفحة -->
-                            <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? " " " />
-
-                            <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
-                            <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
-
-                            <!-- سكريبت لتحديث الحقل المخفي عند تغيير الصورة -->
-                            <script>
-                                // تحديث قيمة الحقل المخفي بقيمة رابط الصورة عند تحميل الصفحة
-                                document.getElementById('hiddenPhotoUrl').value = document.getElementById('output').src;
-
-                                // تحديث قيمة الحقل المخفي عند تغيير الصورة
-                                function updateHiddenPhotoUrl() {
-                                    var outputImg = document.getElementById('output');
-                                    var hiddenPhotoUrl = document.getElementById('hiddenPhotoUrl');
-                                    hiddenPhotoUrl.value = outputImg.src;
-                                }
-
-                                // نداء الدالة لتحديث الحقل المخفي عند تغيير الصورة
-                                document.getElementById('output').addEventListener('load', updateHiddenPhotoUrl);
-                            </script>
-
-
-
-
-
-                        </p>
-                        <span style="color:red"><strong>@TempData["Message"]</strong></span>
-                    </div>
-
-                    <div class="checkbox margin-bottom-20">
-                        <div class="switch success">
-                            <input type="checkbox" asp-for="@Model.ProductInformation.Active" id="switch-9" checked="checked">
-                            <label for="switch-9">@ResourceWeb.LbActive</label>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    @*  <label asp-for="@Model.ProductInformation.Make">@ResourceWeb.lbMake</label>
+                                    <input id="mak" asp-for="@Model.ProductInformation.Make" type="text" placeholder="@ResourceWeb.lbMake ...." class="form-control" maxlength="100">
+                                    <span asp-validation-for="@Model.ProductInformation.Make" class="text-danger"></span> *@
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="checkbox margin-bottom-20">
-                        <div class="switch success">
-                            <input type="checkbox" asp-for="@Model.ProductInformation.CurrentState" id="switch-10" checked="checked">
-                            <label for="switch-10">@ResourceWeb.lbCurrentState</label>
+                        <div class="row small-spacing">
+                            <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
+                                    <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
+                                    <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
+                                    <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
+                                    <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
+                                    <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                                </div>
+                            </div>
+                        </div>
 
-                    @* <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button> *@
+                        <!-- Image Upload and Display Section -->
+                        <div class="form-group">
+                            <p>
+                                <input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;">
+                            </p>
+                            <p>
+                                <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
+                            </p>
+                            <p>
+                                @*   <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? "" /> *@
 
-                    <div class="custom-modal-footer">
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" onclick="closeModal()">Close</button>
-                        <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Save changes</button>
-                    </div>
-                </form>
+
+                                <!-- عرض الصورة في الصفحة -->
+                                <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
+                                <!-- عرض الصورة في الصفحة -->
+                                <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? " " " />
+
+                                <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
+                                <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
+
+                                <!-- سكريبت لتحديث الحقل المخفي عند تغيير الصورة -->
+                                <script>
+                                    // تحديث قيمة الحقل المخفي بقيمة رابط الصورة عند تحميل الصفحة
+                                    document.getElementById('hiddenPhotoUrl').value = document.getElementById('output').src;
+
+                                    // تحديث قيمة الحقل المخفي عند تغيير الصورة
+                                    function updateHiddenPhotoUrl() {
+                                        var outputImg = document.getElementById('output');
+                                        var hiddenPhotoUrl = document.getElementById('hiddenPhotoUrl');
+                                        hiddenPhotoUrl.value = outputImg.src;
+                                    }
+
+                                    // نداء الدالة لتحديث الحقل المخفي عند تغيير الصورة
+                                    document.getElementById('output').addEventListener('load', updateHiddenPhotoUrl);
+                                </script>
+
+
+
+
+
+                            </p>
+                            <span style="color:red"><strong>@TempData["Message"]</strong></span>
+                        </div>
+
+                        <div class="checkbox margin-bottom-20">
+                            <div class="switch success">
+                                <input type="checkbox" asp-for="@Model.ProductInformation.Active" id="switch-9" checked="checked">
+                                <label for="switch-9">@ResourceWeb.LbActive</label>
+                            </div>
+                        </div>
+
+                        <div class="checkbox margin-bottom-20">
+                            <div class="switch success">
+                                <input type="checkbox" asp-for="@Model.ProductInformation.CurrentState" id="switch-10" checked="checked">
+                                <label for="switch-10">@ResourceWeb.lbCurrentState</label>
+                            </div>
+                        </div>
+
+                        @* <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button> *@
+
+                        <div class="custom-modal-footer">
+                            <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" onclick="closeModal()">Close</button>
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Save changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 @section Scripts {
@@ -676,155 +676,345 @@
 
     <script>
         $(document).ready(function () {
-    // Autocomplete search functionality
-    $('#product12').on('input', function () {
-        const productId = $(this).val().trim();
+            let typingTimer; // Timer identifier for delay
+            const typingDelay = 1000; // Time delay in milliseconds (e.g., 1000ms)
 
-        if (productId.length >= 2) {  // Only search after 2 characters
-            // Perform auto-complete for live suggestions
-            $('#product12').autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: '@Url.Action("GetProductSuggestions", "Order")',
-                        type: 'GET',
-                        data: { query: request.term },
-                        success: function (data) {
-                                    console.log("Autocomplete suggestions response:", data);
-                                   // Filter the suggestions to match the model first
+            // Autocomplete search functionality
+            $('#product12').on('input', function () {
+                clearTimeout(typingTimer); // Clear the previous timer
+                const productId = $(this).val().trim();
+
+                if (productId.length >= 2) {  // Only search after 2 characters
+                    typingTimer = setTimeout(function () {
+                        // Perform auto-complete for live suggestions
+                        $('#product12').autocomplete({
+                            source: function (request, response) {
+                                $.ajax({
+                                    url: '@Url.Action("GetProductSuggestions", "Order")',
+                                    type: 'GET',
+                                    data: { query: request.term },
+                                    success: function (data) {
+                                        console.log("Autocomplete suggestions response:", data);
                                         response($.map(data, function (item) {
                                             console.log("Processing suggestion item:", item);
                                             return {
-                                               label: item.model,  // Show model in the suggestions
-                                value: item.model,  // Use model as the value for the input
-                                productDetails: item
+                                                label: item.model,  // Show model in the suggestions
+                                                value: item.model,  // Use model as the value for the input
+                                                productDetails: item
                                             };
                                         }));
                                     },
-                        error: function (xhr, status, error) {
-                            console.error("Error fetching autocomplete suggestions: ", error);
+                                    error: function (xhr, status, error) {
+                                        console.error("Error fetching autocomplete suggestions: ", error);
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Search error',
+                                            text: 'Unable to fetch product suggestions.',
+                                            position: 'top-end',
+                                            timer: 3000,
+                                            showConfirmButton: false,
+                                            toast: true
+                                        });
+                                        response([]);  // Return an empty array on error
+                                    }
+                                });
+                            },
+                            minLength: 2,  // Minimum characters before showing suggestions
+                            select: function (event, ui) {
+                                $('#product12').val(ui.item.value);
+                                populateProductDetails(ui.item.productDetails);
+                                return false;
+                            },
+                            focus: function (event, ui) {
+                                $('#product12').val(ui.item.value);
+                                return false;
+                            }
+                        });
+                    }, typingDelay);
+                } else {
+                    clearProductDetails();  // Clear details if input is less than 2 characters
+                    $('#modalButton').prop('disabled', true);  // Disable modal button
+                }
+            });
+
+            // Check product availability via AJAX
+            function checkProductAvailability(productId) {
+                $.ajax({
+                    url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        if (data && data.productCategoryId > 0) {
+                            populateProductDetails(data);  // Populate details if product found
                             Swal.fire({
-                                icon: 'error',
-                                title: 'Search error',
-                                text: 'Unable to fetch product suggestions.',
-                                position: 'top-end',
-                                timer: 3000,
+                                icon: 'success',
+                                title: 'Product found!',
+                                text: 'Product details have been loaded.',
+                                timer: 1500,
                                 showConfirmButton: false,
+                                position: 'top-end',
                                 toast: true
                             });
-                            response([]);  // Return an empty array on error
+                        } else {
+                            handleProductNotFound(productId);  // Handle case where product is not found
                         }
-                    });
-                },
-                minLength: 2,  // Minimum characters before showing suggestions
-                    select: function (event, ui) {
-                        console.log("Select event fired!");
-                console.log("Selected model:", ui.item.value);
-                        // Auto-complete the search box with the selected model
-                        $('#product12').val(ui.item.value);
-
-                        // Populate other product details
-                        populateProductDetails(ui.item.productDetails);
-                        
-                        // Automatically focus on the next input or perform additional actions if needed
-                        return false;
                     },
-                    focus: function (event, ui) {
-                        // Auto-complete the search box while focusing over suggestions
-                        $('#product12').val(ui.item.value);
-                        return false;
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Search error',
+                            text: 'Unable to fetch product details.',
+                            position: 'top-end',
+                            timer: 3000,
+                            showConfirmButton: false,
+                            toast: true
+                        });
+                        clearProductDetails();  // Clear details in case of error
+                        $('#modalButton').prop('disabled', true);  // Disable modal button
                     }
                 });
-            } else {
-                clearProductDetails();  // Clear details if input is less than 2 characters
-                $('#modalButton').prop('disabled', true);  // Disable modal button
             }
-        });
 
-    // Check product availability via AJAX
-    function checkProductAvailability(productId) {
-        $.ajax({
-            url: '@Url.Action("GetProductDetailsForOrder", "Order")',
-            type: 'GET',
-            data: { productId: productId },
-            success: function (data) {
-                if (data && data.productCategoryId > 0) {
-                    populateProductDetails(data);  // Populate details if product found
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Product found!',
-                        text: 'Product details have been loaded.',
-                        timer: 1500,
-                        showConfirmButton: false,
-                        position: 'top-end',
-                        toast: true
-                    });
-                } else {
-                    handleProductNotFound(productId);  // Handle case where product is not found
-                }
-            },
-            error: function () {
+            // Handle case when product is not found
+            function handleProductNotFound(productId) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Search error',
-                    text: 'Unable to fetch product details.',
-                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'No product found!',
+                    text: 'Create a new product by clicking the modal button.',
                     timer: 3000,
                     showConfirmButton: false,
+                    position: 'top-end',
                     toast: true
                 });
-                clearProductDetails();  // Clear details in case of error
-                $('#modalButton').prop('disabled', true);  // Disable modal button
+
+                // Set the search text in the modal product name field
+                $('#ProductName').val(productId);
+                $('#modalButton').prop('disabled', false); // Enable modal button for adding a new product
+            }
+
+            // Populate product details in the form
+            function populateProductDetails(data) {
+                if (data) {
+                    $('#ProductName').val(data.ProductName);
+                    $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
+                    $('#SelectBondType').val(data.bondTypeId).trigger('change');
+                    $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
+                    $('#GlobalPrice').val(data.globalPrice);
+                    $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+                    $('#SelectProductInformation').empty().append(new Option(data.productName, data.id, true, true)).trigger('change');
+                    $('#modalButton').prop('disabled', true);  // Disable modal button if product is found
+                } else {
+                    clearProductDetails();  // Clear fields if data is undefined
+                }
+            }
+
+            // Clear product details when no match is found or input is cleared
+            function clearProductDetails() {
+                $('#ProductName').val('');
+                $('#SelectProductCategory').val('').trigger('change');
+                $('#SelectBondType').val('').trigger('change');
+                $('#SelectTypesProduct').val('').trigger('change');
+                $('#GlobalPrice').val('');
+                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                $('#SelectProductInformation').empty();
+            }
+
+            // Function to open the modal
+            let previousSearchText = '';
+
+            function openModal() {
+                previousSearchText = $('#product12').val(); // Store the current search text
+                document.getElementById("customModal").style.display = "block";
+            }
+
+            function closeModal() {
+                document.getElementById("customModal").style.display = "none";
+                $('#product12').val(previousSearchText); // Restore the search text
+            }
+
+            // Close the modal if the user clicks outside of it
+            window.onclick = function (event) {
+                var modal = document.getElementById("customModal");
+                if (event.target == modal) {
+                    closeModal();
+                }
+            };
+
+            // Handle form submission inside the modal
+            $('form[asp-action="SaveModal"]').on('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                var form = $(this);
+
+                // Optionally handle the form submission via AJAX
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        closeModal(); // Close the modal
+                        $('#product12').val(previousSearchText); // Restore the search text
+                    },
+                    error: function (response) {
+                        console.error("Error during form submission", response);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    @* <script>
+        $(document).ready(function () {
+            // Autocomplete search functionality
+            $('#product12').on('input', function () {
+                const productId = $(this).val().trim();
+
+                if (productId.length >= 2) {  // Only search after 2 characters
+                    // Perform auto-complete for live suggestions
+                    $('#product12').autocomplete({
+                        source: function (request, response) {
+                            $.ajax({
+                                url: '@Url.Action("GetProductSuggestions", "Order")',
+                                type: 'GET',
+                                data: { query: request.term },
+                                success: function (data) {
+                                    console.log("Autocomplete suggestions response:", data);
+                                    // Filter the suggestions to match the model first
+                                    response($.map(data, function (item) {
+                                        console.log("Processing suggestion item:", item);
+                                        return {
+                                            label: item.model,  // Show model in the suggestions
+                                            value: item.model,  // Use model as the value for the input
+                                            productDetails: item
+                                        };
+                                    }));
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("Error fetching autocomplete suggestions: ", error);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Search error',
+                                        text: 'Unable to fetch product suggestions.',
+                                        position: 'top-end',
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                        toast: true
+                                    });
+                                    response([]);  // Return an empty array on error
+                                }
+                            });
+                        },
+                        minLength: 2,  // Minimum characters before showing suggestions
+                        select: function (event, ui) {
+                            console.log("Select event fired!");
+                            console.log("Selected model:", ui.item.value);
+                            // Auto-complete the search box with the selected model
+                            $('#product12').val(ui.item.value);
+
+                            // Populate other product details
+                            populateProductDetails(ui.item.productDetails);
+
+                            // Automatically focus on the next input or perform additional actions if needed
+                            return false;
+                        },
+                        focus: function (event, ui) {
+                            // Auto-complete the search box while focusing over suggestions
+                            $('#product12').val(ui.item.value);
+                            return false;
+                        }
+                    });
+                } else {
+                    clearProductDetails();  // Clear details if input is less than 2 characters
+                    $('#modalButton').prop('disabled', true);  // Disable modal button
+                }
+            });
+
+            // Check product availability via AJAX
+            function checkProductAvailability(productId) {
+                $.ajax({
+                    url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        if (data && data.productCategoryId > 0) {
+                            populateProductDetails(data);  // Populate details if product found
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Product found!',
+                                text: 'Product details have been loaded.',
+                                timer: 1500,
+                                showConfirmButton: false,
+                                position: 'top-end',
+                                toast: true
+                            });
+                        } else {
+                            handleProductNotFound(productId);  // Handle case where product is not found
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Search error',
+                            text: 'Unable to fetch product details.',
+                            position: 'top-end',
+                            timer: 3000,
+                            showConfirmButton: false,
+                            toast: true
+                        });
+                        clearProductDetails();  // Clear details in case of error
+                        $('#modalButton').prop('disabled', true);  // Disable modal button
+                    }
+                });
+            }
+
+            // Handle case when product is not found
+            function handleProductNotFound(productId) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'No product found!',
+                    text: 'Create a new product by clicking the modal button.',
+                    timer: 3000,
+                    showConfirmButton: false,
+                    position: 'top-end',
+                    toast: true
+                });
+
+                // Enable modal button for adding a new product
+                $('#ProductName').val(productId);  // Set the search text in the modal product name field
+                $('#modalButton').prop('disabled', false);
+            }
+
+            // Populate product details in the form
+            function populateProductDetails(data) {
+                if (data) {
+                    $('#ProductName').val(data.ProductName);
+                    $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
+                    $('#SelectBondType').val(data.bondTypeId).trigger('change');
+                    $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
+                    $('#GlobalPrice').val(data.globalPrice);
+                    $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+                    $('#SelectProductInformation').empty().append(new Option(data.productName, data.id, true, true)).trigger('change');
+                    $('#modalButton').prop('disabled', true);  // Disable modal button if product is found
+                } else {
+                    clearProductDetails();  // Clear fields if data is undefined
+                }
+            }
+
+            // Clear product details when no match is found or input is cleared
+            function clearProductDetails() {
+                $('#ProductName').val('');
+                $('#SelectProductCategory').val('').trigger('change');
+                $('#SelectBondType').val('').trigger('change');
+                $('#SelectTypesProduct').val('').trigger('change');
+                $('#GlobalPrice').val('');
+                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                $('#SelectProductInformation').empty();
             }
         });
-    }
 
-    // Handle case when product is not found
-    function handleProductNotFound(productId) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'No product found!',
-            text: 'Create a new product by clicking the modal button.',
-            timer: 3000,
-            showConfirmButton: false,
-            position: 'top-end',
-            toast: true
-        });
+    </script> *@
 
-        // Enable modal button for adding a new product
-        $('#ProductName').val(productId);  // Set the search text in the modal product name field
-        $('#modalButton').prop('disabled', false);
-    }
-
-    // Populate product details in the form
-    function populateProductDetails(data) {
-        if (data) {
-            $('#ProductName').val(data.ProductName);
-            $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
-            $('#SelectBondType').val(data.bondTypeId).trigger('change');
-            $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
-            $('#GlobalPrice').val(data.globalPrice);
-            $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
-            $('#SelectProductInformation').empty().append(new Option(data.productName, data.id, true, true)).trigger('change');
-            $('#modalButton').prop('disabled', true);  // Disable modal button if product is found
-        } else {
-            clearProductDetails();  // Clear fields if data is undefined
-        }
-    }
-
-    // Clear product details when no match is found or input is cleared
-    function clearProductDetails() {
-        $('#ProductName').val('');
-        $('#SelectProductCategory').val('').trigger('change');
-        $('#SelectBondType').val('').trigger('change');
-        $('#SelectTypesProduct').val('').trigger('change');
-        $('#GlobalPrice').val('');
-        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-        $('#SelectProductInformation').empty();
-    }
-});
-
-    </script>
-    
     @* <script>
         $(document).ready(function () {
             // Trigger AJAX on every key input for autocomplete functionality
@@ -1170,9 +1360,9 @@
         });
     </script>
 
-   
 
- @*    <script src="~/js/custom-scripts.js"></script> *@
+
+    @*    <script src="~/js/custom-scripts.js"></script> *@
 
     <script>
         $(document).ready(function () {
@@ -1231,7 +1421,7 @@
             var randomString = generateRandomString(5);
 
             if (Merchant && WareHouse) {
-                var code = Merchant + '-' + WareHouse + '-' + BondType + '-' + WareHouseBranch + '-' + ProductInformation + '-' + 'selling Price:' + sellingPrice + '-' + 'Purchase Order Noumber:'+ PurchaseOrderNoumber + '-' + 'GlobalPr' + GlobalPr + '-' + 'Qouantity In:' + QouantityIn + '-' + 'Special Sale Price:' + SpecialSalePrice + '-' + randomString;
+                var code = Merchant + '-' + WareHouse + '-' + BondType + '-' + WareHouseBranch + '-' + ProductInformation + '-' + 'selling Price:' + sellingPrice + '-' + 'Purchase Order Noumber:' + PurchaseOrderNoumber + '-' + 'GlobalPr' + GlobalPr + '-' + 'Qouantity In:' + QouantityIn + '-' + 'Special Sale Price:' + SpecialSalePrice + '-' + randomString;
                 $('#Qrcode').val(code);
                 updateQRCodeForxxx();
             }
@@ -1283,7 +1473,7 @@
     </script>
 
     <!-- Handel Product-->
-   
+
     <script>
         var previousSearchText = '';
 
@@ -1364,7 +1554,7 @@
             }
         });
 
-      
+
     </script>
 
 
@@ -1373,7 +1563,7 @@
 
 
 
-    
+
     <script>
         $(document).ready(function () {
             console.log("jQuery is ready");
@@ -1410,7 +1600,7 @@
             }
         }
     </script>
-    
+
 
     <script>
         $(document).ready(function () {
@@ -1432,7 +1622,7 @@
 
     </script>
 
-    
+
 
     <script>
         function generateRandomStringrr(length) {
@@ -1664,7 +1854,7 @@
 
 
 
-   
+
 
 }
 

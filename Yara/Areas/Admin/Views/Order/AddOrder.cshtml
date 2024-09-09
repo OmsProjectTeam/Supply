@@ -667,8 +667,159 @@
     <!-- jQuery UI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <script>
+        $(document).ready(function () {
+    // Autocomplete search functionality
+    $('#product12').on('input', function () {
+        const productId = $(this).val().trim();
+
+        if (productId.length >= 2) {  // Only search after 2 characters
+            // Perform auto-complete for live suggestions
+            $('#product12').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("GetProductSuggestions", "Order")',
+                        type: 'GET',
+                        data: { query: request.term },
+                        success: function (data) {
+                                    console.log("Autocomplete suggestions response:", data);
+                                   // Filter the suggestions to match the model first
+                                        response($.map(data, function (item) {
+                                            console.log("Processing suggestion item:", item);
+                                            return {
+                                               label: item.model,  // Show model in the suggestions
+                                value: item.model,  // Use model as the value for the input
+                                productDetails: item
+                                            };
+                                        }));
+                                    },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching autocomplete suggestions: ", error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Search error',
+                                text: 'Unable to fetch product suggestions.',
+                                position: 'top-end',
+                                timer: 3000,
+                                showConfirmButton: false,
+                                toast: true
+                            });
+                            response([]);  // Return an empty array on error
+                        }
+                    });
+                },
+                minLength: 2,  // Minimum characters before showing suggestions
+                    select: function (event, ui) {
+                        console.log("Select event fired!");
+                console.log("Selected model:", ui.item.value);
+                        // Auto-complete the search box with the selected model
+                        $('#product12').val(ui.item.value);
+
+                        // Populate other product details
+                        populateProductDetails(ui.item.productDetails);
+                        
+                        // Automatically focus on the next input or perform additional actions if needed
+                        return false;
+                    },
+                    focus: function (event, ui) {
+                        // Auto-complete the search box while focusing over suggestions
+                        $('#product12').val(ui.item.value);
+                        return false;
+                    }
+                });
+            } else {
+                clearProductDetails();  // Clear details if input is less than 2 characters
+                $('#modalButton').prop('disabled', true);  // Disable modal button
+            }
+        });
+
+    // Check product availability via AJAX
+    function checkProductAvailability(productId) {
+        $.ajax({
+            url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+            type: 'GET',
+            data: { productId: productId },
+            success: function (data) {
+                if (data && data.productCategoryId > 0) {
+                    populateProductDetails(data);  // Populate details if product found
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Product found!',
+                        text: 'Product details have been loaded.',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        position: 'top-end',
+                        toast: true
+                    });
+                } else {
+                    handleProductNotFound(productId);  // Handle case where product is not found
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Search error',
+                    text: 'Unable to fetch product details.',
+                    position: 'top-end',
+                    timer: 3000,
+                    showConfirmButton: false,
+                    toast: true
+                });
+                clearProductDetails();  // Clear details in case of error
+                $('#modalButton').prop('disabled', true);  // Disable modal button
+            }
+        });
+    }
+
+    // Handle case when product is not found
+    function handleProductNotFound(productId) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'No product found!',
+            text: 'Create a new product by clicking the modal button.',
+            timer: 3000,
+            showConfirmButton: false,
+            position: 'top-end',
+            toast: true
+        });
+
+        // Enable modal button for adding a new product
+        $('#ProductName').val(productId);  // Set the search text in the modal product name field
+        $('#modalButton').prop('disabled', false);
+    }
+
+    // Populate product details in the form
+    function populateProductDetails(data) {
+        if (data) {
+            $('#ProductName').val(data.ProductName);
+            $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
+            $('#SelectBondType').val(data.bondTypeId).trigger('change');
+            $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
+            $('#GlobalPrice').val(data.globalPrice);
+            $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+            $('#SelectProductInformation').empty().append(new Option(data.productName, data.id, true, true)).trigger('change');
+            $('#modalButton').prop('disabled', true);  // Disable modal button if product is found
+        } else {
+            clearProductDetails();  // Clear fields if data is undefined
+        }
+    }
+
+    // Clear product details when no match is found or input is cleared
+    function clearProductDetails() {
+        $('#ProductName').val('');
+        $('#SelectProductCategory').val('').trigger('change');
+        $('#SelectBondType').val('').trigger('change');
+        $('#SelectTypesProduct').val('').trigger('change');
+        $('#GlobalPrice').val('');
+        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+        $('#SelectProductInformation').empty();
+    }
+});
+
+    </script>
+    
+    @* <script>
         $(document).ready(function () {
             // Trigger AJAX on every key input for autocomplete functionality
             $('#product12').on('input', function () {
@@ -846,7 +997,7 @@
             });
         });
 
-    </script>
+    </script> *@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

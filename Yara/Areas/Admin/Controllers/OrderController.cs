@@ -73,7 +73,10 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-
+        public IActionResult PrepareText()
+        {
+            return View();
+        }
 
 
         [HttpPost]
@@ -455,5 +458,19 @@ namespace Yara.Areas.Admin.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        public async Task<IActionResult> GetUPCById(string name)
+        {
+            var product = await iProductInformation.GetByNameAsync(name);
+            if (product == null)
+            {
+                return Ok("1241241241234123412412");
+            }
+
+            // أعد الحقل المطلوب، على سبيل المثال UPC
+            return Ok(product.UPC);
+        }
+
+
     }
 }

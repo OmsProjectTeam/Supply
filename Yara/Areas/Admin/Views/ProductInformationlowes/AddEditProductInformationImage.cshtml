@@ -96,6 +96,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                                                        <div class="form-group">
+                                <label>Barcode:</label>
+                                <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                            </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
@@ -301,11 +307,58 @@
         $("#url").val(window.location.href);
     </script>
 
+
+        <script>
+        function CreateBarCode(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode').attr('src', imageUrl);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            var value = document.querySelector('#UPC');
+            CreateBarCode(value);
+        });
+
+
+        $(document).ready(function () {
+            $('#UPC').on('keyup', function () {
+                console.log("UPC value changed");
+                var upc = this.value;
+                CreateBarCode(upc);
+            });
+        });
+
+
+    </script>
+
+
+
     <!-- Include necessary scripts for Select2 and other plugins -->
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
 }
 
 

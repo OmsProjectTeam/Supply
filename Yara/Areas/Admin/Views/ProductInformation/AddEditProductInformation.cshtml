@@ -104,6 +104,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>Barcode:</label>
+                                <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                            </div>
+
 
                             <!-- Image Upload and Display Section -->
                             <div class="form-group">
@@ -142,11 +147,6 @@
                                         // نداء الدالة لتحديث الحقل المخفي عند تغيير الصورة
                                         document.getElementById('output').addEventListener('load', updateHiddenPhotoUrl);
                                     </script>
-
-
-
-
-
                                 </p>
                                 <span style="color:red"><strong>@TempData["Message"]</strong></span>
                             </div>
@@ -183,7 +183,65 @@
 
    @*  <script src="~/js/custom-scripts.js"></script> *@
 
+
     <script>
+        function CreateBarCode(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode').attr('src', imageUrl);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+    
+        $(document).ready(function () {
+            $('#UPC').on('keyup', function () {
+                console.log("UPC value changed");
+                var upc = this.value;
+                CreateBarCode(upc);
+            });
+        });
+
+
+    </script>
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*  <script>
         // Function to load a local file and display it
         var loadFile = function (event) {
             var image = document.getElementById('output');
@@ -298,5 +356,5 @@
 
         // Set the URL of the form to the current page URL
         $("#url").val(window.location.href);
-    </script>
+    </script> *@
 }

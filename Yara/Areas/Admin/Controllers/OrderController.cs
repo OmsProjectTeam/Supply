@@ -428,10 +428,8 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return BadRequest("Search query cannot be empty");
             }
-
             try
             {
-
                 // Fetch products matching the query
                 var products = await dbcontext.ViewProductInformation
                     .Where(p => p.Qrcode.StartsWith(query) ||
@@ -457,7 +455,5 @@ namespace Yara.Areas.Admin.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-
     }
 }

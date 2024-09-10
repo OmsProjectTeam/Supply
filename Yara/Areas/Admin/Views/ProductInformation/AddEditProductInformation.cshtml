@@ -56,7 +56,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
-                                        <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
+                                        <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName" readonly>
                                         <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
                                         <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
                                     </div>
@@ -203,9 +203,11 @@
                         if (response.success) {
                             $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
                             $("#imageUrlInput").val(response.imageUrl); // Set the image URL in the hidden input field
+                            $("#ProductName").val(response.productName); // Set the image URL in the hidden input field
                         } else {
                             alert(response.message); // Show an alert if there was an issue fetching the image
                             $("#output").hide(); // Hide the image element if there's no image to display
+                            $("#ProductName").val('');
                         }
                     },
                     error: function (xhr, status, error) {

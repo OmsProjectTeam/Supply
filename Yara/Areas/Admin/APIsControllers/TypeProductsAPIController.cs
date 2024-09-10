@@ -1,4 +1,5 @@
 ﻿using Domin.Entity;
+using Infarstuructre.BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,58 +10,112 @@ namespace Yara.Areas.Admin.APIsControllers
     [ApiController]
     public class TypeProductsAPIController : ControllerBase
     {
-        IITypesProduct iTypeProduct;
-        MasterDbcontext dbcontext;
+        private readonly IITypesProduct iTypeProduct;
+        private readonly MasterDbcontext dbcontext;
+        ApiResponse response;
         public TypeProductsAPIController(IITypesProduct iTypeProduct1, MasterDbcontext dbcontext1)
         {
             iTypeProduct = iTypeProduct1;
             dbcontext = dbcontext1;
+            response = new ApiResponse();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await iTypeProduct.GetAllAsync();
-            return Ok(allData);
+            try
+            {
+                var allData = await iTypeProduct.GetAllAsync();
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                response.Result = allData;
+                return Ok(response);
+            }catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Data = await iTypeProduct.GetByIdAsync(id);
-            return Ok(Data);
+            try
+            {
+                var allData = await iTypeProduct.GetByIdAsync(id);
+                if (allData == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+                response.Result = allData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddData(TBTypesProduct model)
+        public async Task<IActionResult> AddData([FromBody] TBTypesProduct model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iTypeProduct.AddDataAsync(model);
-            return Ok(model);
+                await iTypeProduct.AddDataAsync(model);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateData(TBTypesProduct model)
+        public async Task<IActionResult> UpdateData([FromBody] TBTypesProduct model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    response.StatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            await iTypeProduct.UpdateDataAsync(model);
-            return Ok(model);
+                await iTypeProduct.UpdateDataAsync(model);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = new List<string> { ex.Message };
+                response.IsSuccess = false;
+            }
+            return Ok(response);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            var item = await GetById(id);
-            if (item == null)
-                return NoContent();
+            try
+            {
+                var item = await iTypeProduct.GetByIdAsync(id);
+                if (item == null)
+                    response.StatusCode = System.Net.HttpStatusCode.NoContent;
 
-            await iTypeProduct.DeleteDataAsync(id);
-            return Ok(item);
+                await iTypeProduct.DeleteDataAsync(id);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = new List<string> { ex.Message };
+            }
+            return Ok(response);
         }
     }
 }

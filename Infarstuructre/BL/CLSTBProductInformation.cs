@@ -193,7 +193,6 @@ namespace Infarstuructre.BL
                 return false;
             }
         }
-
         public async Task<bool> DeleteDataAsync(int id)
         {
             try
@@ -209,7 +208,6 @@ namespace Infarstuructre.BL
                 return false;
             }
         }
-
         public async Task<bool> UpdateDataAsync(TBProductInformation data)
         {
             try
@@ -223,13 +221,11 @@ namespace Infarstuructre.BL
                 return false;
             }
         }
-
         public async Task<bool> DELETPHOTOAsync(int id)
         {
              var result = DELETPHOTO(id);
              return result;
         }
-
         public async Task<bool> DELETPHOTOWITHERRORAsync(string name)
         {
             var result = DELETPHOTOWethError(name);

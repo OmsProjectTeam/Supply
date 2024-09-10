@@ -5,6 +5,8 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using ZXing.QrCode;
 using ZXing;
+using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -21,8 +23,10 @@ namespace Yara.Areas.Admin.Controllers
         IIWareHouse iWareHouse;
         IIWareHouseBranch iWareHouseBranch;
         MasterDbcontext dbcontext;
+        IIBrandName iBrandName;
 
-        public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1, IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1)
+        public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -33,15 +37,21 @@ namespace Yara.Areas.Admin.Controllers
             iWareHouse = iWareHouse1;
             iWareHouseBranch = iWareHouseBranch1;
             dbcontext = dbcontext1;
+            iBrandName = iBrandName1;
         }
         public IActionResult MyOrder()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
+            vmodel.ListViewProductInformation = iProductInformation.GetAll();
             return View(vmodel);
         }
         public IActionResult AddOrder(int? IdPurchaseOrder)
         {
+            ViewBag.BrandName = iBrandName.GetAll();
+            ViewBag.Category = iProductCategory.GetAll();
+            ViewBag.TypesProduct = iTypesProduct.GetAll();
+
             ViewBag.BondType = iBondType.GetAll();
             ViewBag.Merchants = iMerchants.GetAll();
             ViewBag.ProductCategory = iProductCategory.GetAll();
@@ -51,6 +61,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.WareHouseBranch = iWareHouseBranch.GetAll();
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
+            vmodel.ListViewProductInformation = iProductInformation.GetAll();
             if (IdPurchaseOrder != null)
             {
                 vmodel.Order = iOrder.GetById(Convert.ToInt32(IdPurchaseOrder));
@@ -61,6 +72,10 @@ namespace Yara.Areas.Admin.Controllers
                 return View(vmodel);
             }
         }
+
+
+
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBOrder slider, List<IFormFile> Files, string returnUrl)
@@ -191,20 +206,254 @@ namespace Yara.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse, string ProductInformation, string WareHouseBranch, string sellingPrice, string qrCodeSrc)
+        public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
+            string PurchaseOrderNoumber, string ProductInformation,
+            string WareHouseBranch, string sellingPrice,
+            string QouantityIn,
+            string PurchasePrice,
+            string SpecialSalePrice,
+            string BondType,
+            string qrCodeSrc)
         {
             var htmlContent = new StringBuilder();
 
             htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
             htmlContent.AppendFormat("<h1>WareHouse Type: {0}</h1>", Merchant);
             htmlContent.AppendFormat("<h2>Warehouse: {0}</h2>", WareHouse);
-            htmlContent.AppendFormat("<h3>Description: {0}</h3>", WareHouseBranch);
-            htmlContent.AppendFormat("<h3>Description: {0}</h3>", ProductInformation);
-            htmlContent.AppendFormat("<h3>Description: {0}</h3>", sellingPrice);
+            htmlContent.AppendFormat("<h2>PurchaseOrderNoumber: {0}</h2>", PurchaseOrderNoumber);
+            htmlContent.AppendFormat("<h3>WareHouseBranch: {0}</h3>", WareHouseBranch);
+            htmlContent.AppendFormat("<h3>ProductInformation: {0}</h3>", ProductInformation);
+            htmlContent.AppendFormat("<h3>sellingPrice: {0}</h3>", sellingPrice);
+            htmlContent.AppendFormat("<h3>QouantityIn: {0}</h3>", QouantityIn);
+            htmlContent.AppendFormat("<h3>PurchasePrice: {0}</h3>", PurchasePrice);
+            htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
+            htmlContent.AppendFormat("<h3>BondType: {0}</h3>", BondType);
             htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
             htmlContent.Append("</body></html>");
 
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
+        }
+
+        //public JsonResult GetProductImageUrl(int id)
+        //{
+        //    // Fetch the image URL from your data source based on the product ID
+        //    var product = dbcontext.TBProductInformations.FirstOrDefault(p => p.IdProductInformation == id);
+
+        //    if (product != null)
+        //    {
+        //        return Json(new { imageUrl = product.Photo }); // Assuming `ImageUrl` is the property holding the image URL
+        //    }
+        //    else
+        //    {
+        //        return Json(new { imageUrl = "http://placehold.it/220x180" }); // Fallback image
+        //    }
+        //}
+        [HttpGet]
+        public async Task<JsonResult> GetProductDetails(int id)
+        {
+            var product = dbcontext.TBProductInformations.FirstOrDefault(p => p.IdProductInformation == id);
+
+            if (product != null)
+            {
+                // Fetch the global price using HtmlAgilityPack and the mode field
+                decimal globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
+
+                return Json(new
+                {
+                    imageUrl = product.Photo,
+                    globalPrice = globalPrice
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    imageUrl = "http://placehold.it/220x180", // Fallback image
+                    globalPrice = "N/A"
+                });
+            }
+        }
+
+        [HttpGet("GetProductByName")]
+        public async Task<IActionResult> GetProductByName(string qrCode)
+        {
+            if (string.IsNullOrWhiteSpace(qrCode))
+            {
+                return BadRequest("Product name cannot be empty");
+            }
+
+            try
+            {
+                var product = await dbcontext.TBProductInformations.FirstOrDefaultAsync(p => p.Qrcode.StartsWith(qrCode));
+                if (product != null)
+                {
+                    return Ok(product);
+                }
+            }
+            catch(Exception ex) { ex.ToString();
+
+            }
+
+
+            return NotFound("Product not found");
+
+
+
+        }
+
+
+
+        //private async Task<string> FetchGlobalPrice(string model)
+        //{
+        //    string globalPrice = "N/A";
+        //    try
+        //    {
+        //        HtmlWeb web = new HtmlWeb();
+        //        var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
+
+        //        var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
+        //        if (priceNode != null)
+        //        {
+        //            globalPrice = priceNode.InnerText.Trim();
+        //        }
+        //        else
+        //        {
+        //            var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+        //            if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+        //            {
+        //                globalPrice = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        globalPrice = "Error fetching price";
+        //    }
+
+        //    return globalPrice;
+        //}
+        private async Task<decimal> FetchGlobalPrice(string model)
+        {
+            decimal globalPrice = 0;
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
+
+                var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
+                string priceText = priceNode?.InnerText.Trim();
+
+                if (string.IsNullOrEmpty(priceText))
+                {
+                    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+                    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+                    {
+                        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                    }
+                }
+
+                // Remove any non-numeric characters (e.g., currency symbols, commas)
+                priceText = Regex.Replace(priceText, "[^0-9.]", "");
+
+                // Convert the cleaned string to a decimal value
+                if (!string.IsNullOrEmpty(priceText))
+                {
+                    globalPrice = Convert.ToDecimal(priceText);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception (e.g., logging) and return 0 as a fallback
+                globalPrice = 0;
+            }
+
+            return globalPrice;
+        }
+
+        [HttpGet]
+        public IActionResult GetSubWarehouses(int IdBWareHouse)
+        {
+            var subWarehouses = dbcontext.TBWareHouseBranchs
+                .Where(b => b.IdBWareHouse == IdBWareHouse)
+                .Select(b => new
+                {
+                    value = b.IdBWareHouseBranch,
+                    text = b.Description
+                }).ToList();
+
+            return Json(subWarehouses);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetProductDetailsForOrder(string productId)
+        {
+            var product = dbcontext.ViewProductInformation
+                         .Where(p => p.Qrcode == productId || p.Model == productId|| p.UPC == productId|| p.ProductName == productId|| p.Make == productId).FirstOrDefault();
+
+
+            if (product != null)
+            {
+                // Fetch the global price using HtmlAgilityPack and the model field
+                decimal globalPrice = await FetchGlobalPrice(product.Model);
+
+                return Json(new
+                {
+                    imageUrl = product.Photo,
+                    globalPrice = globalPrice,
+                    productCategoryId = product.IdProductCategory,
+                    bondTypeId = product.IdTypesProduct,  // Assuming this field exists
+                    typesProductId = product.IdTypesProduct,
+                    productName = product.ProductName,
+                    id = product.IdProductInformation,
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    imageUrl = "http://placehold.it/220x180",
+                    globalPrice = "0.00",
+                    productCategoryId = 0,
+                    bondTypeId = 0,
+                    typesProductId = 0,
+                    id = 0,
+                });
+            }
+        }
+
+        [HttpGet("GetProductSuggestions")]
+        public async Task<IActionResult> GetProductSuggestions(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return BadRequest("Search query cannot be empty");
+            }
+            try
+            {
+                // Fetch products matching the query
+                var products = await dbcontext.ViewProductInformation
+                    .Where(p => p.Qrcode.StartsWith(query) ||
+                                p.Model.StartsWith(query) ||
+                                p.UPC.StartsWith(query) ||
+                                p.ProductName.StartsWith(query) ||
+                                p.Make.StartsWith(query))
+                    .Select(p => new { p.Qrcode, p.ProductName, p.Model, p.Photo })
+                    .ToListAsync();
+
+                if (products.Any())
+                {
+                    return Ok(products); // Return list of matching products
+                }
+                else
+                {
+                    return NotFound("No products found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception and return error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

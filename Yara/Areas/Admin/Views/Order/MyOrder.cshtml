@@ -53,6 +53,8 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
+
+                   
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbBondType</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseAuotNoumber</th>
@@ -60,6 +62,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantPhone</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantEmaile</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
@@ -70,6 +73,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantPhone</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantEmaile</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
                                             </tfoot>
                                             <tbody>
                                                         @foreach (var item in Model.ListViewOrder)
@@ -86,6 +90,12 @@
                                                         <td class="truncate-50">@item.Name</td>
                                                         <td class="truncate-50">@item.MerchantPhone</td>
                                                         <td class="truncate-50">@item.MerchantEmaile</td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div hidden class="Code">@item.Qrcode</div>
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                         }
                                             </tbody>
@@ -107,8 +117,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
+
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
@@ -118,8 +127,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
+
 
                                             </tfoot>
                                             <tbody>
@@ -136,13 +144,7 @@
                                                         <td class="truncate-50">@item.ProductName</td>
                                                         <td class="truncate-50">@item.Make</td>
                                                         <td class="truncate-50">@item.UPC</td>
-                                                        <td class="truncate-50">@item.Qrcode</td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div hidden class="Code">@item.Qrcode</div>
-                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
-                                                            </div>
-                                                        </td>
+
                                                     </tr>
                                                         }
                                             </tbody>
@@ -271,7 +273,18 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 4 of 4 entries (filtered from 57 total entries)</div>
-            </div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li></ul></div></div>
+            </div>
+
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                    <ul class="pagination">
+                        <li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li>
+                        <li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li>
+                        <li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="box-content">
@@ -281,6 +294,7 @@
 </div>
 <!-- /.box-content -->
 @* <img src="~/images/user gide/Order.png" width="1920" height="1077" /> *@
+
 @section Scripts
 {
     <!-- Data Tables -->
@@ -293,7 +307,10 @@
     <script src="~/Admin/assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
     <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
     <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
-    <script>
+
+    <script src="~/js/custom-scripts.js"></script>
+
+    @* <script>
         $(function () {
             $("#example2").DataTable().fnDestroy();
             $('#example2').DataTable({
@@ -375,7 +392,7 @@
                 });
             }
         });
-    </script>
+    </script> *@
 }
 
 

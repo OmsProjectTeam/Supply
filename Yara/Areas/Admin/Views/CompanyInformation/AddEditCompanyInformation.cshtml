@@ -1,0 +1,164 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = ResourceWeb.LBAddEditCompanyInformation;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-xs-12">
+    <div class="box-content">
+        <ul class="list-inline">
+            <li class="margin-bottom-10">
+                <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddEditCompanyInformation</button></a>
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+            </li>
+            <span style="color:royalblue"><strong>@TempData["Saved successfully"]</strong></span>
+            <span style="color:red"><strong>@TempData["ErrorSave"]</strong></span>
+        </ul>
+
+        <div class="row small-spacing">
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-content card white">
+                    <h4 class="box-title">@ResourceWeb.LBAddEditCompanyInformation</h4>
+                    <div class="card-content">
+                        <form role="form" method="post" asp-controller="CompanyInformation" asp-action="Save" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@Model.CompanyInformation.DataEntry" class="form-control" value="@User.Identity.Name">
+                                <input type="hidden" asp-for="@Model.CompanyInformation.IdCompanyInformation" class="form-control">
+                                <input type="hidden" asp-for="@Model.CompanyInformation.DateTimeEntry" value="@DateTime.Now">
+                                <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                                <input type="hidden" asp-for="@Model.CompanyInformation.Photo" >
+                            </div>
+
+                        
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.CompanyName">@ResourceWeb.LbCompanyName</label>
+                                        <input asp-for="@Model.CompanyInformation.CompanyName" type="text" placeholder="@ResourceWeb.LbCompanyName ...." class="form-control" maxlength="500" id="ProductName">
+                                        <span asp-validation-for="@Model.CompanyInformation.CompanyName" class="text-danger"></span>
+                                        <span style="color:red"><strong>@TempData["CompanyName"]</strong></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.ShortDescriptionEn">@ResourceWeb.LbShortDescriptionEn</label>
+                                        <textarea asp-for="@Model.CompanyInformation.ShortDescriptionEn" type="text" placeholder="@ResourceWeb.LbShortDescriptionEn ...." class="form-control" maxlength="500"rows="5"></textarea>
+                                        <span asp-validation-for="@Model.CompanyInformation.ShortDescriptionEn" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.PhoneNumber">@ResourceWeb.LbPhoneNumber</label>
+                                        <input asp-for="@Model.CompanyInformation.PhoneNumber" type="text" placeholder="@ResourceWeb.LbPhoneNumber ...." class="form-control" maxlength="20" id="modelInput">
+                                        <span asp-validation-for="@Model.CompanyInformation.PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.PhoneNumber2">@ResourceWeb.lbPhoneNumber2</label>
+                                        <input asp-for="@Model.CompanyInformation.PhoneNumber2" type="text" placeholder="@ResourceWeb.lbPhoneNumber2 ...." class="form-control" maxlength="20">
+                                        <span asp-validation-for="@Model.CompanyInformation.PhoneNumber2" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            
+                            </div>
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.EmailCompany">@ResourceWeb.LbEmailCompany</label>
+                                        <input asp-for="@Model.CompanyInformation.EmailCompany" type="email" placeholder="@ResourceWeb.LbEmailCompany ...." class="form-control" maxlength="300" id="modelInput">
+                                        <span asp-validation-for="@Model.CompanyInformation.EmailCompany" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.AddressEn">@ResourceWeb.lbAddressEn</label>
+                                        <textarea asp-for="@Model.CompanyInformation.AddressEn" type="text" placeholder="@ResourceWeb.lbAddressEn ...." class="form-control" maxlength="100"rows="5"></textarea>
+                                        <span asp-validation-for="@Model.CompanyInformation.AddressEn" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.UrlFaceBook">@ResourceWeb.lbUrlFaceBook</label>
+                                        <input asp-for="@Model.CompanyInformation.UrlFaceBook" type="text" placeholder="@ResourceWeb.lbUrlFaceBook ...." class="form-control">
+                                        <span asp-validation-for="@Model.CompanyInformation.UrlFaceBook" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.UrlTwitter">@ResourceWeb.lbUrlTwitter</label>
+                                        <input asp-for="@Model.CompanyInformation.UrlTwitter" type="text" placeholder="@ResourceWeb.lbUrlTwitter ...." class="form-control">
+                                        <span asp-validation-for="@Model.CompanyInformation.UrlTwitter" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.UrlInstgram">@ResourceWeb.lbUrlInstgram</label>
+                                        <input asp-for="@Model.CompanyInformation.UrlInstgram" type="text" placeholder="@ResourceWeb.lbUrlInstgram ...." class="form-control">
+                                        <span asp-validation-for="@Model.CompanyInformation.UrlInstgram" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CompanyInformation.UrlMap">@ResourceWeb.lbUrlTwitter</label>
+                                        <input asp-for="@Model.CompanyInformation.UrlMap" type="text" placeholder="@ResourceWeb.LbUrlMap ...." class="form-control">
+                                        <span asp-validation-for="@Model.CompanyInformation.UrlMap" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <p><input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;"></p>
+                                    <p><label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label></p>
+                                    <p><img id="output" width="450" height="300" /></p>
+                                    <span style="color:red"><strong>@TempData["Message"]</strong></span>
+                                </div>
+                            </div>
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success">
+                                    <input type="checkbox" asp-for="@Model.CompanyInformation.CurrentState" id="switch-10" checked="checked">
+                                    <label for="switch-10">@ResourceWeb.lbCurrentState</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+    <script>
+        $("#url").val(window.location.href);
+    </script>
+}

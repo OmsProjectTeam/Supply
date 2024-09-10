@@ -1,0 +1,167 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = "AddFAQ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row small-spacing">
+    <div class="col-12">
+        <div class="box-content">
+            <ul class="list-inline">
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbTemplate</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                </li>
+            </ul>
+            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-xs-12">
+        <div class="box-content card white">
+            <h4 class="box-title">@ResourceWeb.LBAddNewsLetter</h4>
+            <div class="card-content">
+                <form role="form" method="post" asp-controller="Template" asp-action="Save" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.Template.DateEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.Template.IdTemplate" class="form-control">
+                        <input type="hidden" asp-for="@Model.Template.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.Template" id="url">
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.Template.TemplateName">@ResourceWeb.LbTemplateName</label>
+                                <input asp-for="@Model.Template.TemplateName" type="text" placeholder="@ResourceWeb.LbTemplateName ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Template.TemplateName" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Title"]</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.Template.Containt">@ResourceWeb.LbContaint</label>
+                                <textarea asp-for="@Model.Template.Containt" type="text" id="tinymce" placeholder="@ResourceWeb.LbContaint ...."></textarea>
+                                <span asp-validation-for="@Model.Template.Containt" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Title"]</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Template.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                    <input asp-for="@Model.Template.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.Template.CurrentState" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Template.Active">@ResourceWeb.LbActive</label>
+                                    <input asp-for="@Model.Template.Active" type="checkbox" checked class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.Template.Active" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <textarea id="tinymce">
+<img src="http://placehold.it/80x80" alt="">
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa ad consequatur illum unde! Sapiente accusantium, officiis ab velit sunt, perspiciatis ducimus expedita voluptates corrupti hic eligendi iusto ad error id!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab sapiente ratione quidem aut rerum asperiores tenetur, minus eveniet porro! Quo, quos harum accusamus sapiente perspiciatis dicta ratione tempore officia.</p>
+<ul>
+<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+<li>Culpa ad consequatur illum unde! Sapiente accusantium.</li>
+<li>A ab sapiente ratione quidem aut rerum asperiores tenetur</li>
+<li>Quo, quos harum accusamus sapiente perspiciatis</li>
+<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+                        </ul>
+                    </textarea> *@
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+
+
+
+    <!-- Plugin Files DON'T INCLUDES THESES FILES IF YOU USE IN THE HOST -->
+    <link rel="stylesheet" href="~/Admin/assets/plugin/tinymce/skins/lightgray/skin.min.css">
+    <script src="~/Admin/assets/plugin/tinymce/plugins/advlist/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/anchor/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/autolink/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/autoresize/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/autosave/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/bbcode/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/charmap/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/code/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/codesample/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/colorpicker/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/contextmenu/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/directionality/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/emoticons/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/example/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/example_dependency/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/fullpage/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/fullscreen/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/hr/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/image/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/imagetools/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/importcss/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/insertdatetime/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/layer/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/legacyoutput/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/link/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/lists/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/media/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/nonbreaking/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/noneditable/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/pagebreak/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/paste/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/preview/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/print/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/save/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/searchreplace/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/spellchecker/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/tabfocus/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/table/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/template/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/textcolor/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/textpattern/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/visualblocks/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/visualchars/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/plugins/wordcount/plugin.min.js "></script>
+    <script src="~/Admin/assets/plugin/tinymce/themes/modern/theme.min.js"></script>
+    <!-- Plugin Files DON'T INCLUDES THESES FILES IF YOU USE IN THE HOST -->
+
+
+
+
+
+
+
+
+    <script src="~/Admin/assets/scripts/tinymce.init.min.js"></script>
+
+}

@@ -12,7 +12,6 @@
             <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
-
         </ul>
         <!-- /.box-title -->
         <div class="dropdown js__drop_down">
@@ -83,6 +82,7 @@
                                                         <td class="truncate-50 Codee">@item.Qrcode</td>
                                                         <td>
                                                             <div class="form-group">
+                                                                <div hidden class="truncate-50 Code">@item.Qrcode</div>
                                                                 <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                             </div>
                                                         </td>
@@ -202,7 +202,18 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 4 of 4 entries (filtered from 57 total entries)</div>
-            </div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li></ul></div></div>
+            </div>
+
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                    <ul class="pagination">
+                        <li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li>
+                        <li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li>
+                        <li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li>
+                     </ul>
+                </div>
+             </div>
+
         </div>
     </div>
     <div class="box-content">
@@ -214,111 +225,30 @@
 @* <img src="~/images/user gide/ProductInformation.png" width="1920" height="1077" /> *@
 @section Scripts
 {
-    <!-- Data Tables -->
-    <script src="~/Admin/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/scripts/datatables.demo.min.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/prettify.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
     <script>
-        $(function () {
-            $("#example2").DataTable().fnDestroy();
-            $('#example2').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example3").DataTable().fnDestroy();
-            $('#example3').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example4").DataTable().fnDestroy();
-            $('#example4').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            updateQRCode();
-            // Function to truncate text to a specified length
-            function truncateText(text, maxLength) {
-                if (text.length > maxLength) {
-                    return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
                 } else {
-                    return text;
+                    $(this).attr('src', '');
                 }
-            }
-
-            //  function updateQRCode() {
-            //     $('.QRCodeImage').each(function () {
-            //         var Category = $(this).siblings('.Code').text();
-            //         var ProductName = $(this).siblings('.Code').text();
-            //         var Model = $(this).siblings('.Code').text();
-            //         var UPC = $(this).siblings('.Code').text();
-            //         var TypeProduct = $(this).siblings('.Code').text();
-
-            //         var code = Category + ProductName + Model + UPC + TypeProduct
-            //         if (code) {
-            //             console.log(code);
-            //             $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-            //         } else {
-            //             $(this).attr('src', '');
-            //         }
-            //     });
-            // }
-
-            function updateQRCode() {
-                $('.QRCodeImage').each(function () {
-                    var code = $(this).closest('tr').find('.Codee').text().trim();
-
-                    console.log(code);
-                    // تحديث مصدر صورة QR Code إذا كانت القيم موجودة
-                    if (code) {
-                        console.log(code);
-                        $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-                    } else {
-                        console.log("code");
-                        $(this).attr('src', '');
-                    }
-                });
-            }
-
-
-            // Loop through each table cell with class 'truncate-50'
-            $('.truncate-50').each(function () {
-                var text = $(this).text(); // Get the text content of the cell
-                var truncatedText = truncateText(text, 100); // Truncate the text to 50 characters
-                $(this).text(truncatedText); // Set the truncated text back to the cell
             });
+        }
+
+
+
+
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
         });
     </script>
+
 }
+
 
 
 

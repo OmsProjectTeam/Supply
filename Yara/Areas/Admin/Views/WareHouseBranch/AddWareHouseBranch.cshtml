@@ -131,7 +131,7 @@
             }
 
             // Function to update the Code field
-            function updateCodeField() {
+            function updateCodeFieldForWareHouseBranch() {
                 var warehouseType = $('#SelectWareHouseType option:selected').text();
                 var warehouse = $('#SelectWareHouse option:selected').text();
                 var description = $('#Description').val();
@@ -140,16 +140,16 @@
                 if (warehouseType && description) {
                     var code = warehouseType + warehouse + description + randomString;
                     $('#Code').val(code);
-                    updateQRCode();
+                    updateQRCodeForWareHouseBranch();
                 }
             }
 
             // Bind change events to WareHouseType and Description fields
             $('#SelectWareHouseType, #Description').on('change keyup', function () {
-                updateCodeField();
+                updateCodeFieldForWareHouseBranch();
             });
 
-            function updateQRCode() {
+            function updateQRCodeForWareHouseBranch() {
                 var code = $('#Code').val();
                 if (code) {
                     $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));

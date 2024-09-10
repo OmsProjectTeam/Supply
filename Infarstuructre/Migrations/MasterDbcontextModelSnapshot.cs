@@ -22,6 +22,137 @@ namespace Infarstuructre.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domin.Entity.SignalR.TBConnectAndDisConnect", b =>
+                {
+                    b.Property<int>("IdConnectAndDisConnect")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdConnectAndDisConnect"));
+
+                    b.Property<string>("ConnectId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeConnection")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("UserImg")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdConnectAndDisConnect");
+
+                    b.ToTable("TBConnectAndDisConnects");
+                });
+
+            modelBuilder.Entity("Domin.Entity.SignalR.TBMessageChat", b =>
+                {
+                    b.Property<int>("IdMessageChat")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMessageChat"));
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("ImgMsg")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRead")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((0))");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MessageeTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("ReciverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdMessageChat");
+
+                    b.ToTable("TBMessageChats");
+                });
+
+            modelBuilder.Entity("Domin.Entity.SignalR.TBViewChatMessage", b =>
+                {
+                    b.Property<bool>("CurrentState")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdMessageChat")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgMsg")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MessageeTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("OnLineRec")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("OnLineSen")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReciverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReciverImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReciverName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("ViewChat", (string)null);
+                });
+
             modelBuilder.Entity("Domin.Entity.TBBondType", b =>
                 {
                     b.Property<int>("IdBondType")
@@ -57,6 +188,119 @@ namespace Infarstuructre.Migrations
                     b.HasKey("IdBondType");
 
                     b.ToTable("TBBondTypes");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBBrandName", b =>
+                {
+                    b.Property<int>("IdBrandName")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBrandName"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("BrandName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("IdBrandName");
+
+                    b.ToTable("TBBrandNames");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBCompanyInformation", b =>
+                {
+                    b.Property<int>("IdCompanyInformation")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCompanyInformation"));
+
+                    b.Property<string>("AddressEn")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("EmailCompany")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PhoneNumber2")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescriptionEn")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("UrlFaceBook")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlInstgram")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlMap")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlTwitter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdCompanyInformation");
+
+                    b.ToTable("TBCompanyInformations");
                 });
 
             modelBuilder.Entity("Domin.Entity.TBCustomerMessages", b =>
@@ -336,6 +580,88 @@ namespace Infarstuructre.Migrations
                     b.ToTable("TBMerchantss");
                 });
 
+            modelBuilder.Entity("Domin.Entity.TBNewsletter", b =>
+                {
+                    b.Property<int>("IdNewsletter")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdNewsletter"));
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("IdNewsletterGroup")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTemplate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("IdNewsletter");
+
+                    b.ToTable("TBNewsletters");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBNewsletterGroup", b =>
+                {
+                    b.Property<int>("IdNewsletterGroup")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdNewsletterGroup"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdNewsletterGroup");
+
+                    b.ToTable("TBNewsletterGroups");
+                });
+
             modelBuilder.Entity("Domin.Entity.TBOrder", b =>
                 {
                     b.Property<int>("IdPurchaseOrder")
@@ -479,16 +805,14 @@ namespace Infarstuructre.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<int>("IdBrandName")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdProductCategory")
                         .HasColumnType("int");
 
                     b.Property<int>("IdTypesProduct")
                         .HasColumnType("int");
-
-                    b.Property<string>("Make")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -517,6 +841,217 @@ namespace Infarstuructre.Migrations
                     b.HasKey("IdProductInformation");
 
                     b.ToTable("TBProductInformations");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBSendLog", b =>
+                {
+                    b.Property<int>("IdSendLog")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSendLog"));
+
+                    b.Property<bool>("CurrentState")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FailureCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdNewsletter")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SendAttempts")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SendStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SentDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdSendLog");
+
+                    b.ToTable("TBSendLogs");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBSupportTicket", b =>
+                {
+                    b.Property<int>("IdSupportTicket")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSupportTicket"));
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("FollowUpMail")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("IdSupportTicketStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSupportTicketType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SupportTicketNo")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("TicketDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("IdSupportTicket");
+
+                    b.ToTable("TBSupportTickets");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBSupportTicketStatus", b =>
+                {
+                    b.Property<int>("IdSupportTicketStatus")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSupportTicketStatus"));
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("SupportTicketStatus")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("IdSupportTicketStatus");
+
+                    b.ToTable("TBSupportTicketStatuss");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBSupportTicketType", b =>
+                {
+                    b.Property<int>("IdSupportTicketType")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSupportTicketType"));
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("SupportTicketType")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("IdSupportTicketType");
+
+                    b.ToTable("TBSupportTicketTypes");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBTemplate", b =>
+                {
+                    b.Property<int>("IdTemplate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTemplate"));
+
+                    b.Property<string>("Active")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Containt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DateEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("TemplateName")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("IdTemplate");
+
+                    b.ToTable("TBTemplates");
                 });
 
             modelBuilder.Entity("Domin.Entity.TBTypesOfMessage", b =>
@@ -777,6 +1312,119 @@ namespace Infarstuructre.Migrations
                     b.ToView("ViewMerchants", (string)null);
                 });
 
+            modelBuilder.Entity("Domin.Entity.TBViewNewsLetter", b =>
+                {
+                    b.Property<string>("ConstEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Containt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CurrentState")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdNewsletter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdNewsletterGroup")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTemplate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TemplateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("ViewNewsLetter", (string)null);
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBViewNewsLetterGroup", b =>
+                {
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ConstEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CurrentState")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdNewsletterGroup")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("ViewNewsLetterGroup", (string)null);
+                });
+
             modelBuilder.Entity("Domin.Entity.TBViewOrder", b =>
                 {
                     b.Property<string>("BondType")
@@ -981,6 +1629,122 @@ namespace Infarstuructre.Migrations
                     b.ToTable((string)null);
 
                     b.ToView("ViewProductInformation", (string)null);
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBViewSendLog", b =>
+                {
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CurrentState")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FailureCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSendLog")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NewsletterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SendAttempts")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SendStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("ViewSendLog", (string)null);
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBViewSupportTicket", b =>
+                {
+                    b.Property<bool>("CurrentState")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FollowUpMail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdSupportTicket")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSupportTicketStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSupportTicketType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SupportTicketNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SupportTicketStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupportTicketType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly>("TicketDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("ViewSupportTicket", (string)null);
                 });
 
             modelBuilder.Entity("Domin.Entity.TBViewWareHouse", b =>

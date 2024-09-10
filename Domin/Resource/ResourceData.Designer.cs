@@ -160,6 +160,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MaxLengthTitel20 {
+            get {
+                return ResourceManager.GetString("MaxLengthTitel20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number of characters entered must not be less than one character, and the # symbol can be used to indicate the same page....!.
         /// </summary>
         public static string MinLength1 {
@@ -259,6 +268,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must enter the user name...!.
         /// </summary>
         public static string userName {
@@ -286,6 +304,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the Address To complete successfully..!.
+        /// </summary>
+        public static string VlAddressEn {
+            get {
+                return ResourceManager.GetString("VlAddressEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the exchange rate in the local currency on the black market for the process to complete successfully....!.
         /// </summary>
         public static string VlBlackMarketExchangeRate {
@@ -300,6 +327,15 @@ namespace Domin.Resource {
         public static string VlBondType {
             get {
                 return ResourceManager.GetString("VlBondType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Brand Name to complete successfully..!.
+        /// </summary>
+        public static string VlBrandName {
+            get {
+                return ResourceManager.GetString("VlBrandName", resourceCulture);
             }
         }
         
@@ -493,6 +529,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the Follow Up Mail to complete successfully..!.
+        /// </summary>
+        public static string VlFollowUpMail {
+            get {
+                return ResourceManager.GetString("VlFollowUpMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please add the exchange rate in foreign currency for the process to complete successfully...!.
         /// </summary>
         public static string VlForeignCurrency {
@@ -646,6 +691,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the News letter Group to complete successfully..!.
+        /// </summary>
+        public static string VlNewletterGroup {
+            get {
+                return ResourceManager.GetString("VlNewletterGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the nickname for the process to complete successfully..!.
         /// </summary>
         public static string VlNikeNAme {
@@ -687,6 +741,15 @@ namespace Domin.Resource {
         public static string VlPhoneCompany {
             get {
                 return ResourceManager.GetString("VlPhoneCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Phone  Number to complete successfully..!.
+        /// </summary>
+        public static string VLPhoneNumber {
+            get {
+                return ResourceManager.GetString("VLPhoneNumber", resourceCulture);
             }
         }
         
@@ -781,6 +844,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please include the Short Description To complete successfully..!.
+        /// </summary>
+        public static string VlShortDescriptionEn {
+            get {
+                return ResourceManager.GetString("VlShortDescriptionEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the Smtp Server for the process to complete successfully...!.
         /// </summary>
         public static string VlSmtpServer {
@@ -795,6 +867,69 @@ namespace Domin.Resource {
         public static string VlStreet {
             get {
                 return ResourceManager.GetString("VlStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Support Ticket Status to complete successfully..!.
+        /// </summary>
+        public static string VlSupportTicketStatus {
+            get {
+                return ResourceManager.GetString("VlSupportTicketStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Ware Support Ticket Type to complete successfully..!.
+        /// </summary>
+        public static string VlSupportTicketType {
+            get {
+                return ResourceManager.GetString("VlSupportTicketType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the News letter Content to complete successfully..!.
+        /// </summary>
+        public static string VlTBNewsletterContent {
+            get {
+                return ResourceManager.GetString("VlTBNewsletterContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the News letter Title to complete successfully..!.
+        /// </summary>
+        public static string VlTBNewsletterTitle {
+            get {
+                return ResourceManager.GetString("VlTBNewsletterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include Template Content to complete successfully..!.
+        /// </summary>
+        public static string VlTemplateContent {
+            get {
+                return ResourceManager.GetString("VlTemplateContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include Template Name to complete successfully..!.
+        /// </summary>
+        public static string VlTemplateName {
+            get {
+                return ResourceManager.GetString("VlTemplateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Titel to complete successfully..!.
+        /// </summary>
+        public static string VlTitel {
+            get {
+                return ResourceManager.GetString("VlTitel", resourceCulture);
             }
         }
         
@@ -885,6 +1020,42 @@ namespace Domin.Resource {
         public static string VlUPC {
             get {
                 return ResourceManager.GetString("VlUPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the FaceBook Url  To complete successfully..!.
+        /// </summary>
+        public static string VlUrlFaceBook {
+            get {
+                return ResourceManager.GetString("VlUrlFaceBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Instgram Url  To complete successfully..!.
+        /// </summary>
+        public static string VlUrlInstgram {
+            get {
+                return ResourceManager.GetString("VlUrlInstgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Url Map  To complete successfully..!.
+        /// </summary>
+        public static string VlUrlMap {
+            get {
+                return ResourceManager.GetString("VlUrlMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include the Twitter Url  To complete successfully..!.
+        /// </summary>
+        public static string VlUrlTwitter {
+            get {
+                return ResourceManager.GetString("VlUrlTwitter", resourceCulture);
             }
         }
         

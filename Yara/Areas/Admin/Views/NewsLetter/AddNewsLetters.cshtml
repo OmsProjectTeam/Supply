@@ -1,0 +1,90 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = "AddFAQ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row small-spacing">
+    <div class="col-12">
+        <div class="box-content">
+            <ul class="list-inline">
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbNewsLetterGroups</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                </li>
+            </ul>
+            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-12">
+        <div class="box-content card white">
+            <h4 class="box-title">@ResourceWeb.LBAddNewsLetter</h4>
+            <div class="card-content">
+                <form role="form" method="post" asp-controller="NewsLetter" asp-action="Save" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.Newsletter.DataEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.Newsletter.IdNewsletter" class="form-control">
+                        <input type="hidden" asp-for="@Model.Newsletter.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Newsletter.Title">@ResourceWeb.LbTitle</label>
+                                <input asp-for="@Model.Newsletter.Title" type="text" placeholder="@ResourceWeb.LbTitle ...." class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Newsletter.Title" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Title"]</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Newsletter.IdNewsletterGroup">@ResourceWeb.LbMyNewsLetterGroups</label>
+                                <select class="form-control select2_1" asp-for="@Model.Newsletter.IdNewsletterGroup" asp-items="@(new SelectList(ViewBag.NewsLetterGroups, "IdNewsletterGroup", "GroupName"))" id="SelectUser"></select>
+                                <span asp-validation-for="@Model.Newsletter.IdNewsletterGroup" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.Newsletter.IdTemplate">@ResourceWeb.LbTemplateName</label>
+                                <select class="form-control select2_1" asp-for="@Model.Newsletter.IdTemplate" asp-items="@(new SelectList(ViewBag.Templates, "IdTemplate", "TemplateName"))" id="SelectUser"></select>
+                                <span asp-validation-for="@Model.Newsletter.IdTemplate" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.Newsletter.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                <input asp-for="@Model.Newsletter.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                <span asp-validation-for="@Model.Newsletter.CurrentState" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+}

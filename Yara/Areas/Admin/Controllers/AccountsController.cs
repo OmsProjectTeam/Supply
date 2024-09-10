@@ -43,6 +43,7 @@ namespace Yara.Areas.Admin.Controllers
         }
         #endregion
 
+
         #region Method
         [Authorize(Roles = "Admin,User")]
         public IActionResult Roles()
@@ -133,9 +134,9 @@ namespace Yara.Areas.Admin.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteRole(string Id)
+        public async Task<IActionResult> DeleteRole(string name)
         {
-            var role = _roleManager.Roles.FirstOrDefault(x => x.Id == Id);
+            var role = _roleManager.Roles.FirstOrDefault(x => x.Name == name);
             if ((await _roleManager.DeleteAsync(role)).Succeeded)
             {
                 TempData["Delete successful"] = ResourceWeb.VLDeletesuccessful;
@@ -376,9 +377,9 @@ namespace Yara.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Eamil);
                 var Result = await _signInManager.PasswordSignInAsync(model.Eamil,
@@ -409,15 +410,6 @@ namespace Yara.Areas.Admin.Controllers
                     {
                         // Redirect to AirFreight area with user ID
                         return RedirectToAction("Index", "Home", new { area = "AirFreight", userId = user.Id, token = token });
-                    }
-                    if (string.IsNullOrEmpty(returnUrl))
-                    {
-                        // Token Here
-                        return RedirectToAction("Index", "Home", new { area = "", token = token });
-                    }
-                    else
-                    {
-                        return Redirect($"{returnUrl}?token={token}");
                     }
                 }
 

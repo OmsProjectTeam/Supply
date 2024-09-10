@@ -157,8 +157,9 @@
     <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
     <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
 
+    <script src="~/js/custom-scripts.js"></script>
     
-    <script>
+    @* <script>
 
         $(function () {
             $("#example2").DataTable().fnDestroy();
@@ -188,16 +189,6 @@
 
     </script>
 
-    <script>
-        $(document).ready(function () {
-            // Function to truncate text to a specified length
-            function truncateText(text, maxLength) {
-                if (text.length > maxLength) {
-                    return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
-                } else {
-                    return text;
-                }
-            }
 
             // Loop through each table cell with class 'truncate-50'
             $('.truncate-50').each(function () {
@@ -206,9 +197,7 @@
                 $(this).text(truncatedText); // Set the truncated text back to the cell
             });
         });
-    </script>
-
-
+    </script> *@
 }
 
 

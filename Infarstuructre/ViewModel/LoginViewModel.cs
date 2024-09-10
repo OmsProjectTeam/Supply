@@ -17,6 +17,5 @@ namespace Infarstuructre.ViewModel
         public string Password { get; set; }
 
         public bool RememberMy { get; set; }
-        public string returnUrl { get; set; }
     }
 }

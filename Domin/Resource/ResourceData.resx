@@ -399,4 +399,61 @@
   <data name="VlQuantityIn" xml:space="preserve">
     <value>Please enter the quantity for the process to be completed successfully...!</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VlFollowUpMail" xml:space="preserve">
+    <value>Please include the Follow Up Mail to complete successfully..!</value>
+  </data>
+  <data name="VlSupportTicketStatus" xml:space="preserve">
+    <value>Please include the Support Ticket Status to complete successfully..!</value>
+  </data>
+  <data name="VlSupportTicketType" xml:space="preserve">
+    <value>Please include the Ware Support Ticket Type to complete successfully..!</value>
+  </data>
+  <data name="VlTitel" xml:space="preserve">
+    <value>Please include the Titel to complete successfully..!</value>
+  </data>
+  <data name="VlNewletterGroup" xml:space="preserve">
+    <value>Please include the News letter Group to complete successfully..!</value>
+  </data>
+  <data name="VlTemplateName" xml:space="preserve">
+    <value>Please include Template Name to complete successfully..!</value>
+  </data>
+  <data name="VlTemplateContent" xml:space="preserve">
+    <value>Please include Template Content to complete successfully..!</value>
+  </data>
+  <data name="VlTBNewsletterContent" xml:space="preserve">
+    <value>Please include the News letter Content to complete successfully..!</value>
+  </data>
+  <data name="VlTBNewsletterTitle" xml:space="preserve">
+    <value>Please include the News letter Title to complete successfully..!</value>
+  </data>
+  <data name="VlAddressEn" xml:space="preserve">
+    <value>Please include the Address To complete successfully..!</value>
+  </data>
+  <data name="VLPhoneNumber" xml:space="preserve">
+    <value>Please include the Phone  Number to complete successfully..!</value>
+  </data>
+  <data name="VlShortDescriptionEn" xml:space="preserve">
+    <value>Please include the Short Description To complete successfully..!</value>
+  </data>
+  <data name="VlUrlFaceBook" xml:space="preserve">
+    <value>Please include the FaceBook Url  To complete successfully..!</value>
+  </data>
+  <data name="VlUrlInstgram" xml:space="preserve">
+    <value>Please include the Instgram Url  To complete successfully..!</value>
+  </data>
+  <data name="VlUrlMap" xml:space="preserve">
+    <value>Please include the Url Map  To complete successfully..!</value>
+  </data>
+  <data name="VlUrlTwitter" xml:space="preserve">
+    <value>Please include the Twitter Url  To complete successfully..!</value>
+  </data>
+  <data name="MaxLengthTitel20" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VlBrandName" xml:space="preserve">
+    <value>Please include the Brand Name to complete successfully..!</value>
+  </data>
 </root>

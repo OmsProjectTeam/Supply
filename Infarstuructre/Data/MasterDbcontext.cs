@@ -1,5 +1,5 @@
 ﻿using Domin.Entity;
-
+using Domin.Entity.SignalR;
 using Infarstuructre.ViewModel;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -103,7 +103,41 @@ namespace Infarstuructre.Data
                 entity.ToView("ViewOrder");
             });
             //************************************************************
-
+            //************************************************************
+            //************************************************************
+            builder.Entity<TBViewChatMessage>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewChat");
+            }); 
+            //************************************************************
+            builder.Entity<TBViewSupportTicket>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewSupportTicket");
+            });
+            //************************************************************
+            //************************************************************
+            builder.Entity<TBViewNewsLetter>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewNewsLetter");
+            });
+            //************************************************************
+            //************************************************************
+            builder.Entity<TBViewSendLog>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewSendLog");
+            });
+            //************************************************************
+            //************************************************************
+            builder.Entity<TBViewNewsLetterGroup>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("ViewNewsLetterGroup");
+            });
+            //************************************************************
             //---------------------------------
             builder.Entity<TBFAQ>()
            .Property(b => b.DateTimeEntry)
@@ -248,6 +282,26 @@ namespace Infarstuructre.Data
            .Property(b => b.Active)
            .HasDefaultValueSql("((1))");
             //---------------------------------     
+            //---------------------------------
+            //--------------------------------- 
+
+            builder.Entity<TBMessageChat>()
+           .Property(m => m.MessageeTime)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBMessageChat>()
+           .Property(m => m.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBMessageChat>()
+           .Property(m => m.IsRead)
+           .HasDefaultValueSql("((0))");
+
+            //---------------------------------
+            //--------------------------------- 
+
+            builder.Entity<TBConnectAndDisConnect>()
+           .Property(m => m.TimeConnection)
+           .HasDefaultValueSql("getdate()");
+            //---------------------------------
              //---------------------------------
             builder.Entity<TBOrder>()
            .Property(b => b.DateTimeEntry)
@@ -257,7 +311,88 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");
       
             //---------------------------------     
+              //---------------------------------
+            builder.Entity<TBSupportTicketType>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBSupportTicketType>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+      
+            //-   
+            //---------------------------------
+            builder.Entity<TBSupportTicketStatus>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBSupportTicketStatus>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+      
+            //---------------------------------     
+             //---------------------------------
+            builder.Entity<TBSupportTicket>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBSupportTicket>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
 
+            //---------------------------------
+            
+            //---------------------------------
+            builder.Entity<TBNewsletterGroup>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBNewsletterGroup>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBNewsletter>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBNewsletter>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBTemplate>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBTemplate>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBSendLog>()
+           .Property(b => b.SentDate)
+           .HasDefaultValueSql("getdate()");
+
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBCompanyInformation>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBCompanyInformation>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+
+            //---------------------------------    
+            //---------------------------------
+            builder.Entity<TBBrandName>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBBrandName>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))"); 
+            builder.Entity<TBBrandName>()
+           .Property(b => b.Active)
+           .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -286,7 +421,23 @@ namespace Infarstuructre.Data
         public DbSet<TBBondType> TBBondTypes { get; set; }
         public DbSet<TBOrder> TBOrders { get; set; }
         public DbSet<TBViewOrder> ViewOrder { get; set; }
-  
+        public virtual DbSet<TBMessageChat> TBMessageChats { get; set; }
+        public virtual DbSet<TBViewChatMessage> ViewChatMessage { get; set; }
+        public DbSet<TBConnectAndDisConnect> TBConnectAndDisConnects { get; set; }
+        public DbSet<TBSupportTicketType> TBSupportTicketTypes { get; set; }
+        public DbSet<TBSupportTicketStatus> TBSupportTicketStatuss { get; set; }
+        public DbSet<TBSupportTicket> TBSupportTickets { get; set; }
+        public DbSet<TBViewSupportTicket> ViewSupportTicket { get; set; }
+        public DbSet<TBTemplate> TBTemplates { get; set; }
+        public DbSet<TBNewsletter> TBNewsletters { get; set; }
+        public DbSet<TBSendLog> TBSendLogs { get; set; }
+        public DbSet<TBNewsletterGroup> TBNewsletterGroups { get; set; }
+        public DbSet<TBViewNewsLetter> ViewNewsLetter { get; set; }
+        public DbSet<TBViewNewsLetterGroup> ViewNewsLetterGroup { get; set; }
+        public DbSet<TBViewSendLog> ViewSendLog { get; set; } 
+        public DbSet<TBCompanyInformation> TBCompanyInformations { get; set; }
+        public DbSet<TBBrandName> TBBrandNames { get; set; }
+     
 
     }
 }

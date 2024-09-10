@@ -4,6 +4,215 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<style>
+    /* General styles */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container-fluid {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row {
+        flex: 1;
+        display: flex;
+    }
+
+    /* Sidebar (Contacts List) */
+    .sidebar {
+        background-color: #f5f5f5;
+        border-right: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search-box {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .contact-list {
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .contact {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .contact:hover {
+            background-color: #e6e6e6;
+        }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .contact-info {
+        flex: 1;
+    }
+
+    .contact-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .contact-last-message {
+        color: #888;
+        font-size: 12px;
+    }
+
+    .contact-time {
+        font-size: 12px;
+        color: #888;
+    }
+
+    /* Chat Area */
+    .chat-area {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #ddd;
+        height: 100%;
+    }
+
+    .chat-header {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .chat-user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .chat-username {
+        margin-left: 10px;
+        font-weight: bold;
+    }
+
+    .chat-status {
+        color: #888;
+        font-size: 12px;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+        max-height: calc(100vh - 120px);
+    }
+
+    .message {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message.received {
+            justify-content: flex-start;
+        }
+
+    .message-content {
+        padding: 10px;
+        border-radius: 15px;
+        max-width: 60%;
+    }
+
+    .message.sent .message-content {
+        background-color: #DCF8C6;
+    }
+
+    .message.received .message-content {
+        background-color: #f1f1f1;
+    }
+
+    .message-time {
+        font-size: 10px;
+        color: #888;
+        margin-top: 5px;
+        text-align: right;
+    }
+
+    .chat-input {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-top: 1px solid #ddd;
+        background-color: #fff;
+    }
+
+        .chat-input input {
+            flex: 1;
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    /* User Details Sidebar */
+    .user-details {
+        background-color: #f5f5f5;
+        padding: 15px;
+    }
+
+    .user-info {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .user-info .avatar {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+    .username {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .bio {
+        color: #888;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .user-actions .btn {
+        margin-bottom: 10px;
+    }
+</style>
 <div class="row small-spacing">
     <div class="col-12">
         <div class="box-content">
@@ -98,6 +307,8 @@
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
 
+    <script src="~/js/custom-scripts.js"></script>
+
     <script>
         $(document).ready(function () {
             console.log("Document is ready");
@@ -118,7 +329,7 @@
             }
 
             // Function to update the Code field
-            function updateCodeField() {
+            function updateCodeFieldForWareHouse() {
                 var warehouseType = $('#SelectWareHouseType option:selected').text();
                 var description = $('#Description').val();
                 var randomString = generateRandomString(5);
@@ -126,17 +337,17 @@
                 if (warehouseType && description) {
                     var code = warehouseType + description + randomString;
                     $('#Code').val(code);
-                    updateQRCode(); // Update QR code when code is updated
+                    updateQRCodeForAddWareHouse(); // Update QR code when code is updated
                 }
             }
 
             // Bind change events to WareHouseType and Description fields
             $('#SelectWareHouseType, #Description').on('change keyup', function () {
-                updateCodeField();
+                updateCodeFieldForWareHouse();
             });
 
             // Update the QR code image
-            function updateQRCode() {
+            function updateQRCodeForAddWareHouse() {
                 var code = $('#Code').val();
                 if (code) {
                     $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
@@ -147,7 +358,7 @@
 
             // Bind change event to Code field to update QR code
             $('#Code').on('change keyup', function () {
-                updateQRCode();
+                updateQRCodeForAddWareHouse();
             });
 
             // Update the URL field with the current page URL

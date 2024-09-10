@@ -674,6 +674,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+
     <script>
         $(document).ready(function () {
             let productSelectedFromAutocomplete = false;  // Track whether product is selected from autocomplete
@@ -881,6 +883,36 @@
                 updateCodeField();
             });
         });
+    </script>
+
+    <script>
+        // Handle product name population based on model input or selection
+        $(document).ready(function () {
+            $('#modelInput, #product12').on("change", function () {
+                var model = $(this).val(); // Get the model input value
+
+                if (model) {
+                    $.ajax({
+                        url: '/Admin/ProductInformation/FetchProductNameByModel', // Adjust the URL according to your routing
+                        type: 'GET',
+                        data: { model: model }, // Send the model as a parameter
+                        success: function (response) {
+                            if (response.success) {
+                                $("#ProductName").val(response.productName); // Populate the product name
+                            } else {
+                                alert(response.message); // Show an alert if there was an issue
+                                $("#ProductName").val(''); // Clear product name if not found
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Error fetching the product name."); // Alert the user about the error
+                            $("#ProductName").val(''); // Clear product name in case of an error
+                        }
+                    });
+                }
+            });
+        });
+
     </script>
 
 

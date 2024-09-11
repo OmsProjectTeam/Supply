@@ -459,16 +459,65 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        public async Task<IActionResult> GetUPCById(string name)
-        {
-            var product = await iProductInformation.GetByNameAsync(name);
-            if (product == null)
-            {
-                return Ok("1241241241234123412412");
-            }
 
-            // أعد الحقل المطلوب، على سبيل المثال UPC
-            return Ok(product.UPC);
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> FetchImageByModel(string model)
+        {
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                var document = web.Load("https://www.homedepot.com/s/" + model);
+
+
+                var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
+
+                if (imageNodes != null && imageNodes.Any())
+                {
+                    var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
+
+                    // الحصول على اسم المنتج من h1 داخل div
+                    var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
+                    var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                    return Json(new { success = true, imageUrl, productName });
+                }
+
+                else
+                {
+                    // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
+                    var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
+
+                    if (imageNodesFallback != null && imageNodesFallback.Any())
+                    {
+                        var firstImageUrl = imageNodesFallback
+                            .Select(node => node.GetAttributeValue("src", ""))
+                            .FirstOrDefault();
+
+                        // الحصول على اسم المنتج
+                        // تعديل XPath ليكون أكثر عمومية
+                        var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
+                        var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                        return Json(new { success = true, imageUrl = firstImageUrl, productName });
+
+                    }
+                }
+
+
+
+
+
+
+
+                // If no image was found
+                return Json(new { success = false, message = "Image not found." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
 

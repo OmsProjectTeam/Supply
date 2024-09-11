@@ -73,7 +73,10 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-
+        public IActionResult PrepareText()
+        {
+            return View();
+        }
 
 
         [HttpPost]

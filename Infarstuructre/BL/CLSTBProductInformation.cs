@@ -9,6 +9,7 @@ namespace Infarstuructre.BL
     {
         List<TBViewProductInformation> GetAll();
         TBProductInformation GetById(int IdProductInformation);
+        TBProductInformation GetByName(string name);
         bool saveData(TBProductInformation savee);
         bool UpdateData(TBProductInformation updatss);
         bool deleteData(int IdProductInformation);
@@ -19,6 +20,7 @@ namespace Infarstuructre.BL
         Task<List<TBViewProductInformation>> GetAllAsync();
         Task<List<TBViewProductInformation>> GetAllvAsync(int id);
         Task<TBProductInformation> GetByIdAsync(int id);
+        Task<TBProductInformation> GetByNameAsync(string name);
         Task<bool> AddDataAsync(TBProductInformation data);
         Task<bool> DeleteDataAsync(int id);
         Task<bool> UpdateDataAsync(TBProductInformation data);
@@ -37,11 +39,18 @@ namespace Infarstuructre.BL
             List<TBViewProductInformation> MySlider = dbcontext.ViewProductInformation.OrderByDescending(n => n.IdProductInformation).Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
-        public TBProductInformation GetById(int IdProductInformation)
+        public TBProductInformation GetById(int idProductInformation)
         {
-            TBProductInformation sslid = dbcontext.TBProductInformations.FirstOrDefault(a => a.IdProductInformation == IdProductInformation);
+            TBProductInformation sslid = dbcontext.TBProductInformations.FirstOrDefault(a => a.IdProductInformation == idProductInformation);
             return sslid;
         }
+
+        public TBProductInformation GetByName(string name)
+        {
+            TBProductInformation sslid = dbcontext.TBProductInformations.FirstOrDefault(a => a.ProductName.Contains(name));
+            return sslid;
+        }
+
         public bool saveData(TBProductInformation savee)
         {
             try
@@ -176,7 +185,13 @@ namespace Infarstuructre.BL
 
         public async Task<TBProductInformation> GetByIdAsync(int id)
         {
-            TBProductInformation sslid = dbcontext.TBProductInformations.FirstOrDefault(a => a.IdProductInformation == id);
+            TBProductInformation sslid = await dbcontext.TBProductInformations.FirstOrDefaultAsync(a => a.IdProductInformation == id);
+            return sslid;
+        }
+
+        public async Task<TBProductInformation> GetByNameAsync(string name)
+        {
+            TBProductInformation sslid = await dbcontext.TBProductInformations.FirstOrDefaultAsync(a => a.ProductName.Contains(name));
             return sslid;
         }
 
@@ -231,5 +246,7 @@ namespace Infarstuructre.BL
             var result = DELETPHOTOWethError(name);
             return result;
         }
+
+
     }
 }

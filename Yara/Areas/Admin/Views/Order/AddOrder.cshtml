@@ -166,8 +166,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" onchange="updateProductImage()"></select>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" ></select>
                                     <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation"></select>
+                                <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -264,13 +270,37 @@
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
                                     <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
-                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                    <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
-                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>product UPC</label>
+                                <input id="UPCField" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Barcode:</label>
+                            <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
+                        </div>
+
+                        
+@*                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
+                                <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
+                                <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
+
+                            </div>
+                        </div> *@
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
+                                <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
+                                <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -290,7 +320,7 @@
                             </div>
                         </div>
 
-
+                        <a class="btn btn-sm btn-outline-primary" asp-area="Admin" asp-controller="Order" asp-action="PrepareText" asp-route-barCode="" asp-route-qrcode="" asp-route-price="" asp-route-upc="" asp-route-pName="">Prepare</a>
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                     </form>
                 </div>
@@ -547,7 +577,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
-                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" >
+                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="MyProduct" readonly >
                                     <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
                                     <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
                                 </div>
@@ -574,27 +604,33 @@
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
-                                    <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
+                                    <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC12">
                                     <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-4">
-                                <div class="form-group">
-                                    <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                    <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
-                                    <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-12 col-sm-4">
                             <div class="form-group">
-                                <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
-                                <div>
-                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
-                                </div>
+                                <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                <textarea  asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
+                                <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
                             </div>
                         </div>
+
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
+                            <div>
+                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Barcode:</label>
+                        <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                    </div>
 
                         <!-- Image Upload and Display Section -->
                         <div class="form-group">
@@ -674,11 +710,11 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
     <script>
         $(document).ready(function () {
             let productSelectedFromAutocomplete = false;  // Track whether product is selected from autocomplete
+            let typingTimer;  // Timer identifier
+            const typingDelay = 3000;  // 3 seconds delay before triggering search
 
             // Autocomplete search functionality for the model
             $('#product12').autocomplete({
@@ -690,13 +726,13 @@
                         success: function (data) {
                             response($.map(data, function (item) {
                                 return {
-                                    label: item.model,  // Show model in the suggestions
-                                    value: item.model,  // Use model as the value for the input
+                                    label: item.model,
+                                    value: item.model,
                                     productDetails: item
                                 };
                             }));
                         },
-                        error: function (xhr, status, error) {
+                        error: function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Search error',
@@ -706,371 +742,40 @@
                                 showConfirmButton: false,
                                 toast: true
                             });
-                            response([]);  // Return an empty array on error
+                            response([]);  // Return empty array on error
                         }
                     });
                 },
-                minLength: 2,  // Minimum characters before showing suggestions
+                minLength: 2,
                 select: function (event, ui) {
-                    productSelectedFromAutocomplete = true;  // Set flag to true when a product is selected from autocomplete
-                    // Set the selected value in the input box
-                    $('#product12').val(ui.item.value);
-                    // Populate details when a product is selected
-                    populateProductDetails(ui.item.productDetails);
-                    return false;  // Prevent default autocomplete behavior
-                },
-                focus: function (event, ui) {
-                    $('#product12').val(ui.item.value);  // Set value when focused
-                    return false;  // Prevent default behavior
+                    productSelectedFromAutocomplete = true;  // Flag that product was selected from autocomplete
+                    $('#product12').val(ui.item.value);  // Set selected value in the input box
+                    populateProductDetails(ui.item.productDetails);  // Populate product details
+                    clearTimeout(typingTimer);  // Clear typing timer as selection is made
+                    // Ensure product availability check is called just like in manual input
+                    checkProductAvailability(ui.item.value);  // Trigger the check
+                    return false;
                 }
             });
 
             // Detect input event for manual typing
             $('#product12').on('input', function () {
-                // If product was selected from autocomplete, prevent further input handling
-                if (productSelectedFromAutocomplete) {
-                    return;  // Skip search logic if product was selected from autocomplete
-                }
-
-                const productId = $(this).val().trim();
-
-                // If input length is >= 2 characters, continue with search logic
-                if (productId.length >= 2) {
-                    clearProductDetails();  // Clear details while searching
-                    $('#modalButton').prop('disabled', true);  // Disable modal button
-                } else {
-                    clearProductDetails();  // Clear details if input is less than 2 characters
-                    $('#modalButton').prop('disabled', true);  // Disable modal button
-                }
-            });
-
-            // Timer for manual product search
-            let typingTimer;
-            const typingDelay = 3000;
-
-            $('#product12').on('input', function () {
                 clearTimeout(typingTimer);
 
-                // If product was selected from autocomplete, skip the search logic
-                if (productSelectedFromAutocomplete) {
-                    productSelectedFromAutocomplete = false;  // Reset the flag after skipping
-                    return;
-                }
-
                 const productId = $(this).val().trim();
-                if (productId) {
-                    typingTimer = setTimeout(function () {
-                        checkProductAvailability(productId);  // Perform availability check for manual input
-                    }, typingDelay);
-                } else {
-                    $('#modalButton').prop('disabled', true);
-                }
-            });
-
-            // Function to check product availability
-            function checkProductAvailability(productId) {
-                $.ajax({
-                    url: '@Url.Action("GetProductDetailsForOrder", "Order")',
-                    type: 'GET',
-                    data: { productId: productId },
-                    success: function (data) {
-                        if (data && data.productCategoryId > 0) {
-                            populateProductDetails(data); // Populate product details
-                            $('#modalButton').prop('disabled', true);  // Disable modal button since product is found
-                        } else {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'No product available',
-                                text: 'Create a new one, please click the modal button',
-                                showConfirmButton: false,
-                                timer: 6000,
-                                position: 'top-end',
-                                toast: true
-                            });
-                            $('#ProductName').val(productId);
-                            $('#modalButton').prop('disabled', false);
-                            openModal();
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error fetching product details: ", error);
-                        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-                        $('#GlobalPrice').val("0.00");
-                        $('#modalButton').prop('disabled', true);
-                    }
-                });
-            }
-
-            // Function to populate product details after selecting a product from the autocomplete
-            function populateProductDetails(productDetails) {
-                if (productDetails && productDetails.productCategoryId > 0) {
-                    $('#ProductName').val(productDetails.model);  // Set product name from model
-                    $('#SelectProductCategory').val(productDetails.productCategoryId).trigger('change');
-                    $('#SelectBondType').val(productDetails.bondTypeId).trigger('change');
-                    $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
-                    $('#GlobalPrice').val(productDetails.globalPrice);
-                    $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
-                    $('#SelectProductInformation').empty();
-                    $('#SelectProductInformation').append(new Option(productDetails.productName, productDetails.model, true, true)).trigger('change');
-                    $('#modalButton').prop('disabled', true);  // Disable modal button since product is found
-                    updateCodeField();  // Update the code field after selecting a model
-                }
-            }
-
-            // Clear product details if no product is selected
-            function clearProductDetails() {
-                $('#ProductName').val('');
-                $('#SelectProductCategory').val('').trigger('change');
-                $('#SelectBondType').val('').trigger('change');
-                $('#SelectTypesProduct').val('').trigger('change');
-                $('#GlobalPrice').val('');
-                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-            }
-
-            // Modal functions
-            function openModal() {
-                document.getElementById("customModal").style.display = "block";
-            }
-
-            function closeModal() {
-                document.getElementById("customModal").style.display = "none";
-            }
-
-            window.onclick = function (event) {
-                var modal = document.getElementById("customModal");
-                if (event.target == modal) {
-                    closeModal();
-                }
-            }
-
-            // Function to update the Code field
-            function updateCodeField() {
-                var Merchant = $('#SelectMerchant option:selected').text();
-                var WareHouse = $('#SelectWareHouse option:selected').text();
-                var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
-                var ProductInformation = $('#SelectProductInformation option:selected').text();
-                var sellingPrice = $('#sellingPrice').val();
-                var randomString = generateRandomString(5);
-
-                if (Merchant && WareHouse) {
-                    var code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString;
-                    $('#Qrcode').val(code);
-                    updateQRCode();
-                }
-            }
-
-            // Generate random 5-character string
-            function generateRandomString(length) {
-                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                var result = '';
-                for (var i = 0; i < length; i++) {
-                    result += characters.charAt(Math.floor(Math.random() * characters.length));
-                }
-                return result;
-            }
-
-            // Function to update the QR code image
-            function updateQRCode() {
-                var code = $('#Qrcode').val();
-                if (code) {
-                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
-                } else {
-                    $('#QRCodeImage').attr('src', '');
-                }
-            }
-
-            $('#sellingPrice').on('change keyup', function () {
-                updateCodeField();
-            });
-        });
-    </script>
-
-    <script>
-        // Handle product name population based on model input or selection
-        $(document).ready(function () {
-            $('#modelInput, #product12').on("change", function () {
-                var model = $(this).val(); // Get the model input value
-
-                if (model) {
-                    $.ajax({
-                        url: '/Admin/ProductInformation/FetchProductNameByModel', // Adjust the URL according to your routing
-                        type: 'GET',
-                        data: { model: model }, // Send the model as a parameter
-                        success: function (response) {
-                            if (response.success) {
-                                $("#ProductName").val(response.productName); // Populate the product name
-                            } else {
-                                alert(response.message); // Show an alert if there was an issue
-                                $("#ProductName").val(''); // Clear product name if not found
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Error fetching the product name."); // Alert the user about the error
-                            $("#ProductName").val(''); // Clear product name in case of an error
-                        }
-                    });
-                }
-            });
-        });
-
-    </script>
-
-
-
-    @* <script>
-        $(document).ready(function () {
-            let productSelectedFromAutocomplete = false;  // Track whether product is selected from autocomplete
-
-            // Autocomplete search functionality for the model
-            $('#product12').autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: '@Url.Action("GetProductSuggestions", "Order")',
-                        type: 'GET',
-                        data: { query: request.term },
-                        success: function (data) {
-                            response($.map(data, function (item) {
-                                return {
-                                    label: item.model,  // Show model in the suggestions
-                                    value: item.model,  // Use model as the value for the input
-                                    productDetails: item
-                                };
-                            }));
-                        },
-                        error: function (xhr, status, error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Search error',
-                                text: 'Unable to fetch product suggestions.',
-                                position: 'top-end',
-                                timer: 3000,
-                                showConfirmButton: false,
-                                toast: true
-                            });
-                            response([]);  // Return an empty array on error
-                        }
-                    });
-                },
-                minLength: 2,  // Minimum characters before showing suggestions
-                select: function (event, ui) {
-                    productSelectedFromAutocomplete = true;  // Set flag to bypass input event logic
-                    // Set the selected value in the input box
-                    $('#product12').val(ui.item.value);
-                    // Populate details when a product is selected
-                    populateProductDetails(ui.item.productDetails);
-                    return false;  // Prevent default autocomplete behavior
-                },
-                focus: function (event, ui) {
-                    $('#product12').val(ui.item.value);  // Set value when focused
-                    return false;  // Prevent default behavior
-                }
-            });
-
-            // Detect input event for manual typing
-            $('#product12').on('input', function () {
-                if (productSelectedFromAutocomplete) {
-                    // Skip this block if product was selected from autocomplete
-                    productSelectedFromAutocomplete = false;  // Reset the flag after skipping input logic
-                    return;
-                }
-
-                const productId = $(this).val().trim();
-
-                if (productId.length >= 2) {
-                    clearProductDetails();  // Clear details while searching
-                    $('#modalButton').prop('disabled', true);  // Disable modal button
-                    // You can add any additional logic here if needed for live search
-                } else {
-                    clearProductDetails();  // Clear details if input is less than 2 characters
-                    $('#modalButton').prop('disabled', true);  // Disable modal button
-                }
-            });
-
-            // Function to populate product details after selecting a product from the autocomplete
-            function populateProductDetails(productDetails) {
-                if (productDetails && productDetails.productCategoryId > 0) {
-                    $('#ProductName').val(productDetails.model);  // Set product name from model
-                    $('#SelectProductCategory').val(productDetails.productCategoryId).trigger('change');
-                    $('#SelectBondType').val(productDetails.bondTypeId).trigger('change');
-                    $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
-                    $('#GlobalPrice').val(productDetails.globalPrice);
-                    $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
-                    $('#SelectProductInformation').empty();
-                    $('#SelectProductInformation').append(new Option(productDetails.productName, productDetails.model, true, true)).trigger('change');
-                    $('#modalButton').prop('disabled', true);  // Disable modal button since product is found
-                    updateCodeField();  // Update the code field after selecting a model
-                }
-            }
-
-            // Clear product details if no product is selected
-            function clearProductDetails() {
-                $('#ProductName').val('');
-                $('#SelectProductCategory').val('').trigger('change');
-                $('#SelectBondType').val('').trigger('change');
-                $('#SelectTypesProduct').val('').trigger('change');
-                $('#GlobalPrice').val('');
-                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
-            }
-
-            // Function to update the Code field
-            function updateCodeField() {
-                var Merchant = $('#SelectMerchant option:selected').text();
-                var WareHouse = $('#SelectWareHouse option:selected').text();
-                var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
-                var ProductInformation = $('#SelectProductInformation option:selected').text();
-                var sellingPrice = $('#sellingPrice').val();
-                var randomString = generateRandomString(5);
-
-                if (Merchant && WareHouse) {
-                    var code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString;
-                    $('#Qrcode').val(code);
-                    updateQRCode();
-                }
-            }
-
-            // Generate random 5-character string
-            function generateRandomString(length) {
-                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                var result = '';
-                for (var i = 0; i < length; i++) {
-                    result += characters.charAt(Math.floor(Math.random() * characters.length));
-                }
-                return result;
-            }
-
-            // Function to update the QR code image
-            function updateQRCode() {
-                var code = $('#Qrcode').val();
-                if (code) {
-                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
-                } else {
-                    $('#QRCodeImage').attr('src', '');
-                }
-            }
-
-            $('#sellingPrice').on('change keyup', function () {
-                updateCodeField();
-            });
-
-            let typingTimer; // Timer identifier
-            const typingDelay = 3000; // Delay in ms
-
-            // Input event for manual product search
-            $('#product12').on('input', function () {
-                clearTimeout(typingTimer);
 
                 if (productSelectedFromAutocomplete) {
                     productSelectedFromAutocomplete = false;  // Reset flag after selection
-                    return;  // Skip availability check if product is selected from autocomplete
+                    return;  // Skip if product was selected from autocomplete
                 }
 
-                const productId = $(this).val().trim();
-                if (productId) {
-                    typingTimer = setTimeout(function () {
-                        checkProductAvailability(productId);  // Perform availability check for the manual input
+                // Start the debounce timer to wait before checking availability
+                if (productId.length >= 2) {
+                    typingTimer = setTimeout(() => {
+                        checkProductAvailability(productId);  // Check availability after delay
                     }, typingDelay);
                 } else {
-                    $('#modalButton').prop('disabled', true);
+                    clearProductDetails();  // Clear if input length is < 2
                 }
             });
 
@@ -1082,15 +787,8 @@
                     data: { productId: productId },
                     success: function (data) {
                         if (data && data.productCategoryId > 0) {
-                            $('#ProductName').val(productId);
-                            $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
-                            $('#SelectBondType').val(data.bondTypeId).trigger('change');
-                            $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
-                            $('#GlobalPrice').val(data.globalPrice);
-                            $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
-                            $('#SelectProductInformation').empty();
-                            $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
-                            $('#modalButton').prop('disabled', true);  // Disable modal button since product is found
+                            populateProductDetails(data);  // Populate product details
+                            $('#modalButton').prop('disabled', true);  // Disable modal button
                         } else {
                             Swal.fire({
                                 icon: 'warning',
@@ -1106,8 +804,8 @@
                             openModal();
                         }
                     },
-                    error: function (xhr, status, error) {
-                        console.error("Error fetching product details: ", error);
+                    error: function () {
+                        console.error("Error fetching product details.");
                         $('#ProductImage').attr('src', 'http://placehold.it/220x180');
                         $('#GlobalPrice').val("0.00");
                         $('#modalButton').prop('disabled', true);
@@ -1115,97 +813,114 @@
                 });
             }
 
+            // Function to populate product details after selecting a product
+            function populateProductDetails(productDetails) {
+                if (productDetails && productDetails.productCategoryId > 0) {
+                    $('#ProductName').val(productDetails.model);
+                    $('#SelectProductCategory').val(productDetails.productCategoryId).trigger('change');
+                    $('#SelectBondType').val(productDetails.bondTypeId).trigger('change');
+                    $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
+                    $('#GlobalPrice').val(productDetails.globalPrice);
+                    $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
+                    $('#SelectProductInformation').empty().append(new Option(productDetails.productName, productDetails.model, true, true)).trigger('change');
+                    $('#modalButton').prop('disabled', true);
+                    updateCodeField();  // Update QR code or other fields if necessary
+                }
+            }
+
+            // Clear product details if no product is selected
+            function clearProductDetails() {
+                $('#ProductName').val('');
+                $('#SelectProductCategory').val('').trigger('change');
+                $('#SelectBondType').val('').trigger('change');
+                $('#SelectTypesProduct').val('').trigger('change');
+                $('#GlobalPrice').val('');
+                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+            }
+
             // Modal functions
             function openModal() {
-                document.getElementById("customModal").style.display = "block";
+                $('#customModal').show();
+                populateProductNameInModal(model);
             }
 
             function closeModal() {
-                document.getElementById("customModal").style.display = "none";
+                $('#customModal').hide();
             }
 
+            // Close modal if clicking outside
             window.onclick = function (event) {
-                var modal = document.getElementById("customModal");
-                if (event.target == modal) {
+                if (event.target == $('#customModal')[0]) {
                     closeModal();
                 }
             }
 
-            // Form submission inside modal
-            $('form[asp-action="SaveModal"]').on('submit', function (event) {
-                event.preventDefault();
-                var form = $(this);
-                $.ajax({
-                    type: form.attr('method'),
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    success: function () {
-                        closeModal();
-                        $('#product12').val($('#product12').data('previous-value'));
-                    },
-                    error: function (response) {
-                        console.error("Error during form submission", response);
-                    }
-                });
-            });
-
-            // Model image handling
-            $('#modelInput').on("change", function () {
-                var model = $(this).val();
+            // Function to populate product name in the modal based on the model number
+            function populateProductNameInModal(model) {  // **NEW FUNCTION**: Added to populate product name when the modal opens
                 if (model) {
                     $.ajax({
-                        url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })',
+                        url: '@Url.Action("FetchImageByModel", "ProductInformationlowes", new { area = "Admin" })',  // Adjust the URL according to your routing
                         type: 'GET',
-                        data: { model: model },
+                        data: { model: model },  // Send the model as a parameter
                         success: function (response) {
                             if (response.success) {
-                                $("#output").attr("src", response.imageUrl).show();
-                                $("#imageUrlInput").val(response.imageUrl);
+                                $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
+                                console.log(MyProduct)
                             } else {
-                                alert(response.message);
-                                $("#output").hide();
+                                alert(response.message);  // Show an alert if there was an issue
+                                $("#MyProduct").val('');  // Clear product name if not found
                             }
                         },
                         error: function () {
-                            alert("Error fetching the image.");
-                            $("#output").hide();
+                            alert("Error fetching the product name.");  // Alert the user about the error
+                            $("#MyProduct").val('');  // Clear product name in case of an error
                         }
                     });
                 }
-            });
+            }
 
-            // Update the Code field when relevant inputs change
-            $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
+            // Function to update the Code field
+            function updateCodeField() {
+                const Merchant = $('#SelectMerchant option:selected').text();
+                const WareHouse = $('#SelectWareHouse option:selected').text();
+                const WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
+                const ProductInformation = $('#SelectProductInformation option:selected').text();
+                const sellingPrice = $('#sellingPrice').val();
+                const randomString = generateRandomString(5);
+
+                if (Merchant && WareHouse) {
+                    const code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString;
+                    $('#Qrcode').val(code);
+                    updateQRCode();
+                }
+            }
+
+            // Generate random string
+            function generateRandomString(length) {
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            }
+
+            // Update QR code
+            function updateQRCode() {
+                const code = $('#Qrcode').val();
+                if (code) {
+                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
+                } else {
+                    $('#QRCodeImage').attr('src', '');
+                }
+            }
+
+            // Trigger code update when selling price changes
+            $('#sellingPrice').on('change keyup', function () {
                 updateCodeField();
             });
-
-            $('#Code').on('change', function () {
-                var code = $('#Code').val();
-                $('#QRCode').val(code);
-            });
-
-            $('#exampleModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var recipient = button.data('whatever');
-                var modal = $(this);
-                modal.find('.modal-title').text('New message to ' + recipient);
-                modal.find('.modal-body input').val(recipient);
-            });
-
-            // Sync the product12 input with the table search box
-            $('#product12').on('input', function () {
-                var searchText = $(this).val();
-                var searchBox = $('#example_filter input[type="search"]');
-                searchBox.val(searchText);
-                searchBox.trigger('keyup');
-                var e = jQuery.Event('keypress');
-                e.which = 13; // Simulate 'Enter' key press
-                searchBox.trigger(e);
-            });
         });
-    </script> *@
-
-
+    </script>
 
 
     <script>
@@ -1243,10 +958,6 @@
             updateQRCode();
         });
     </script>
-
-
-
-    @*    <script src="~/js/custom-scripts.js"></script> *@
 
     <script>
         $(document).ready(function () {
@@ -1441,8 +1152,6 @@
 
     </script>
 
-
-
     <!-- Data Tables -->
 
 
@@ -1505,8 +1214,6 @@
         });
 
     </script>
-
-
 
     <script>
         function generateRandomStringrr(length) {
@@ -1581,8 +1288,6 @@
         }
     </script>
 
-
-
     <!-- Data Tables -->
 
     <script>
@@ -1635,24 +1340,6 @@
                     return text;
                 }
             }
-
-            //  function updateQRCode() {
-            //     $('.QRCodeImage').each(function () {
-            //         var Category = $(this).siblings('.Code').text();
-            //         var ProductName = $(this).siblings('.Code').text();
-            //         var Model = $(this).siblings('.Code').text();
-            //         var UPC = $(this).siblings('.Code').text();
-            //         var TypeProduct = $(this).siblings('.Code').text();
-
-            //         var code = Category + ProductName + Model + UPC + TypeProduct
-            //         if (code) {
-            //             console.log(code);
-            //             $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-            //         } else {
-            //             $(this).attr('src', '');
-            //         }
-            //     });
-            // }
 
             function updateQRCode() {
                 $('.QRCodeImage').each(function () {
@@ -1733,13 +1420,118 @@
             });
         });
 
+    </script> 
+
+    <script>
+        
+
+        function CreateBarCode(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode').attr('src', imageUrl);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            $('#UPC12').on('change keyup', function () {
+                console.log("UPC value changed");
+                var upc = this.value;
+                CreateBarCode(upc);
+            });
+
+
+        });
+
+
+
+
+
+        $('#SelectProductInformation').on('change', function () {
+
+            if (this.value === '') {
+                console.error('يرجى اختيار خيار صالح.');
+            } else {
+                GetUPC(this.value);
+
+
+            }
+        });
+
+
+
+        function GetUPC(name) {
+
+        const apiUrl = `@Url.Action("GetUPCById", "Order", new { area = "Admin" })?name=${name}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: function (data) {
+                    if (data) {
+                        console.log("UPC: ", data);
+                        $('#UPCField').val(data);
+                        $('#UPCField').trigger('keyup');
+                    } else {
+                        console.error("Error retrieving UPC.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+        
+
+
     </script>
 
+    <script>
+        function CreateBarCode1(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode11111111').attr('src', imageUrl);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
 
-
-
-
+        $('#UPCField').on('change keyup', function () {
+            var upc = this.value;
+            CreateBarCode1(upc);
+        });
+    </script>
 }
 
 

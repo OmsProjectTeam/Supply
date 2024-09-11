@@ -5,6 +5,8 @@ using ZXing.QrCode;
 using ZXing;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ZXing.Common;
+using System.Runtime.InteropServices;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -409,6 +411,59 @@ namespace Yara.Areas.Admin.Controllers
 
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
+
+        public IActionResult GenerateBarcode(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return BadRequest("No text provided for barcode generation.");
+            }
+
+
+            var barcodeOptions = new ZXing.Common.EncodingOptions
+            {
+                Width = 300,
+                Height = 50, // يمكنك تعديل هذه القيمة وفقًا لاحتياجاتك
+                Margin = 10
+            };
+
+            var barcodeWriter = new ZXing.BarcodeWriterPixelData
+            {
+                Format = ZXing.BarcodeFormat.CODE_128,
+                Options = barcodeOptions
+            };
+
+            try
+            {
+                var pixelData = barcodeWriter.Write(text);
+
+                // إنشاء صورة Bitmap من بيانات البكسل
+                using (var bitmap = new Bitmap(pixelData.Width, pixelData.Height, PixelFormat.Format32bppRgb))
+                {
+                    var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppRgb);
+                    try
+                    {
+                        Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+                    }
+                    finally
+                    {
+                        bitmap.UnlockBits(bitmapData);
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        bitmap.Save(stream, ImageFormat.Png);
+                        return File(stream.ToArray(), "image/png");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error generating barcode: " + ex.Message);
+            }
+        }
+
+
 
     }
 }

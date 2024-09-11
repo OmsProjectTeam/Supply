@@ -166,8 +166,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" onchange="updateProductImage()"></select>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" ></select>
                                     <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
+                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation"></select>
+                                <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -264,13 +270,37 @@
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
                                     <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
-                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                    <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
-                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>product UPC</label>
+                                <input id="UPCField" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Barcode:</label>
+                            <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
+                        </div>
+
+                        
+@*                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
+                                <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
+                                <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
+
+                            </div>
+                        </div> *@
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
+                                <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
+                                <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -290,7 +320,7 @@
                             </div>
                         </div>
 
-
+                        <a class="btn btn-sm btn-outline-primary" asp-area="Admin" asp-controller="Order" asp-action="PrepareText">Prepare </a>
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                     </form>
                 </div>
@@ -574,27 +604,33 @@
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
-                                    <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
+                                    <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC12">
                                     <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-4">
-                                <div class="form-group">
-                                    <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                    <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
-                                    <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-12 col-sm-4">
                             <div class="form-group">
-                                <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
-                                <div>
-                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
-                                </div>
+                                <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                <textarea  asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
+                                <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
                             </div>
                         </div>
+
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
+                            <div>
+                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Barcode:</label>
+                        <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                    </div>
 
                         <!-- Image Upload and Display Section -->
                         <div class="form-group">
@@ -1701,13 +1737,115 @@
             });
         });
 
+    </script> 
+
+    <script>
+        function CreateBarCode1(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode11111111').attr('src', imageUrl);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+                function CreateBarCode(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode').attr('src', imageUrl);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            $('#UPC12').on('change keyup', function () {
+                console.log("UPC value changed");
+                var upc = this.value;
+                CreateBarCode(upc);
+            });
+
+
+        });
+
+
+
+
+
+        $('#SelectProductInformation').on('change', function () {
+
+            if (this.value === '') {
+                console.error('يرجى اختيار خيار صالح.');
+            } else {
+                GetUPC(this.value);
+            }
+        });
+
+
+
+        function GetUPC(name) {
+
+        const apiUrl = `@Url.Action("GetUPCById", "Order", new { area = "Admin" })?name=${name}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: function (data) {
+                    if (data) {
+                        console.log("UPC: ", data);
+                        $('#UPCField').val(data);
+                    } else {
+                        console.error("Error retrieving UPC.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+        
+
+
     </script>
 
+    <script>
+        $('#UPCField').on('change keyup', function () {
+            console.log("UPC value changed");
 
-
-
-
-
+            var upc = this.value;
+            CreateBarCode1(upc);
+        });
+    </script>
 }
 
 

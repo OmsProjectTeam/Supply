@@ -281,33 +281,7 @@ namespace Yara.Areas.Admin.Controllers
                 HtmlWeb web = new HtmlWeb();
                 var document = web.Load("https://www.homedepot.com/s/" + model);
 
-                // Attempt to fetch the image from the primary source
-                //var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
-
-                //if (imageNodes != null && imageNodes.Any())
-                //{
-                //    var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
-                //    return Json(new { success = true, imageUrl });
-                //}
-                //else
-                //{
-                //    // Fallback to secondary image source if the primary is unavailable
-                //    var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
-
-                //    if (imageNodesFallback != null && imageNodesFallback.Any())
-                //    {
-                //        var firstImageUrl = imageNodesFallback
-                //            .Select(node => node.GetAttributeValue("src", ""))
-                //            .FirstOrDefault();
-
-                //        return Json(new { success = true, imageUrl = firstImageUrl });
-                //    }
-                //}
-
-
-                /////////////
-
-                // الحصول على روابط الصور
+           
                 var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
 
                 if (imageNodes != null && imageNodes.Any())

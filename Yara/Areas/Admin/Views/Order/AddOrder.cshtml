@@ -276,7 +276,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>product UPC</label>
-                                <input id="UPCField" type="text" class="form-control" />
+                                <input id="UPCField" readonly type="text" class="form-control" />
                             </div>
                         </div>
 
@@ -320,7 +320,7 @@
                             </div>
                         </div>
 
-                        <a class="btn btn-sm btn-outline-primary" asp-area="Admin" asp-controller="Order" asp-action="PrepareText">Prepare </a>
+                        <a class="btn btn-sm btn-outline-primary" asp-area="Admin" asp-controller="Order" asp-action="PrepareText" asp-route-barCode="" asp-route-qrcode="" asp-route-price="" asp-route-upc="" asp-route-pName="">Prepare</a>
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                     </form>
                 </div>
@@ -1772,30 +1772,9 @@
     </script> 
 
     <script>
-        function CreateBarCode1(text) {
-            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+        
 
-            $.ajax({
-                url: apiUrl,
-                type: 'GET',
-                xhrFields: {
-                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
-                },
-                success: function (data) {
-                    if (data) {
-                        var imageUrl = URL.createObjectURL(data);
-                        $('#BarCode11111111').attr('src', imageUrl);
-                    } else {
-                        console.error("Error generating barcode.");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error: " + error);
-                }
-            });
-        }
-
-                function CreateBarCode(text) {
+        function CreateBarCode(text) {
             const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
             $.ajax({
@@ -1839,6 +1818,8 @@
                 console.error('يرجى اختيار خيار صالح.');
             } else {
                 GetUPC(this.value);
+
+
             }
         });
 
@@ -1855,6 +1836,7 @@
                     if (data) {
                         console.log("UPC: ", data);
                         $('#UPCField').val(data);
+                        $('#UPCField').trigger('keyup');
                     } else {
                         console.error("Error retrieving UPC.");
                     }
@@ -1871,9 +1853,30 @@
     </script>
 
     <script>
-        $('#UPCField').on('change keyup', function () {
-            console.log("UPC value changed");
+        function CreateBarCode1(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode11111111').attr('src', imageUrl);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+        $('#UPCField').on('change keyup', function () {
             var upc = this.value;
             CreateBarCode1(upc);
         });

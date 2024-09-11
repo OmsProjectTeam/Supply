@@ -272,12 +272,10 @@ namespace Yara.Areas.Admin.Controllers
         //    }
         //}
 
-        [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> FetchImageByModel(string model)
         {
             try
-            {
+                {
                 HtmlWeb web = new HtmlWeb();
                 var document = web.Load("https://www.homedepot.com/s/" + model);
 

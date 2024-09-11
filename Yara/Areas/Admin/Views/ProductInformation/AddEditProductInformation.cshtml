@@ -179,9 +179,9 @@
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> 
 
-   @*  <script src="~/js/custom-scripts.js"></script> *@
+     <script src="~/js/custom-scripts.js"></script>
 
 
     <script>
@@ -219,39 +219,19 @@
 
     </script>
 
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @*  <script>
+    <script>
         // Function to load a local file and display it
         var loadFile = function (event) {
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);
         };
 
-        // Event listener for when the model input field changes
         $("#modelInput").on("change", function () {
-            var model = $(this).val(); // Get the model input value
 
+            console.log("dzsgvdsdfshnhnjndngdgjkm");
+
+            var model = $(this).val(); 
+           
             if (model) {
                 $.ajax({
                     url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })',
@@ -337,7 +317,7 @@
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
             // Encode URI components to handle special characters
-            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+            url = ${ url }?Category = ${ encodeURIComponent(Category) }& TypesProduct=${ encodeURIComponent(TypesProduct) }& Product=${ encodeURIComponent(Product) }& Model=${ encodeURIComponent(Model) }& UPC=${ encodeURIComponent(UPC) }& qrCodeSrc=${ encodeURIComponent(qrCodeSrc) };
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');
@@ -356,5 +336,7 @@
 
         // Set the URL of the form to the current page URL
         $("#url").val(window.location.href);
-    </script> *@
+    </script>
+
+
 }

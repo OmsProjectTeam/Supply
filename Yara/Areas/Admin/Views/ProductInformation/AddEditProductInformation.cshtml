@@ -214,19 +214,8 @@
                 var upc = this.value;
                 CreateBarCode(upc);
             });
-        });
 
-
-    </script>
-
-    <script>
-        // Function to load a local file and display it
-        var loadFile = function (event) {
-            var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
-        };
-
-        $("#modelInput").on("change", function () {
+             $("#modelInput").on("change", function () {
 
             console.log("dzsgvdsdfshnhnjndngdgjkm");
 
@@ -255,6 +244,20 @@
                 });
             }
         });
+
+        });
+
+
+    </script>
+
+    <script>
+        // Function to load a local file and display it
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+       
 
         function generateRandomString(length) {
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

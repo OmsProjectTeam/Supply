@@ -408,6 +408,7 @@ namespace Yara.Areas.Admin.Controllers
                     typesProductId = product.IdTypesProduct,
                     productName = product.ProductName,
                     id = product.IdProductInformation,
+                    m = product.Model
                 });
             }
             else
@@ -505,12 +506,6 @@ namespace Yara.Areas.Admin.Controllers
                     }
                 }
 
-
-
-
-
-
-
                 // If no image was found
                 return Json(new { success = false, message = "Image not found." });
             }
@@ -518,6 +513,18 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+        }
+
+
+
+        public async Task<string> GetUPC(string value)
+        {
+
+            var product = await iProductInformation.GetByNameFromViewAsync(value);
+            if (product == null)
+                return "000000000000";
+
+            return product.UPC;
         }
 
 

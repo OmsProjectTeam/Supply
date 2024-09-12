@@ -201,14 +201,19 @@
     <script src="~/js/custom-scripts.js"></script>
 
 
-
-
-
-
-
-
-
     <script>
+
+        function updateQRCodeForAddProductInformation12() {
+            console.log("ggggggggggggg");
+            var code = $('#Code').val();
+            if (code) {
+                console.log(code);
+                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+            } else {
+                $('#QRCodeImage').attr('src', '');
+            }
+        }
+
         function CreateBarCode(text) {
             const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
@@ -235,6 +240,7 @@
         $(document).ready(function () {
             var value = document.querySelector('#UPC');
             CreateBarCode(value);
+            updateQRCodeForAddProductInformation12();
         });
 
         $(document).ready(function () {
@@ -242,6 +248,7 @@
                 console.log("UPC value changed");
                 var upc = this.value;
                 CreateBarCode(upc);
+
             });
         });
 

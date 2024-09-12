@@ -19,6 +19,7 @@ namespace Infarstuructre.BL
         // ///////////////////API///////////////////////////////////////////////
         Task<List<TBViewProductInformation>> GetAllAsync();
         Task<List<TBViewProductInformation>> GetAllvAsync(int id);
+        Task<TBViewProductInformation> GetByNameFromViewAsync(string name);
         Task<TBProductInformation> GetByIdAsync(int id);
         Task<TBProductInformation> GetByNameAsync(string name);
         Task<bool> AddDataAsync(TBProductInformation data);
@@ -191,9 +192,16 @@ namespace Infarstuructre.BL
 
         public async Task<TBProductInformation> GetByNameAsync(string name)
         {
-            TBProductInformation sslid = await dbcontext.TBProductInformations.FirstOrDefaultAsync(a => a.ProductName.Contains(name));
+            TBProductInformation sslid = await dbcontext.TBProductInformations.FirstOrDefaultAsync(a => a.ProductName == name);
             return sslid;
         }
+
+        public async Task<TBViewProductInformation> GetByNameFromViewAsync(string name)
+        {
+            TBViewProductInformation sslid = await dbcontext.ViewProductInformation.FirstOrDefaultAsync(a => a.ProductName == name ||  a.Model == name);
+            return sslid;
+        }
+
 
         public async Task<bool> AddDataAsync(TBProductInformation data)
         {

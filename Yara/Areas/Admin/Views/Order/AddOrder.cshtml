@@ -162,17 +162,12 @@
                             </div>
                         </div>
 
+
                         <div class="row small-spacing">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" ></select>
-                                    <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
-                    <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation"></select>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation150"></select>
                                 <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
 
                                 </div>
@@ -284,6 +279,9 @@
                         <div class="form-group">
                             <label>Barcode:</label>
                             <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
+                            <div>
+                                    <button class="btn btn-sm btn-outline-primary wwwsss">Prepare</button>
+                            </div>
                         </div>
 
                         
@@ -319,8 +317,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <a class="btn btn-sm btn-outline-primary" asp-area="Admin" asp-controller="Order" asp-action="PrepareText" asp-route-barCode="" asp-route-qrcode="" asp-route-price="" asp-route-upc="" asp-route-pName="">Prepare</a>
+                        
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                     </form>
                 </div>
@@ -779,6 +776,7 @@
                 }
             });
 
+
             // Function to check product availability
             function checkProductAvailability(productId) {
                 $.ajax({
@@ -822,7 +820,7 @@
                     $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
                     $('#GlobalPrice').val(productDetails.globalPrice);
                     $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
-                    $('#SelectProductInformation').empty().append(new Option(productDetails.productName, productDetails.model, true, true)).trigger('change');
+                    $('#SelectProductInformation150').empty().append(new Option(productDetails.productName, productDetails.m, true, true)).trigger('change');
                     $('#modalButton').prop('disabled', true);
                     updateCodeField();  // Update QR code or other fields if necessary
                 }
@@ -884,7 +882,7 @@
                 const Merchant = $('#SelectMerchant option:selected').text();
                 const WareHouse = $('#SelectWareHouse option:selected').text();
                 const WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
-                const ProductInformation = $('#SelectProductInformation option:selected').text();
+                const ProductInformation = $('#SelectProductInformation150 option:selected').text();
                 const sellingPrice = $('#sellingPrice').val();
                 const randomString = generateRandomString(5);
 
@@ -1006,7 +1004,7 @@
             var WareHouse = $('#SelectWareHouse option:selected').text();
             var BondType = $('#SelectBondType option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
-            var ProductInformation = $('#SelectProductInformation option:selected').text();
+            var ProductInformation = $('#SelectProductInformation150 option:selected').text();
             var sellingPrice = $('#sellingPrice').val();
             var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
             var GlobalPr = $('#GlobalPrice').val();
@@ -1033,7 +1031,7 @@
             var WareHouse = $('#SelectWareHouse option:selected').text();
             var BondType = $('#SelectBondType option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
-            var ProductInformation = $('#SelectProductInformation option:selected').text();
+            var ProductInformation = $('#SelectProductInformation150 option:selected').text();
             var sellingPrice = $('#sellingPrice').val();
             var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
             var GlobalPr = $('#GlobalPrice').val();
@@ -1461,45 +1459,7 @@
 
 
 
-
-
-        $('#SelectProductInformation').on('change', function () {
-
-            if (this.value === '') {
-                console.error('يرجى اختيار خيار صالح.');
-            } else {
-                GetUPC(this.value);
-
-
-            }
-        });
-
-
-
-        function GetUPC(name) {
-
-        const apiUrl = `@Url.Action("GetUPCById", "Order", new { area = "Admin" })?name=${name}`;
-
-            $.ajax({
-                url: apiUrl,
-                type: 'GET',
-                success: function (data) {
-                    if (data) {
-                        console.log("UPC: ", data);
-                        $('#UPCField').val(data);
-                        $('#UPCField').trigger('keyup');
-                    } else {
-                        console.error("Error retrieving UPC.");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error: " + error);
-                }
-            });
-        }
-
         
-
 
     </script>
 
@@ -1532,6 +1492,109 @@
             CreateBarCode1(upc);
         });
     </script>
+
+    <script>
+        function GetUPC1(val) {
+
+            const apiUrl = `@Url.Action("GetUPC", "Order", new { area = "Admin" })?value=${val}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: function (data) {
+                    if (data) {
+                        $('#UPCField').val(data);
+                        $('#UPCField').trigger('keyup');
+                    } else {
+                        console.error("Error retrieving UPC.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+
+
+        $(document).ready(function () {
+            $('#SelectProductInformation150').on('change', function () {
+                if (this.value === '') {
+                    console.error('يرجى اختيار خيار صالح.');
+                } else {
+                    GetUPC1(this.value);
+
+
+                }
+            });
+
+        });
+    </script>
+
+    @* <script>
+        function ShowMyPr() {
+            const Merchant = $('#SelectMerchant option:selected').text() || 'Not Available';
+            const ProductInformation = $('#SelectProductInformation150 option:selected').text() || 'Not Available';
+            const sellingPrice = $('#sellingPrice').val() || 'Not Available';
+            const qrCodeSrc = $('#QRCodeImage11').attr('src') || '';
+            const barCodeSrc = $('#BarCode11111111').attr('src') || '';
+
+
+            const printWindow = window.open('', '_blank');
+
+            printWindow.document.write(`
+                                <html>
+                                <head>
+                                    <title>Print Order</title>
+                                    <style>
+                                        body { font-family: Arial, sans-serif; padding: 20px; }
+                                        .section { margin-bottom: 20px; }
+                                        .section img { max-width: 200px; max-height: 200px; }
+                                        .section p { font-size: 18px; }
+                                        .header { font-size: 24px; font-weight: bold; }
+                                        .qr-barcode { display: flex; gap: 20px; }
+                                    </style>
+                                </head>
+                                <body>
+                                    <div class="section">
+                                        <p class="header">Merchant:</p>
+                                        <p>${Merchant}</p>
+                                    </div>
+                                    <div class="section">
+                                        <p class="header">Product Information:</p>
+                                        <p>${ProductInformation}</p>
+                                    </div>
+                                    <div class="section">
+                                        <p class="header">Selling Price:</p>
+                                        <p>${sellingPrice}</p>
+                                    </div>
+                                    <div class="section qr-barcode">
+                                        <div>
+                                            <p class="header">QR Code:</p>
+                                            <img src="${qrCodeSrc}" alt="QR Code" />
+                                        </div>
+                                        <div>
+                                            <p class="header">Bar Code:</p>
+                                            <img src="${barCodeSrc}" alt="Bar Code" />
+                                        </div>
+                                    </div>
+                                </body>
+                                </html>
+                            `);
+
+            // تحميل الصفحة الجديدة ثم طباعة المحتوى
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+
+            console.log("fbdfdfdfbdffdbdd");
+        }
+
+        $(document).on('click', '.wwwsss', function () {
+            console.log("hhhhhhhhh");
+            ShowMyPr();
+        });
+    </script> *@
 }
 
 

@@ -100,6 +100,7 @@
                             <div class="form-group">
                                 <label>Barcode:</label>
                                 <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                                <p id="BarCodeNo"></p>
                             </div>
 
                             <div class="col-sm-6">
@@ -227,6 +228,7 @@
                     if (data) {
                         var imageUrl = URL.createObjectURL(data);
                         $('#BarCode').attr('src', imageUrl);
+                        $('#BarCodeNo').text(text);
                     } else {
                         console.error("Error generating barcode.");
                     }

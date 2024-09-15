@@ -410,7 +410,7 @@ namespace Yara.Areas.Admin.Controllers
                     typesProductId = product.IdTypesProduct,
                     productName = product.ProductName,
                     id = product.IdProductInformation,
-                    m = product.Model
+                    m = product.IdProductInformation
                 });
             }
             else
@@ -519,10 +519,10 @@ namespace Yara.Areas.Admin.Controllers
 
 
 
-        public async Task<string> GetUPC(string value)
+        public async Task<string> GetUPC(int value)
         {
 
-            var product = await iProductInformation.GetByNameFromViewAsync(value);
+            var product = await iProductInformation.GetByIdFromViewAsync(value);
             if (product == null)
                 return "000000000000";
 

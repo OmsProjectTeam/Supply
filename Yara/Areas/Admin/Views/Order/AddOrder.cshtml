@@ -280,9 +280,6 @@
                             <label>Barcode:</label>
                             <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
                                 <p id="UPCProduct"></p>
-                            <div>
-                                    <button class="btn btn-sm btn-outline-primary wwwsss">Prepare</button>
-                            </div>
                         </div>
 
                         
@@ -1573,70 +1570,7 @@
         });
     </script>
 
-    <script>
-        function ShowMyPr() {
-            const Merchant = $('#SelectMerchant option:selected').text() || 'Not Available';
-            const ProductInformation = $('#SelectProductInformation150 option:selected').text() || 'Not Available';
-            const sellingPrice = $('#sellingPrice').val() || 'Not Available';
-            const qrCodeSrc = $('#QRCodeImage11').attr('src') || '';
-            const barCodeSrc = $('#BarCode11111111').attr('src') || '';
-
-
-            const printWindow = window.open('', '_blank');
-
-            printWindow.document.write(`
-                                <html>
-                                <head>
-                                    <title>Print Order</title>
-                                    <style>
-                                        body { font-family: Arial, sans-serif; padding: 20px; }
-                                        .section { margin-bottom: 20px; }
-                                        .section img { max-width: 200px; max-height: 200px; }
-                                        .section p { font-size: 18px; }
-                                        .header { font-size: 24px; font-weight: bold; }
-                                        .qr-barcode { display: flex; gap: 20px; }
-                                    </style>
-                                </head>
-                                <body>
-                                    <div class="section">
-                                        <p class="header">Merchant:</p>
-                                        <p>${Merchant}</p>
-                                    </div>
-                                    <div class="section">
-                                        <p class="header">Product Information:</p>
-                                        <p>${ProductInformation}</p>
-                                    </div>
-                                    <div class="section">
-                                        <p class="header">Selling Price:</p>
-                                        <p>${sellingPrice}</p>
-                                    </div>
-                                    <div class="section qr-barcode">
-                                        <div>
-                                            <p class="header">QR Code:</p>
-                                            <img src="${qrCodeSrc}" alt="QR Code" />
-                                        </div>
-                                        <div>
-                                            <p class="header">Bar Code:</p>
-                                            <img src="${barCodeSrc}" alt="Bar Code" />
-                                        </div>
-                                    </div>
-                                </body>
-                                </html>
-                            `);
-
-            // تحميل الصفحة الجديدة ثم طباعة المحتوى
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-
-            console.log("fbdfdfdfbdffdbdd");
-        }
-
-        $(document).on('click', '.wwwsss', function () {
-            console.log("hhhhhhhhh");
-            ShowMyPr();
-        });
-    </script>
+    
 }
 
 

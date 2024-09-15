@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using ZXing.QrCode;
 using ZXing;
+using System.Net;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -274,7 +275,7 @@ public async Task<IActionResult> FetchImageByModel(string model)
             // تعيين وكيل المستخدم ليبدو كأنه متصفح حقيقي بدون استخدام أي أحرف غير ASCII
             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
 
-            var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
+            var searchUrl = "https://app.scrapingbee.com/api/v1?api_key=HYMUUZ1BPAJU3PF6EO6BVO0AEZLS603AIYCR57H0NNJIUJA41P9HF9TQJDZPVC0BDPO3NFUWT26SFLG3&url=https://www.lowes.com/search?searchTerm=" + model;
             var response = await client.GetAsync(searchUrl);
 
             if (response.IsSuccessStatusCode)
@@ -403,5 +404,7 @@ public async Task<IActionResult> FetchImageByModel(string model)
 
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
+
+
     }
 }

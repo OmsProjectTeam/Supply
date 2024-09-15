@@ -268,10 +268,12 @@
             var UPC = $('#UPC').val();
             var qrCodeSrc = $('#QRCodeImage').attr('src');
 
+            var bar = $('#BarCode').attr('src');
+
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
             // Encode URI components to handle special characters
-            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');

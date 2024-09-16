@@ -79,10 +79,6 @@
 
 
 
-
-
-
-
 <div id="contentWrapper" style="display: none;">
     <div class="row small-spacing">
         <div class="col-12">
@@ -284,7 +280,7 @@
                             <div class="form-group">
                                 <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
                                 <div>
-                                    <a id="printButton" class="btn btn-sm btn-outline-primary" onclick="printLabel()">Print Label</a>
+                                    <a id="printButton" class="btn btn-sm btn-outline-primary">Print Label</a>
                                 </div>
                             </div>
                         </div>
@@ -664,40 +660,39 @@
             </div>
         </div>
 
-       @*  <div style="border: 1px solid black; padding: 10px; width: 400px; font-family: Arial, sans-serif;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div id="shippingLabel" style="display:none;">
+            <div style="border: 1px solid black; padding: 10px; width: 400px; font-family: Arial, sans-serif;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div>
+                        <span class="merchant" style="font-weight: bold; font-size: 16px;"></span><br>
+                        <span class="warehouse" style="font-size: 14px;"></span><br>
+                        <span class="warehouse-branch" style="font-size: 14px;"></span><br>
+                    </div>
+                </div>
+                <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                    <div><strong>Purchase Order Number:</strong> <span class="purchase-order-number"></span></div>
+                    <div><strong>Bond Type:</strong> <span class="bond-type"></span></div>
+                </div>
+                <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                    <div><strong>Product Information:</strong> <span class="product-information"></span></div>
+                </div>
+                <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                    <div><strong>Selling Price:</strong> <span class="selling-price"></span></div>
+                    <div><strong>Quantity In:</strong> <span class="quantity-in"></span></div>
+                    <div><strong>Purchase Price:</strong> <span class="purchase-price"></span></div>
+                    <div><strong>Special Sale Price:</strong> <span class="special-sale-price"></span></div>
+                </div>
                 <div>
-                    <span style="font-weight: bold; font-size: 16px;">Merchant: @ViewBag.Merchant</span><br>
-                    <span style="font-size: 14px;">Warehouse: @ViewBag.WareHouse</span><br>
-                    <span style="font-size: 14px;">Warehouse Branch: @ViewBag.WareHouseBranch</span><br>
+                    <div><strong>QR Code:</strong></div>
+                    <img class="qr-code" src="" alt="QR Code" />
                 </div>
             </div>
-
-            <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
-                <div><strong>Purchase Order Number:</strong> @ViewBag.PurchaseOrderNoumber</div>
-                <div><strong>Bond Type:</strong> @ViewBag.BondType</div>
-            </div>
-
-            <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
-                <div><strong>Product Information:</strong> @ViewBag.ProductInformation</div>
-            </div>
-
-            <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
-                <div><strong>Selling Price:</strong> @ViewBag.sellingPrice.ToString("C")</div>
-                <div><strong>Quantity In:</strong> @ViewBag.QouantityIn</div>
-                <div><strong>Purchase Price:</strong> @ViewBag.PurchasePrice.ToString("C")</div>
-                <div><strong>Special Sale Price:</strong> @ViewBag.SpecialSalePrice.ToString("C")</div>
-            </div>
-
-            <div>
-                <div><strong>QR Code:</strong></div>
-                <img src="@ViewBag.qrCodeSrc" alt="QR Code" />
-            </div>
-        </div> *@
+        </div>
 
 
 
-        <div id="shippingLabel" style="display:none;">
+
+        @* <div id="shippingLabel" style="display:none;">
             <div style="border: 1px solid black; padding: 10px; width: 400px; font-family: Arial, sans-serif;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <div>
@@ -732,7 +727,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> *@
     </div>
 </div>
 
@@ -1806,6 +1801,70 @@
     </script>
 
     <script>
+        $(document).ready(function () {
+            // Function to dynamically update the shipping label details
+            function updateShippingLabel(data) {
+                // Dynamically populate the shipping label fields
+                $('#shippingLabel').find('.merchant').text(data.merchant);
+                $('#shippingLabel').find('.warehouse').text(data.warehouse);
+                $('#shippingLabel').find('.warehouse-branch').text(data.warehouseBranch);
+                $('#shippingLabel').find('.purchase-order-number').text(data.purchaseOrderNumber);
+                $('#shippingLabel').find('.bond-type').text(data.bondType);
+                $('#shippingLabel').find('.product-information').text(data.productInformation);
+                $('#shippingLabel').find('.selling-price').text(data.sellingPrice);
+                $('#shippingLabel').find('.quantity-in').text(data.quantityIn);
+                $('#shippingLabel').find('.purchase-price').text(data.purchasePrice);
+                $('#shippingLabel').find('.special-sale-price').text(data.specialSalePrice);
+                $('#shippingLabel').find('.qr-code').attr('src', data.qrCodeSrc);
+
+                // Show the label once populated
+                $('#shippingLabel').show();
+            }
+
+            // Call this function when you need to fetch and update the shipping label
+            function fetchProductDetails(productId) {
+                $.ajax({
+                    url: '/Order/GetProductDetailsForOrder', // Adjust this URL based on your route
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        updateShippingLabel(data);  // Pass the data to the function to update the UI
+                    },
+                    error: function () {
+                        console.error("Error fetching product details.");
+                    }
+                });
+            }
+
+            // Example usage: dynamically update when a product is selected
+            $('#SelectProduct').on('change', function () {
+                var productId = $(this).val();
+                if (productId) {
+                    fetchProductDetails(productId);
+                }
+            });
+
+            // Print the shipping label
+            function printLabel() {
+                var printContents = document.getElementById("shippingLabel").innerHTML;
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+
+                window.print();
+
+                document.body.innerHTML = originalContents;
+            }
+
+            // Bind the print button to the print function
+            $("#printButton").on("click", function () {
+                printLabel();
+            });
+        });
+
+    </script>
+
+    @* <script>
         function printLabel() {
             var printContents = document.getElementById("shippingLabel").innerHTML;
             var originalContents = document.body.innerHTML;
@@ -1818,7 +1877,7 @@
         }
 
         document.querySelector("#printButton").addEventListener("click", printLabel);
-    </script>
+    </script> *@
 
 
 

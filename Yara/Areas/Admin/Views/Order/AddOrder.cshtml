@@ -66,7 +66,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-
 </style>
 
 <!-- QR Code input (visible at first) -->
@@ -104,7 +103,7 @@
 
             </div>
         </div>
-      
+
         <div class="col-lg-6 col-xs-12">
             <div class="box-content card white">
                 <h4 class="box-title">@ResourceWeb.LBAddOrder</h4>
@@ -166,14 +165,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" ></select>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation" onchange="updateProductImage()"></select>
                                     <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
-                    <div class="row small-spacing">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
-                                <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation"></select>
-                                <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -270,37 +263,13 @@
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
                                     <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>product UPC</label>
-                                <input id="UPCField" readonly type="text" class="form-control" />
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Barcode:</label>
-                            <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
-                        </div>
-
-                        
-@*                         <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
-                                <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
-                                <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
-
-                            </div>
-                        </div> *@
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
-                                <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
+                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -315,12 +284,12 @@
                             <div class="form-group">
                                 <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
                                 <div>
-                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
+                                    <a id="printButton" class="btn btn-sm btn-outline-primary" onclick="printLabel()">Print Label</a>
                                 </div>
                             </div>
                         </div>
 
-                        <a class="btn btn-sm btn-outline-primary" asp-area="Admin" asp-controller="Order" asp-action="PrepareText" asp-route-barCode="" asp-route-qrcode="" asp-route-price="" asp-route-upc="" asp-route-pName="">Prepare</a>
+
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                     </form>
                 </div>
@@ -577,7 +546,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
-                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="MyProduct" readonly >
+                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="MyProduct" readonly>
                                     <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
                                     <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
                                 </div>
@@ -604,33 +573,27 @@
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
-                                    <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC12">
+                                    <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
                                     <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
                                 </div>
                             </div>
 
-                        <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
+                                    <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea  asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
-                                <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                                </div>
                             </div>
                         </div>
-
-
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
-                            <div>
-                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Barcode:</label>
-                        <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
-                    </div>
 
                         <!-- Image Upload and Display Section -->
                         <div class="form-group">
@@ -697,6 +660,76 @@
                             <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Save changes</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+       @*  <div style="border: 1px solid black; padding: 10px; width: 400px; font-family: Arial, sans-serif;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <div>
+                    <span style="font-weight: bold; font-size: 16px;">Merchant: @ViewBag.Merchant</span><br>
+                    <span style="font-size: 14px;">Warehouse: @ViewBag.WareHouse</span><br>
+                    <span style="font-size: 14px;">Warehouse Branch: @ViewBag.WareHouseBranch</span><br>
+                </div>
+            </div>
+
+            <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                <div><strong>Purchase Order Number:</strong> @ViewBag.PurchaseOrderNoumber</div>
+                <div><strong>Bond Type:</strong> @ViewBag.BondType</div>
+            </div>
+
+            <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                <div><strong>Product Information:</strong> @ViewBag.ProductInformation</div>
+            </div>
+
+            <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                <div><strong>Selling Price:</strong> @ViewBag.sellingPrice.ToString("C")</div>
+                <div><strong>Quantity In:</strong> @ViewBag.QouantityIn</div>
+                <div><strong>Purchase Price:</strong> @ViewBag.PurchasePrice.ToString("C")</div>
+                <div><strong>Special Sale Price:</strong> @ViewBag.SpecialSalePrice.ToString("C")</div>
+            </div>
+
+            <div>
+                <div><strong>QR Code:</strong></div>
+                <img src="@ViewBag.qrCodeSrc" alt="QR Code" />
+            </div>
+        </div> *@
+
+
+
+        <div id="shippingLabel" style="display:none;">
+            <div style="border: 1px solid black; padding: 10px; width: 400px; font-family: Arial, sans-serif;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div>
+                        <span style="font-weight: bold; font-size: 16px;">PRIORITY MAIL 2-DAY™</span><br>
+                        <span style="font-size: 12px;">US POSTAGE & FEES PAID</span><br>
+                        <span style="font-size: 12px;">Permit No. 0023</span>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/50" alt="Placeholder Logo">
+                    </div>
+                </div>
+                <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                    <div style="font-size: 14px;"><strong>John Sender</strong></div>
+                    <div style="font-size: 12px;">1990 E Grand Ave.</div>
+                    <div style="font-size: 12px;">El Segundo, CA 90245</div>
+                </div>
+                <div style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+                    <div style="font-size: 14px;"><strong>SHIP TO:</strong></div>
+                    <div style="font-size: 14px;"><strong>Jane Recipient</strong></div>
+                    <div style="font-size: 12px;">470 Lenfant Plaza SW</div>
+                    <div style="font-size: 12px;">Washington DC 20024-2124</div>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <div style="border: 1px solid black; padding: 10px; text-align: center; font-size: 14px;">
+                        C001
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 14px;">USPS TRACKING #</div>
+                    <div style="border: 1px solid black; text-align: center; padding: 10px;">
+                        <strong>9405 5118 9956 0896 1445 98</strong>
+                    </div>
                 </div>
             </div>
         </div>
@@ -922,6 +955,328 @@
         });
     </script>
 
+    @* <script>
+        // Handle product name population based on model input or selection
+        $(document).ready(function () {
+            $('#modelInput, #product12').on("change", function () {
+                var model = $(this).val(); // Get the model input value
+
+                if (model) {
+                    $.ajax({
+                        url: '/Admin/ProductInformation/FetchProductNameByModel', // Adjust the URL according to your routing
+                        type: 'GET',
+                        data: { model: model }, // Send the model as a parameter
+                        success: function (response) {
+                            if (response.success) {
+                                $("#ProductName").val(response.productName); // Populate the product name
+                            } else {
+                                alert(response.message); // Show an alert if there was an issue
+                                $("#ProductName").val(''); // Clear product name if not found
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Error fetching the product name."); // Alert the user about the error
+                            $("#ProductName").val(''); // Clear product name in case of an error
+                        }
+                    });
+                }
+            });
+        });
+
+    </script> *@
+
+
+
+    @* <script>
+        $(document).ready(function () {
+            let productSelectedFromAutocomplete = false;  // Track whether product is selected from autocomplete
+
+            // Autocomplete search functionality for the model
+            $('#product12').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("GetProductSuggestions", "Order")',
+                        type: 'GET',
+                        data: { query: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.model,  // Show model in the suggestions
+                                    value: item.model,  // Use model as the value for the input
+                                    productDetails: item
+                                };
+                            }));
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Search error',
+                                text: 'Unable to fetch product suggestions.',
+                                position: 'top-end',
+                                timer: 3000,
+                                showConfirmButton: false,
+                                toast: true
+                            });
+                            response([]);  // Return an empty array on error
+                        }
+                    });
+                },
+                minLength: 2,  // Minimum characters before showing suggestions
+                select: function (event, ui) {
+                    productSelectedFromAutocomplete = true;  // Set flag to bypass input event logic
+                    // Set the selected value in the input box
+                    $('#product12').val(ui.item.value);
+                    // Populate details when a product is selected
+                    populateProductDetails(ui.item.productDetails);
+                    return false;  // Prevent default autocomplete behavior
+                },
+                focus: function (event, ui) {
+                    $('#product12').val(ui.item.value);  // Set value when focused
+                    return false;  // Prevent default behavior
+                }
+            });
+
+            // Detect input event for manual typing
+            $('#product12').on('input', function () {
+                if (productSelectedFromAutocomplete) {
+                    // Skip this block if product was selected from autocomplete
+                    productSelectedFromAutocomplete = false;  // Reset the flag after skipping input logic
+                    return;
+                }
+
+                const productId = $(this).val().trim();
+
+                if (productId.length >= 2) {
+                    clearProductDetails();  // Clear details while searching
+                    $('#modalButton').prop('disabled', true);  // Disable modal button
+                    // You can add any additional logic here if needed for live search
+                } else {
+                    clearProductDetails();  // Clear details if input is less than 2 characters
+                    $('#modalButton').prop('disabled', true);  // Disable modal button
+                }
+            });
+
+            // Function to populate product details after selecting a product from the autocomplete
+            function populateProductDetails(productDetails) {
+                if (productDetails && productDetails.productCategoryId > 0) {
+                    $('#ProductName').val(productDetails.model);  // Set product name from model
+                    $('#SelectProductCategory').val(productDetails.productCategoryId).trigger('change');
+                    $('#SelectBondType').val(productDetails.bondTypeId).trigger('change');
+                    $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
+                    $('#GlobalPrice').val(productDetails.globalPrice);
+                    $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
+                    $('#SelectProductInformation').empty();
+                    $('#SelectProductInformation').append(new Option(productDetails.productName, productDetails.model, true, true)).trigger('change');
+                    $('#modalButton').prop('disabled', true);  // Disable modal button since product is found
+                    updateCodeField();  // Update the code field after selecting a model
+                }
+            }
+
+            // Clear product details if no product is selected
+            function clearProductDetails() {
+                $('#ProductName').val('');
+                $('#SelectProductCategory').val('').trigger('change');
+                $('#SelectBondType').val('').trigger('change');
+                $('#SelectTypesProduct').val('').trigger('change');
+                $('#GlobalPrice').val('');
+                $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+            }
+
+            // Function to update the Code field
+            function updateCodeField() {
+                var Merchant = $('#SelectMerchant option:selected').text();
+                var WareHouse = $('#SelectWareHouse option:selected').text();
+                var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
+                var ProductInformation = $('#SelectProductInformation option:selected').text();
+                var sellingPrice = $('#sellingPrice').val();
+                var randomString = generateRandomString(5);
+
+                if (Merchant && WareHouse) {
+                    var code = Merchant + WareHouse + WareHouseBranch + ProductInformation + sellingPrice + randomString;
+                    $('#Qrcode').val(code);
+                    updateQRCode();
+                }
+            }
+
+            // Generate random 5-character string
+            function generateRandomString(length) {
+                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                var result = '';
+                for (var i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            }
+
+            // Function to update the QR code image
+            function updateQRCode() {
+                var code = $('#Qrcode').val();
+                if (code) {
+                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
+                } else {
+                    $('#QRCodeImage').attr('src', '');
+                }
+            }
+
+            $('#sellingPrice').on('change keyup', function () {
+                updateCodeField();
+            });
+
+            let typingTimer; // Timer identifier
+            const typingDelay = 3000; // Delay in ms
+
+            // Input event for manual product search
+            $('#product12').on('input', function () {
+                clearTimeout(typingTimer);
+
+                if (productSelectedFromAutocomplete) {
+                    productSelectedFromAutocomplete = false;  // Reset flag after selection
+                    return;  // Skip availability check if product is selected from autocomplete
+                }
+
+                const productId = $(this).val().trim();
+                if (productId) {
+                    typingTimer = setTimeout(function () {
+                        checkProductAvailability(productId);  // Perform availability check for the manual input
+                    }, typingDelay);
+                } else {
+                    $('#modalButton').prop('disabled', true);
+                }
+            });
+
+            // Function to check product availability
+            function checkProductAvailability(productId) {
+                $.ajax({
+                    url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        if (data && data.productCategoryId > 0) {
+                            $('#ProductName').val(productId);
+                            $('#SelectProductCategory').val(data.productCategoryId).trigger('change');
+                            $('#SelectBondType').val(data.bondTypeId).trigger('change');
+                            $('#SelectTypesProduct').val(data.typesProductId).trigger('change');
+                            $('#GlobalPrice').val(data.globalPrice);
+                            $('#ProductImage').attr('src', data.imageUrl || 'http://placehold.it/220x180');
+                            $('#SelectProductInformation').empty();
+                            $('#SelectProductInformation').append(new Option(data.productName, productId, true, true)).trigger('change');
+                            $('#modalButton').prop('disabled', true);  // Disable modal button since product is found
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No product available',
+                                text: 'Create a new one, please click the modal button',
+                                showConfirmButton: false,
+                                timer: 6000,
+                                position: 'top-end',
+                                toast: true
+                            });
+                            $('#ProductName').val(productId);
+                            $('#modalButton').prop('disabled', false);
+                            openModal();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching product details: ", error);
+                        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                        $('#GlobalPrice').val("0.00");
+                        $('#modalButton').prop('disabled', true);
+                    }
+                });
+            }
+
+            // Modal functions
+            function openModal() {
+                document.getElementById("customModal").style.display = "block";
+            }
+
+            function closeModal() {
+                document.getElementById("customModal").style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                var modal = document.getElementById("customModal");
+                if (event.target == modal) {
+                    closeModal();
+                }
+            }
+
+            // Form submission inside modal
+            $('form[asp-action="SaveModal"]').on('submit', function (event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        closeModal();
+                        $('#product12').val($('#product12').data('previous-value'));
+                    },
+                    error: function (response) {
+                        console.error("Error during form submission", response);
+                    }
+                });
+            });
+
+            // Model image handling
+            $('#modelInput').on("change", function () {
+                var model = $(this).val();
+                if (model) {
+                    $.ajax({
+                        url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })',
+                        type: 'GET',
+                        data: { model: model },
+                        success: function (response) {
+                            if (response.success) {
+                                $("#output").attr("src", response.imageUrl).show();
+                                $("#imageUrlInput").val(response.imageUrl);
+                            } else {
+                                alert(response.message);
+                                $("#output").hide();
+                            }
+                        },
+                        error: function () {
+                            alert("Error fetching the image.");
+                            $("#output").hide();
+                        }
+                    });
+                }
+            });
+
+            // Update the Code field when relevant inputs change
+            $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
+                updateCodeField();
+            });
+
+            $('#Code').on('change', function () {
+                var code = $('#Code').val();
+                $('#QRCode').val(code);
+            });
+
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var recipient = button.data('whatever');
+                var modal = $(this);
+                modal.find('.modal-title').text('New message to ' + recipient);
+                modal.find('.modal-body input').val(recipient);
+            });
+
+            // Sync the product12 input with the table search box
+            $('#product12').on('input', function () {
+                var searchText = $(this).val();
+                var searchBox = $('#example_filter input[type="search"]');
+                searchBox.val(searchText);
+                searchBox.trigger('keyup');
+                var e = jQuery.Event('keypress');
+                e.which = 13; // Simulate 'Enter' key press
+                searchBox.trigger(e);
+            });
+        });
+    </script> *@
+
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -958,6 +1313,10 @@
             updateQRCode();
         });
     </script>
+
+
+
+    @*    <script src="~/js/custom-scripts.js"></script> *@
 
     <script>
         $(document).ready(function () {
@@ -1152,6 +1511,8 @@
 
     </script>
 
+
+
     <!-- Data Tables -->
 
 
@@ -1214,6 +1575,8 @@
         });
 
     </script>
+
+
 
     <script>
         function generateRandomStringrr(length) {
@@ -1288,6 +1651,8 @@
         }
     </script>
 
+
+
     <!-- Data Tables -->
 
     <script>
@@ -1340,6 +1705,24 @@
                     return text;
                 }
             }
+
+            //  function updateQRCode() {
+            //     $('.QRCodeImage').each(function () {
+            //         var Category = $(this).siblings('.Code').text();
+            //         var ProductName = $(this).siblings('.Code').text();
+            //         var Model = $(this).siblings('.Code').text();
+            //         var UPC = $(this).siblings('.Code').text();
+            //         var TypeProduct = $(this).siblings('.Code').text();
+
+            //         var code = Category + ProductName + Model + UPC + TypeProduct
+            //         if (code) {
+            //             console.log(code);
+            //             $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+            //         } else {
+            //             $(this).attr('src', '');
+            //         }
+            //     });
+            // }
 
             function updateQRCode() {
                 $('.QRCodeImage').each(function () {
@@ -1420,118 +1803,27 @@
             });
         });
 
-    </script> 
-
-    <script>
-        
-
-        function CreateBarCode(text) {
-            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
-
-            $.ajax({
-                url: apiUrl,
-                type: 'GET',
-                xhrFields: {
-                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
-                },
-                success: function (data) {
-                    if (data) {
-                        var imageUrl = URL.createObjectURL(data);
-                        $('#BarCode').attr('src', imageUrl);
-                    } else {
-                        console.error("Error generating barcode.");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error: " + error);
-                }
-            });
-        }
-
-
-        $(document).ready(function () {
-            $('#UPC12').on('change keyup', function () {
-                console.log("UPC value changed");
-                var upc = this.value;
-                CreateBarCode(upc);
-            });
-
-
-        });
-
-
-
-
-
-        $('#SelectProductInformation').on('change', function () {
-
-            if (this.value === '') {
-                console.error('يرجى اختيار خيار صالح.');
-            } else {
-                GetUPC(this.value);
-
-
-            }
-        });
-
-
-
-        function GetUPC(name) {
-
-        const apiUrl = `@Url.Action("GetUPCById", "Order", new { area = "Admin" })?name=${name}`;
-
-            $.ajax({
-                url: apiUrl,
-                type: 'GET',
-                success: function (data) {
-                    if (data) {
-                        console.log("UPC: ", data);
-                        $('#UPCField').val(data);
-                        $('#UPCField').trigger('keyup');
-                    } else {
-                        console.error("Error retrieving UPC.");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error: " + error);
-                }
-            });
-        }
-
-        
-
-
     </script>
 
     <script>
-        function CreateBarCode1(text) {
-            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+        function printLabel() {
+            var printContents = document.getElementById("shippingLabel").innerHTML;
+            var originalContents = document.body.innerHTML;
 
-            $.ajax({
-                url: apiUrl,
-                type: 'GET',
-                xhrFields: {
-                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
-                },
-                success: function (data) {
-                    if (data) {
-                        var imageUrl = URL.createObjectURL(data);
-                        $('#BarCode11111111').attr('src', imageUrl);
-                    } else {
-                        console.error("Error generating barcode.");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error: " + error);
-                }
-            });
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
         }
 
-        $('#UPCField').on('change keyup', function () {
-            var upc = this.value;
-            CreateBarCode1(upc);
-        });
+        document.querySelector("#printButton").addEventListener("click", printLabel);
     </script>
+
+
+
+
+
+
 }
-
 

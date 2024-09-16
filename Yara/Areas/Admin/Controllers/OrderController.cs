@@ -59,9 +59,11 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.ProductInformation = iProductInformation.GetAll();
             ViewBag.WareHouse = iWareHouse.GetAll();
             ViewBag.WareHouseBranch = iWareHouseBranch.GetAll();
+
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
+
             if (IdPurchaseOrder != null)
             {
                 vmodel.Order = iOrder.GetById(Convert.ToInt32(IdPurchaseOrder));
@@ -208,34 +210,36 @@ namespace Yara.Areas.Admin.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
-            string PurchaseOrderNoumber, string ProductInformation,
-            string WareHouseBranch, string sellingPrice,
-            string QouantityIn,
-            string PurchasePrice,
-            string SpecialSalePrice,
-            string BondType,
-            string qrCodeSrc)
-        {
-            var htmlContent = new StringBuilder();
 
-            htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
-            htmlContent.AppendFormat("<h1>WareHouse Type: {0}</h1>", Merchant);
-            htmlContent.AppendFormat("<h2>Warehouse: {0}</h2>", WareHouse);
-            htmlContent.AppendFormat("<h2>PurchaseOrderNoumber: {0}</h2>", PurchaseOrderNoumber);
-            htmlContent.AppendFormat("<h3>WareHouseBranch: {0}</h3>", WareHouseBranch);
-            htmlContent.AppendFormat("<h3>ProductInformation: {0}</h3>", ProductInformation);
-            htmlContent.AppendFormat("<h3>sellingPrice: {0}</h3>", sellingPrice);
-            htmlContent.AppendFormat("<h3>QouantityIn: {0}</h3>", QouantityIn);
-            htmlContent.AppendFormat("<h3>PurchasePrice: {0}</h3>", PurchasePrice);
-            htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
-            htmlContent.AppendFormat("<h3>BondType: {0}</h3>", BondType);
-            htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
-            htmlContent.Append("</body></html>");
 
-            return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
-        }
+        //[HttpGet]
+        //public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
+        //    string PurchaseOrderNoumber, string ProductInformation,
+        //    string WareHouseBranch, string sellingPrice,
+        //    string QouantityIn,
+        //    string PurchasePrice,
+        //    string SpecialSalePrice,
+        //    string BondType,
+        //    string qrCodeSrc)
+        //{
+        //    var htmlContent = new StringBuilder();
+
+        //    htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
+        //    htmlContent.AppendFormat("<h1>WareHouse Type: {0}</h1>", Merchant);
+        //    htmlContent.AppendFormat("<h2>Warehouse: {0}</h2>", WareHouse);
+        //    htmlContent.AppendFormat("<h2>PurchaseOrderNoumber: {0}</h2>", PurchaseOrderNoumber);
+        //    htmlContent.AppendFormat("<h3>WareHouseBranch: {0}</h3>", WareHouseBranch);
+        //    htmlContent.AppendFormat("<h3>ProductInformation: {0}</h3>", ProductInformation);
+        //    htmlContent.AppendFormat("<h3>sellingPrice: {0}</h3>", sellingPrice);
+        //    htmlContent.AppendFormat("<h3>QouantityIn: {0}</h3>", QouantityIn);
+        //    htmlContent.AppendFormat("<h3>PurchasePrice: {0}</h3>", PurchasePrice);
+        //    htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
+        //    htmlContent.AppendFormat("<h3>BondType: {0}</h3>", BondType);
+        //    htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
+        //    htmlContent.Append("</body></html>");
+
+        //    return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
+        //}
 
         //public JsonResult GetProductImageUrl(int id)
         //{
@@ -520,6 +524,25 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult RepostPage(string merchant, string warehouse, string purchaseOrderNumber, string warehouseBranch, string productInformation,
+                                decimal sellingPrice, int quantityIn, decimal purchasePrice, decimal specialSalePrice, string bondType, string qrCodeSrc)
+        {
+            // Simply pass the parameters to the view using ViewData or ViewBag
+            ViewBag.Merchant = merchant;
+            ViewBag.WareHouse = warehouse;
+            ViewBag.PurchaseOrderNoumber = purchaseOrderNumber;
+            ViewBag.WareHouseBranch = warehouseBranch;
+            ViewBag.ProductInformation = productInformation;
+            ViewBag.sellingPrice = sellingPrice;
+            ViewBag.QouantityIn = quantityIn;
+            ViewBag.PurchasePrice = purchasePrice;
+            ViewBag.SpecialSalePrice = specialSalePrice;
+            ViewBag.BondType = bondType;
+            ViewBag.qrCodeSrc = qrCodeSrc;
+
+            return View();
+        }
 
     }
 }

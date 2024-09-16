@@ -39,3 +39,51 @@ $(document).ready(function () {
         $(this).text(truncatedText); // Set the truncated text back to the cell
     });
 });
+
+$(document).ready(function () {
+    $('.select2_1').select2({
+        placeholder: "Select an option",
+        allowClear: true
+    });
+
+    $('#merchant-select').change(function () {
+        var userId = $(this).val();
+        if (userId) {
+            $.getJSON($('#merchant-select').data('url'), { id: userId }, function (data) {
+                $('input[name="CustomerMessages.CompanyName"]').val(data.companyName);
+                $('input[name="CustomerMessages.PhoneCompany"]').val(data.phoneCompany);
+                $('input[name="CustomerMessages.PhoneCompanySecand"]').val(data.phoneCompanySecand);
+                $('input[name="CustomerMessages.EmailCompany"]').val(data.emailCompany);
+            });
+        }
+    });
+
+    // Handle city and area selection changes
+    $('#city-select').change(function () {
+        var cityId = $(this).val();
+        if (cityId) {
+            $.getJSON($('#city-select').data('url'), { cityId: cityId }, function (data) {
+                var $areaSelect = $('#area-select');
+                $areaSelect.empty();
+                $.each(data, function (index, item) {
+                    $areaSelect.append($('<option>', {
+                        value: item.id,
+                        text: item.description
+                    }));
+                });
+            });
+        } else {
+            $('#area-select').empty();
+        }
+    });
+
+    // Load file for image preview
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+
+    // Set URL value
+    $("#url").val(window.location.href);
+});
+

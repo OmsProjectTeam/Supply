@@ -19,6 +19,7 @@ namespace Infarstuructre.BL
         // ///////////////////API///////////////////////////////////////////////
         Task<List<TBViewProductInformation>> GetAllAsync();
         Task<List<TBViewProductInformation>> GetAllvAsync(int id);
+        Task<TBViewProductInformation> GetByIdFromViewAsync(int id);
         Task<TBProductInformation> GetByIdAsync(int id);
         Task<TBProductInformation> GetByNameAsync(string name);
         Task<bool> AddDataAsync(TBProductInformation data);
@@ -27,12 +28,12 @@ namespace Infarstuructre.BL
         Task<bool> DELETPHOTOAsync(int id);
         Task<bool> DELETPHOTOWITHERRORAsync(string name);
     }
-    public class CLSTBProductInformation: IIProductInformation
+    public class CLSTBProductInformation : IIProductInformation
     {
         MasterDbcontext dbcontext;
         public CLSTBProductInformation(MasterDbcontext dbcontext1)
         {
-            dbcontext= dbcontext1;
+            dbcontext = dbcontext1;
         }
         public List<TBViewProductInformation> GetAll()
         {
@@ -191,9 +192,16 @@ namespace Infarstuructre.BL
 
         public async Task<TBProductInformation> GetByNameAsync(string name)
         {
-            TBProductInformation sslid = await dbcontext.TBProductInformations.FirstOrDefaultAsync(a => a.ProductName.Contains(name));
+            TBProductInformation sslid = await dbcontext.TBProductInformations.FirstOrDefaultAsync(a => a.ProductName == name);
             return sslid;
         }
+
+        public async Task<TBViewProductInformation> GetByIdFromViewAsync(int id)
+        {
+            TBViewProductInformation sslid = await dbcontext.ViewProductInformation.FirstOrDefaultAsync(a => a.IdProductInformation == id);
+            return sslid;
+        }
+
 
         public async Task<bool> AddDataAsync(TBProductInformation data)
         {
@@ -238,8 +246,8 @@ namespace Infarstuructre.BL
         }
         public async Task<bool> DELETPHOTOAsync(int id)
         {
-             var result = DELETPHOTO(id);
-             return result;
+            var result = DELETPHOTO(id);
+            return result;
         }
         public async Task<bool> DELETPHOTOWITHERRORAsync(string name)
         {

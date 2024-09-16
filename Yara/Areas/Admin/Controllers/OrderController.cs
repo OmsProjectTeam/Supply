@@ -1,12 +1,11 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Drawing.Imaging;
 using System.Drawing;
 using ZXing.QrCode;
 using ZXing;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Primitives;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -59,11 +58,9 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.ProductInformation = iProductInformation.GetAll();
             ViewBag.WareHouse = iWareHouse.GetAll();
             ViewBag.WareHouseBranch = iWareHouseBranch.GetAll();
-
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
-
             if (IdPurchaseOrder != null)
             {
                 vmodel.Order = iOrder.GetById(Convert.ToInt32(IdPurchaseOrder));
@@ -210,36 +207,122 @@ namespace Yara.Areas.Admin.Controllers
         }
 
 
-
-
         [HttpGet]
         public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
-            string PurchaseOrderNoumber, string ProductInformation,
-            string WareHouseBranch, string sellingPrice,
-            string QouantityIn,
-            string PurchasePrice,
-            string SpecialSalePrice,
-            string BondType,
-            string qrCodeSrc)
+string PurchaseOrderNoumber, string ProductInformation,
+string WareHouseBranch, string sellingPrice,
+string QouantityIn,
+string PurchasePrice,
+string SpecialSalePrice,
+string BondType,
+string qrCodeSrc,
+string bar)
         {
             var htmlContent = new StringBuilder();
 
-            htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
-            htmlContent.AppendFormat("<h1>WareHouse Type: {0}</h1>", Merchant);
-            htmlContent.AppendFormat("<h2>Warehouse: {0}</h2>", WareHouse);
-            htmlContent.AppendFormat("<h2>PurchaseOrderNoumber: {0}</h2>", PurchaseOrderNoumber);
-            htmlContent.AppendFormat("<h3>WareHouseBranch: {0}</h3>", WareHouseBranch);
-            htmlContent.AppendFormat("<h3>ProductInformation: {0}</h3>", ProductInformation);
-            htmlContent.AppendFormat("<h3>sellingPrice: {0}</h3>", sellingPrice);
-            htmlContent.AppendFormat("<h3>QouantityIn: {0}</h3>", QouantityIn);
-            htmlContent.AppendFormat("<h3>PurchasePrice: {0}</h3>", PurchasePrice);
-            htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
-            htmlContent.AppendFormat("<h3>BondType: {0}</h3>", BondType);
-            htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
+            // Start HTML content with styles
+            htmlContent.Append("<html><head><title>Print Label</title>");
+            htmlContent.Append("<style>");
+            htmlContent.Append("body {font-family: Arial, sans-serif; font-size: 12px;}");
+            htmlContent.Append(".label-container { border: 1px solid #000; width: 320px; height: 500px; padding: 25px; }"); // Increased height
+            htmlContent.Append("h1 { font-size: 16px; margin-bottom: 5px; }");
+            htmlContent.Append("h2, h3 { font-size: 12px; margin-bottom: 5px; }");
+            htmlContent.Append(".section { margin-bottom: 10px; border-bottom: 1px solid #000; padding-bottom: 5px; }");
+            htmlContent.Append(".header { display: flex; justify-content: space-between; align-items: center; }");
+            htmlContent.Append(".qr-code { width: 80px; height: 80px; margin-right: 10px; }");
+            htmlContent.Append(".text-container { flex-grow: 1; text-align: left; }");
+            htmlContent.Append(".barcode { display: block; margin: 0 auto; }"); // Centered barcode
+            htmlContent.Append(".footer-barcode { margin-top: 15px; text-align: center; }"); // Adjusted footer layout
+            htmlContent.Append("</style>");
+            htmlContent.Append("</head><body>");
+
+            // Container for the label
+            htmlContent.Append("<div class='label-container'>");
+
+            // Header with QR code on the right and Priority Mail title on the left
+            htmlContent.Append("<div class='section header'>");
+            htmlContent.Append("<div class='text-container'>");
+            htmlContent.AppendFormat("<h1>{0}™</h1>", Merchant);
+            htmlContent.Append("</div>");
+            htmlContent.AppendFormat("<img class='qr-code' src='{0}' alt='QR Code' />", qrCodeSrc); // QR Code at Top Right
+            htmlContent.Append("</div>");
+
+            // Merchant and Warehouse Info
+            htmlContent.Append("<div class='section'>");
+            //htmlContent.AppendFormat("<h2>{0}</h2>", Merchant);
+            htmlContent.AppendFormat("<h2>{0}</h2>", WareHouse);
+            htmlContent.AppendFormat("<h2>Purchase Order #: {0}</h2>", PurchaseOrderNoumber);
+            htmlContent.AppendFormat("<h3>Warehouse Branch: {0}</h3>", WareHouseBranch);
+            htmlContent.Append("</div>");
+
+            // Product and Price Info
+            htmlContent.Append("<div class='section'>");
+            htmlContent.AppendFormat("<h3>Product: {0}</h3>", ProductInformation);
+            htmlContent.AppendFormat("<h3>Selling Price: {0}</h3>", sellingPrice);
+            htmlContent.AppendFormat("<h3>Quantity In: {0}</h3>", QouantityIn);
+            htmlContent.AppendFormat("<h3>Purchase Price: {0}</h3>", PurchasePrice);
+            htmlContent.AppendFormat("<h3>Special Sale Price: {0}</h3>", SpecialSalePrice);
+            htmlContent.AppendFormat("<h3>Bond Type: {0}</h3>", BondType);
+            htmlContent.Append("</div>");
+
+            // Footer Barcode
+            htmlContent.Append("<div class='footer-barcode'>");
+            htmlContent.AppendFormat("<img class='barcode' src='{0}' alt='Barcode' width='250px' height='40px' />", bar); // Reduced size of the barcode for better fit
+            htmlContent.Append("</div>");
+
+            // Close container div
+            htmlContent.Append("</div>");
+
+            // End HTML content
             htmlContent.Append("</body></html>");
 
+            // Return the formatted content as an HTML page
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //[HttpGet]
+        //public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
+        //    string PurchaseOrderNoumber, string ProductInformation,
+        //    string WareHouseBranch, string sellingPrice,
+        //    string QouantityIn,
+        //    string PurchasePrice,
+        //    string SpecialSalePrice,
+        //    string BondType,
+        //    string qrCodeSrc,
+        //    string bar)
+        //{
+        //    var htmlContent = new StringBuilder();
+
+        //    htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
+        //    htmlContent.AppendFormat("<h1>WareHouse Type: {0}</h1>", Merchant);
+        //    htmlContent.AppendFormat("<h2>Warehouse: {0}</h2>", WareHouse);
+        //    htmlContent.AppendFormat("<h2>PurchaseOrderNoumber: {0}</h2>", PurchaseOrderNoumber);
+        //    htmlContent.AppendFormat("<h3>WareHouseBranch: {0}</h3>", WareHouseBranch);
+        //    htmlContent.AppendFormat("<h3>ProductInformation: {0}</h3>", ProductInformation);
+        //    htmlContent.AppendFormat("<h3>sellingPrice: {0}</h3>", sellingPrice);
+        //    htmlContent.AppendFormat("<h3>QouantityIn: {0}</h3>", QouantityIn);
+        //    htmlContent.AppendFormat("<h3>PurchasePrice: {0}</h3>", PurchasePrice);
+        //    htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
+        //    htmlContent.AppendFormat("<h3>BondType: {0}</h3>", BondType);
+        //    htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
+        //    htmlContent.AppendFormat("<img src='{0}' alt='Bar Code' />", bar);
+        //    htmlContent.Append("</body></html>");
+
+        //    return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
+        //}
 
         //public JsonResult GetProductImageUrl(int id)
         //{
@@ -297,7 +380,9 @@ namespace Yara.Areas.Admin.Controllers
                     return Ok(product);
                 }
             }
-            catch(Exception ex) { ex.ToString();
+            catch (Exception ex)
+            {
+                ex.ToString();
 
             }
 
@@ -395,7 +480,7 @@ namespace Yara.Areas.Admin.Controllers
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
         {
             var product = dbcontext.ViewProductInformation
-                         .Where(p => p.Qrcode == productId || p.Model == productId|| p.UPC == productId|| p.ProductName == productId|| p.Make == productId).FirstOrDefault();
+                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId || p.Make == productId).FirstOrDefault();
 
 
             if (product != null)
@@ -408,10 +493,11 @@ namespace Yara.Areas.Admin.Controllers
                     imageUrl = product.Photo,
                     globalPrice = globalPrice,
                     productCategoryId = product.IdProductCategory,
-                    bondTypeId = product.IdTypesProduct,
+                    bondTypeId = product.IdTypesProduct,  // Assuming this field exists
                     typesProductId = product.IdTypesProduct,
                     productName = product.ProductName,
                     id = product.IdProductInformation,
+                    m = product.IdProductInformation
                 });
             }
             else
@@ -509,12 +595,6 @@ namespace Yara.Areas.Admin.Controllers
                     }
                 }
 
-
-
-
-
-
-
                 // If no image was found
                 return Json(new { success = false, message = "Image not found." });
             }
@@ -524,25 +604,18 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult ReportPage(string merchant, string warehouse, string purchaseOrderNumber, string warehouseBranch, string productInformation,
-                                decimal sellingPrice, int quantityIn, decimal purchasePrice, decimal specialSalePrice, string bondType, string qrCodeSrc)
-        {
-            // Simply pass the parameters to the view using ViewData or ViewBag
-            ViewBag.Merchant = merchant;
-            ViewBag.WareHouse = warehouse;
-            ViewBag.PurchaseOrderNoumber = purchaseOrderNumber;
-            ViewBag.WareHouseBranch = warehouseBranch;
-            ViewBag.ProductInformation = productInformation;
-            ViewBag.sellingPrice = sellingPrice;
-            ViewBag.QouantityIn = quantityIn;
-            ViewBag.PurchasePrice = purchasePrice;
-            ViewBag.SpecialSalePrice = specialSalePrice;
-            ViewBag.BondType = bondType;
-            ViewBag.qrCodeSrc = qrCodeSrc;
 
-            return View();
+
+        public async Task<string> GetUPC(int value)
+        {
+
+            var product = await iProductInformation.GetByIdFromViewAsync(value);
+            if (product == null)
+                return "000000000000";
+
+            return product.UPC;
         }
+
 
     }
 }

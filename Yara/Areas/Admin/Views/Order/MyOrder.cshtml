@@ -95,6 +95,11 @@
                                                                 <div hidden class="Code">@item.Qrcode</div>
                                                                 <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                             </div>
+
+                                                            <div class="form-group">
+                                                                <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
+                                                                <div hidden class="UPCFORPR">@item.UPC</div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                         }
@@ -393,6 +398,41 @@
             }
         });
     </script> *@
+    <script>
+        function updateQRCode() {
+            $('.QRCodeImage').each(function () {
+                var code = $(this).siblings('.Code').text();
+                if (code) {
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+
+        function updateBar() {
+            $('.BarCodeUPC').each(function () {
+                var upc = $(this).siblings('.UPCFORPR').text();
+                console.log(upc);
+                if (upc) {
+                    $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformation")?text=` + encodeURIComponent(upc));
+                } else {
+                    $(this).attr('src', '');
+                }
+            });
+        }
+    </script>
+    <script>
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
+            updateBar();
+        });
+
+        $(document).ready(function () {
+            updateBar();
+        });
+    </script>
+
 }
 
 

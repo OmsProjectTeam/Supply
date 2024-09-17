@@ -216,7 +216,8 @@ namespace Yara.Areas.Admin.Controllers
             string PurchasePrice,
             string SpecialSalePrice,
             string BondType,
-            string qrCodeSrc)
+            string qrCodeSrc,
+            string bar)
         {
             var htmlContent = new StringBuilder();
 
@@ -232,6 +233,7 @@ namespace Yara.Areas.Admin.Controllers
             htmlContent.AppendFormat("<h3>SpecialSalePrice: {0}</h3>", SpecialSalePrice);
             htmlContent.AppendFormat("<h3>BondType: {0}</h3>", BondType);
             htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
+            htmlContent.AppendFormat("<img src='{0}' alt='Bar Code' />", bar);
             htmlContent.Append("</body></html>");
 
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
@@ -408,6 +410,7 @@ namespace Yara.Areas.Admin.Controllers
                     typesProductId = product.IdTypesProduct,
                     productName = product.ProductName,
                     id = product.IdProductInformation,
+                    m = product.IdProductInformation
                 });
             }
             else
@@ -505,12 +508,6 @@ namespace Yara.Areas.Admin.Controllers
                     }
                 }
 
-
-
-
-
-
-
                 // If no image was found
                 return Json(new { success = false, message = "Image not found." });
             }
@@ -518,6 +515,18 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+        }
+
+
+
+        public async Task<string> GetUPC(int value)
+        {
+
+            var product = await iProductInformation.GetByIdFromViewAsync(value);
+            if (product == null)
+                return "000000000000";
+
+            return product.UPC;
         }
 
 

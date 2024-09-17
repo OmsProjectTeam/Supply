@@ -1065,11 +1065,12 @@
             var SpecialSalePrice = $('#SpecialSalePrice').val();
             var qrCodeSrc = $('#QRCodeImage11').attr('src');
             var bar = $('#BarCode11111111').attr('src');
+            var upc = $('#UPCField').val();
 
             var url1 = '@Url.Action("PrintWareHouseDetails", "Order")';
 
             // ترميز مكونات URI للتعامل مع الأحرف الخاصة
-            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
 
             // إرسال طلب GET للحصول على محتوى الطباعة
             $.get(url, function (data) {
@@ -1300,7 +1301,7 @@
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
             // Encode URI components to handle special characters
-            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');

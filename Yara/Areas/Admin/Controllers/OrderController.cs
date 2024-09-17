@@ -297,31 +297,25 @@ namespace Yara.Areas.Admin.Controllers
     string SpecialSalePrice,
     string BondType,
     string qrCodeSrc,
-    string bar)
-
+    string bar, string upc)
         {
             string photo = string.Empty;
             string PhoneNumber = string.Empty;
             string Address = string.Empty;
             string CompanyName = string.Empty;
 
-
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 
-            // جلب البيانات من iCompanyInformation وتعيينها لقائمة في ViewModel
+            // Fetch company information and set it in the ViewModel
             vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().ToList();
 
-            // إذا كنت تريد الحصول على اسم الشركة الأولى على سبيل المثال
             if (vmodel.ListCompanyInformatione != null && vmodel.ListCompanyInformatione.Any())
             {
                 var company = vmodel.ListCompanyInformatione.FirstOrDefault();
-
-
-                 CompanyName = company.CompanyName;
+                CompanyName = company.CompanyName;
                 PhoneNumber = company.PhoneNumber;
                 photo = company.Photo;
                 Address = company.AddressEn;
-
             }
 
             var htmlContent = new StringBuilder();
@@ -330,22 +324,23 @@ namespace Yara.Areas.Admin.Controllers
             htmlContent.Append("<html><head><title>Print Label</title>");
             htmlContent.Append("<style>");
             htmlContent.Append("body {font-family: Arial, sans-serif; font-size: 12px;}");
-            htmlContent.Append(".label-container { border: 1px solid #000; width: 300px; padding: 10px; box-sizing: border-box; }");
-            htmlContent.Append(".section { margin-bottom: 10px; border: 1px solid #000; padding: 10px; }");
+            htmlContent.Append(".label-container { border: 1px solid #000; width: 231px; padding: 10px; box-sizing: border-box; }");
+            htmlContent.Append(".section { margin-bottom: 10px; border: 1px solid #000; padding: 5px; }");
             htmlContent.Append(".header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #000; }");
-            htmlContent.Append(".logo { width: 60px; height: 60px; }");
-            htmlContent.Append(".text-container { flex-grow: 1; text-align: right; font-size: 16px; }");
-            htmlContent.Append(".address-section, .product-details { margin-top: 10px; }");
-            htmlContent.Append(".barcode { display: block; margin: 10px auto; width: 250px; height: 40px; }");
-            htmlContent.Append(".footer { display: flex; justify-content: space-between; align-items: center; padding-top: 5px; border-top: 1px solid #000; }");
-            htmlContent.Append(".qr-code { width: 80px; height: 80px; margin-right: 10px; }");
+            htmlContent.Append(".logo { width: 50px; height: 50px; }");
+            htmlContent.Append(".text-container { flex-grow: 1; text-align: right; font-size: 14px; }");
+            htmlContent.Append(".address-section, .product-details { margin-top: 10px; font-size: 12px; }");
+            htmlContent.Append(".footer { display: flex; flex-direction: column; align-items: center; padding-top: 5px; border-top: 1px solid #000; }");
+            htmlContent.Append(".qr-code { width: 80px; height: 80px; margin-bottom: 5px; }");
+            htmlContent.Append(".barcode { width: 180px; height: 40px; margin-top: 5px; }");
+            htmlContent.Append(".upc { text-align: center; margin-top: 5px; font-size: 14px; }");
             htmlContent.Append("</style>");
             htmlContent.Append("</head><body>");
 
             // Container for the label
             htmlContent.Append("<div class='label-container'>");
 
-            // Header with Logo and Priority Mail text
+            // Header with Logo and Company Name text
             htmlContent.Append("<div class='header'>");
             htmlContent.AppendFormat("<img class='logo' src='/Images/Home/{0}' alt='Company Logo' />", photo);
             htmlContent.AppendFormat("<div class='text-container'>{0}™</div>", CompanyName);
@@ -357,25 +352,34 @@ namespace Yara.Areas.Admin.Controllers
             htmlContent.AppendFormat("<p>WareHouse#: {0}</p>", WareHouse);
             htmlContent.AppendFormat("<p>Warehouse Branch: {0}</p>", WareHouseBranch);
             htmlContent.AppendFormat("<p>Purchase Order #: {0}</p>", PurchaseOrderNoumber);
-        
             htmlContent.Append("</div>");
 
             // Product Details Section
             htmlContent.Append("<div class='section product-details'>");
             htmlContent.AppendFormat("<p>Product: {0}</p>", ProductInformation);
             htmlContent.AppendFormat("<p>Selling Price: {0}</p>", sellingPrice);
-            //htmlContent.AppendFormat("<p>Quantity In: {0}</p>", QouantityIn);
-            //htmlContent.AppendFormat("<p>Purchase Price: {0}</p>", PurchasePrice);
-          /*  htmlContent.AppendFormat("<p>Special Sale Price: {0}</p>", SpecialSalePrice)*/;
-            //htmlContent.AppendFormat("<p>Bond Type: {0}</p>", BondType);
             htmlContent.Append("</div>");
 
-            // QR Code and Barcode in Footer
+            // QR Code, Barcode, and UPC in Footer
             htmlContent.Append("<div class='section footer'>");
+
+            // QR code on top
             htmlContent.AppendFormat("<img class='qr-code' src='{0}' alt='QR Code' />", qrCodeSrc);
+
+            // Barcode in the middle
             htmlContent.AppendFormat("<img class='barcode' src='{0}' alt='Barcode' />", bar);
 
-            htmlContent.Append("</div>");
+            // Display UPC number directly under the barcode
+            if (!string.IsNullOrEmpty(upc))
+            {
+                htmlContent.AppendFormat("<div class='upc'>{0}</div>", upc);
+            }
+            else
+            {
+                htmlContent.Append("<div class='upc'>UPC: N/A</div>");
+            }
+
+            htmlContent.Append("</div>"); // End of footer section
 
             // Close container div
             htmlContent.Append("</div>");
@@ -386,6 +390,7 @@ namespace Yara.Areas.Admin.Controllers
             // Return the formatted content as an HTML page
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
+
 
 
 

@@ -23,9 +23,10 @@ namespace Yara.Areas.Admin.Controllers
         IIWareHouseBranch iWareHouseBranch;
         MasterDbcontext dbcontext;
         IIBrandName iBrandName;
+        IICompanyInformation iCompanyInformation;
 
         public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
-            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1)
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -37,6 +38,7 @@ namespace Yara.Areas.Admin.Controllers
             iWareHouseBranch = iWareHouseBranch1;
             dbcontext = dbcontext1;
             iBrandName = iBrandName1;
+            iCompanyInformation = iCompanyInformation1;
         }
         public IActionResult MyOrder()
         {
@@ -208,6 +210,84 @@ namespace Yara.Areas.Admin.Controllers
 
 
 
+
+        //    [HttpGet]
+        //    public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
+        //string PurchaseOrderNoumber, string ProductInformation,
+        //string WareHouseBranch, string sellingPrice,
+        //string QouantityIn,
+        //string PurchasePrice,
+        //string SpecialSalePrice,
+        //string BondType,
+        //string qrCodeSrc,
+        //string bar)
+
+        //    {
+
+
+
+        //        var htmlContent = new StringBuilder();
+
+        //        // Start HTML content with styles
+        //        htmlContent.Append("<html><head><title>Print Label</title>");
+        //        htmlContent.Append("<style>");
+        //        htmlContent.Append("body {font-family: Arial, sans-serif; font-size: 12px;}");
+        //        htmlContent.Append(".label-container { border: 1px solid #000; width: 300px; padding: 10px; box-sizing: border-box; }");
+        //        htmlContent.Append(".section { margin-bottom: 10px; border: 1px solid #000; padding: 10px; }");
+        //        htmlContent.Append(".header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #000; }");
+        //        htmlContent.Append(".logo { width: 60px; height: 60px; }");
+        //        htmlContent.Append(".text-container { flex-grow: 1; text-align: right; font-size: 16px; }");
+        //        htmlContent.Append(".address-section, .product-details { margin-top: 10px; }");
+        //        htmlContent.Append(".barcode { display: block; margin: 10px auto; width: 250px; height: 40px; }");
+        //        htmlContent.Append(".footer { display: flex; justify-content: space-between; align-items: center; padding-top: 5px; border-top: 1px solid #000; }");
+        //        htmlContent.Append(".qr-code { width: 80px; height: 80px; margin-right: 10px; }");
+        //        htmlContent.Append("</style>");
+        //        htmlContent.Append("</head><body>");
+
+        //        // Container for the label
+        //        htmlContent.Append("<div class='label-container'>");
+
+        //        // Header with Logo and Priority Mail text
+        //        htmlContent.Append("<div class='header'>");
+        //        htmlContent.AppendFormat("<img class='logo' src='{0}' alt='Company Logo' />", "/Images/Home/company-logo.png");
+        //        htmlContent.AppendFormat("<div class='text-container'>{0}™</div>", Merchant);
+        //        htmlContent.Append("</div>");
+
+        //        // Address and Order Info
+        //        htmlContent.Append("<div class='section address-section'>");
+        //        htmlContent.AppendFormat("<p>{0}</p>", Merchant);
+        //        htmlContent.AppendFormat("<p>{0}</p>", WareHouse);
+        //        htmlContent.AppendFormat("<p>Purchase Order #: {0}</p>", PurchaseOrderNoumber);
+        //        htmlContent.AppendFormat("<p>Warehouse Branch: {0}</p>", WareHouseBranch);
+        //        htmlContent.Append("</div>");
+
+        //        // Product Details Section
+        //        htmlContent.Append("<div class='section product-details'>");
+        //        htmlContent.AppendFormat("<p>Product: {0}</p>", ProductInformation);
+        //        htmlContent.AppendFormat("<p>Selling Price: {0}</p>", sellingPrice);
+        //        htmlContent.AppendFormat("<p>Quantity In: {0}</p>", QouantityIn);
+        //        htmlContent.AppendFormat("<p>Purchase Price: {0}</p>", PurchasePrice);
+        //        htmlContent.AppendFormat("<p>Special Sale Price: {0}</p>", SpecialSalePrice);
+        //        htmlContent.AppendFormat("<p>Bond Type: {0}</p>", BondType);
+        //        htmlContent.Append("</div>");
+
+        //        // QR Code and Barcode in Footer
+        //        htmlContent.Append("<div class='section footer'>");
+        //        htmlContent.AppendFormat("<img class='qr-code' src='{0}' alt='QR Code' />", qrCodeSrc);
+        //        htmlContent.AppendFormat("<img class='barcode' src='{0}' alt='Barcode' />", bar);
+        //        htmlContent.Append("</div>");
+
+        //        // Close container div
+        //        htmlContent.Append("</div>");
+
+        //        // End HTML content
+        //        htmlContent.Append("</body></html>");
+
+        //        // Return the formatted content as an HTML page
+        //        return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
+        //    }
+
+
         [HttpGet]
         public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
     string PurchaseOrderNoumber, string ProductInformation,
@@ -218,7 +298,32 @@ namespace Yara.Areas.Admin.Controllers
     string BondType,
     string qrCodeSrc,
     string bar)
+
         {
+            string photo = string.Empty;
+            string PhoneNumber = string.Empty;
+            string Address = string.Empty;
+            string CompanyName = string.Empty;
+
+
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+
+            // جلب البيانات من iCompanyInformation وتعيينها لقائمة في ViewModel
+            vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().ToList();
+
+            // إذا كنت تريد الحصول على اسم الشركة الأولى على سبيل المثال
+            if (vmodel.ListCompanyInformatione != null && vmodel.ListCompanyInformatione.Any())
+            {
+                var company = vmodel.ListCompanyInformatione.FirstOrDefault();
+
+
+                 CompanyName = company.CompanyName;
+                PhoneNumber = company.PhoneNumber;
+                photo = company.Photo;
+                Address = company.AddressEn;
+
+            }
+
             var htmlContent = new StringBuilder();
 
             // Start HTML content with styles
@@ -242,32 +347,34 @@ namespace Yara.Areas.Admin.Controllers
 
             // Header with Logo and Priority Mail text
             htmlContent.Append("<div class='header'>");
-            htmlContent.AppendFormat("<img class='logo' src='{0}' alt='Company Logo' />", "/Images/Home/company-logo.png");
-            htmlContent.AppendFormat("<div class='text-container'>{0}™</div>", Merchant);
+            htmlContent.AppendFormat("<img class='logo' src='/Images/Home/{0}' alt='Company Logo' />", photo);
+            htmlContent.AppendFormat("<div class='text-container'>{0}™</div>", CompanyName);
             htmlContent.Append("</div>");
 
             // Address and Order Info
             htmlContent.Append("<div class='section address-section'>");
-            htmlContent.AppendFormat("<p>{0}</p>", Merchant);
-            htmlContent.AppendFormat("<p>{0}</p>", WareHouse);
-            htmlContent.AppendFormat("<p>Purchase Order #: {0}</p>", PurchaseOrderNoumber);
+            htmlContent.AppendFormat("<p>Merchant#: {0}</p>", Merchant);
+            htmlContent.AppendFormat("<p>WareHouse#: {0}</p>", WareHouse);
             htmlContent.AppendFormat("<p>Warehouse Branch: {0}</p>", WareHouseBranch);
+            htmlContent.AppendFormat("<p>Purchase Order #: {0}</p>", PurchaseOrderNoumber);
+        
             htmlContent.Append("</div>");
 
             // Product Details Section
             htmlContent.Append("<div class='section product-details'>");
             htmlContent.AppendFormat("<p>Product: {0}</p>", ProductInformation);
             htmlContent.AppendFormat("<p>Selling Price: {0}</p>", sellingPrice);
-            htmlContent.AppendFormat("<p>Quantity In: {0}</p>", QouantityIn);
-            htmlContent.AppendFormat("<p>Purchase Price: {0}</p>", PurchasePrice);
-            htmlContent.AppendFormat("<p>Special Sale Price: {0}</p>", SpecialSalePrice);
-            htmlContent.AppendFormat("<p>Bond Type: {0}</p>", BondType);
+            //htmlContent.AppendFormat("<p>Quantity In: {0}</p>", QouantityIn);
+            //htmlContent.AppendFormat("<p>Purchase Price: {0}</p>", PurchasePrice);
+          /*  htmlContent.AppendFormat("<p>Special Sale Price: {0}</p>", SpecialSalePrice)*/;
+            //htmlContent.AppendFormat("<p>Bond Type: {0}</p>", BondType);
             htmlContent.Append("</div>");
 
             // QR Code and Barcode in Footer
             htmlContent.Append("<div class='section footer'>");
             htmlContent.AppendFormat("<img class='qr-code' src='{0}' alt='QR Code' />", qrCodeSrc);
             htmlContent.AppendFormat("<img class='barcode' src='{0}' alt='Barcode' />", bar);
+
             htmlContent.Append("</div>");
 
             // Close container div
@@ -279,7 +386,6 @@ namespace Yara.Areas.Admin.Controllers
             // Return the formatted content as an HTML page
             return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
         }
-
 
 
 

@@ -104,7 +104,7 @@
 
             </div>
         </div>
-      
+
         <div class="col-lg-6 col-xs-12">
             <div class="box-content card white">
                 <h4 class="box-title">@ResourceWeb.LBAddOrder</h4>
@@ -164,11 +164,11 @@
 
 
                         <div class="row small-spacing">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation150"></select>
-                                <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
+                                    <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -265,38 +265,38 @@
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
                                     <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-6">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>product UPC</label>
+                                    <input id="UPCField" readonly type="text" class="form-control" />
+                                </div>
+                            </div>
+
+
                             <div class="form-group">
-                                <label>product UPC</label>
-                                <input id="UPCField" readonly type="text" class="form-control" />
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Barcode:</label>
-                            <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
+                                <label>Barcode:</label>
+                                <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
                                 <p id="UPCProduct"></p>
-                        </div>
+                            </div>
 
-                        
-@*                         <div class="col-sm-6">
+
+                            @*                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
-                                <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
-                                <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
+                            <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
+                            <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
+                            <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
                             </div>
-                        </div> *@
+                            </div> *@
 
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
-                                <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
+                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -315,7 +315,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                     </form>
                 </div>
@@ -587,7 +587,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
-                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="MyProduct" readonly >
+                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="MyProduct" readonly>
                                     <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
                                     <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
                                 </div>
@@ -619,29 +619,29 @@
                                 </div>
                             </div>
 
-                        <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
+                                    <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea  asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
-                                <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                                </div>
                             </div>
                         </div>
-
-
-                    </div>
-                    <div class="col-sm-6">
                         <div class="form-group">
-                            <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
-                            <div>
-                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Barcode:</label>
-                        <img id="BarCode0936" src="" alt="Bar Code" class="img-fluid" />
+                            <label>Barcode:</label>
+                            <img id="BarCode0936" src="" alt="Bar Code" class="img-fluid" />
                             <p id="BarCodeNo"></p>
-                    </div>
+                        </div>
 
                         <!-- Image Upload and Display Section -->
                         <div class="form-group">
@@ -1454,10 +1454,10 @@
             });
         });
 
-    </script> 
+    </script>
 
     <script>
-        
+
 
         function CreateBarCode(text) {
             const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
@@ -1496,7 +1496,7 @@
 
 
 
-        
+
 
     </script>
 
@@ -1570,7 +1570,7 @@
         });
     </script>
 
-    
+
 }
 
 

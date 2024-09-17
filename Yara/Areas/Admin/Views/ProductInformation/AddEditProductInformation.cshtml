@@ -91,7 +91,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                        <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Code"></textarea>
+                                        <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="CodeQR"></textarea>
                                         <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -107,6 +107,7 @@
                             <div class="form-group">
                                 <label>Barcode:</label>
                                 <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                                <p id="BarCodeNo"></p>
                             </div>
 
 
@@ -185,6 +186,42 @@
 
 
     <script>
+
+        function updateQRCodeForAddProductInformation() {
+            var code = $('#CodeQR').val();
+            if (code) {
+                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+            } else {
+                $('#QRCodeImage').attr('src', '');
+            }
+        }
+
+        function generateRandomString(length) {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var result = '';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        function updateCodeFieldForProductInformation() {
+            var Category = $('#SelectCategory option:selected').text();
+            var TypesProduct = $('#SelectTypesProduct option:selected').text();
+            var Product = $('#ProductName').val() || "No Name";
+            var Model = $('#modelInput').val();
+            var UPC = $('#UPC').val();
+
+            var randomString = generateRandomString(5);
+
+            if (Category && TypesProduct && Product && Model && UPC) {
+                var code = randomString + Category + TypesProduct + Product + Model + UPC;
+                $('#CodeQR').val(code);
+                updateQRCodeForAddProductInformation(); // Update QR code when code is updated
+            }
+        }
+
         function CreateBarCode(text) {
             const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
@@ -198,6 +235,7 @@
                     if (data) {
                         var imageUrl = URL.createObjectURL(data);
                         $('#BarCode').attr('src', imageUrl);
+                        $('#BarCodeNo').text(text);
                     } else {
                         console.error("Error generating barcode.");
                     }
@@ -213,12 +251,10 @@
                 console.log("UPC value changed");
                 var upc = this.value;
                 CreateBarCode(upc);
+                updateCodeFieldForProductInformation();
             });
 
-             $("#modelInput").on("change", function () {
-
-            console.log("dzsgvdsdfshnhnjndngdgjkm");
-
+            $("#modelInput").on("change", function () {
             var model = $(this).val(); 
            
             if (model) {
@@ -250,6 +286,12 @@
 
     </script>
 
+
+
+
+
+
+
     <script>
         // Function to load a local file and display it
         var loadFile = function (event) {
@@ -259,76 +301,41 @@
 
        
 
-        function generateRandomString(length) {
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var result = '';
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
-        }
+
 
         // Function to update the Code field
-        function updateCodeFieldForProductInformation() {
-            var Category = $('#SelectCategory option:selected').text();
-            var TypesProduct = $('#SelectTypesProduct option:selected').text();
-            var Product = $('#ProductName').val();
-            var Model = $('#modelInput').val();
-            var UPC = $('#UPC').val();
 
-            var randomString = generateRandomString(5);
-
-            if (Category && TypesProduct && Product && Model && UPC) {
-                var code = randomString + Category + TypesProduct + Product + Model + UPC;
-                $('#Code').val(code);
-                updateQRCodeForAddProductInformation(); // Update QR code when code is updated
-            }
-        }
 
         // Bind change events to WareHouseType and Description fields
         $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
             updateCodeFieldForProductInformation();
         });
 
-        // Update the QR code image
-        function updateQRCodeForAddProductInformation() {
-            var code = $('#Code').val();
-            if (code) {
-                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-            } else {
-                $('#QRCodeImage').attr('src', '');
-            }
-        }
-
-        // Bind change event to Code field to update QR code
         $(document).ready(function () {
-            $('#Code').on('change', function () {
-                var code = $('#Code').val(); // احصل على قيمة حقل الإدخال
-                $('#QRCode').val(code); // تحديث قيمة الـ textarea
+            $('#UPC').on('keyup change', function () {
+                var code = $('#CodeQR').val();
+                $('#QRCode').val(code);
             });
         });
 
         function printWarehouseDetails() {
             var Category = $('#SelectCategory option:selected').text();
             var TypesProduct = $('#SelectTypesProduct option:selected').text();
-            var Product = $('#ProductName').val();
+            var Product = $('#ProductName').val() || "No Name";
             var Model = $('#modelInput').val();
             var UPC = $('#UPC').val();
             var qrCodeSrc = $('#QRCodeImage').attr('src');
+            var bar = $('#BarCode').attr('src');
 
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
-            // Encode URI components to handle special characters
-            url = ${ url }?Category = ${ encodeURIComponent(Category) }& TypesProduct=${ encodeURIComponent(TypesProduct) }& Product=${ encodeURIComponent(Product) }& Model=${ encodeURIComponent(Model) }& UPC=${ encodeURIComponent(UPC) }& qrCodeSrc=${ encodeURIComponent(qrCodeSrc) };
-
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');
                 printWindow.document.open();
                 printWindow.document.write(data);
                 printWindow.document.close();
 
-                // Ensure the image is fully loaded before printing
                 printWindow.onload = function () {
                     printWindow.print();
                 };
@@ -337,7 +344,6 @@
             });
         }
 
-        // Set the URL of the form to the current page URL
         $("#url").val(window.location.href);
     </script>
 

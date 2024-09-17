@@ -1,5 +1,6 @@
 ﻿
 using HtmlAgilityPack;
+using System.Net;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -140,6 +141,23 @@ namespace Yara.Areas.Admin.Controllers
                 return await httpClient.GetStringAsync(url);
             }
         }
+
+        public IActionResult test(string model)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            WebRequest wreq = WebRequest.Create("https://www.lowes.com/search?searchTerm=" + model);
+            HttpWebResponse wresp = (HttpWebResponse)wreq.GetResponse();
+            Stream dStream = wresp.GetResponseStream();
+            StreamReader rdr = new StreamReader(dStream);
+            string respStr = rdr.ReadToEnd();
+            ViewBag.Model = respStr;
+            return View();
+
+
+        }
+
     }
 
 }

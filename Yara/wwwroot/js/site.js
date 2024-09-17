@@ -31,8 +31,22 @@ function updateQRCode() {
         }
     });
 }
+
+function updateBar() {
+    $('.BarCodeUPC').each(function () {
+        var upc = $(this).siblings('.UPCFORPR').text();
+        console.log(upc);
+        if (upc) {
+            $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformation")?text=` + encodeURIComponent(upc));
+        } else {
+            $(this).attr('src', '');
+        }
+    });
+}
+
 $(document).ready(function () {
     updateQRCode();
+    updateBar();
     // Function to truncate text to a specified length
     function truncateText(text, maxLength) {
         if (text.length > maxLength) {

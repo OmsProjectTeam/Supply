@@ -28,12 +28,12 @@ namespace Infarstuructre.BL
         Task<bool> DELETPHOTOAsync(int id);
         Task<bool> DELETPHOTOWITHERRORAsync(string name);
     }
-    public class CLSTBProductInformation: IIProductInformation
+    public class CLSTBProductInformation : IIProductInformation
     {
         MasterDbcontext dbcontext;
         public CLSTBProductInformation(MasterDbcontext dbcontext1)
         {
-            dbcontext= dbcontext1;
+            dbcontext = dbcontext1;
         }
         public List<TBViewProductInformation> GetAll()
         {
@@ -246,8 +246,8 @@ namespace Infarstuructre.BL
         }
         public async Task<bool> DELETPHOTOAsync(int id)
         {
-             var result = DELETPHOTO(id);
-             return result;
+            var result = DELETPHOTO(id);
+            return result;
         }
         public async Task<bool> DELETPHOTOWITHERRORAsync(string name)
         {

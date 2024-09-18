@@ -104,7 +104,7 @@
 
             </div>
         </div>
-      
+
         <div class="col-lg-6 col-xs-12">
             <div class="box-content card white">
                 <h4 class="box-title">@ResourceWeb.LBAddOrder</h4>
@@ -164,11 +164,13 @@
 
 
                         <div class="row small-spacing">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation150"></select>
-                                <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
+                                    <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
+
 
                                 </div>
                             </div>
@@ -265,38 +267,40 @@
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
                                     <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-6">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>product UPC</label>
+                                    <input id="UPCField" readonly type="text" class="form-control" />
+                                </div>
+                            </div>
+
+
+
                             <div class="form-group">
-                                <label>product UPC</label>
-                                <input id="UPCField" readonly type="text" class="form-control" />
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Barcode:</label>
-                            <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
+                                <label>Barcode:</label>
+                                <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
                                 <p id="UPCProduct"></p>
-                        </div>
+                            </div>
 
-                        
-@*                         <div class="col-sm-6">
+
+
+                            @*                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
-                                <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
-                                <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
+                            <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
+                            <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
+                            <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
 
                             </div>
-                        </div> *@
+                            </div> *@
 
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
-                                <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
+                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -315,7 +319,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                     </form>
                 </div>
@@ -587,7 +591,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
-                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="MyProduct" readonly >
+                                    <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="MyProduct" readonly>
                                     <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
                                     <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
                                 </div>
@@ -619,29 +623,31 @@
                                 </div>
                             </div>
 
-                        <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                    <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
+                                    <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
-                                <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                <textarea  asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Codeeee"></textarea>
-                                <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                                </div>
                             </div>
                         </div>
 
-
-                    </div>
-                    <div class="col-sm-6">
                         <div class="form-group">
-                            <img id="QRCodeImage123" src="" alt="QR Code" class="img-fluid" />
-                            <div>
-                                <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Barcode:</label>
-                        <img id="BarCode0936" src="" alt="Bar Code" class="img-fluid" />
+                            <label>Barcode:</label>
+                            <img id="BarCode0936" src="" alt="Bar Code" class="img-fluid" />
                             <p id="BarCodeNo"></p>
-                    </div>
+                        </div>
+
 
                         <!-- Image Upload and Display Section -->
                         <div class="form-group">
@@ -711,6 +717,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </div>
 </div>
 
@@ -1063,10 +1072,14 @@
             var qrCodeSrc = $('#QRCodeImage11').attr('src');
             var bar = $('#BarCode11111111').attr('src');
 
+            var upc = $('#UPCField').val();
+
+
             var url1 = '@Url.Action("PrintWareHouseDetails", "Order")';
 
             // ترميز مكونات URI للتعامل مع الأحرف الخاصة
-            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
+
 
             // إرسال طلب GET للحصول على محتوى الطباعة
             $.get(url, function (data) {
@@ -1274,7 +1287,9 @@
 
             var randomString = generateRandomStringrr(5);
 
-            if (Category && TypesProduct  && UPC) {
+
+            if (Category && TypesProduct && UPC) {
+
                 var code = randomString + Category + TypesProduct + Product + Model + UPC;
                 console.log(code);
                 console.log("codeeeeeeeeee");
@@ -1297,7 +1312,9 @@
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
             // Encode URI components to handle special characters
-            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
+
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');
@@ -1314,8 +1331,10 @@
             });
         }
 
-            $('#UPC12').on('change keyup', function () {
-                console.log("تغير ال يو بي سي");
+
+        $('#UPC12').on('change keyup', function () {
+            console.log("تغير ال يو بي سي");
+
             updateCodeFieldmodal();
         });
 
@@ -1454,10 +1473,10 @@
             });
         });
 
-    </script> 
+    </script>
 
     <script>
-        
+
 
         function CreateBarCode(text) {
             const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
@@ -1499,6 +1518,7 @@
         
 
     </script>
+
 
     <script>
         function CreateBarCode1(text) {
@@ -1569,8 +1589,6 @@
 
         });
     </script>
-
-    
 }
 
 

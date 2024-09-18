@@ -1,35 +1,27 @@
 ﻿
 $(function () {
-    // Array of table IDs to initialize DataTables on
-    var tableIds = ["example", "example1", "example2", "example3", "example4", "example5", "example6", "example7"];
-
-    // Loop through each table ID and initialize DataTable
-    $.each(tableIds, function (index, tableId) {
-        // Destroy any existing DataTable instance on this table
-        $("#" + tableId).DataTable().fnDestroy();
-
-        // Initialize DataTable with options
-        $('#' + tableId).DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
-        });
+    $("#example2").DataTable().fnDestroy();
+    $('#example2').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
     });
-}
-);
+});
 
-function updateQRCode() {
-    $('.QRCodeImage').each(function () {
-        var code = $(this).siblings('.Code').text();
-        if (code) {
-            $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-        } else {
-            $(this).attr('src', '');
-        }
+$(function () {
+    $("#example3").DataTable().fnDestroy();
+    $('#example3').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
     });
+<<<<<<< Updated upstream
 }
 
 function updateBar() {
@@ -47,6 +39,35 @@ function updateBar() {
 $(document).ready(function () {
     updateQRCode();
     updateBar();
+=======
+});
+
+$(function () {
+    $("#example5").DataTable().fnDestroy();
+    $('#example5').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
+
+$(function () {
+    $("#example7").DataTable().fnDestroy();
+    $('#example7').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
+
+$(document).ready(function () {
+>>>>>>> Stashed changes
     // Function to truncate text to a specified length
     function truncateText(text, maxLength) {
         if (text.length > maxLength) {
@@ -55,7 +76,6 @@ $(document).ready(function () {
             return text;
         }
     }
-
     // Loop through each table cell with class 'truncate-50'
     $('.truncate-50').each(function () {
         var text = $(this).text(); // Get the text content of the cell

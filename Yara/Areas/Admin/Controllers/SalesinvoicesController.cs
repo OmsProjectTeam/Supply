@@ -1,18 +1,16 @@
 ﻿
 
-using Microsoft.EntityFrameworkCore;
 using System.Drawing.Imaging;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using ZXing.QrCode;
 using ZXing;
-using System.Text.RegularExpressions;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Yara.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class OrderController : Controller
+    public class SalesinvoicesController : Controller
     {
         IIOrder iOrder;
         IIBondType iBondType;
@@ -24,8 +22,7 @@ namespace Yara.Areas.Admin.Controllers
         IIWareHouseBranch iWareHouseBranch;
         MasterDbcontext dbcontext;
         IIBrandName iBrandName;
-
-        public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
+        public SalesinvoicesController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
             IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1)
         {
             iOrder = iOrder1;
@@ -39,19 +36,18 @@ namespace Yara.Areas.Admin.Controllers
             dbcontext = dbcontext1;
             iBrandName = iBrandName1;
         }
-        public IActionResult MyOrder()
+        public IActionResult MySalesinvoices()
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
             return View(vmodel);
         }
-        public IActionResult AddOrder(int? IdPurchaseOrder)
+        public IActionResult AddSalesinvoices(int? IdPurchaseOrder)
         {
             ViewBag.BrandName = iBrandName.GetAll();
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
-
             ViewBag.BondType = iBondType.GetAll();
             ViewBag.Merchants = iMerchants.GetAll();
             ViewBag.ProductCategory = iProductCategory.GetAll();
@@ -72,13 +68,10 @@ namespace Yara.Areas.Admin.Controllers
                 return View(vmodel);
             }
         }
-
         public IActionResult PrepareText()
         {
             return View();
         }
-
-
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBOrder slider, List<IFormFile> Files, string returnUrl)
@@ -112,16 +105,15 @@ namespace Yara.Areas.Admin.Controllers
                     slider.GlobalPrice = 0;
                 if (slider.SpecialSalePrice == null)
                     slider.SpecialSalePrice = 0;
-                if (slider.QuantityOute == null)
-                    slider.QuantityOute = 0;
-
+                if (slider.QuantityIn == null)
+                    slider.QuantityIn = 0;
                 if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
                 {
                     var reqwest = iOrder.saveData(slider);
                     if (reqwest == true)
                     {
                         TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-                        return RedirectToAction("MyOrder");
+                        return RedirectToAction("MySalesinvoices");
                     }
                     else
                     {
@@ -135,7 +127,7 @@ namespace Yara.Areas.Admin.Controllers
                     if (reqestUpdate == true)
                     {
                         TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-                        return RedirectToAction("MyOrder");
+                        return RedirectToAction("MySalesinvoices");
                     }
                     else
                     {
@@ -157,19 +149,15 @@ namespace Yara.Areas.Admin.Controllers
             if (reqwistDelete == true)
             {
                 TempData["Saved successfully"] = ResourceWeb.VLdELETESuccessfully;
-                return RedirectToAction("MyOrder");
+                return RedirectToAction("MySalesinvoices");
             }
             else
             {
                 TempData["ErrorSave"] = ResourceWeb.VLErrorDeleteData;
-                return RedirectToAction("MyOrder");
+                return RedirectToAction("MySalesinvoices");
 
             }
-
-
-
         }
-
         public IActionResult GenerateQRCode(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -206,8 +194,6 @@ namespace Yara.Areas.Admin.Controllers
                 }
             }
         }
-
-
         [HttpGet]
         public IActionResult PrintWareHouseDetails(string Merchant, string WareHouse,
             string PurchaseOrderNoumber, string ProductInformation,
@@ -295,7 +281,9 @@ namespace Yara.Areas.Admin.Controllers
                     return Ok(product);
                 }
             }
-            catch(Exception ex) { ex.ToString();
+            catch (Exception ex)
+            {
+                ex.ToString();
 
             }
 
@@ -393,7 +381,7 @@ namespace Yara.Areas.Admin.Controllers
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
         {
             var product = dbcontext.ViewProductInformation
-                         .Where(p => p.Qrcode == productId || p.Model == productId|| p.UPC == productId|| p.ProductName == productId|| p.Make == productId).FirstOrDefault();
+                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId || p.Make == productId).FirstOrDefault();
 
 
             if (product != null)
@@ -528,7 +516,5 @@ namespace Yara.Areas.Admin.Controllers
 
             return product.UPC;
         }
-
-
     }
 }

@@ -271,7 +271,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>QR Code</label>
-                                <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                                @* <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" /> *@
+                                <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" data-url="@Url.Action("GenerateQRCode", "WareHouse")" data-print-url="@Url.Action("PrintWareHouseDetails", "WareHouse")" />
                                 <div>
                                     <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
                                 </div>
@@ -307,10 +308,11 @@
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
 
-    <script src="~/js/custom-scripts.js"></script>
+    <script src="~/js/warehouse.js"></script>
 
-    <script>
+    @* <script>
         $(document).ready(function () {
+            updateQRCodeForAddWareHouse();
             console.log("Document is ready");
             $('.select2_1').select2({
                 placeholder: "Select an option",
@@ -368,12 +370,13 @@
         function printWarehouseDetails() {
             var warehouseType = $('#SelectWareHouseType option:selected').text();
             var description = $('#Description').val();
+            var Code = $('#Code').val();
             var qrCodeSrc = $('#QRCodeImage').attr('src');
 
             var url = '@Url.Action("PrintWareHouseDetails", "WareHouse")';
 
             // Encode URI components to handle special characters
-            url = `${url}?warehouseType=${encodeURIComponent(warehouseType)}&description=${encodeURIComponent(description)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+            url = `${url}?warehouseType=${encodeURIComponent(warehouseType)}&description=${encodeURIComponent(description)}&description=${encodeURIComponent(Code)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');
@@ -392,7 +395,7 @@
 
 
 
-    </script>
+    </script> *@
 }
 
 

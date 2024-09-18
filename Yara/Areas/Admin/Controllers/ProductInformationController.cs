@@ -367,7 +367,7 @@ namespace Yara.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult PrintWareHouseDetails(string Category, string TypesProduct, string Product, string Model, string UPC, string qrCodeSrc)
+        public IActionResult PrintWareHouseDetails(string Category, string TypesProduct, string Product, string Model, string UPC, string qrCodeSrc, string bar)
         {
             var htmlContent = new StringBuilder();
 
@@ -377,7 +377,8 @@ namespace Yara.Areas.Admin.Controllers
             htmlContent.AppendFormat("<h3>Model: {0}</h3>", Model);
             htmlContent.AppendFormat("<h3>Product: {0}</h3>", Product);
             htmlContent.AppendFormat("<h3>UPC: {0}</h3>", UPC);
-            htmlContent.AppendFormat("<img src='{0}' alt='UPC' />", qrCodeSrc);
+            htmlContent.AppendFormat("<img src='{0}' alt='QR Code' />", qrCodeSrc);
+            htmlContent.AppendFormat("<img src='{0}' alt='Bar Code' />", bar);
 
             htmlContent.Append("</body></html>");
 

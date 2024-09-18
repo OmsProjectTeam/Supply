@@ -32,7 +32,7 @@
                                         <li><a href="#tab-progress-4" data-toggle="tab">@ResourceWeb.LbInformaitionOrderProdact</a></li>
                                         <li><a href="#tab-progress-5" data-toggle="tab">@ResourceWeb.LbInformaitionOrderprice</a></li>
                                         <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbOpration</a></li>
-                                       
+
                                     </ul>
                                 </div>
                                 <div class="box-content">
@@ -54,7 +54,7 @@
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
 
-                   
+
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbBondType</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseAuotNoumber</th>
@@ -183,7 +183,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseBranchName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPurchasePrice</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbsellingPrice</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbGlobalPrice</th>                                                
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbGlobalPrice</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbSpecialSalePrice</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbQuantityIn</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbQuantityOute</th>
@@ -247,7 +247,7 @@
                                                                  style="width:100px; height:100px">
                                                         </td>
                                                         <td>@item.ProductName</td>
-                                                      
+
                                                         <td>@item.DataEntry</td>
                                                         <td>@item.DateTimeEntry</td>
                                                         <td>
@@ -302,6 +302,18 @@
 
 @section Scripts
 {
+    <!-- Data Tables -->
+    <script src="~/Admin/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Admin/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
+    <script src="~/Admin/assets/scripts/datatables.demo.min.js"></script>
+    <script src="~/Admin/assets/plugin/form-wizard/prettify.js"></script>
+    <script src="~/Admin/assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
+
+    <script src="~/js/custom-scripts.js"></script>
 
     @* <script>
         $(function () {

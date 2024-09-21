@@ -627,12 +627,21 @@ namespace Yara.Areas.Admin.Controllers
                 var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
                 string priceText = priceNode?.InnerText.Trim();
 
+                //if (string.IsNullOrEmpty(priceText))
+                //{
+                //    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+                //    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+                //    {
+                //        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                //    }
+                //}
+
                 if (string.IsNullOrEmpty(priceText))
                 {
-                    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
-                    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+                    var priceNode1 = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-4xl sui--translate-y-[0.35rem]')]");
+                    if (priceNode1 != null)
                     {
-                        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                        priceText = priceNode1.InnerText.Trim();
                     }
                 }
 

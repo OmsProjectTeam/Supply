@@ -624,7 +624,7 @@ namespace Yara.Areas.Admin.Controllers
                 HtmlWeb web = new HtmlWeb();
                 var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
 
-                var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
+                var priceNode = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-9xl sui--translate-y-[0.5rem]')]");
                 string priceText = priceNode?.InnerText.Trim();
 
                 //if (string.IsNullOrEmpty(priceText))
@@ -774,7 +774,6 @@ namespace Yara.Areas.Admin.Controllers
 
                     return Json(new { success = true, imageUrl, productName });
                 }
-
                 else
                 {
                     // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
@@ -804,9 +803,6 @@ namespace Yara.Areas.Admin.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
-
-
-
         public async Task<string> GetUPC(int value)
         {
 

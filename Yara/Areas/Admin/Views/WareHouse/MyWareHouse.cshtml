@@ -157,22 +157,7 @@
 
 @section Scripts
 {
-    <!-- Data Tables -->
-    <script src="~/Admin/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/Admin/assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
-    <script src="~/Admin/assets/scripts/datatables.demo.min.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/prettify.js"></script>
-    <script src="~/Admin/assets/plugin/form-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="~/Admin/assets/plugin/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/Admin/assets/scripts/form.wizard.init.min.js"></script>
-
-
-
-
-
-    <script>
+  @*   <script>
         function updateQRCode() {
             $('.QRCodeImage').each(function () {
                 var code = $(this).siblings('.Code').text();
@@ -183,19 +168,38 @@
                 }
             });
         }
-
-
-
-
     </script>
     <script>
         $(document).on('click', '.paginate_button', function () {
             updateQRCode();
         });
-    </script>
+    </script> *@
 
+     <script>
+  
+$(document).ready(function () {
+    function updateQRCode() {
+        $('.QRCodeImage').each(function () {
+            var code = $(this).siblings('.Code').text().trim();  // قم بإزالة المسافات الفارغة من النص
+            if (code) {
+                var qrCodeUrl = '@Url.Action("GenerateQRCode", "WareHouse", new { area = "admin" })?text=' + encodeURIComponent(code);
 
-    <script src="~/js/custom-scripts.js"></script>
+                $(this).attr('src', qrCodeUrl);
+            } else {
+                $(this).attr('src', '');  // في حال لم يكن هناك كود
+            }
+        });
+    }
+
+    // تحديث الـ QR Code عند النقر على أزرار التصفح
+    $(document).on('click', '.paginate_button', function () {
+        updateQRCode();
+    });
+
+    // استدعاء التحديث عند تحميل الصفحة
+    updateQRCode();
+});
+</script>
 }
 
 

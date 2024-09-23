@@ -54,7 +54,7 @@ namespace Infarstuructre.ViewModel
 		public string username1 { get; set; }
 		public string PhoneNumber { get; set; }	
 		
-		public string userName { get; set; }
+		//public string userName { get; set; }
 		
 		public List<IdentityRole> Roles { get; set; }
 		public List<VwUser> Users { get; set; }

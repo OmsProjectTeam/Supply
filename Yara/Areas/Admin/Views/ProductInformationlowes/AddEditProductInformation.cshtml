@@ -65,7 +65,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.IdBrandName">@ResourceWeb.LbBrandName</label>
-                                        <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" ></select>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" id="BrandName"></select>
                                         <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -224,14 +224,15 @@
         function updateCodeField() {
             var Category = $('#SelectCategory option:selected').text();
             var TypesProduct = $('#SelectTypesProduct option:selected').text();
+            var BrandName = $('#BrandName option:selected').text();
             var Product = $('#ProductName').val();
             var Model = $('#modelInput').val();
             var UPC = $('#UPC').val();
 
             var randomString = generateRandomString(5);
 
-            if (Category && TypesProduct && Product && Model && UPC) {
-                var code = randomString + Category + TypesProduct + Product + Model + UPC;
+            if (Category && TypesProduct && Product && Model && UPC && BrandName) {
+                var code = randomString + Category + TypesProduct + Product + Model + UPC + BrandName;
                 $('#Code').val(code);
                 updateQRCode(); // Update QR code when code is updated
             }
@@ -263,6 +264,7 @@
         function printWarehouseDetails() {
             var Category = $('#SelectCategory option:selected').text();
             var TypesProduct = $('#SelectTypesProduct option:selected').text();
+            var BrandName = $('#BrandName option:selected').text();
             var Product = $('#ProductName').val();
             var Model = $('#modelInput').val();
             var UPC = $('#UPC').val();
@@ -273,7 +275,7 @@
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
             // Encode URI components to handle special characters
-            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&BrandName=${encodeURIComponent(BrandName)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');

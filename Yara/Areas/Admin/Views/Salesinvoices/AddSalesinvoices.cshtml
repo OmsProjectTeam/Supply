@@ -164,13 +164,11 @@
 
 
                         <div class="row small-spacing">
-
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdProductInformation">@ResourceWeb.lbProductName</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdProductInformation" asp-items="@(new SelectList(ViewBag.ProductInformation, "IdProductInformation", "ProductName"))" id="SelectProductInformation150"></select>
                                     <span asp-validation-for="@Model.Order.IdProductInformation" class="text-danger"></span>
-
 
                                 </div>
                             </div>
@@ -278,13 +276,11 @@
                             </div>
 
 
-
                             <div class="form-group">
                                 <label>Barcode:</label>
                                 <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
                                 <p id="UPCProduct"></p>
                             </div>
-
 
 
                             @*                         <div class="col-sm-6">
@@ -641,13 +637,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label>Barcode:</label>
                             <img id="BarCode0936" src="" alt="Bar Code" class="img-fluid" />
                             <p id="BarCodeNo"></p>
                         </div>
-
 
                         <!-- Image Upload and Display Section -->
                         <div class="form-group">
@@ -717,9 +711,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 </div>
 
@@ -1072,14 +1063,10 @@
             var qrCodeSrc = $('#QRCodeImage11').attr('src');
             var bar = $('#BarCode11111111').attr('src');
 
-            var upc = $('#UPCField').val();
-
-
             var url1 = '@Url.Action("PrintWareHouseDetails", "Order")';
 
             // ترميز مكونات URI للتعامل مع الأحرف الخاصة
-            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
-
+            url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
 
             // إرسال طلب GET للحصول على محتوى الطباعة
             $.get(url, function (data) {
@@ -1287,9 +1274,7 @@
 
             var randomString = generateRandomStringrr(5);
 
-
-            if (Category && TypesProduct && UPC) {
-
+            if (Category && TypesProduct  && UPC) {
                 var code = randomString + Category + TypesProduct + Product + Model + UPC;
                 console.log(code);
                 console.log("codeeeeeeeeee");
@@ -1312,9 +1297,7 @@
             var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
             // Encode URI components to handle special characters
-
-            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
-
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');
@@ -1331,10 +1314,8 @@
             });
         }
 
-
-        $('#UPC12').on('change keyup', function () {
-            console.log("تغير ال يو بي سي");
-
+            $('#UPC12').on('change keyup', function () {
+                console.log("تغير ال يو بي سي");
             updateCodeFieldmodal();
         });
 
@@ -1515,10 +1496,9 @@
 
 
 
-        
+
 
     </script>
-
 
     <script>
         function CreateBarCode1(text) {
@@ -1589,6 +1569,8 @@
 
         });
     </script>
+
+
 }
 
 

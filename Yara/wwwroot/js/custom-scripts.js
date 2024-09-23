@@ -5,70 +5,8 @@ var loadFile = function (event) {
 };
 $("#url").val(window.location.href);
 
-$(function () {
-    $("#example2").DataTable().fnDestroy();
-    $('#example2').DataTable({
-        "paging": false,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-    });
-});
 
-$(function () {
-    $("#example3").DataTable().fnDestroy();
-    $('#example3').DataTable({
-        "paging": false,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-    });
-});
 
-$(function () {
-    $("#example4").DataTable().fnDestroy();
-    $('#example4').DataTable({
-        "paging": false,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-    });
-});
-
-$(function () {
-    $("#example5").DataTable().fnDestroy();
-    $('#example5').DataTable({
-        "paging": false,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-    });
-});
-
-//$(document).ready(function () {
-//    function updateQRCode() {
-//        $('.QRCodeImage').each(function () {
-//            var code = $(this).closest('tr').find('.Cod').text().trim();
-
-//            console.log(code);
-//            if (code) {
-//                console.log(code);
-//                $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-//            } else {
-//                console.log("code");
-//                $(this).attr('src', '');
-//            }
-//        });
-//    }
-//});
 
 $(document).ready(function () {
     // Function to truncate text to a specified length

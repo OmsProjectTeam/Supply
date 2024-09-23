@@ -75,7 +75,8 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
-                                        <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
+                                        <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput" data-url="@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })">
+                                        @* <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput"> *@
                                         <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -98,7 +99,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                                    <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" data-url="@Url.Action("GenerateQRCode", "ProductInformation")" data-print-url="@Url.Action("PrintWareHouseDetails", "ProductInformation")" />
+                                    @* <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" /> *@
                                     <div>
                                         <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
                                     </div>
@@ -106,7 +108,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Barcode:</label>
-                                <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                                <img id="BarCode" src="" alt="Bar Code" class="img-fluid" data-url="@Url.Action("GenerateBarcode", "ProductInformation")" />
+                                @* <img id="BarCode" src="" alt="Bar Code" class="img-fluid" /> *@
                                 <p id="BarCodeNo"></p>
                             </div>
 
@@ -182,10 +185,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> 
 
-     <script src="~/js/custom-scripts.js"></script>
+     <script src="~/js/product-information.js"></script>
 
 
-    <script>
+    @* <script>
 
         function updateQRCodeForAddProductInformation() {
             var code = $('#CodeQR').val();
@@ -299,9 +302,6 @@
             image.src = URL.createObjectURL(event.target.files[0]);
         };
 
-       
-
-
 
         // Function to update the Code field
 
@@ -345,7 +345,5 @@
         }
 
         $("#url").val(window.location.href);
-    </script>
-
-
+    </script> *@
 }

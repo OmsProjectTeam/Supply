@@ -72,7 +72,7 @@
                                                         <td>@item.Code</td>
                                                         <td>
                                                             <div class="form-group">
-                                                                <div class="Code">@item.Code</div>
+                                                                <div hidden class="Code">@item.Code</div>
                                                                 <img class="QRCodeImage img-fluid" src="" alt="QR Code" data-url="@Url.Action("GenerateQRCode", "WareHouse")" />
                                                                 @* <img class="QRCodeImage img-fluid" src="" alt="QR Code" /> *@
 
@@ -161,24 +161,31 @@
 @* <img src="~/images/user gide/TypesOfMessage.png" width="1920" height="1077" /> *@
 @section Scripts
 {
-    <script src="~/js/warehouse-branch.js"></script>
-    @* <script>
-        function updateQRCode() {
-            $('.QRCodeImage').each(function () {
-                var code = $(this).siblings('.Code').text();
-                if (code) {
-                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-                } else {
-                    $(this).attr('src', '');
-                }
-            });
-        }
-    </script>
     <script>
-        $(document).on('click', '.paginate_button', function () {
-            updateQRCode();
+
+$(document).ready(function () {
+    function updateQRCode() {
+        $('.QRCodeImage').each(function () {
+            var code = $(this).siblings('.Code').text().trim();  // قم بإزالة المسافات الفارغة من النص
+            if (code) {
+                var qrCodeUrl = '@Url.Action("GenerateQRCode", "WareHouse", new { area = "admin" })?text=' + encodeURIComponent(code);
+
+                $(this).attr('src', qrCodeUrl);
+            } else {
+                $(this).attr('src', '');  // في حال لم يكن هناك كود
+            }
         });
-    </script> *@
+    }
+
+    // تحديث الـ QR Code عند النقر على أزرار التصفح
+    $(document).on('click', '.paginate_button', function () {
+        updateQRCode();
+    });
+
+    // استدعاء التحديث عند تحميل الصفحة
+    updateQRCode();
+});
+    </script>  
 }
 
 

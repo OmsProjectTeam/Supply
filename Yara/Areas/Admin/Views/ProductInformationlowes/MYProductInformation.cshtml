@@ -82,10 +82,10 @@
                                                         <td class="truncate-50 TypesProduct">@item.TypesProduct</td>
                                                         <td class="truncate-50">@item.ProductName</td>
                                                         <td class="truncate-50 Codee">@item.Qrcode</td>
-                                                        <td>
+                                                        <td >
                                                             <div class="form-group">
                                                                 <div hidden class="Code">@item.Qrcode</div>
-                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" style="width:5px; height:5px" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
@@ -280,13 +280,17 @@
             updateQRCode();
             updateBar();
         });
+                $(document).on('input', '.form-control .input-sm', function () {
+            updateQRCode();
+            updateBar();
+        });
 
         $(document).ready(function () {
             updateBar();
         });
     </script>
 
-  
+  //form-control input-sm
 }
 
 

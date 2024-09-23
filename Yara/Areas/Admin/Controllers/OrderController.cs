@@ -624,15 +624,24 @@ namespace Yara.Areas.Admin.Controllers
                 HtmlWeb web = new HtmlWeb();
                 var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
 
-                var priceNode = document.DocumentNode.SelectSingleNode("//div[@class='price-format__large price-format__main-price']");
+                var priceNode = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-9xl sui--translate-y-[0.5rem]')]");
                 string priceText = priceNode?.InnerText.Trim();
+
+                //if (string.IsNullOrEmpty(priceText))
+                //{
+                //    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+                //    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+                //    {
+                //        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                //    }
+                //}
 
                 if (string.IsNullOrEmpty(priceText))
                 {
-                    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
-                    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+                    var priceNode1 = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-4xl sui--translate-y-[0.35rem]')]");
+                    if (priceNode1 != null)
                     {
-                        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                        priceText = priceNode1.InnerText.Trim();
                     }
                 }
 

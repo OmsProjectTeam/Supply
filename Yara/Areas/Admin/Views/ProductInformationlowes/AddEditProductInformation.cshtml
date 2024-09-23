@@ -65,7 +65,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.IdBrandName">@ResourceWeb.LbBrandName</label>
-                                        <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" id="BrandName"></select>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" id="BrandName12"></select>
                                         <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@
         function updateCodeField() {
             var Category = $('#SelectCategory option:selected').text();
             var TypesProduct = $('#SelectTypesProduct option:selected').text();
-            var BrandName = $('#BrandName option:selected').text();
+            var BrandName = $('#BrandName12 option:selected').text();
             var Product = $('#ProductName').val();
             var Model = $('#modelInput').val();
             var UPC = $('#UPC').val();
@@ -239,7 +239,7 @@
         }
 
         // Bind change events to WareHouseType and Description fields
-        $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
+        $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC, #BrandName12').on('change keyup', function () {
             updateCodeField();
         });
 
@@ -264,7 +264,7 @@
         function printWarehouseDetails() {
             var Category = $('#SelectCategory option:selected').text();
             var TypesProduct = $('#SelectTypesProduct option:selected').text();
-            var BrandName = $('#BrandName option:selected').text();
+            var BrandName = $('#BrandName12 option:selected').text();
             var Product = $('#ProductName').val();
             var Model = $('#modelInput').val();
             var UPC = $('#UPC').val();
@@ -272,10 +272,10 @@
 
             var bar = $('#BarCode').attr('src');
 
-            var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
+            var url = '@Url.Action("PrintWareHouseDetails", "ProductInformationlowes")';
 
             // Encode URI components to handle special characters
-            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&BrandName=${encodeURIComponent(BrandName)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&brandName=${encodeURIComponent(BrandName)}`;
 
             $.get(url, function (data) {
                 var printWindow = window.open('', '_blank');

@@ -453,14 +453,14 @@ namespace Yara.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult PrintWareHouseDetails(string Category, string TypesProduct, string Product, string Model, string UPC, string qrCodeSrc,string BrandName)
+        public IActionResult PrintWareHouseDetails(string Category, string TypesProduct, string Product, string Model, string UPC, string qrCodeSrc, string brandName)
         {
             var htmlContent = new StringBuilder();
 
             htmlContent.Append("<html><head><title>Print QR Code</title></head><body>");
             htmlContent.AppendFormat("<h1>Category: {0}</h1>", Category);
             htmlContent.AppendFormat("<h2>Product Type: {0}</h2>", TypesProduct);
-            htmlContent.AppendFormat("<h2>BrandName Type: {0}</h2>", BrandName);
+            htmlContent.AppendFormat("<h2>BrandName Type: {0}</h2>", brandName);
             htmlContent.AppendFormat("<h3>Model: {0}</h3>", Model);
             htmlContent.AppendFormat("<h3>Product: {0}</h3>", Product);
             htmlContent.AppendFormat("<h3>UPC: {0}</h3>", UPC);

@@ -733,12 +733,12 @@
 
 @section Scripts {
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   @*  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- jQuery UI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
 
-    <script>
+   @*  <script>
         $(document).ready(function () {
             let productSelectedFromAutocomplete = false;  // Track whether product is selected from autocomplete
             let typingTimer;  // Timer identifier
@@ -1588,7 +1588,62 @@
             });
 
         });
+    </script>*@
+
+
+
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- jQuery & jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+          
+            $("#product12").autocomplete({
+
+                source: function (request, response) {
+                    console.log("xnxnxnxnxnxnxnx")
+                    $.ajax({
+
+                        url: '@Url.Action("GetProductSuggestions", "Order")', // استبدل YourController باسم الكونترولر الخاص بك
+                        type: 'GET',
+                        data: { query: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.ProductName + ' (' + item.Qrcode + ')',
+                                    value: item.Qrcode
+                                };
+                            }));
+                        },
+                        error: function () {
+                            alert('Error retrieving data');
+                        }
+                    });
+                },
+                minLength: 2, // الحد الأدنى لعدد الأحرف قبل بدء البحث
+                select: function (event, ui) {
+                    // يمكنك إضافة إجراءات عند تحديد عنصر من القائمة
+                    console.log("Selected: " + ui.item.value);
+                }
+            });
+        });
     </script>
-}
+
+
+
+
+
+
+
+
+
+
+
+
+} 
 
 

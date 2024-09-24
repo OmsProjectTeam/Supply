@@ -1710,13 +1710,25 @@
             });
         }
 
+
+        function setPurchase() {
+
+            var selectedValue = $('#SelectBondType option').filter(function () {
+                return $(this).text().startsWith("Purchase");
+            }).val();
+
+            return selectedValue;
+        }
+
         // Function to populate product details after selecting a product
         function populateProductDetails(productDetails) {
-            console.log("populateProductDetails:" + productDetails);
+
+            var set = setPurchase();
+            
             if (productDetails && productDetails.productCategoryId > 0) {
                 $('#ProductName').val(productDetails.model);
                 $('#SelectProductCategory').val(productDetails.productCategoryId).trigger('change');
-                $('#SelectBondType').val(productDetails.bondTypeId).trigger('change');
+                $('#SelectBondType').val(set).trigger('change');
                 $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
                 $('#GlobalPrice').val(productDetails.globalPrice);
                 $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
@@ -1762,7 +1774,6 @@
                         data: { query: request.term },
                         success: function (data) {
                             response($.map(data, function (item) {
-                                console.log(item.model);
                                 return {
                                     label: item.model,
                                     value: item.model
@@ -1774,12 +1785,12 @@
                         }
                     });
                 },
-
                 minLength: 1,
                 select: function (event, ui) {
                     productSelectedFromAutocomplete = true;  // Flag that product was selected from autocomplete
                     $('#product12').val(ui.item.value);// Set selected value in the input box
-                    populateProductDetails(ui.item);  // Populate product details
+                    populateProductDetails(ui.item);
+                    // Populate product details
                     clearTimeout(typingTimer);  // Clear typing timer as selection is made
                     // Ensure product availability check is called just like in manual input
                     checkProductAvailability(ui.item.value);  // Trigger the check
@@ -1807,6 +1818,8 @@
                 clearProductDetails();  // Clear if input length is < 2
             }
         });
+
+
 
     </script>
 

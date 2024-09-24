@@ -43,6 +43,7 @@ namespace Yara.Areas.Admin.Controllers
         }
         #endregion
 
+
         #region Method
         [Authorize(Roles = "Admin,User")]
         public IActionResult Roles()
@@ -133,9 +134,9 @@ namespace Yara.Areas.Admin.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteRole(string Id)
+        public async Task<IActionResult> DeleteRole(string name)
         {
-            var role = _roleManager.Roles.FirstOrDefault(x => x.Id == Id);
+            var role = _roleManager.Roles.FirstOrDefault(x => x.Name == name);
             if ((await _roleManager.DeleteAsync(role)).Succeeded)
             {
                 TempData["Delete successful"] = ResourceWeb.VLDeletesuccessful;
@@ -148,19 +149,17 @@ namespace Yara.Areas.Admin.Controllers
 
             }
         }
+
+
+
+
+
         [Authorize(Roles = "Admin,User")]
         public IActionResult Registers()
         {
-
-
             //ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             //vmodel.ListVwUser = iUserInformation.GetAll();
             //return View(vmodel);
-
-
-
-
-
             var model = new ViewmMODeElMASTER
             {
 
@@ -171,17 +170,12 @@ namespace Yara.Areas.Admin.Controllers
             return View(model);
         }
 
+
         public IActionResult RegistersAr()
         {
-
-
             //ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             //vmodel.ListVwUser = iUserInformation.GetAll();
             //return View(vmodel);
-
-
-
-
 
             var model = new ViewmMODeElMASTER
             {
@@ -201,10 +195,6 @@ namespace Yara.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Registers(RegisterViewModel model)
         {
-
-
-
-
             if (!ModelState.IsValid)
             {
                 var file = HttpContext.Request.Form.Files;
@@ -277,6 +267,8 @@ namespace Yara.Areas.Admin.Controllers
             return RedirectToAction("Registers", "Accounts");
         }
 
+
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
@@ -293,6 +285,7 @@ namespace Yara.Areas.Admin.Controllers
 
             return RedirectToAction("Registers", "Accounts");
         }
+
 
         [AllowAnonymous]
         public IActionResult ChangePassword(string Id)
@@ -332,7 +325,7 @@ namespace Yara.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> ChangePassword1(ViewmMODeElMASTER model1, RegisterViewModel? model)
-        {
+        { 
             var user = await _userManager.FindByIdAsync(model1.sUser.Id);
             if (user != null)
             {
@@ -384,9 +377,9 @@ namespace Yara.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Eamil);
                 var Result = await _signInManager.PasswordSignInAsync(model.Eamil,
@@ -417,15 +410,6 @@ namespace Yara.Areas.Admin.Controllers
                     {
                         // Redirect to AirFreight area with user ID
                         return RedirectToAction("Index", "Home", new { area = "AirFreight", userId = user.Id, token = token });
-                    }
-                    if (string.IsNullOrEmpty(returnUrl))
-                    {
-                        // Token Here
-                        return RedirectToAction("Index", "Home", new { area = "", token = token });
-                    }
-                    else
-                    {
-                        return Redirect($"{returnUrl}?token={token}");
                     }
                 }
 
@@ -754,7 +738,7 @@ namespace Yara.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> RegistersAirFreight(RegisterViewModel model)
-        {
+        { 
             if (!ModelState.IsValid)
             {
                 var file = HttpContext.Request.Form.Files;
@@ -939,7 +923,7 @@ namespace Yara.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEditRolesUser(ViewmMODeElMASTER model)
-        {
+        { 
             if (ModelState.IsValid)
             {
                 var roles = _roleManager.Roles.ToList();

@@ -1,0 +1,47 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = ResourceWeb.LBAddRolesName;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-xs-12">
+    <div class="box-content">
+        <ul class="list-inline">
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddRolesName</button></a></li>
+            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+        </ul>
+        <span style="color:royalblue"><strong>@TempData["Saved successfully"]</strong></span>
+        <span style="color:red"><strong>@TempData["ErrorSave"]</strong></span>
+
+        <div class="row small-spacing">
+            <div class="col-xs-12">
+                <div class="box-content card white">
+                    <h4 class="box-title">@ResourceWeb.LBAddRolesName</h4>
+                    <div class="card-content">
+                        <form role="form" method="post" asp-controller="HtmlAgility" asp-action="MyUrl">
+                            <div class="form-group">
+                                <label for="urlInput">homedepot/</label>
+                                <input type="text" id="urlInput" name="url" placeholder="Enter URL" class="form-control" maxlength="300">
+                               @*  <span asp-validation-for="url" class="text-danger"></span> *@
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                        </form>
+                        <form role="form" method="post" asp-controller="HtmlAgility" asp-action="ListProduct">
+                            <div class="form-group">
+                                <label for="urlInput">Enter URL</label>
+                                <input type="text" id="urlInput" name="url" placeholder="Enter URL" class="form-control" maxlength="300">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Submit</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/custom-scripts.js"></script>
+}

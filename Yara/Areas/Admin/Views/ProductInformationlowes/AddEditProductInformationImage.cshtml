@@ -1,0 +1,565 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = ResourceWeb.LBAddEditProductInformation;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-xs-12">
+    <div class="box-content">
+        <ul class="list-inline">
+            <li class="margin-bottom-10">
+                <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddEditProductInformation</button></a>
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+            </li>
+            <span style="color:royalblue"><strong>@TempData["Saved successfully"]</strong></span>
+            <span style="color:red"><strong>@TempData["ErrorSave"]</strong></span>
+        </ul>
+
+        <div class="row small-spacing">
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-content card white">
+                    <h4 class="box-title">@ResourceWeb.LBAddEditProductInformation</h4>
+                    <div class="card-content">
+                        <form role="form" method="post" asp-controller="ProductInformation" asp-action="Save" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
+                                <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
+                                <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
+                                <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                                <input type="hidden" asp-for="@Model.ProductInformation.Photo" id="imageUrlInput">
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))" id="SelectCategory"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdProductCategory" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdTypesProduct">@ResourceWeb.LbTypesProduct</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdTypesProduct" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
+                                        <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
+                                        <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
+                                        <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdBrandName">@ResourceWeb.LbBrandName</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
+                                        <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
+                                        <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
+                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
+                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                        <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Code"></textarea>
+                                        <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Barcode:</label>
+                                <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                                <p id="BarCodeNo"> </p>
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                                    <div>
+                                        <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Image Upload and Display Section -->
+                            <div class="form-group">
+                                <p>
+                                    <input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;">
+                                </p>
+                                <p>
+                                    <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
+                                </p>
+                                <p>
+                                    @*   <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? "" /> *@
+
+
+                                    <!-- عرض الصورة في الصفحة -->
+                                    <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
+                                    <!-- عرض الصورة في الصفحة -->
+                                    <img id="output" width="450" height="300" src="@Model.ProductInformation.Photo" />
+
+                                    <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
+                                    <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
+
+                                    <!-- سكريبت لتحديث الحقل المخفي عند تغيير الصورة -->
+                                    <script>
+                                        // تحديث قيمة الحقل المخفي بقيمة رابط الصورة عند تحميل الصفحة
+                                        document.getElementById('hiddenPhotoUrl').value = document.getElementById('output').src;
+
+                                        // تحديث قيمة الحقل المخفي عند تغيير الصورة
+                                        function updateHiddenPhotoUrl() {
+                                            var outputImg = document.getElementById('output');
+                                            var hiddenPhotoUrl = document.getElementById('hiddenPhotoUrl');
+                                            hiddenPhotoUrl.value = outputImg.src;
+                                        }
+
+                                        // نداء الدالة لتحديث الحقل المخفي عند تغيير الصورة
+                                        document.getElementById('output').addEventListener('load', updateHiddenPhotoUrl);
+                                    </script>
+
+
+
+
+
+                                </p>
+                                <span style="color:red"><strong>@TempData["Message"]</strong></span>
+                            </div>
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success">
+                                    <input type="checkbox" asp-for="@Model.ProductInformation.Active" id="switch-9" checked="checked">
+                                    <label for="switch-9">@ResourceWeb.LbActive</label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success">
+                                    <input type="checkbox" asp-for="@Model.ProductInformation.CurrentState" id="switch-10" checked="checked">
+                                    <label for="switch-10">@ResourceWeb.lbCurrentState</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-content card white">
+                    <h4 class="box-title">@ResourceWeb.LBAddEditProductInformation</h4>
+
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.ProductInformation.Photo" for="exampleInputEmail1"></input>
+                        <img id="output" width="450" height="300" src="@Model.ProductInformation.Photo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Function to load a local file and display it
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        // Event listener for when the model input field changes
+        $("#modelInput").on("change", function () {
+            var model = $(this).val(); // Get the model input value
+
+            if (model) {
+                $.ajax({
+                    url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })',
+                    type: 'GET',
+                    data: { model: model }, // Send the model as a parameter
+                    success: function (response) {
+                        if (response.success) {
+                            $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
+                            $("#imageUrlInput").val(response.imageUrl); // Set the image URL in the hidden input field
+                        } else {
+                            alert(response.message); // Show an alert if there was an issue fetching the image
+                            $("#output").hide(); // Hide the image element if there's no image to display
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error fetching the image."); // Alert the user about the error
+                        $("#output").hide(); // Hide the image element in case of an error
+                    }
+                });
+            }
+        });
+
+        function generateRandomString(length) {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var result = '';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        // Function to update the Code field
+        function updateCodeField() {
+            var Category = $('#SelectCategory option:selected').text();
+            var TypesProduct = $('#SelectTypesProduct option:selected').text();
+            var Product = $('#ProductName').val();
+            var Model = $('#modelInput').val();
+            var UPC = $('#UPC').val();
+
+            var randomString = generateRandomString(5);
+
+            if (Category && TypesProduct && Product && Model && UPC) {
+                var code = randomString + Category + TypesProduct + Product + Model + UPC;
+                $('#Code').val(code);
+                updateQRCode(); // Update QR code when code is updated
+            }
+        }
+
+        // Bind change events to WareHouseType and Description fields
+        $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC').on('change keyup', function () {
+            updateCodeField();
+        });
+
+        // Update the QR code image
+        function updateQRCode() {
+            var code = $('#Code').val();
+            if (code) {
+                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+            } else {
+                $('#QRCodeImage').attr('src', '');
+            }
+        }
+
+        // Bind change event to Code field to update QR code
+        $(document).ready(function () {
+            $('#Code').on('change', function () {
+                var code = $('#Code').val(); // احصل على قيمة حقل الإدخال
+                $('#QRCode').val(code); // تحديث قيمة الـ textarea
+            });
+        });
+
+        function printWarehouseDetails() {
+            var Category = $('#SelectCategory option:selected').text();
+            var TypesProduct = $('#SelectTypesProduct option:selected').text();
+            var Product = $('#ProductName').val();
+            var Model = $('#modelInput').val();
+            var UPC = $('#UPC').val();
+            var qrCodeSrc = $('#QRCodeImage').attr('src');
+            var bar = $('#BarCode').attr('src');
+
+            var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
+
+            // Encode URI components to handle special characters
+            url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+
+            $.get(url, function (data) {
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write(data);
+                printWindow.document.close();
+
+                // Ensure the image is fully loaded before printing
+                printWindow.onload = function () {
+                    printWindow.print();
+                };
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error: ", textStatus, errorThrown);
+            });
+        }
+
+        // Set the URL of the form to the current page URL
+        $("#url").val(window.location.href);
+    </script>
+
+
+        <script>
+        function CreateBarCode(text) {
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+                },
+                success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+                        $('#BarCode').attr('src', imageUrl);
+                        $('#BarCodeNo').text(text);
+                    } else {
+                        console.error("Error generating barcode.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            var value = document.querySelector('#UPC');
+            CreateBarCode(value);
+        });
+
+
+        $(document).ready(function () {
+            $('#UPC').on('keyup', function () {
+                console.log("UPC value changed");
+                var upc = this.value;
+                CreateBarCode(upc);
+            });
+        });
+
+
+    </script>
+
+
+
+    <!-- Include necessary scripts for Select2 and other plugins -->
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+}
+
+
+
+@* @model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = ResourceWeb.LBAddEditProductInformation;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-xs-12">
+    <div class="box-content">
+        <ul class="list-inline">
+            <li class="margin-bottom-10">
+                <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddEditProductInformation</button></a>
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+            </li>
+            <span style="color:royalblue"><strong>@TempData["Saved successfully"]</strong></span>
+            <span style="color:red"><strong>@TempData["ErrorSave"]</strong></span>
+        </ul>
+
+        <div class="row small-spacing">
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-content card white">
+                    <h4 class="box-title">@ResourceWeb.LBAddEditProductInformation</h4>
+                    <div class="card-content">
+                        <form role="form" method="post" asp-controller="ProductInformation" asp-action="Save" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
+                                <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
+                                <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
+                                <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdProductCategory" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdTypesProduct">@ResourceWeb.LbTypesProduct</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdTypesProduct" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
+                                        <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500">
+                                        <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
+                                        <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Make">@ResourceWeb.lbMake</label>
+                                        <input asp-for="@Model.ProductInformation.Make" type="text" placeholder="@ResourceWeb.lbMake ...." class="form-control" maxlength="100">
+                                        <span asp-validation-for="@Model.ProductInformation.Make" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
+                                        <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
+                                        <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
+                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100">
+                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                        <div class="input-group">
+                                            <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5"></textarea>
+                                            <div class="input-group-append">
+                                                <img src="@Url.Action("GenerateQRCode", new { text = Model.ProductInformation.Qrcode })" alt="QR Code" class="img-fluid" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Image Upload and Display Section -->
+                            <div class="form-group">
+                                <p>
+                                    <input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;">
+                                </p>
+                                <p>
+                                    <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
+                                </p>
+                                <p>
+                                    <img  id="output" width="450" height="300" />
+                                </p>
+                                <span style="color:red"><strong>@TempData["Message"]</strong></span>
+                            </div>
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success">
+                                    <input type="checkbox" asp-for="@Model.ProductInformation.Active" id="switch-9" checked="checked">
+                                    <label for="switch-9">@ResourceWeb.LbActive</label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success">
+                                    <input type="checkbox" asp-for="@Model.ProductInformation.CurrentState" id="switch-10" checked="checked">
+                                    <label for="switch-10">@ResourceWeb.lbCurrentState</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-content card white">
+            <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+
+        </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Function to load a local file and display it
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        // Event listener for when the model input field changes
+        $("#modelInput").on("change", function () {
+            var model = $(this).val(); // Get the model input value
+            console.log("Model input changed");  // Debugging line to confirm the event is firing
+            console.log("Model value:", model);  // Debugging line to log the model value
+
+            if (model) {
+                $.ajax({
+                    url: '@Url.Action("FetchImageByModel", "ProductInformation", new { area = "Admin" })',
+                    type: 'GET',
+                    data: { model: model }, // Send the model as a parameter
+                    success: function (response) {
+                        console.log("AJAX success response:", response); // Debugging line to log the success response
+                        if (response.success) {
+                            $("#output").attr("src", response.imageUrl).show(); // Display the fetched image
+                        } else {
+                            alert(response.message); // Show an alert if there was an issue fetching the image
+                            $("#output").hide(); // Hide the image element if there's no image to display
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("AJAX error:", xhr.responseText);  // Log the error response to the console
+                        alert("Error fetching the image."); // Alert the user about the error
+                        $("#output").hide(); // Hide the image element in case of an error
+                    }
+                });
+            }
+        });
+
+        // Set the URL of the form to the current page URL
+        $("#url").val(window.location.href);
+    </script>
+
+    <!-- Include necessary scripts for Select2 and other plugins -->
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+} *@

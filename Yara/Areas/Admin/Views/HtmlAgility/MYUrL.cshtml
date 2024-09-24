@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "عرض المعلومات";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; // قم بتعديل المسار إذا لزم الأمر
+}
+
+
+
+
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">Error: @ViewBag.Error</p>
+}
+
+@if (ViewBag.ImageUrls != null && ViewBag.ImageUrls.Count > 0)
+{
+    <div>
+        @foreach (var imageUrl in ViewBag.ImageUrls)
+        {
+            <img src="@imageUrl" alt="Product Image" style="height: 250px; width: 250px;" />
+        }
+    </div>
+}
+else
+{
+    <p>No images found.</p>
+}
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">Error: @ViewBag.Error</p>
+}
+@if (ViewBag.html != null)
+{
+    <ul>
+        @foreach (var item in ViewBag.html)
+        {
+            <li>@item</li>
+        }
+    </ul>
+}
+else
+{
+    @if (ViewBag.html1 != null)
+    {
+        <div>
+            <H1>@ViewBag.html1</H1>
+        </div>
+    }
+    else
+    {
+        <p>No data found.</p>
+    }
+}
+
+
+
+
+
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">Error: @ViewBag.Error</p>
+}
+
+
+ <div class="container mt-5">
+        <h1>Product List</h1>
+
+    
+
+        @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>UPC</th>
+                    <th>Quantity</th>
+                    <th>Retail Price</th>
+                    <th>Total Retail Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.ProductName</td>
+                        <td>@product.Make</td>
+                        <td>@product.Model</td>
+                        <td>@product.UPC</td>
+                        <td>@product.Quantity</td>
+                        <td>@product.RetailPrice</td>
+                        <td>@product.TotalRetailPrice</td>
+                    </tr>
+                }
+            </tbody>
+            </table>
+
+            }

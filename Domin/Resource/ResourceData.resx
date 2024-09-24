@@ -330,4 +330,130 @@
   <data name="VlMessageDescription" xml:space="preserve">
     <value>Please include the Message Description for the process to complete successfully...!</value>
   </data>
+  <data name="VlWareHouseTyp" xml:space="preserve">
+    <value>Please include the Ware House type to complete successfully..!</value>
+  </data>
+  <data name="VlProductCategory" xml:space="preserve">
+    <value>Please include the Product Category to complete successfully..!</value>
+  </data>
+  <data name="VlCode1" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="MaxLength200" xml:space="preserve">
+    <value>The number of characters entered must not exceed 200 characters...!</value>
+  </data>
+  <data name="VlMerchantAddres" xml:space="preserve">
+    <value>Please include the Merchant Address to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantEmaile" xml:space="preserve">
+    <value>Please include the Merchant Emaile to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantName" xml:space="preserve">
+    <value>Please include the Merchant Name to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantOnerEmail" xml:space="preserve">
+    <value>Please include the Merchan tOner Email to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantOnerName" xml:space="preserve">
+    <value>Please include the Merchant Oner Name to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantOnerPhone" xml:space="preserve">
+    <value>Please include the Merchant Oner Phone to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantPhone" xml:space="preserve">
+    <value>Please include the Merchant Phone to complete successfully..!</value>
+  </data>
+  <data name="VlMerchantWeb" xml:space="preserve">
+    <value>Please include the Merchant Web to complete successfully..!</value>
+  </data>
+  <data name="VlWareHouseBranch" xml:space="preserve">
+    <value>Please include the Ware House Branch to complete successfully..!</value>
+  </data>
+  <data name="VlTypesProduct" xml:space="preserve">
+    <value>Please include the Types Product to complete successfully..!</value>
+  </data>
+  <data name="VlMerchentsType" xml:space="preserve">
+    <value>Please enter the merchant type or classification for the process to be completed successfully.</value>
+  </data>
+  <data name="VlMake" xml:space="preserve">
+    <value>Please include Make  to complete successfully..!</value>
+  </data>
+  <data name="VlProductName" xml:space="preserve">
+    <value>Please include Product Name to complete successfully..!</value>
+  </data>
+  <data name="VlQrcode" xml:space="preserve">
+    <value>Please include Qrcode  to complete successfully..!</value>
+  </data>
+  <data name="VlUPC" xml:space="preserve">
+    <value>Please include VlUPC  to complete successfully..!</value>
+  </data>
+  <data name="VlModel" xml:space="preserve">
+    <value>Please include the Model to complete successfully..!</value>
+  </data>
+  <data name="VlBondType" xml:space="preserve">
+    <value>Please enter the type of bond for the process to be completed successfully...!</value>
+  </data>
+  <data name="VlPurchaseOrderNoumber" xml:space="preserve">
+    <value>Please enter the bond number to complete the process successfully..!</value>
+  </data>
+  <data name="VlQuantityIn" xml:space="preserve">
+    <value>Please enter the quantity for the process to be completed successfully...!</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VlFollowUpMail" xml:space="preserve">
+    <value>Please include the Follow Up Mail to complete successfully..!</value>
+  </data>
+  <data name="VlSupportTicketStatus" xml:space="preserve">
+    <value>Please include the Support Ticket Status to complete successfully..!</value>
+  </data>
+  <data name="VlSupportTicketType" xml:space="preserve">
+    <value>Please include the Ware Support Ticket Type to complete successfully..!</value>
+  </data>
+  <data name="VlTitel" xml:space="preserve">
+    <value>Please include the Titel to complete successfully..!</value>
+  </data>
+  <data name="VlNewletterGroup" xml:space="preserve">
+    <value>Please include the News letter Group to complete successfully..!</value>
+  </data>
+  <data name="VlTemplateName" xml:space="preserve">
+    <value>Please include Template Name to complete successfully..!</value>
+  </data>
+  <data name="VlTemplateContent" xml:space="preserve">
+    <value>Please include Template Content to complete successfully..!</value>
+  </data>
+  <data name="VlTBNewsletterContent" xml:space="preserve">
+    <value>Please include the News letter Content to complete successfully..!</value>
+  </data>
+  <data name="VlTBNewsletterTitle" xml:space="preserve">
+    <value>Please include the News letter Title to complete successfully..!</value>
+  </data>
+  <data name="VlAddressEn" xml:space="preserve">
+    <value>Please include the Address To complete successfully..!</value>
+  </data>
+  <data name="VLPhoneNumber" xml:space="preserve">
+    <value>Please include the Phone  Number to complete successfully..!</value>
+  </data>
+  <data name="VlShortDescriptionEn" xml:space="preserve">
+    <value>Please include the Short Description To complete successfully..!</value>
+  </data>
+  <data name="VlUrlFaceBook" xml:space="preserve">
+    <value>Please include the FaceBook Url  To complete successfully..!</value>
+  </data>
+  <data name="VlUrlInstgram" xml:space="preserve">
+    <value>Please include the Instgram Url  To complete successfully..!</value>
+  </data>
+  <data name="VlUrlMap" xml:space="preserve">
+    <value>Please include the Url Map  To complete successfully..!</value>
+  </data>
+  <data name="VlUrlTwitter" xml:space="preserve">
+    <value>Please include the Twitter Url  To complete successfully..!</value>
+  </data>
+  <data name="MaxLengthTitel20" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VlBrandName" xml:space="preserve">
+    <value>Please include the Brand Name to complete successfully..!</value>
+  </data>
 </root>

@@ -1,0 +1,231 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = ResourceWeb.LBAddEditMerchants;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-xs-12">
+    <div class="box-content">
+        <ul class="list-inline">
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddEditMerchants</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
+            <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
+        </ul>
+
+        <div class="row small-spacing">
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-content card white">
+                    <h4 class="box-title">@ResourceWeb.LBEmageSise</h4>
+
+                    <div class="card-content">
+                        <form role="form" method="post" asp-controller="Merchants" asp-action="Save" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@Model.Merchants.DataEntry" class="form-control" value="@User.Identity.Name">
+                                <input type="hidden" asp-for="@Model.Merchants.IdMerchants" class="form-control">
+                                <input type="hidden" asp-for="@Model.Merchants.DateTimeEntry" value="@DateTime.Now">
+                                <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                            </div>
+
+                         
+
+                            <div class="card-content">
+                                <div class="row small-spacing">
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.IdUserIdentity" for="merchant-select">@ResourceWeb.LbDescriptionClint</label>
+                                            <select id="merchant-select" class="form-control"
+                                                    asp-for="@Model.Merchants.IdUserIdentity"
+                                                    asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))"
+                                                    data-url="@Url.Action("GetUserDetails", "Merchants")">
+                                            </select>
+                                              @* <select id="merchant-select" class="form-control" asp-for="@Model.Merchants.IdUserIdentity" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))">
+                                             </select>  *@ 
+                                            <span asp-validation-for="@Model.Merchants.IdUserIdentity" class="text-danger"></span>
+                                            <span style="color:red"> <strong>@TempData["MerchantName"]</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantPhone" for="merchantPhone">@ResourceWeb.lbMerchantPhone</label>
+                                            <input asp-for="@Model.Merchants.MerchantPhone" type="text" placeholder="@ResourceWeb.lbMerchantPhone ...." class="form-control">
+                                            <span asp-validation-for="@Model.Merchants.MerchantPhone" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-content">
+                                <div class="row small-spacing">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantEmaile" for="merchantEmail">@ResourceWeb.lbMerchantEmaile</label>
+                                            <input asp-for="@Model.Merchants.MerchantEmaile" type="email" placeholder="@ResourceWeb.lbMerchantEmaile ...." class="form-control">
+                                            <span asp-validation-for="@Model.Merchants.MerchantEmaile" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantAddres" for="exampleInputEmail1">@ResourceWeb.LbMerchantAddres</label>
+                                            <input asp-for="@Model.Merchants.MerchantAddres" type="text" placeholder="@ResourceWeb.LbMerchantAddres ...." class="form-control" maxlength="300"></input>
+                                            <span asp-validation-for="@Model.Merchants.MerchantAddres" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="row small-spacing">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantOnerName" for="exampleInputEmail1">@ResourceWeb.lbMerchantOnerName</label>
+                                            <input asp-for="@Model.Merchants.MerchantOnerName" type="text" placeholder="@ResourceWeb.lbMerchantOnerName ...." class="form-control" maxlength="300">
+                                            <span asp-validation-for="@Model.Merchants.MerchantOnerName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantOnerEmail" for="exampleInputEmail1">@ResourceWeb.lbMerchantOnerEmail</label>
+                                            <input asp-for="@Model.Merchants.MerchantOnerEmail" type="email" placeholder="@ResourceWeb.lbMerchantOnerEmail ...." class="form-control" maxlength="300"></input>
+                                            <span asp-validation-for="@Model.Merchants.MerchantOnerEmail" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-content">
+                                <div class="row small-spacing">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantOnerPhone" for="exampleInputEmail1">@ResourceWeb.lbMerchantOnerPhone</label>
+                                            <input asp-for="@Model.Merchants.MerchantOnerPhone" type="text" placeholder="@ResourceWeb.lbMerchantOnerPhone ...." class="form-control" maxlength="20">
+                                            <span asp-validation-for="@Model.Merchants.MerchantOnerPhone" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Merchants.MerchantWeb" for="exampleInputEmail1">@ResourceWeb.lbMerchantWeb</label>
+                                            <input asp-for="@Model.Merchants.MerchantWeb" type="text" placeholder="@ResourceWeb.lbMerchantWeb ...." class="form-control" maxlength="300">
+                                            <span asp-validation-for="@Model.Merchants.MerchantWeb" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p><input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;"></p>
+                                <p><label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label></p>
+                                <p><img id="output" width="450" height="300" /></p>
+                                <span style="color:red"><strong>@TempData["Message"]</strong></span>
+                            </div>
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success"><input type="checkbox" asp-for="@Model.Merchants.Active" id="switch-9" checked="checked"><label for="switch-9">@ResourceWeb.LbActive</label></div>
+                            </div>
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success"><input type="checkbox" asp-for="@Model.Merchants.CurrentState" id="switch-10" checked="checked"><label for="switch-10">@ResourceWeb.lbCurrentState</label></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/js/merchant.js"></script>
+
+    <script>
+        $("#url").val(window.location.href);
+    </script>
+    @* <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+    <script>
+        $("#url").val(window.location.href);
+    </script> 
+
+    <script>
+        $(document).ready(function () {
+            $('.select2_1').select2({
+                placeholder: "Select an option",
+                allowClear: true
+            });
+
+            $('#merchant-select').change(function () {
+                var userId = $(this).val();
+                if (userId) {
+                    $.getJSON('@Url.Action("GetUserDetails", "Merchants")', { id: userId }, function (data) {
+                        $('input[name="Merchants.CompanyName"]').val(data.companyName);
+                        $('input[name="Merchants.PhoneCompany"]').val(data.phoneCompany);
+                        $('input[name="Merchants.PhoneCompanySecand"]').val(data.phoneCompanySecand);
+                        $('input[name="Merchants.EmailCompany"]').val(data.emailCompany);
+
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        $("#url").val(window.location.href);
+
+        // JavaScript لتحميل الضواحي عند تغيير المدينة
+        $(document).ready(function () {
+            $('#city-select').change(function () {
+                var cityId = $(this).val();
+                if (cityId) {
+                    $.getJSON('@Url.Action("GetAreasByCity", "CityDeliveryTariffs")', { cityId: cityId }, function (data) {
+                        var $areaSelect = $('#area-select');
+                        $areaSelect.empty();
+                        $.each(data, function (index, item) {
+                            $areaSelect.append($('<option>', {
+                                value: item.id,
+                                text: item.description
+                            }));
+                        });
+                    });
+                } else {
+                    $('#area-select').empty();
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#merchant-select').change(function () {
+                var userId = $(this).val();
+                if (userId) {
+                    $.getJSON('@Url.Action("GetUserDetails", "Merchants")', { id: userId }, function (data) {
+                        // تحديث الحقول في النموذج بناءً على البيانات المسترجعة
+                        $('input[name="Merchants.MerchantPhone"]').val(data.merchantPhone);
+                        $('input[name="Merchants.MerchantEmaile"]').val(data.merchantEmaile);
+                    });
+                } else {
+                    // إذا لم يتم تحديد أي مستخدم، يمكنك مسح الحقول أو تعيين قيم افتراضية
+                    $('input[name="Merchants.MerchantPhone"]').val('');
+                    $('input[name="Merchants.MerchantEmaile"]').val('');
+                }
+            });
+        });
+    </script> *@
+}

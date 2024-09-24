@@ -14,29 +14,42 @@ namespace Infarstuructre.BL
     {
         List<IdentityRole> GetAll();
         IdentityRole GetById(string Id);
-    public class CLSRolsInformation: IIRolsInformation
-    {
-        RoleManager<IdentityRole> _roleManager;
+        //////////////////APIs/////////////////////////
+        Task<List<IdentityRole>> GetAlAPIl();
+        Task<IdentityRole> GetByIdAPI(string Id);
 
-        public CLSRolsInformation(RoleManager<IdentityRole> roleManager)
+        public class CLSRolsInformation : IIRolsInformation
         {
-            _roleManager=roleManager;
-        }
-        public List<IdentityRole> GetAll()
-        {
-            List<IdentityRole> MySlider = _roleManager.Roles.OrderBy(x => x.Name).ToList();
-            return MySlider;
-        }
+            RoleManager<IdentityRole> _roleManager;
 
-        public IdentityRole GetById(string Id)
-        {
-            IdentityRole sslid = _roleManager.Roles.FirstOrDefault(a => a.Id == Id);
-            return sslid;
+            public CLSRolsInformation(RoleManager<IdentityRole> roleManager)
+            {
+                _roleManager = roleManager;
+            }
+
+            public List<IdentityRole> GetAll()
+            {
+                List<IdentityRole> MySlider = _roleManager.Roles.OrderBy(x => x.Name).ToList();
+                return MySlider;
+            }
+
+            public IdentityRole GetById(string Id)
+            {
+                IdentityRole sslid = _roleManager.Roles.FirstOrDefault(a => a.Id == Id);
+                return sslid;
+            }
+            ///////////////////////////////APIs//////////////////////////////////////////////
+
+            public async Task<List<IdentityRole>> GetAlAPIl()
+            {
+                var MySlider = await _roleManager.Roles.OrderBy(x => x.Name).ToListAsync();
+                return MySlider;
+            }
+            public async Task<IdentityRole> GetByIdAPI(string Id)
+            {
+                var sslid = await _roleManager.Roles.FirstOrDefaultAsync(a => a.Id == Id);
+                return sslid;
+            }
         }
-
-
-          
-
-        }
-}
+    }
 }

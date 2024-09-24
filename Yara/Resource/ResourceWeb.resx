@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BlMYCompanyInformation" xml:space="preserve">
+    <value>Company Information</value>
+  </data>
   <data name="IdFAQDescreption" xml:space="preserve">
     <value>FAQ Descreption</value>
   </data>
@@ -131,6 +134,12 @@
   </data>
   <data name="LBAddAreaDeliveryTariffs" xml:space="preserve">
     <value>Adding and modifying the pricing of delivery companies for the regions</value>
+  </data>
+  <data name="LBAddBondType" xml:space="preserve">
+    <value>Add and modify the Bond Types</value>
+  </data>
+  <data name="LBAddBrandName" xml:space="preserve">
+    <value>Adding and modifying Brand Name Information</value>
   </data>
   <data name="LBAddCity" xml:space="preserve">
     <value>Adding and modifying city data</value>
@@ -147,8 +156,20 @@
   <data name="LBAddCustomerMessages" xml:space="preserve">
     <value>Add and modify the Customer Messages</value>
   </data>
+  <data name="LBAddEditCompanyInformation" xml:space="preserve">
+    <value>Adding and modifying Company Information</value>
+  </data>
   <data name="LbAddEditInformationCompanies" xml:space="preserve">
     <value>Add and modify company data</value>
+  </data>
+  <data name="LBAddEditMerchants" xml:space="preserve">
+    <value>Add and modify the AddEdit Merchants</value>
+  </data>
+  <data name="LBAddEditProductInformation" xml:space="preserve">
+    <value>Adding and modifying Informaition Product</value>
+  </data>
+  <data name="LBAddEditSupportTicket" xml:space="preserve">
+    <value>Adding and modifying Support Ticket</value>
   </data>
   <data name="LBAddEmailAlartSetting" xml:space="preserve">
     <value>Adding and modifying Email Alart Setting</value>
@@ -165,6 +186,15 @@
   <data name="LBAddFAQList" xml:space="preserve">
     <value>Add FAQ List</value>
   </data>
+  <data name="LBAddNewsLetter" xml:space="preserve">
+    <value>Add News Letter</value>
+  </data>
+  <data name="LBAddNewsLetterGroup" xml:space="preserve">
+    <value>Add News Letter Group</value>
+  </data>
+  <data name="LBAddOrder" xml:space="preserve">
+    <value>Adding and modifying Order</value>
+  </data>
   <data name="LBAddOrderCase" xml:space="preserve">
     <value>Adding and modifying Order Case</value>
   </data>
@@ -177,6 +207,9 @@
   <data name="LBAddPaing" xml:space="preserve">
     <value>Add Paing</value>
   </data>
+  <data name="LBAddproductCategory" xml:space="preserve">
+    <value>Add product Category</value>
+  </data>
   <data name="LBAddProfit" xml:space="preserve">
     <value>Add Profit</value>
   </data>
@@ -184,6 +217,9 @@
     <value>Address</value>
   </data>
   <data name="LbAddresCompany" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="lbAddressEn" xml:space="preserve">
     <value>Address</value>
   </data>
   <data name="LBAddRolesName" xml:space="preserve">
@@ -194,6 +230,12 @@
   </data>
   <data name="LBAddShippingPrice" xml:space="preserve">
     <value>Adding and modifying pricing for shipping systems</value>
+  </data>
+  <data name="LBAddSupportTicketStatus" xml:space="preserve">
+    <value>Adding and modifying Support Ticket Status</value>
+  </data>
+  <data name="LBAddSupportTicketType" xml:space="preserve">
+    <value>Adding and modifying Support Ticket Type</value>
   </data>
   <data name="LBAddTaskStatus" xml:space="preserve">
     <value>Adding and modifying Task Status</value>
@@ -213,11 +255,20 @@
   <data name="LBAddTypesOfRequest" xml:space="preserve">
     <value>Adding and modifying Types Of Request</value>
   </data>
+  <data name="LBAddTypesProduct" xml:space="preserve">
+    <value>Add and modify the Types Product</value>
+  </data>
   <data name="LBAddTypeSystem" xml:space="preserve">
     <value>Adding and modifying systems</value>
   </data>
   <data name="LBAddTypeSystemDelivery" xml:space="preserve">
     <value>Adding and modifying Type System Delivery</value>
+  </data>
+  <data name="LBAddWareHouse" xml:space="preserve">
+    <value>Add Ware House</value>
+  </data>
+  <data name="LBAddWareHouseType" xml:space="preserve">
+    <value>Add Ware House Type</value>
   </data>
   <data name="LbAmount" xml:space="preserve">
     <value>Amount</value>
@@ -225,8 +276,14 @@
   <data name="Lbbgw" xml:space="preserve">
     <value>bgw</value>
   </data>
+  <data name="LbBondType" xml:space="preserve">
+    <value>Bond Type</value>
+  </data>
   <data name="Lbbranch" xml:space="preserve">
     <value>branch</value>
+  </data>
+  <data name="LbBrandName" xml:space="preserve">
+    <value>Brand Name</value>
   </data>
   <data name="LBBuilding" xml:space="preserve">
     <value>Building</value>
@@ -273,6 +330,12 @@
   <data name="LbCompanyURl" xml:space="preserve">
     <value>الموقع الاكتروني</value>
   </data>
+  <data name="LbConstEmail" xml:space="preserve">
+    <value>Constant Email</value>
+  </data>
+  <data name="LbContaint" xml:space="preserve">
+    <value>Content</value>
+  </data>
   <data name="LbConvertedAmount" xml:space="preserve">
     <value>المبلغ المحول</value>
   </data>
@@ -296,6 +359,9 @@
   </data>
   <data name="LbCurrency" xml:space="preserve">
     <value>Currency</value>
+  </data>
+  <data name="LbCurrentEmail" xml:space="preserve">
+    <value>Current Email</value>
   </data>
   <data name="lbCurrentState" xml:space="preserve">
     <value>status</value>
@@ -348,14 +414,23 @@
   <data name="LbDescriptionClint" xml:space="preserve">
     <value>Description Clint</value>
   </data>
+  <data name="LbDescriptionen" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="LbDescriptionOrder" xml:space="preserve">
     <value>Description Order</value>
   </data>
   <data name="LbdescriptionOrderStuse" xml:space="preserve">
     <value>Description Order Status</value>
   </data>
+  <data name="LbDescriptionWareHouse" xml:space="preserve">
+    <value>Description Ware House</value>
+  </data>
   <data name="LBEmageSise" xml:space="preserve">
     <value>Image size 150*150</value>
+  </data>
+  <data name="LbEmail" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="LbEmailAlartSetting" xml:space="preserve">
     <value>EmailAlart Setting</value>
@@ -387,6 +462,9 @@
   <data name="LBFloor" xml:space="preserve">
     <value>Floor</value>
   </data>
+  <data name="LbFollowUpMail" xml:space="preserve">
+    <value>Follow Up Mail</value>
+  </data>
   <data name="Lbfull_package" xml:space="preserve">
     <value>Full package</value>
   </data>
@@ -395,6 +473,12 @@
   </data>
   <data name="Lbgisurl" xml:space="preserve">
     <value>Link</value>
+  </data>
+  <data name="LbGlobalPrice" xml:space="preserve">
+    <value>Global Price</value>
+  </data>
+  <data name="LbGroupName" xml:space="preserve">
+    <value>Group Name</value>
   </data>
   <data name="Lbhexcode" xml:space="preserve">
     <value>code</value>
@@ -417,6 +501,12 @@
   <data name="LbIdFAQList" xml:space="preserve">
     <value>Id FAQ List</value>
   </data>
+  <data name="LbIdTemplate" xml:space="preserve">
+    <value>Id Template</value>
+  </data>
+  <data name="LbImageUser" xml:space="preserve">
+    <value>User Photo</value>
+  </data>
   <data name="LbInformaition" xml:space="preserve">
     <value>information</value>
   </data>
@@ -425,6 +515,33 @@
   </data>
   <data name="LbInformaitionco" xml:space="preserve">
     <value>company information</value>
+  </data>
+  <data name="LbInformaitionCompanyInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LbInformaitionCompanyInformationMake" xml:space="preserve">
+    <value>Link Url</value>
+  </data>
+  <data name="LbInformaitionMerchants" xml:space="preserve">
+    <value>Informaition Merchants</value>
+  </data>
+  <data name="LbInformaitionMerchantsOner" xml:space="preserve">
+    <value>Informaition Merchants Oner</value>
+  </data>
+  <data name="LbInformaitionOrder" xml:space="preserve">
+    <value>Informaition Order</value>
+  </data>
+  <data name="LbInformaitionOrderprice" xml:space="preserve">
+    <value>Prices and storage</value>
+  </data>
+  <data name="LbInformaitionOrderProdact" xml:space="preserve">
+    <value>Product Information</value>
+  </data>
+  <data name="LbInformaitionProductInformation" xml:space="preserve">
+    <value>Informaition Product</value>
+  </data>
+  <data name="LbInformaitionProductInformationMake" xml:space="preserve">
+    <value>Mak-UPC</value>
   </data>
   <data name="LbInformationCompany" xml:space="preserve">
     <value>Information Company</value>
@@ -459,11 +576,38 @@
   <data name="lbMailSender" xml:space="preserve">
     <value>Mail Sender</value>
   </data>
+  <data name="lbMake" xml:space="preserve">
+    <value>Make</value>
+  </data>
+  <data name="LbMerchantAddres" xml:space="preserve">
+    <value>Merchant Addres</value>
+  </data>
+  <data name="lbMerchantEmaile" xml:space="preserve">
+    <value>Merchant Emaile</value>
+  </data>
   <data name="LBMerchantInformation" xml:space="preserve">
     <value>Merchant Information</value>
   </data>
+  <data name="lbMerchantName" xml:space="preserve">
+    <value>Merchant Name</value>
+  </data>
+  <data name="lbMerchantOnerEmail" xml:space="preserve">
+    <value>Merchant Oner Email</value>
+  </data>
+  <data name="lbMerchantOnerName" xml:space="preserve">
+    <value>Merchant Oner Name</value>
+  </data>
+  <data name="lbMerchantOnerPhone" xml:space="preserve">
+    <value>Merchant Oner Phone</value>
+  </data>
+  <data name="lbMerchantPhone" xml:space="preserve">
+    <value>Merchant Phone</value>
+  </data>
   <data name="LBMerchants" xml:space="preserve">
     <value>Merchants</value>
+  </data>
+  <data name="lbMerchantWeb" xml:space="preserve">
+    <value>Merchant Web</value>
   </data>
   <data name="Lbmerchant_mob" xml:space="preserve">
     <value>phone number</value>
@@ -473,6 +617,9 @@
   </data>
   <data name="LbMessageDescription" xml:space="preserve">
     <value>Message Description</value>
+  </data>
+  <data name="lbModel" xml:space="preserve">
+    <value>Model</value>
   </data>
   <data name="lbMsgErrorLogin" xml:space="preserve">
     <value>Error User Name Or Password.....!</value>
@@ -488,6 +635,12 @@
   </data>
   <data name="LBMyAreaDeliveryTariffs" xml:space="preserve">
     <value>Pricing of delivery companies to the regions</value>
+  </data>
+  <data name="LBMyBondType" xml:space="preserve">
+    <value>Bond Types</value>
+  </data>
+  <data name="LBMyBrandName" xml:space="preserve">
+    <value>Brand Name Information</value>
   </data>
   <data name="LBMyCity" xml:space="preserve">
     <value>Cities data</value>
@@ -528,6 +681,15 @@
   <data name="LBMyMerchant" xml:space="preserve">
     <value>Merchants' data</value>
   </data>
+  <data name="LBMYMerchants" xml:space="preserve">
+    <value>Merchants Information</value>
+  </data>
+  <data name="LbMyNewsLetter" xml:space="preserve">
+    <value>My NewsLetter</value>
+  </data>
+  <data name="LbMyNewsLetterGroups" xml:space="preserve">
+    <value>My News Letter Groups</value>
+  </data>
   <data name="LBMyOrder" xml:space="preserve">
     <value>Order</value>
   </data>
@@ -539,6 +701,12 @@
   </data>
   <data name="LBMyOrderStatus" xml:space="preserve">
     <value>Order Status</value>
+  </data>
+  <data name="LBMyproductCategory" xml:space="preserve">
+    <value>Product Category</value>
+  </data>
+  <data name="LBMYProductInformation" xml:space="preserve">
+    <value>Product Information</value>
   </data>
   <data name="LBMyProfits" xml:space="preserve">
     <value>My Profits</value>
@@ -552,8 +720,20 @@
   <data name="LBMyShippingPrice" xml:space="preserve">
     <value>Shipping systems pricing</value>
   </data>
+  <data name="LBMYSupportTicket" xml:space="preserve">
+    <value>Support Ticket Type</value>
+  </data>
+  <data name="lbMySupportTicketStatus" xml:space="preserve">
+    <value>Support Ticket Status</value>
+  </data>
+  <data name="LBMySupportTicketType" xml:space="preserve">
+    <value>Support Ticket Type</value>
+  </data>
   <data name="LBMyTaskStatus" xml:space="preserve">
     <value>Task Status</value>
+  </data>
+  <data name="LbMyTemplates" xml:space="preserve">
+    <value>My Templates</value>
   </data>
   <data name="LBMyTransaction" xml:space="preserve">
     <value>Currency calculator</value>
@@ -570,17 +750,38 @@
   <data name="LBMyTypesOfRequest" xml:space="preserve">
     <value>Types Of Request</value>
   </data>
+  <data name="LBMyTypesProduct" xml:space="preserve">
+    <value>Types Product</value>
+  </data>
   <data name="LBMyTypeSystem" xml:space="preserve">
     <value>Systems</value>
   </data>
   <data name="LBMyTypeSystemDelivery" xml:space="preserve">
     <value>Type System Delivery</value>
   </data>
+  <data name="LBMyWareHouse" xml:space="preserve">
+    <value>Ware House</value>
+  </data>
+  <data name="LBMyWareHouseBranch" xml:space="preserve">
+    <value>Ware House Branch</value>
+  </data>
+  <data name="LBMyWareHouseType" xml:space="preserve">
+    <value>Ware House Type</value>
+  </data>
   <data name="LbName" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="LbNameRols" xml:space="preserve">
     <value>NameRols</value>
+  </data>
+  <data name="LbNewsLetter" xml:space="preserve">
+    <value>News Letter</value>
+  </data>
+  <data name="LbNewsLetterGroup" xml:space="preserve">
+    <value>News Letter Group</value>
+  </data>
+  <data name="LbNewsLetterGroups" xml:space="preserve">
+    <value>News Letter Groups</value>
   </data>
   <data name="LbNikeNAme" xml:space="preserve">
     <value>Nick name</value>
@@ -669,6 +870,12 @@
   <data name="LbPhoneCompanySecand" xml:space="preserve">
     <value>Phone 2</value>
   </data>
+  <data name="LbPhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="lbPhoneNumber2" xml:space="preserve">
+    <value>Phone Number 2</value>
+  </data>
   <data name="LbPhoto" xml:space="preserve">
     <value>Photo</value>
   </data>
@@ -681,6 +888,18 @@
   <data name="LBPricingSystem" xml:space="preserve">
     <value>Pricing System</value>
   </data>
+  <data name="LBProduc" xml:space="preserve">
+    <value>Produc</value>
+  </data>
+  <data name="LbProductCategory" xml:space="preserve">
+    <value>Product Category</value>
+  </data>
+  <data name="LbProductImage" xml:space="preserve">
+    <value>Product Image</value>
+  </data>
+  <data name="lbProductName" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
   <data name="LBProfile" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -692,6 +911,30 @@
   </data>
   <data name="LBProfitsInformations" xml:space="preserve">
     <value>Profits Informations</value>
+  </data>
+  <data name="lbPurchaseAuotNoumber" xml:space="preserve">
+    <value>Automatic number</value>
+  </data>
+  <data name="lbPurchaseOrderNoumber" xml:space="preserve">
+    <value>Bond number</value>
+  </data>
+  <data name="LbPurchasePrice" xml:space="preserve">
+    <value>Purchase Price</value>
+  </data>
+  <data name="LBPurchasingandSales" xml:space="preserve">
+    <value>Purchasing And Sales</value>
+  </data>
+  <data name="lbQrcode" xml:space="preserve">
+    <value>Qrcode</value>
+  </data>
+  <data name="LbQRCode1" xml:space="preserve">
+    <value>QRCode</value>
+  </data>
+  <data name="LbQuantityIn" xml:space="preserve">
+    <value>Quantity In</value>
+  </data>
+  <data name="LbQuantityOute" xml:space="preserve">
+    <value>Output quantity</value>
   </data>
   <data name="LbQuastion" xml:space="preserve">
     <value>Quastion</value>
@@ -732,6 +975,9 @@
   <data name="LbSector" xml:space="preserve">
     <value>sector</value>
   </data>
+  <data name="LbsellingPrice" xml:space="preserve">
+    <value>selling Price</value>
+  </data>
   <data name="LBservice_charges" xml:space="preserve">
     <value>Service Charges</value>
   </data>
@@ -743,6 +989,9 @@
   </data>
   <data name="LBShippingAddressLocation" xml:space="preserve">
     <value>Shipping Address Location</value>
+  </data>
+  <data name="LbShortDescriptionEn" xml:space="preserve">
+    <value>Short DescriptionEn</value>
   </data>
   <data name="Lbsms_alert" xml:space="preserve">
     <value> sms alert</value>
@@ -756,14 +1005,38 @@
   <data name="LbSpec" xml:space="preserve">
     <value>Space</value>
   </data>
+  <data name="LbSpecialSalePrice" xml:space="preserve">
+    <value>Special Sale Price</value>
+  </data>
   <data name="lbSsl_validity" xml:space="preserve">
     <value>Ssl validity</value>
   </data>
   <data name="LBStreet" xml:space="preserve">
     <value>Street</value>
   </data>
+  <data name="LbSupportTicketNo" xml:space="preserve">
+    <value>Support Ticket No</value>
+  </data>
+  <data name="LbSupportTicketStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="LbSupportTicketType" xml:space="preserve">
+    <value>Support Ticket Type</value>
+  </data>
   <data name="LbTaskStatus" xml:space="preserve">
     <value>Task Status</value>
+  </data>
+  <data name="LbTemplate" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="LbTemplateName" xml:space="preserve">
+    <value>Template Name</value>
+  </data>
+  <data name="LbTemplates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="LbTicketDate" xml:space="preserve">
+    <value>Ticket Date</value>
   </data>
   <data name="LbTitle" xml:space="preserve">
     <value>Title</value>
@@ -789,8 +1062,14 @@
   <data name="LbTypesOfRequest" xml:space="preserve">
     <value>Types</value>
   </data>
+  <data name="LbTypesProduct" xml:space="preserve">
+    <value>Type Product</value>
+  </data>
   <data name="LbTypeSystem" xml:space="preserve">
     <value>system</value>
+  </data>
+  <data name="lbUPC" xml:space="preserve">
+    <value>UPC</value>
   </data>
   <data name="lbUpdate" xml:space="preserve">
     <value>Update</value>
@@ -801,11 +1080,26 @@
   <data name="LBUpload_image" xml:space="preserve">
     <value>upload</value>
   </data>
+  <data name="lbUrlFaceBook" xml:space="preserve">
+    <value> FaceBook Link</value>
+  </data>
+  <data name="lbUrlInstgram" xml:space="preserve">
+    <value>Instagram link</value>
+  </data>
+  <data name="LbUrlMap" xml:space="preserve">
+    <value>MAP Link</value>
+  </data>
+  <data name="lbUrlTwitter" xml:space="preserve">
+    <value>Twitter Link</value>
+  </data>
   <data name="LbUserEmage" xml:space="preserve">
     <value>Image</value>
   </data>
   <data name="LbUserEmail" xml:space="preserve">
     <value>User Email</value>
+  </data>
+  <data name="LbUserInformaition" xml:space="preserve">
+    <value>User Informaition</value>
   </data>
   <data name="LbUserName" xml:space="preserve">
     <value>Name</value>
@@ -821,6 +1115,18 @@
   </data>
   <data name="LbUS_delivery" xml:space="preserve">
     <value>Delivery system user</value>
+  </data>
+  <data name="LbWareHouse" xml:space="preserve">
+    <value>Ware House</value>
+  </data>
+  <data name="LbWareHouseBranchName" xml:space="preserve">
+    <value>Ware House Branch Name</value>
+  </data>
+  <data name="LBWareHouseL" xml:space="preserve">
+    <value>Ware House</value>
+  </data>
+  <data name="LbWareHouseType" xml:space="preserve">
+    <value>Ware House Type</value>
   </data>
   <data name="LbWeight" xml:space="preserve">
     <value>Weight</value>
@@ -839,6 +1145,12 @@
   </data>
   <data name="VLAreadoplceted" xml:space="preserve">
     <value>Pricing has already been added to the region. Please check and try again later...!</value>
+  </data>
+  <data name="VLBondTypeDoplceted" xml:space="preserve">
+    <value>The bond type has already been entered. Please check and try again later....!</value>
+  </data>
+  <data name="VLBrandNameDoplceted" xml:space="preserve">
+    <value>The brand has already been entered. Please check and try again later...!</value>
   </data>
   <data name="VLCatchReceiptNoDoplceted" xml:space="preserve">
     <value>The receipt voucher number has already been entered. Please verify and try again later...!</value>
@@ -888,6 +1200,12 @@
   <data name="VLDescriptionOrderDoplceted" xml:space="preserve">
     <value>The order description has already been entered. Please confirm and try again later...!</value>
   </data>
+  <data name="VLDescriptionWareHouseCodeDoplceted" xml:space="preserve">
+    <value>The main repository code has already been entered. Please check and try again later.</value>
+  </data>
+  <data name="VLDescriptionWareHouseDoplceted" xml:space="preserve">
+    <value>The main repository has already been added, please check and try again later.</value>
+  </data>
   <data name="VLEmailAlartSettingDoplceted" xml:space="preserve">
     <value>Your email address has already been entered, please check and try again later..!</value>
   </data>
@@ -927,6 +1245,15 @@
   <data name="VLMerchantNameDoplceted" xml:space="preserve">
     <value>The email address has already been added. Please check and try again later...!</value>
   </data>
+  <data name="VLMerchentsTypeDoplceted" xml:space="preserve">
+    <value>The merchant type or classification has been entered for the process to be completed successfully.</value>
+  </data>
+  <data name="VLProductCategoryDoplceted" xml:space="preserve">
+    <value>The product category has already been entered. Please check and try again later.</value>
+  </data>
+  <data name="VLProductNameDoplceted" xml:space="preserve">
+    <value>The product type has already been entered. Please check and try again later.....!</value>
+  </data>
   <data name="VLReceiptNoDoplceted" xml:space="preserve">
     <value>The bond number has already been entered. Please check and try again later...!</value>
   </data>
@@ -938,6 +1265,12 @@
   </data>
   <data name="VLSavedSuccessfully" xml:space="preserve">
     <value>The saving process was completed successfully</value>
+  </data>
+  <data name="VLSupportTicketStatusDoplceted" xml:space="preserve">
+    <value>The ticket status has already been entered. Please check and try again later...!</value>
+  </data>
+  <data name="VLSupportTicketTypeDoplceted" xml:space="preserve">
+    <value>Ticket type has already been entered. Please check and try again later....!</value>
   </data>
   <data name="VLTitleShippingoplceted" xml:space="preserve">
     <value>The shipping price address has been entered. Please verify and try again later....!</value>
@@ -951,6 +1284,9 @@
   <data name="VLTypesOfRequestDoplceted" xml:space="preserve">
     <value>The ordering system has already been entered. Please confirm and try again later....!</value>
   </data>
+  <data name="VLTypesProductDoplceted" xml:space="preserve">
+    <value>The product type has already been entered. Please check and try again later...!</value>
+  </data>
   <data name="VLTypeSystemDeliveryDoplceted" xml:space="preserve">
     <value>The delivery system type is already listed, please check and try again later...!</value>
   </data>
@@ -959,5 +1295,14 @@
   </data>
   <data name="VLUpdatedSuccessfully" xml:space="preserve">
     <value>The modification process was completed successfully</value>
+  </data>
+  <data name="VLWareHouseBranchCodeDoplceted" xml:space="preserve">
+    <value>The repository code has already been entered. Please check and try again later.</value>
+  </data>
+  <data name="VLWareHouseBranchDoplceted" xml:space="preserve">
+    <value>The Ware House Branch has already been entered. Please check and try again later...!</value>
+  </data>
+  <data name="VLWareHouseTypeDoplceted" xml:space="preserve">
+    <value>The Ware House Type has already been entered. Please check and try again later...!</value>
   </data>
 </root>

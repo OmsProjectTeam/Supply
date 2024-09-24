@@ -1,16 +1,15 @@
-﻿
-
-
+﻿using Yara.Areas.Admin.Controllers;
 using static Infarstuructre.BL.IIRolsInformation;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<ViewmMODeElMASTER>();
 
 // إضافة خدمات إلى الحاوية
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MasterDbcontext>(options => {
 	options.UseSqlServer(
 		builder.Configuration.GetConnectionString("MasterConnection"),
@@ -91,7 +90,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<IIUserInformation, CLSUserInformation>();
-
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IIRolsInformation, CLSRolsInformation>();
 builder.Services.AddScoped<IIFAQ, CLSTBFAQ>();
@@ -100,8 +98,27 @@ builder.Services.AddScoped<IIFAQList, CLSTBFAQList>();
 builder.Services.AddScoped<IITypesOfMessage, CLSTBTypesOfMessage>();
 builder.Services.AddScoped<IICustomerMessages, CLSTBCustomerMessages>();
 builder.Services.AddScoped<IIEmailAlartSetting, CLSTBEmailAlartSetting>();
-
-
+builder.Services.AddScoped<IIWareHouseType, CLSTBWareHouseType>();
+builder.Services.AddScoped<IIWareHouse, CLSTBWareHouse>();
+builder.Services.AddScoped<IIProductCategory, CLSProductCategory>();
+builder.Services.AddScoped<IIMerchants, CLSTBMerchants>();
+builder.Services.AddScoped<IIWareHouseBranch, CLSTBWareHouseBranch>();
+builder.Services.AddScoped<IITypesProduct, CLSTBTypesProduct>();
+builder.Services.AddScoped<IIProductInformation, CLSTBProductInformation>();
+builder.Services.AddScoped<IIBondType, CLSTBBondType>();
+builder.Services.AddScoped<IIOrder, CLSTBOrder>();
+builder.Services.AddScoped<IIMessageChat, CLSTBMessageChat>();
+builder.Services.AddScoped<IIConnectAndDisconnect, CLSTBConnectAndDisconnect>();
+builder.Services.AddScoped<IISupportTicketType, CLSTBSupportTicketType>();
+builder.Services.AddScoped<IISupportTicketStatus, CLSTBSupportTicketStatus>();
+builder.Services.AddScoped<IISupportTicket, CLSTBSupportTicket>();
+builder.Services.AddScoped<IINewsLettersGroup, CLSTBNewsLettersGroup>();
+builder.Services.AddScoped<IINewsLetters, CLSTBNewsLetter>();
+builder.Services.AddScoped<IISendLog, CLSTBSendLog>();
+builder.Services.AddScoped<IITemplate, CLSTBTemplate>();
+builder.Services.AddScoped<AccountsController>();
+builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
+builder.Services.AddScoped<IIBrandName, CLSTBBrandName>();
 
 
 
@@ -131,6 +148,7 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -157,13 +175,17 @@ app.MapControllerRoute(
 	pattern: "{area:exists}/{controller=Accounts}/{action=Login}/{id?}"
 );
 
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+app.UseCors();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+	endpoints.MapHub<ChatHub>("/chatHub");
+});
 
 app.UseSwagger();
-
+app.UseCors();
 app.UseSwaggerUI(c =>
 {
 	c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Shipping System V1");

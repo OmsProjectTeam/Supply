@@ -1,0 +1,196 @@
+﻿@model ViewmMODeElMASTER
+@{
+    ViewData["Title"] = "AddFAQ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row small-spacing">
+    <div class="col-12">
+        <div class="box-content">
+            <ul class="list-inline">
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbWareHouse</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                </li>
+                <li class="margin-bottom-10">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                </li>
+            </ul>
+            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-12">
+        <div class="box-content card white">
+            <h4 class="box-title">@ResourceWeb.LBAddWareHouse</h4>
+            <div class="card-content">
+                <form role="form" method="post" asp-controller="WareHouseBranch" asp-action="Save" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.WareHouseBranch.DataEntry" class="form-control" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="@Model.WareHouseBranch.DateTimeEntry" value="@DateTime.Now">
+                        <input type="hidden" asp-for="@Model.WareHouseBranch.IdBWareHouseBranch">
+                        <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.WareHouseBranch.IdWareHouseType">@ResourceWeb.LbWareHouseType</label>
+                            <select class="form-control" asp-for="@Model.WareHouseBranch.IdWareHouseType" asp-items="@(new SelectList(ViewBag.WareHouseType, "IdWareHouseType", "WareHouseType"))" id="SelectWareHouseType"></select>
+                            <span asp-validation-for="@Model.FAQDescreption.IdFAQ" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.WareHouseBranch.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
+                            <select class="form-control" asp-for="@Model.WareHouseBranch.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
+                            <span asp-validation-for="@Model.WareHouseBranch.IdBWareHouse" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row small-spacing">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.WareHouseBranch.Code">@ResourceWeb.Lbcode</label>
+                                <input asp-for="@Model.WareHouseBranch.Code" type="text" placeholder="@ResourceWeb.Lbcode ...." class="form-control" maxlength="300" id="Code" readonly>
+                                <span asp-validation-for="@Model.WareHouseBranch.Code" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["Code"]</strong></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>QR Code</label>
+                                <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-spacing">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.WareHouseBranch.Description">@ResourceWeb.LbDescription1</label>
+                                    <input id="Description" asp-for="@Model.WareHouseBranch.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300" id="Description">
+                                    <span asp-validation-for="@Model.WareHouseBranch.Description" class="text-danger"></span>
+                                    <span style="color:red"><strong>@TempData["WareHouseBranch"]</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-spacing">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.WareHouseBranch.Active">@ResourceWeb.LbActive</label>
+                                    <input asp-for="@Model.WareHouseBranch.Active" type="checkbox" checked class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.WareHouseBranch.Active" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.WareHouseBranch.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                    <input asp-for="@Model.WareHouseBranch.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.WareHouseBranch.CurrentState" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            updateQRCodeForWareHouseBranch();
+            console.log("Document is ready");
+            $('.select2_1').select2({
+                placeholder: "Select an option",
+                allowClear: true
+            });
+
+            // Generate random 5-character string
+            function generateRandomString(length) {
+                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                var result = '';
+                var charactersLength = characters.length;
+                for (var i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                }
+                return result;
+            }
+
+            // Function to update the Code field
+            function updateCodeFieldForWareHouseBranch() {
+                var warehouseType = $('#SelectWareHouseType option:selected').text();
+                var warehouse = $('#SelectWareHouse option:selected').text();
+                var description = $('#Description').val();
+                var randomString = generateRandomString(5);
+
+                if (warehouseType && description) {
+                    var code = warehouseType + warehouse + description + randomString;
+                    $('#Code').val(code);
+                    updateQRCodeForWareHouseBranch();
+                }
+            }
+
+            // Bind change events to WareHouseType and Description fields
+            $('#SelectWareHouseType, #Description').on('change keyup', function () {
+                updateCodeFieldForWareHouseBranch();
+            });
+
+            function updateQRCodeForWareHouseBranch() {
+                var code = $('#Code').val();
+                if (code) {
+                    $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                } else {
+                    $('#QRCodeImage').attr('src', '');
+                }
+            }
+
+            // Update the URL field with the current page URL
+            $("#url").val(window.location.href);
+
+        });
+
+        function printWarehouseDetails1() {
+            var warehouseType = $('#SelectWareHouseType option:selected').text();
+            var warehouse = $('#SelectWareHouse option:selected').text(); // تأكد من وجود هذا العنصر في النموذج
+            var description = $('#Description').val();
+            var qrCodeSrc = $('#QRCodeImage').attr('src');
+
+            var url = '@Url.Action("PrintWareHouseDetails", "WareHouseBranch")';
+
+            // ترميز مكونات URI للتعامل مع الأحرف الخاصة
+            url = `${url}?warehouseType=${encodeURIComponent(warehouseType)}&warehouse=${encodeURIComponent(warehouse)}&description=${encodeURIComponent(description)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}`;
+
+            // إرسال طلب GET للحصول على محتوى الطباعة
+            $.get(url, function (data) {
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write(data);
+                printWindow.document.close();
+
+                // التأكد من أن المحتوى قد تم تحميله بالكامل قبل الطباعة
+                printWindow.onload = function () {
+                    printWindow.print();
+                };
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error: ", textStatus, errorThrown);
+                alert("Failed to load print content. Please try again.");
+            });
+        }
+    </script>
+}
+

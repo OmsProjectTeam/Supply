@@ -62,6 +62,7 @@ namespace Yara.Areas.Admin.Controllers
                         TempData["BondType"] = ResourceWeb.VLBondTypeDoplceted;
                         return RedirectToAction("AddBondType", model);
                     }
+
                     var reqwest = iBondType.saveData(slider);
                     if (reqwest == true)
                     {

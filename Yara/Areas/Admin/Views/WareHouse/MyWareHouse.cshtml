@@ -157,7 +157,7 @@
 
 @section Scripts
 {
-    <script>
+  @*   <script>
         function updateQRCode() {
             $('.QRCodeImage').each(function () {
                 var code = $(this).siblings('.Code').text();
@@ -173,7 +173,33 @@
         $(document).on('click', '.paginate_button', function () {
             updateQRCode();
         });
-    </script>
+    </script> *@
+
+     <script>
+  
+$(document).ready(function () {
+    function updateQRCode() {
+        $('.QRCodeImage').each(function () {
+            var code = $(this).siblings('.Code').text().trim();  // قم بإزالة المسافات الفارغة من النص
+            if (code) {
+                var qrCodeUrl = '@Url.Action("GenerateQRCode", "WareHouse", new { area = "admin" })?text=' + encodeURIComponent(code);
+
+                $(this).attr('src', qrCodeUrl);
+            } else {
+                $(this).attr('src', '');  // في حال لم يكن هناك كود
+            }
+        });
+    }
+
+    // تحديث الـ QR Code عند النقر على أزرار التصفح
+    $(document).on('click', '.paginate_button', function () {
+        updateQRCode();
+    });
+
+    // استدعاء التحديث عند تحميل الصفحة
+    updateQRCode();
+});
+</script>
 }
 
 

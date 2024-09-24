@@ -668,7 +668,7 @@ namespace Yara.Areas.Admin.Controllers
             return Json(subWarehouses);
         }
 
-        [HttpGet]
+
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
         {
             var product = dbcontext.ViewProductInformation

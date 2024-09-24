@@ -36,8 +36,13 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label asp-for="@Model.Merchants.IdUserIdentity" for="merchant-select">@ResourceWeb.LbDescriptionClint</label>
-                                            <select id="merchant-select" class="form-control" asp-for="@Model.Merchants.IdUserIdentity" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))">
+                                            <select id="merchant-select" class="form-control"
+                                                    asp-for="@Model.Merchants.IdUserIdentity"
+                                                    asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))"
+                                                    data-url="@Url.Action("GetUserDetails", "Merchants")">
                                             </select>
+                                              @* <select id="merchant-select" class="form-control" asp-for="@Model.Merchants.IdUserIdentity" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))">
+                                             </select>  *@ 
                                             <span asp-validation-for="@Model.Merchants.IdUserIdentity" class="text-danger"></span>
                                             <span style="color:red"> <strong>@TempData["MerchantName"]</strong></span>
                                         </div>
@@ -133,7 +138,16 @@
 </div>
 
 @section Scripts {
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/js/merchant.js"></script>
+
     <script>
+        $("#url").val(window.location.href);
+    </script>
+    @* <script>
         var loadFile = function (event) {
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);
@@ -141,11 +155,8 @@
     </script>
     <script>
         $("#url").val(window.location.href);
-    </script>
-    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
-    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    </script> 
+
     <script>
         $(document).ready(function () {
             $('.select2_1').select2({
@@ -216,5 +227,5 @@
                 }
             });
         });
-    </script>
+    </script> *@
 }

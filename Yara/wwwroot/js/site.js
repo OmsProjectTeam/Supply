@@ -30,6 +30,7 @@ $(function () {
         "ordering": true,
         "info": true,
         "autoWidth": false,
+
     });
 });
 
@@ -116,33 +117,48 @@ $(document).ready(function () {
         $(this).text(truncatedText); // Set the truncated text back to the cell
     });
 });
-
-function updateQRCode() {
-    $('.QRCodeImage').each(function () {
-        var code = $(this).siblings('.Code').text();
-        if (code) {
-            $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-        } else {
-            $(this).attr('src', '');
-        }
+=======
     });
-}
+});
 
-function updateBar() {
-    $('.BarCodeUPC').each(function () {
-        var upc = $(this).siblings('.UPCFORPR').text();
-        console.log(upc);
-        if (upc) {
-            $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformation")?text=` + encodeURIComponent(upc));
-        } else {
-            $(this).attr('src', '');
-        }
+$(function () {
+    $("#example3").DataTable().fnDestroy();
+    $('#example3').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
     });
-}
+});
+
+
+$(function () {
+    $("#example5").DataTable().fnDestroy();
+    $('#example5').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
+
+$(function () {
+    $("#example7").DataTable().fnDestroy();
+    $('#example7').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
 
 $(document).ready(function () {
-    updateQRCode();
-    updateBar();
     // Function to truncate text to a specified length
     function truncateText(text, maxLength) {
         if (text.length > maxLength) {
@@ -151,7 +167,6 @@ $(document).ready(function () {
             return text;
         }
     }
-
     // Loop through each table cell with class 'truncate-50'
     $('.truncate-50').each(function () {
         var text = $(this).text(); // Get the text content of the cell

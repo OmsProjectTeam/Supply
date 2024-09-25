@@ -773,7 +773,6 @@ namespace Yara.Areas.Admin.Controllers
 
                     return Json(new { success = true, imageUrl, productName });
                 }
-
                 else
                 {
                     // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح

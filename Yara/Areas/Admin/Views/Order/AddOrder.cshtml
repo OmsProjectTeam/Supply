@@ -142,7 +142,7 @@
                                     <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div id="MerchantComm">@TempData["Merchant"]</div>
+                            <div hidden id="MerchantComm">@TempData["Merchant"]</div>
                         </div>
                         <div class="row small-spacing">
                             <div class="col-sm-6">
@@ -1806,14 +1806,14 @@
     </script> *@
 
     <script>
-        $(document).ready(function () {
-            var merchantValue = $('#MerchantComm').text();
-            if (merchantValue) {
-                $('#SelectMerchant').val(merchantValue).trigger('change');
-            } else {
-                console.log("Merchant value is empty or null");
-            }
-        });
+        // $(document).ready(function () {
+        //     var merchantValue = $('#MerchantComm').text();
+        //     if (merchantValue) {
+        //         $('#SelectMerchant').val(merchantValue).trigger('change');
+        //     } else {
+        //         console.log("Merchant value is empty or null");
+        //     }
+        // });
     </script>
 } 
 

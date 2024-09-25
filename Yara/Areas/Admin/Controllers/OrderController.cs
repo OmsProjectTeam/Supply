@@ -662,7 +662,7 @@ namespace Yara.Areas.Admin.Controllers
                     globalPrice = 0;
                 }
             }
-            else if(Make == "Lowes")
+            else if(Make == "Lows")
             {
 
             }

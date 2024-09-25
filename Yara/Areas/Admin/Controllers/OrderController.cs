@@ -830,16 +830,8 @@ namespace Yara.Areas.Admin.Controllers
 
                 });
 
-            if(product.Make == "RYOBI")
-            {
-                GlobalPrice = await FetchGlobalPrice(product.Model, product.Make);
-            }
-            else if(product.Make == "")
-            {
-                // fetch GlobalPrice from Lowes
-            }
-
-
+            GlobalPrice = await FetchGlobalPrice(product.Model, product.Make);
+            
             return Ok(new
             {
                 UPC = product.UPC,

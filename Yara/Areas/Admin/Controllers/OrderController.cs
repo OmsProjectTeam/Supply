@@ -806,6 +806,7 @@ namespace Yara.Areas.Admin.Controllers
 
 
         public async Task<IActionResult> GetUPC(int value)
+
         {
             string UPC = string.Empty;
             string Make = string.Empty;

@@ -538,12 +538,12 @@ namespace Yara.Areas.Admin.Controllers
             if (product != null)
             {
                 // Fetch the global price using HtmlAgilityPack and the mode field
-                decimal globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
+                //decimal globalPrice = await FetchGlobalPrice(product.Model);  // Assuming `mode` is the correct property name
 
                 return Json(new
                 {
                     imageUrl = product.Photo,
-                    globalPrice = globalPrice
+                    globalPrice = 0
                 });
             }
             else
@@ -616,49 +616,57 @@ namespace Yara.Areas.Admin.Controllers
 
         //    return globalPrice;
         //}
-        private async Task<decimal> FetchGlobalPrice(string model)
+        private async Task<decimal> FetchGlobalPrice(string model, string Make)
         {
             decimal globalPrice = 0;
-            try
+            if(Make == "RYOBI")
             {
-                HtmlWeb web = new HtmlWeb();
-                var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
-
-                var priceNode = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-9xl sui--translate-y-[0.5rem]')]");
-                string priceText = priceNode?.InnerText.Trim();
-
-                //if (string.IsNullOrEmpty(priceText))
-                //{
-                //    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
-                //    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
-                //    {
-                //        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
-                //    }
-                //}
-
-                if (string.IsNullOrEmpty(priceText))
+                try
                 {
-                    var priceNode1 = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-4xl sui--translate-y-[0.35rem]')]");
-                    if (priceNode1 != null)
+                    HtmlWeb web = new HtmlWeb();
+                    var document = await web.LoadFromWebAsync("https://www.homedepot.com/s/" + model);
+
+                    var priceNode = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-9xl sui--translate-y-[0.5rem]')]");
+                    string priceText = priceNode?.InnerText.Trim();
+
+                    //if (string.IsNullOrEmpty(priceText))
+                    //{
+                    //    var pricePartsNodes = document.DocumentNode.SelectNodes("//div[@class='price-format__main-price']//span");
+                    //    if (pricePartsNodes != null && pricePartsNodes.Count >= 4)
+                    //    {
+                    //        priceText = string.Join("", pricePartsNodes.Take(4).Select(node => node.InnerText.Trim()));
+                    //    }
+                    //}
+
+                    if (string.IsNullOrEmpty(priceText))
                     {
-                        priceText = priceNode1.InnerText.Trim();
+                        var priceNode1 = document.DocumentNode.SelectSingleNode("//span[contains(@class, 'sui-font-display sui-leading-none sui-px-[2px] sui-text-4xl sui--translate-y-[0.35rem]')]");
+                        if (priceNode1 != null)
+                        {
+                            priceText = priceNode1.InnerText.Trim();
+                        }
+                    }
+
+                    // Remove any non-numeric characters (e.g., currency symbols, commas)
+                    priceText = Regex.Replace(priceText, "[^0-9.]", "");
+
+                    // Convert the cleaned string to a decimal value
+                    if (!string.IsNullOrEmpty(priceText))
+                    {
+                        globalPrice = Convert.ToDecimal(priceText);
                     }
                 }
-
-                // Remove any non-numeric characters (e.g., currency symbols, commas)
-                priceText = Regex.Replace(priceText, "[^0-9.]", "");
-
-                // Convert the cleaned string to a decimal value
-                if (!string.IsNullOrEmpty(priceText))
+                catch (Exception ex)
                 {
-                    globalPrice = Convert.ToDecimal(priceText);
+                    // Handle the exception (e.g., logging) and return 0 as a fallback
+                    globalPrice = 0;
                 }
             }
-            catch (Exception ex)
+            else if(Make == "Lowes")
             {
-                // Handle the exception (e.g., logging) and return 0 as a fallback
-                globalPrice = 0;
+
             }
+            
 
             return globalPrice;
         }
@@ -824,7 +832,7 @@ namespace Yara.Areas.Admin.Controllers
 
             if(product.Make == "RYOBI")
             {
-                GlobalPrice = await FetchGlobalPrice(product.Model);
+                GlobalPrice = await FetchGlobalPrice(product.Model, product.Make);
             }
             else if(product.Make == "")
             {

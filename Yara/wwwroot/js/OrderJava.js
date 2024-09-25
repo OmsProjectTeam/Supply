@@ -206,3 +206,43 @@ $('#product12').on('input', function () {
         clearProductDetails();  // Clear if input length is < 2
     }
 });
+
+
+function GetUPC1(val) {
+        //const apiUrl = `@Url.Action("GetUPC", "Order", new {area = "Admin"})?value=${val}`;
+    const apiUrl = `/admin/Order/GetUPC?value=${val}`;
+
+$.ajax({
+        url: apiUrl,
+        type: 'GET',
+         success: function (data) {
+             if (data) {
+             console.log("DData :", data);
+             $('#UPCField').val(data.upc || "");
+             $('#MakField').val(data.make || "");
+             $('#UPCProduct').val(data.upc || "");
+             $('#GlobalPrice').val(data.globalPrice || "");
+             $('#UPCField').trigger('keyup');
+                        } else {
+            console.error("Error retrieving UPC.");
+                        }
+                    },
+         error: function (xhr, status, error) {
+            console.error("Error: " + error);
+              }
+         });
+}
+
+
+
+$(document).ready(function () {
+    $('#SelectProductInformation150').on('change', function () {
+        console.log("SelectProductInformation150 Change");
+        if (this.value === '') {
+            console.error('يرجى اختيار خيار صالح.');
+        } else {
+            GetUPC1(this.value);
+        }
+    });
+
+});

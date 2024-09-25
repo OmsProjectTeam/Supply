@@ -274,6 +274,7 @@
                                 <div class="form-group">
                                     <label>product UPC</label>
                                     <input id="UPCField" readonly type="text" class="form-control" />
+                                    <input id="MakField" readonly type="text" class="form-control" />
                                 </div>
                             </div>
 
@@ -1829,10 +1830,49 @@
 
 
 
+@* 
+    <script>
+        function GetUPC1(val) {
+            // إنشاء الرابط باستخدام Url.Action لتمرير القيمة الصحيحة
+            const apiUrl = `@Url.Action("GetUPC", "Order", new { area = "Admin" })?value=${val}`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: function (data) {
+                    if (data) {
+                        console.log("DData :", data);
+                        $('#UPCField').val(data.upc || "");
+                        $('#MakField').val(data.make || "");
+                        $('#UPCProduct').val(data.upc || "");
+                        $('#GlobalPrice').val(data.globalPrice || "");
+                        $('#UPCField').trigger('keyup');
+                    } else {
+                        console.error("Error retrieving UPC.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        }
 
 
 
+        $(document).ready(function () {
+            $('#SelectProductInformation150').on('change', function () {
+                console.log("SelectProductInformation150 Change");
+                if (this.value === '') {
+                    console.error('يرجى اختيار خيار صالح.');
+                } else {
+                    GetUPC1(this.value);
+                }
+            });
 
+        });
+    </script>
+
+ *@
 
 
 

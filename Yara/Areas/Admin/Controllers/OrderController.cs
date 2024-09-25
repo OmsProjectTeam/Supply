@@ -687,7 +687,7 @@ namespace Yara.Areas.Admin.Controllers
             if (product != null)
             {
                 // Fetch the global price using HtmlAgilityPack and the model field
-                decimal globalPrice = await FetchGlobalPrice(product.Model);
+                decimal globalPrice = 0; //await FetchGlobalPrice(product.Model);
 
                 return Json(new
                 {
@@ -806,14 +806,38 @@ namespace Yara.Areas.Admin.Controllers
 
 
 
-        public async Task<string> GetUPC(int value)
+        public async Task<IActionResult> GetUPC(int value)
         {
+            string UPC = string.Empty;
+            string Make = string.Empty;
+            decimal GlobalPrice = 0;
 
             var product = await iProductInformation.GetByIdFromViewAsync(value);
             if (product == null)
-                return "000000000000";
+                return Ok(new  
+                {
+                    UPC,
+                    Make,
+                    GlobalPrice
 
-            return product.UPC;
+                });
+
+            if(product.Make == "RYOBI")
+            {
+                GlobalPrice = await FetchGlobalPrice(product.Model);
+            }
+            else if(product.Make == "")
+            {
+                // fetch GlobalPrice from Lowes
+            }
+
+
+            return Ok(new
+            {
+                UPC = product.UPC,
+                Make = product.Make,
+                GlobalPrice = GlobalPrice
+            });
         }
 
 

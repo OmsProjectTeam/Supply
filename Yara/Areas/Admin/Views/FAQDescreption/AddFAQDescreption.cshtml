@@ -40,7 +40,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="@Model.FAQDescreption.IdFAQ">@ResourceWeb.LbFAQ</label>
-                                <select class="form-control select2_1" asp-for="@Model.FAQDescreption.IdFAQ" asp-items="@(new SelectList(ViewBag.FAQ, "IdFAQ", "FAQ"))" id="SelectFAQ"></select>
+                                <select class="form-control" asp-for="@Model.FAQDescreption.IdFAQ" asp-items="@(new SelectList(ViewBag.FAQ, "IdFAQ", "FAQ"))" id="SelectFAQ"></select>
                                 <span asp-validation-for="@Model.FAQDescreption.IdFAQ" class="text-danger"></span>
 
                             </div>
@@ -70,9 +70,12 @@
     <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
 
-    <script src="~/js/custom-scripts.js"></script>
+    <script src="~/js/faq.js"></script>
+    <script>
+        $("#url").val(window.location.href);
+    </script>
 
-   @*  <script>
+    @* <script>
         $(document).ready(function () {
             console.log("Document is ready");
             $('.select2_1').select2({
@@ -85,9 +88,6 @@
                 console.log("Selected FAQ changed");
                 updateCosting();
             }); 
-    </script>
-    <script>
-        $("#url").val(window.location.href);
     </script> *@
 }
 

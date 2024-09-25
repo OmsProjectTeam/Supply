@@ -182,5 +182,9 @@ namespace Yara.Areas.Admin.Controllers
                 return RedirectToAction("MYCompanyInformation");
             }
         }
+
+
+
+      
     }
 }

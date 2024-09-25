@@ -206,3 +206,177 @@ $('#product12').on('input', function () {
         clearProductDetails();  // Clear if input length is < 2
     }
 });
+
+
+function GetUPC1(val) {
+        //const apiUrl = `@Url.Action("GetUPC", "Order", new {area = "Admin"})?value=${val}`;
+    const apiUrl = `/admin/Order/GetUPC?value=${val}`;
+
+$.ajax({
+        url: apiUrl,
+        type: 'GET',
+         success: function (data) {
+             if (data) {
+             console.log("DData :", data);
+             $('#UPCField').val(data.upc || "");
+             $('#MakField').val(data.make || "");
+             $('#UPCProduct').val(data.upc || "");
+             $('#GlobalPrice').val(data.globalPrice || "");
+             $('#UPCField').trigger('keyup');
+                        } else {
+            console.error("Error retrieving UPC.");
+                        }
+                    },
+         error: function (xhr, status, error) {
+            console.error("Error: " + error);
+              }
+         });
+}
+
+
+
+$(document).ready(function () {
+    $('#SelectProductInformation150').on('change', function () {
+        console.log("SelectProductInformation150 Change");
+        if (this.value === '') {
+            console.error('يرجى اختيار خيار صالح.');
+        } else {
+            GetUPC1(this.value);
+        }
+    });
+
+});
+
+function CreateBarCode1(text) {
+    const apiUrl = `/admin/ProductInformation/GenerateBarcode?text=${encodeURIComponent(text)}`;
+
+    $.ajax({
+        url: apiUrl,
+    type: 'GET',
+    xhrFields: {
+        responseType: 'blob'
+                },
+    success: function (data) {
+                    if (data) {
+                        var imageUrl = URL.createObjectURL(data);
+    $('#BarCode11111111').attr('src', imageUrl);
+    $('UPCProduct').text(text);
+                    } else {
+        console.error("Error generating barcode.");
+                    }
+                },
+    error: function (xhr, status, error) {
+        console.error("Error: " + error);
+                }
+            });
+        }
+
+
+$('#UPCField').on('change keyup', function () {
+        var upc = this.value;
+        CreateBarCode1(upc);
+    });
+
+//////////////////////////////////////////////////////////////////////////////
+// Generate random 5-character string
+function generateRandomString(length) {
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+function updateQRCodeForxxx() {
+    var code = $('#Qrcode').val();
+    if (code) {
+        $('#QRCodeImage11').attr('src', `/admin/WareHouse/GenerateQRCode?text=${encodeURIComponent(code)}`);
+    } else {
+        $('#QRCodeImage11').attr('src', '');
+    }
+}
+
+
+
+// Function to update the Code field
+function updateCodeField() {
+    var Merchant = $('#SelectMerchant option:selected').text();
+    var WareHouse = $('#SelectWareHouse option:selected').text();
+    var BondType = $('#SelectBondType option:selected').text();
+    var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
+    var ProductInformation = $('#SelectProductInformation150 option:selected').text();
+    var sellingPrice = $('#sellingPrice').val();
+    var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
+    var GlobalPr = $('#GlobalPrice').val();
+    var QouantityIn = $('#QuantityIn').val();
+    var SpecialSalePrice = $('#SpecialSalePrice').val();
+
+    var randomString = generateRandomString(5);
+
+    if (Merchant && WareHouse) {
+        var code = Merchant + '-' + WareHouse + '-' + BondType + '-' + WareHouseBranch + '-' + ProductInformation + '-' + 'selling Price:' + sellingPrice + '-' + 'Purchase Order Noumber:' + PurchaseOrderNoumber + '-' + 'GlobalPr' + GlobalPr + '-' + 'Qouantity In:' + QouantityIn + '-' + 'Special Sale Price:' + SpecialSalePrice + '-' + randomString;
+        $('#Qrcode').val(code);
+        updateQRCodeForxxx();
+    }
+}
+
+
+
+// Bind change events to WareHouseType and Description fields
+
+$('#QuantityIn, #SpecialSalePrice, #GlobalPrice, #PurchaseOrderNoumber11, #sellingPrice, #SelectProductInformation150, #SelectWareHouseBranch, #SelectBondType, #SelectWareHouse, #SelectMerchant').on('change keyup', function () {
+    updateCodeField();
+});
+function printWarehouseDetails1() {
+    var Merchant = $('#SelectMerchant option:selected').text();
+    var WareHouse = $('#SelectWareHouse option:selected').text();
+    var BondType = $('#SelectBondType option:selected').text();
+    var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
+    var ProductInformation = $('#SelectProductInformation150 option:selected').text();
+    var sellingPrice = $('#sellingPrice').val();
+    var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
+    var GlobalPr = $('#GlobalPrice').val();
+    var QouantityIn = $('#QuantityIn').val();
+    var PurchasePrice = $('#PurchasePrice').val();
+    var SpecialSalePrice = $('#SpecialSalePrice').val();
+    var qrCodeSrc = $('#QRCodeImage11').attr('src');
+    var bar = $('#BarCode11111111').attr('src');
+
+    var upc = $('#UPCField').val();
+
+
+    var url1 = `/admin/Order/PrintWareHouseDetails`;
+
+    // ترميز مكونات URI للتعامل مع الأحرف الخاصة
+    url = `${url1}?Merchant=${encodeURIComponent(Merchant)}&WareHouse=${encodeURIComponent(WareHouse)}&BondType=${encodeURIComponent(BondType)}&PurchaseOrderNoumber=${encodeURIComponent(PurchaseOrderNoumber)}&ProductInformation=${encodeURIComponent(ProductInformation)}&WareHouseBranch=${encodeURIComponent(WareHouseBranch)}&sellingPrice=${encodeURIComponent(sellingPrice)}&QouantityIn=${encodeURIComponent(QouantityIn)}&PurchasePrice=${encodeURIComponent(PurchasePrice)}&SpecialSalePrice=${encodeURIComponent(SpecialSalePrice)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
+
+
+    // إرسال طلب GET للحصول على محتوى الطباعة
+    $.get(url, function (data) {
+        var printWindow = window.open('', '_blank');
+
+        printWindow.document.open();
+        printWindow.document.write(data);
+        printWindow.document.close();
+
+        printWindow.onload = function () {
+            printWindow.print();
+        };
+
+
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Error: ", textStatus, errorThrown);
+        alert("Failed to load print content. Please try again.");
+    });
+}
+
+$(document).ready(function () {
+    var merchantValue = $('#MerchantComm').text();
+    if (merchantValue) {
+        $('#SelectMerchant').val(merchantValue).trigger('change');
+    } else {
+        console.log("Merchant value is empty or null");
+    }
+});

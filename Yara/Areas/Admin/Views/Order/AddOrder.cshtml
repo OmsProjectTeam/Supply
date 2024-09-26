@@ -142,7 +142,7 @@
                                     <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div id="MerchantComm">@ViewBag.Merchant</div>
+                            <div id="MerchantComm">@TempData["Merchant"]</div>
                         </div>
                         <div class="row small-spacing">
                             <div class="col-sm-6">

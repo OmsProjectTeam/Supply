@@ -122,7 +122,7 @@ namespace Yara.Areas.Admin.Controllers
                     if (reqwest == true)
                     {
                         TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-                        ViewBag.Merchant = model.Order.IdMerchants;
+                        TempData["Merchant"] = model.Order.IdMerchants;
                         return RedirectToAction("AddOrder");
                     }
                     else

@@ -2004,13 +2004,8 @@
 
     <script>
         $(document).ready(function () {
-            // اطبع قيمة Merchant للتحقق من وجودها
             var merchantValue = $('#MerchantComm').text();
-            console.log("Merchant Value: " + merchantValue);
-
-            // إذا كانت القيمة غير فارغة
             if (merchantValue) {
-                // تأكد من تمرير القيمة بشكل صحيح إلى الحقل
                 $('#SelectMerchant').val(merchantValue).trigger('change');
             } else {
                 console.log("Merchant value is empty or null");

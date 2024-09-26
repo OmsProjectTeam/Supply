@@ -371,3 +371,12 @@ function printWarehouseDetails1() {
         alert("Failed to load print content. Please try again.");
     });
 }
+
+$(document).ready(function () {
+    var merchantValue = $('#MerchantComm').text();
+    if (merchantValue) {
+        $('#SelectMerchant').val(merchantValue).trigger('change');
+    } else {
+        console.log("Merchant value is empty or null");
+    }
+});

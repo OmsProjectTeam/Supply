@@ -300,22 +300,6 @@ namespace Yara.Areas.Admin.Controllers
 
         //                    return Json(new { success = false, message = "Image not found in the specified div.", redirectedUrl });
         //                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //            }
         //            else
         //            {
@@ -331,60 +315,93 @@ namespace Yara.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> FetchImageByModel(string model)
+        public async Task<IActionResult> FetchImageByModel(string model, string breand)
         {
-            try
+
+            if (breand == "RYOBI")
             {
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    client.Timeout = TimeSpan.FromSeconds(30); // تعيين المهلة إلى 30 ثانية
+                    HtmlWeb web = new HtmlWeb();
+                    var document = web.Load("https://www.homedepot.com/s/" + model);
 
-                    // تعيين وكيل المستخدم ليبدو كأنه متصفح حقيقي
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
 
-                    var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
-                    var response = await client.GetAsync(searchUrl);
+                    var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
 
-                    if (response.IsSuccessStatusCode)
+                    if (imageNodes != null && imageNodes.Any())
                     {
-                        // الحصول على الرابط الجديد بعد إعادة التوجيه
-                        var redirectedUrl = response.RequestMessage.RequestUri.ToString();
+                        var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
 
-                        // تحميل محتوى الصفحة الجديدة
-                        var pageContents = await response.Content.ReadAsStringAsync();
-                        var document = new HtmlDocument();
-                        document.LoadHtml(pageContents);
+                        // الحصول على اسم المنتج من h1 داخل div
+                        var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
+                        var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
 
-                        // محاولة استخراج اسم المنتج
-                        var productTitleNode = document.DocumentNode.SelectSingleNode("//h1[@class='styles__H1-sc-11vpuyu-0 krJSUv typography variant--h1 align--left product-brand-description']");
-                        string productName = productTitleNode != null ? productTitleNode.InnerText.Trim() : "Product name not found";
+                        return Json(new { success = true, imageUrl, productName });
+                    }
 
-                        // محاولة استخراج الصور من العنصر المطلوب
-                        var imageNodes = document.DocumentNode.SelectNodes("//div[@class='ImageContainerstyles__ImageTileWrapper-sc-1l8vild-0 cfyBCn tile']//img");
+                    else
+                    {
+                        // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
+                        var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
 
-                        if (imageNodes != null && imageNodes.Any())
+                        if (imageNodesFallback != null && imageNodesFallback.Any())
                         {
-                            var firstImageUrl = imageNodes
-                               .Select(node => node.GetAttributeValue("src", ""))
-                               .FirstOrDefault(src => !string.IsNullOrEmpty(src));
+                            var firstImageUrl = imageNodesFallback
+                                .Select(node => node.GetAttributeValue("src", ""))
+                                .FirstOrDefault();
 
-                            if (!string.IsNullOrEmpty(firstImageUrl))
-                            {
-                                return Json(new { success = true, imageUrl = firstImageUrl, productName, redirectedUrl });
-                            }
-                            else
-                            {
-                                // إذا لم يتم العثور على أي صورة
-                                return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
-                            }
+                            // الحصول على اسم المنتج
+                            // تعديل XPath ليكون أكثر عمومية
+                            var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
+                            var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                            return Json(new { success = true, imageUrl = firstImageUrl, productName });
+
                         }
-                        else
+                    }
+
+                    // If no image was found
+                    return Json(new { success = false, message = "Image not found." });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = ex.Message });
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.Timeout = TimeSpan.FromSeconds(30); // تعيين المهلة إلى 30 ثانية
+
+                        // تعيين وكيل المستخدم ليبدو كأنه متصفح حقيقي
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+
+                        var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
+                        var response = await client.GetAsync(searchUrl);
+
+                        if (response.IsSuccessStatusCode)
                         {
-                            var imageNodes2 = document.DocumentNode.SelectNodes("//img");
-                            // إذا لم يتم العثور على أي صورة
-                            if (imageNodes2 != null && imageNodes2.Any())
+                            // الحصول على الرابط الجديد بعد إعادة التوجيه
+                            var redirectedUrl = response.RequestMessage.RequestUri.ToString();
+
+                            // تحميل محتوى الصفحة الجديدة
+                            var pageContents = await response.Content.ReadAsStringAsync();
+                            var document = new HtmlDocument();
+                            document.LoadHtml(pageContents);
+
+                            // محاولة استخراج اسم المنتج
+                            var productTitleNode = document.DocumentNode.SelectSingleNode("//h1[@class='styles__H1-sc-11vpuyu-0 krJSUv typography variant--h1 align--left product-brand-description']");
+                            string productName = productTitleNode != null ? productTitleNode.InnerText.Trim() : "Product name not found";
+
+                            // محاولة استخراج الصور من العنصر المطلوب
+                            var imageNodes = document.DocumentNode.SelectNodes("//div[@class='ImageContainerstyles__ImageTileWrapper-sc-1l8vild-0 cfyBCn tile']//img");
+
+                            if (imageNodes != null && imageNodes.Any())
                             {
-                                var firstImageUrl = imageNodes2
+                                var firstImageUrl = imageNodes
                                    .Select(node => node.GetAttributeValue("src", ""))
                                    .FirstOrDefault(src => !string.IsNullOrEmpty(src));
 
@@ -398,19 +415,40 @@ namespace Yara.Areas.Admin.Controllers
                                     return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
                                 }
                             }
+                            else
+                            {
+                                var imageNodes2 = document.DocumentNode.SelectNodes("//img");
+                                // إذا لم يتم العثور على أي صورة
+                                if (imageNodes2 != null && imageNodes2.Any())
+                                {
+                                    var firstImageUrl = imageNodes2
+                                       .Select(node => node.GetAttributeValue("src", ""))
+                                       .FirstOrDefault(src => !string.IsNullOrEmpty(src));
 
-                            return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
+                                    if (!string.IsNullOrEmpty(firstImageUrl))
+                                    {
+                                        return Json(new { success = true, imageUrl = firstImageUrl, productName, redirectedUrl });
+                                    }
+                                    else
+                                    {
+                                        // إذا لم يتم العثور على أي صورة
+                                        return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
+                                    }
+                                }
+
+                                return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
+                            }
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = "Failed to load the page." });
                         }
                     }
-                    else
-                    {
-                        return Json(new { success = false, message = "Failed to load the page." });
-                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = ex.Message });
+                }
             }
         }
 

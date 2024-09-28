@@ -117,29 +117,6 @@ function updateCodeFieldmodal() {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Close the modal if the user clicks outside of it
 window.onclick = function (event) {
     var modal = document.getElementById("customModal");
@@ -149,13 +126,14 @@ window.onclick = function (event) {
 };
 
 // Function to populate product name in the modal based on the model number
-function populateProductNameInModal(model) {  // **NEW FUNCTION**: Added to populate product name when the modal opens
+function populateProductNameInModal(model, brand1) {  // **NEW FUNCTION**: Added to populate product name when the modal opens
+    console.log("populateProductNameInModal(model, brand1)");
     if (model) {
         $.ajax({
             
             url: '/Admin/ProductInformationlowes/FetchImageByModel',  // Adjust the URL according to your routing
             type: 'GET',
-            data: { model: model },  // Send the model as a parameter
+            data: { model: model, breand: brand1 },  // Send the model as a parameter
             success: function (response) {
                 if (response.success) {
                     $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
@@ -229,13 +207,30 @@ window.onclick = function (event) {
 var previousSearchText = '';
 
 function openModal() {
+
     var productId = $('#product12').val();
-    $('#ProductName').val(productId).trigger('change');;
+    $('#ProductName').val(productId).trigger('change');
     previousSearchText = $('#product12').val(); // Store the current search text
     $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
     document.getElementById("customModal").style.display = "block";
-    populateProductNameInModal(productId);
+    //var brand = $('#BrandName123 option:selected').text();
+
+
+    //populateProductNameInModal(productId, brand);
+
 }
+
+$('#BrandName123').on('change', function () {
+
+    console.log("BrandName123 change");
+    var productId = $('#product12').val();
+    var brand = $('#BrandName123 option:selected').text();
+
+    populateProductNameInModal(productId, brand);
+});
+
+
+
 
 function closeModal() {
     document.getElementById("customModal").style.display = "none";

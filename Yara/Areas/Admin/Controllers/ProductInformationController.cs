@@ -314,12 +314,6 @@ namespace Yara.Areas.Admin.Controllers
                     }
                 }
 
-
-
-
-
-
-
                 // If no image was found
                 return Json(new { success = false, message = "Image not found." });
             }
@@ -328,6 +322,7 @@ namespace Yara.Areas.Admin.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
 
         public IActionResult GenerateQRCode(string text)
         {

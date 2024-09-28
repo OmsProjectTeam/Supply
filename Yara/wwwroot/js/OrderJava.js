@@ -6,6 +6,76 @@ window.onclick = function (event) {
     }
 };
 
+// Clear product details if no product is selected
+function clearProductDetails() {
+    $('#ProductName').val('');
+    $('#SelectProductCategory').val('').trigger('change');
+    $('#SelectBondType').val('').trigger('change');
+    $('#SelectTypesProduct').val('').trigger('change');
+    $('#GlobalPrice').val('');
+    $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+}
+
+// Handle form submission inside the modal
+$('form[asp-action="SaveModal"]').on('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var form = $(this);
+
+    // Optionally handle the form submission via AJAX
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (response) {
+            // Close the modal
+            closeModal();
+            // Repopulate the search field with the stored search text
+            $('#product12').val($('#product12').data('previous-value'));
+        },
+        error: function (response) {
+            console.error("Error during form submission", response);
+            // Handle the error (display a message, etc.)
+        }
+    });
+});
+
+var previousSearchText = '';
+
+function openModal() {
+    previousSearchText = $('#product12').val(); // Store the current search text
+    $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
+    document.getElementById("customModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("customModal").style.display = "none";
+    $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
+}
+
+// Close modal if clicking outside
+window.onclick = function (event) {
+    if (event.target == $('#customModal')[0]) {
+        closeModal();
+    }
+}
+
+// Modal functions
+var previousSearchText = '';
+
+function openModal() {
+    console.log("openModal");
+    previousSearchText = $('#product12').val(); // Store the current search text
+    $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
+    document.getElementById("customModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("customModal").style.display = "none";
+    $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     var productInput = document.getElementById('product12');
 
@@ -25,20 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 let typingTimer;  // Timer identifier
 const typingDelay = 3000;  // 3 seconds delay before triggering search
-
-var previousSearchText = '';
-
-function openModal() {
-    console.log("openModal");
-    previousSearchText = $('#product12').val(); // Store the current search text
-    $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
-    document.getElementById("customModal").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("customModal").style.display = "none";
-    $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
-}
 
 // Handle form submission inside the modal
 $('form[asp-action="SaveModal"]').on('submit', function (event) {
@@ -94,6 +150,8 @@ function checkProductAvailability(productId) {
                 });
                 $('#ProductName').val(productId);
                 $('#modalButton').prop('disabled', false);
+                console.log("openModal in in in  checkProductAvailability ");
+
                 openModal();
             }
         },
@@ -169,7 +227,8 @@ $(document).ready(function () {
                     }));
                 },
                 error: function () {
-                    alert('Error retrieving data');
+                    console.log("openModalopenModalopenModalopenModalopenModal");
+                    openModal();
                 }
             });
         },

@@ -270,7 +270,14 @@
 
                                 </div>
                             </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.QuantityOute">@ResourceWeb.LbQuantityOute</label>
+                                    <input id="QuantityIn" asp-for="@Model.Order.QuantityOute" type="text" placeholder="@ResourceWeb.LbQuantityOute...." class="form-control">
+                                    <span asp-validation-for="@Model.Order.QuantityOute" class="text-danger"></span>
 
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>product UPC</label>
@@ -423,6 +430,7 @@
                                     <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
                                 </div>
                             </div>
+
 
 
                         </div>

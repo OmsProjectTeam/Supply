@@ -352,13 +352,13 @@
                     <h2>Add New Product</h2>
                 </div>
                 <div class="custom-modal-body">
-                    <form role="form" method="post" asp-controller="ProductInformation" asp-action="SaveModal" enctype="multipart/form-data">
+                    <form role="form" method="post" asp-controller="Order" asp-action="SaveNewProductInfo" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
                             <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
                             <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
                             <input type="hidden" asp-for="@Model.returnUrl" id="url">
-                            <input type="hidden" asp-for="@Model.ProductInformation.Photo" id="imageUrlInput">
+                            <input type="hidden" id="xaxaxaxaxa" asp-for="@Model.ProductInformation.Photo">
                         </div>
 
                         <div class="row small-spacing">
@@ -459,7 +459,7 @@
                                 <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? " " " />
 
                                 <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
-                                <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
+                                <input type="hidden" asp-for="ProductInformation.Photo"  id="hiddenPhotoUrl" value="" />
 
                                 <!-- سكريبت لتحديث الحقل المخفي عند تغيير الصورة -->
                                 <script>
@@ -673,30 +673,6 @@
             window.onclick = function (event) {
                 if (event.target == $('#customModal')[0]) {
                     closeModal();
-                }
-            }
-
-            // Function to populate product name in the modal based on the model number
-            function populateProductNameInModal(model) {  // **NEW FUNCTION**: Added to populate product name when the modal opens
-                if (model) {
-                    $.ajax({
-                        url: '@Url.Action("FetchImageByModel", "ProductInformationlowes", new { area = "Admin" })',  // Adjust the URL according to your routing
-                        type: 'GET',
-                        data: { model: model },  // Send the model as a parameter
-                        success: function (response) {
-                            if (response.success) {
-                                $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
-                                console.log(MyProduct)
-                            } else {
-                                alert(response.message);  // Show an alert if there was an issue
-                                $("#MyProduct").val('');  // Clear product name if not found
-                            }
-                        },
-                        error: function () {
-                            alert("Error fetching the product name.");  // Alert the user about the error
-                            $("#MyProduct").val('');  // Clear product name in case of an error
-                        }
-                    });
                 }
             }
 
@@ -1723,78 +1699,78 @@
         //     });
 
 
-        </script>
-    <script>
+    //     </script>
+    // <script>
 
 
-        // function CreateBarCode(text) {
-        //     const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+    //     // function CreateBarCode(text) {
+    //     //     const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
-        //     $.ajax({
-        //         url: apiUrl,
-        //         type: 'GET',
-        //         xhrFields: {
-        //             responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
-        //         },
-        //         success: function (data) {
-        //             if (data) {
-        //                 var imageUrl = URL.createObjectURL(data);
-        //                 $('#BarCode0936').attr('src', imageUrl);
-        //                 $('#BarCodeNo').text(text);
-        //             } else {
-        //                 console.error("Error generating barcode.");
-        //             }
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.error("Error: " + error);
-        //         }
-        //     });
-        // }
-
-
-        // $(document).ready(function () {
-        //     $('#UPC12').on('change keyup', function () {
-        //         console.log("UPC value changed");
-        //         var upc = this.value;
-        //         CreateBarCode(upc);
-        //     });
+    //     //     $.ajax({
+    //     //         url: apiUrl,
+    //     //         type: 'GET',
+    //     //         xhrFields: {
+    //     //             responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+    //     //         },
+    //     //         success: function (data) {
+    //     //             if (data) {
+    //     //                 var imageUrl = URL.createObjectURL(data);
+    //     //                 $('#BarCode0936').attr('src', imageUrl);
+    //     //                 $('#BarCodeNo').text(text);
+    //     //             } else {
+    //     //                 console.error("Error generating barcode.");
+    //     //             }
+    //     //         },
+    //     //         error: function (xhr, status, error) {
+    //     //             console.error("Error: " + error);
+    //     //         }
+    //     //     });
+    //     // }
 
 
-        // });
+    //     // $(document).ready(function () {
+    //     //     $('#UPC12').on('change keyup', function () {
+    //     //         console.log("UPC value changed");
+    //     //         var upc = this.value;
+    //     //         CreateBarCode(upc);
+    //     //     });
+
+
+    //     // });
 
 
 
-        // function printWarehouseDetails() {
-        //     console.log("printWarehouseDetailsprintWarehouseDetails");
-        //     var Category = $('#SelectCategory option:selected').text();
-        //     var TypesProduct = $('#SelectTypesProduct option:selected').text();
-        //     var Product = $('#ProductName').val() || "aaaaaaa";
-        //     var Model = $('#modelInput').val();
-        //     var UPC = $('#UPC').val();
-        //     var qrCodeSrc = $('#QRCodeImage123').attr('src');
-        //     var bar = $('#BarCode0936').attr('src');
+    //     // function printWarehouseDetails() {
+    //     //     console.log("printWarehouseDetailsprintWarehouseDetails");
+    //     //     var Category = $('#SelectCategory option:selected').text();
+    //     //     var TypesProduct = $('#SelectTypesProduct option:selected').text();
+    //     //     var Product = $('#ProductName').val() || "aaaaaaa";
+    //     //     var Model = $('#modelInput').val();
+    //     //     var UPC = $('#UPC').val();
+    //     //     var qrCodeSrc = $('#QRCodeImage123').attr('src');
+    //     //     var bar = $('#BarCode0936').attr('src');
 
-        //     var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
+    //     //     var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
 
-        //     // Encode URI components to handle special characters
+    //     //     // Encode URI components to handle special characters
 
-        //     url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
+    //     //     url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
 
 
-        //     $.get(url, function (data) {
-        //         var printWindow = window.open('', '_blank');
-        //         printWindow.document.open();
-        //         printWindow.document.write(data);
-        //         printWindow.document.close();
+    //     //     $.get(url, function (data) {
+    //     //         var printWindow = window.open('', '_blank');
+    //     //         printWindow.document.open();
+    //     //         printWindow.document.write(data);
+    //     //         printWindow.document.close();
 
-        //         // Ensure the image is fully loaded before printing
-        //         printWindow.onload = function () {
-        //             printWindow.print();
-        //         };
-        //     }).fail(function (jqXHR, textStatus, errorThrown) {
-        //         console.error("Error: ", textStatus, errorThrown);
-        //     });
-        // }
+    //     //         // Ensure the image is fully loaded before printing
+    //     //         printWindow.onload = function () {
+    //     //             printWindow.print();
+    //     //         };
+    //     //     }).fail(function (jqXHR, textStatus, errorThrown) {
+    //     //         console.error("Error: ", textStatus, errorThrown);
+    //     //     });
+    //     // }
 
-    </script>
+    // </script>
 }

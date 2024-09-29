@@ -1,10 +1,244 @@
-﻿// Close the modal if the user clicks outside of it
+﻿
+function CreateBarCode(text) {
+
+    const apiUrl = `/Admin/ProductInformation/GenerateBarcode?text=${encodeURIComponent(text)}`;
+
+    $.ajax({
+        url: apiUrl,
+        type: 'GET',
+        xhrFields: {
+            responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+        },
+        success: function (data) {
+            if (data) {
+                var imageUrl = URL.createObjectURL(data);
+                $('#BarCode0936').attr('src', imageUrl);
+                $('#BarCodeNo').text(text);
+            } else {
+                console.error("Error generating barcode.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error: " + error);
+        }
+    });
+}
+
+
+$(document).ready(function () {
+    $('#UPC12').on('change keyup', function () {
+        console.log("UPC value changed");
+        var upc = this.value;
+        CreateBarCode(upc);
+    });
+
+
+});
+
+function printWarehouseDetails() {
+    var Category = $('#SelectCategory option:selected').text();
+    var TypesProduct = $('#SelectTypesProduct option:selected').text();
+    var Product = $('#ProductName').val() || "aaaaaaa";
+    var Model = $('#modelInput').val();
+    var UPC = $('#UPC').val();
+    var qrCodeSrc = $('#QRCodeImage123').attr('src');
+    var bar = $('#BarCode0936').attr('src');
+
+    var url1 = '/Admin/ProductInformation/PrintWareHouseDetails';
+
+    url = `${url1}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}`;
+
+
+    $.get(url, function (data) {
+        var printWindow = window.open('', '_blank');
+        printWindow.document.open();
+        printWindow.document.write(data);
+        printWindow.document.close();
+
+        // Ensure the image is fully loaded before printing
+        printWindow.onload = function () {
+            printWindow.print();
+        };
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Error: ", textStatus, errorThrown);
+    });
+}
+
+
+$('#UPC12, #BrandName123 ,#SelectTypesProductt, #SelectCategory, #ProductName').on('change keyup', function () {
+    updateCodeFieldmodal();
+});
+
+
+
+
+
+function generateRandomStringrr(length) {
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+// Bind change events to WareHouseType and Description fields
+
+
+function updateQRCodeForAA() {
+    var code = $('#Codeeee').val();
+    if (code) {
+        
+        $('#QRCodeImage123').attr('src', '/Admin/WareHouse/GenerateQRCode?text=' + encodeURIComponent(code));
+    } else {
+        $('#QRCodeImage123').attr('src', '');
+    }
+}
+
+// Function to update the Code field
+function updateCodeFieldmodal() {
+    var Category = $('#SelectCategory option:selected').text();
+    var TypesProduct = $('#SelectTypesProductt option:selected').text();
+    var Product = $('#ProductName').val() || "No Name";
+    var Model = $('#modelInput').val();
+    var UPC = $('#UPC12').val();
+
+    var randomString = generateRandomStringrr(5);
+
+    if (Category && TypesProduct) {
+
+        var code = randomString + Category + TypesProduct + Product + Model + UPC;
+        console.log(code);
+        console.log("codeeeeeeeeee");
+        $('#Codeeee').val(code);
+        updateQRCodeForAA(); // Update QR code when code is updated
+    }
+
+}
+
+// Close the modal if the user clicks outside of it
 window.onclick = function (event) {
     var modal = document.getElementById("customModal");
     if (event.target == modal) {
         modal.style.display = "none";
     }
 };
+
+// Function to populate product name in the modal based on the model number
+function populateProductNameInModal(model, brand1) {  
+    if (model) {
+        $.ajax({
+            url: '/admin/Order/FetchImageByModelOrder',  
+            type: 'GET',
+            data: { model: model, breand: brand1 }, 
+            success: function (response) {
+                if (response.success) {
+                    $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
+                    $("#output").attr('src', response.imageUrl);
+                    var xxxxx = response.imageUrl;
+                    console.log(xxxxx);
+                    $("#xaxaxaxaxa").val(xxxxx);
+                } else {
+                    alert(response.message);  // Show an alert if there was an issue
+                    $("#MyProduct").val('');  // Clear product name if not found
+                      // Clear product name if not found
+                }
+            },
+            error: function () {
+                alert("Error fetching the product name.");  // Alert the user about the error
+                $("#MyProduct").val('');  // Clear product name in case of an error
+            }
+        });
+    }
+}
+
+
+// Clear product details if no product is selected
+function clearProductDetails() {
+    $('#ProductName').val('');
+    $('#SelectProductCategory').val('').trigger('change');
+    $('#SelectBondType').val('').trigger('change');
+    $('#SelectTypesProduct').val('').trigger('change');
+    $('#GlobalPrice').val('');
+    $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+}
+
+// Modal functions
+
+// Close modal if clicking outside
+window.onclick = function (event) {
+    if (event.target == $('#customModal')[0]) {
+        closeModal();
+    }
+}
+
+// Handle form submission inside the modal
+$('form[asp-action="SaveModal"]').on('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var form = $(this);
+
+    // Optionally handle the form submission via AJAX
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (response) {
+            // Close the modal
+            closeModal();
+            // Repopulate the search field with the stored search text
+            $('#product12').val($('#product12').data('previous-value'));
+        },
+        error: function (response) {
+            console.error("Error during form submission", response);
+            // Handle the error (display a message, etc.)
+        }
+    });
+});
+
+var previousSearchText = '';
+// Close modal if clicking outside
+window.onclick = function (event) {
+    if (event.target == $('#customModal')[0]) {
+        closeModal();
+    }
+}
+
+// Modal functions
+var previousSearchText = '';
+
+function openModal() {
+    $('#BrandName123').val('');
+    var productId = $('#product12').val();
+    $('#ProductName').val(productId).trigger('change');
+    previousSearchText = $('#product12').val(); // Store the current search text
+    $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
+    document.getElementById("customModal").style.display = "block";
+    //var brand = $('#BrandName123 option:selected').text();
+
+
+    //populateProductNameInModal(productId, brand);
+
+}
+
+$('#BrandName123').on('change', function () {
+
+    console.log("BrandName123 change");
+    var productId = $('#product12').val();
+    var brand = $('#BrandName123 option:selected').text();
+    console.log(brand);
+    populateProductNameInModal(productId, brand);
+});
+
+
+
+
+function closeModal() {
+    document.getElementById("customModal").style.display = "none";
+    $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
     var productInput = document.getElementById('product12');
@@ -24,21 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 let typingTimer;  // Timer identifier
-const typingDelay = 3000;  // 3 seconds delay before triggering search
-
-var previousSearchText = '';
-
-function openModal() {
-    console.log("openModal");
-    previousSearchText = $('#product12').val(); // Store the current search text
-    $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
-    document.getElementById("customModal").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("customModal").style.display = "none";
-    $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
-}
+const typingDelay = 1500;  // 3 seconds delay before triggering search
 
 // Handle form submission inside the modal
 $('form[asp-action="SaveModal"]').on('submit', function (event) {
@@ -94,6 +314,8 @@ function checkProductAvailability(productId) {
                 });
                 $('#ProductName').val(productId);
                 $('#modalButton').prop('disabled', false);
+                console.log("openModal in in in  checkProductAvailability ");
+
                 openModal();
             }
         },
@@ -169,7 +391,8 @@ $(document).ready(function () {
                     }));
                 },
                 error: function () {
-                    alert('Error retrieving data');
+                    console.log("openModalopenModalopenModalopenModalopenModal");
+                    openModal();
                 }
             });
         },
@@ -376,7 +599,8 @@ $(document).ready(function () {
     var merchantValue = $('#MerchantComm').text();
     if (merchantValue) {
         $('#SelectMerchant').val(merchantValue).trigger('change');
-    } else {
-        console.log("Merchant value is empty or null");
-    }
+    } else {}
 });
+
+
+

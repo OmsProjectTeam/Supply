@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 let typingTimer;  // Timer identifier
-const typingDelay = 3000;  // 3 seconds delay before triggering search
+const typingDelay = 1500;  // 3 seconds delay before triggering search
 
 // Handle form submission inside the modal
 $('form[asp-action="SaveModal"]').on('submit', function (event) {
@@ -599,7 +599,8 @@ $(document).ready(function () {
     var merchantValue = $('#MerchantComm').text();
     if (merchantValue) {
         $('#SelectMerchant').val(merchantValue).trigger('change');
-    } else {
-        console.log("Merchant value is empty or null");
-    }
+    } else {}
 });
+
+
+

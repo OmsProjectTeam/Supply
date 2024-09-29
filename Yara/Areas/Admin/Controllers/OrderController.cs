@@ -961,9 +961,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
                 slider.IdBrandName = model.ProductInformation.IdBrandName;
-
                 slider.ProductName = model.ProductInformation.ProductName;
-
                 slider.UPC = model.ProductInformation.UPC;
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
@@ -1016,6 +1014,7 @@ namespace Yara.Areas.Admin.Controllers
                 await dbcontext.SaveChangesAsync();
 
                 TempData["Saved successfully"] = "Saved successfully.";
+                TempData["AfterSave"] = model.ProductInformation.Model;
                 return RedirectToAction("AddOrder");
             }
             catch (Exception ex)

@@ -359,6 +359,7 @@
                             <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
                             <input type="hidden" asp-for="@Model.returnUrl" id="url">
                             <input type="hidden" id="xaxaxaxaxa" asp-for="@Model.ProductInformation.Photo">
+                            <p hidden id="AfterSave">@TempData["AfterSave"]</p>
                         </div>
 
                         <div class="row small-spacing">
@@ -1773,4 +1774,62 @@
     //     // }
 
     // </script>
+
+
+
+
+    <script>
+        function checkProductAvailability(productId) {
+                console.log("checkProductAvailability:" + productId);
+            $.ajax({
+                url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+                type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        if (data && data.productCategoryId > 0) {
+                            populateProductDetails(data);  // Populate product details
+                            $('#modalButton').prop('disabled', true);  // Disable modal button
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No product available',
+                                text: 'Create a new one, please click the modal button',
+                                showConfirmButton: false,
+                                timer: 6000,
+                                position: 'top-end',
+                                toast: true
+                            });
+                            $('#ProductName').val(productId);
+                            $('#modalButton').prop('disabled', false);
+                            openModal();
+                        }
+                    },
+                    error: function () {
+                        console.error("Error fetching product details.");
+                        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                        $('#GlobalPrice').val("0.00");
+                        $('#modalButton').prop('disabled', true);
+                    }
+                });
+        }
+
+
+        function searchAboutProduct(model) {
+
+            $('#product12').val(model);
+
+            checkProductAvailability(model);
+            setTimeout(() => {
+                document.getElementById('contentWrapper').style.display = 'block';
+            }, 100);
+        }
+
+        $(document).ready(function () {
+            var val = $('#AfterSave').text();
+            console.log("AfterSave:" + val)
+            if (val) {
+                searchAboutProduct(val);
+            }
+        });
+    </script>
 }

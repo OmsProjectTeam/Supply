@@ -335,8 +335,9 @@
                                     <a class="btn btn-sm btn-outline-primary" id="printWarehouseDetails" onclick="printWarehouseDetails1()">Print</a>
                                 </div>
                                 <div>
-                                    <a class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="printWarehouseDetails()">Print Invoice</a>
+                                    <a asp-area="Admin" asp-controller="Order" asp-action="printInvoce" asp-route-IdPurchaseOrder="@Model.Order.IdPurchaseOrder" class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="printWarehouseDetails()">Print Invoice</a>
                                 </div>
+                               
                             </div>
                         </div>
 

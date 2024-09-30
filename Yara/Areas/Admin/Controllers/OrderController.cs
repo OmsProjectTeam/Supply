@@ -1222,5 +1222,139 @@ namespace Yara.Areas.Admin.Controllers
                     GlobalPrice = GlobalPrice
                 });
             }
-        }
-    }
+
+		[HttpGet]
+		public IActionResult PrintInvoice(string Merchant, string WareHouse,
+		  string PurchaseOrderNoumber, string ProductInformation,
+		  string WareHouseBranch, string sellingPrice,
+		  string QouantityIn,
+		  string PurchasePrice,
+		  string SpecialSalePrice,
+		  string BondType,
+		  string qrCodeSrc,
+		  string bar, string upc)
+		{
+			string photo = string.Empty;
+			string PhoneNumber = string.Empty;
+			string Address = string.Empty;
+			string CompanyName = string.Empty;
+
+			ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+
+			// Fetch company information and set it in the ViewModel
+			vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().ToList();
+
+			if (vmodel.ListCompanyInformatione != null && vmodel.ListCompanyInformatione.Any())
+			{
+				var company = vmodel.ListCompanyInformatione.FirstOrDefault();
+				CompanyName = company.CompanyName;
+				PhoneNumber = company.PhoneNumber;
+				photo = company.Photo;
+				Address = company.AddressEn;
+			}
+
+			var htmlContent = new StringBuilder();
+
+			// Start HTML content
+			htmlContent.Append("<html><head><title>Print Invoice</title>");
+			htmlContent.Append("<style>");
+			htmlContent.Append("body { font-family: Arial, sans-serif; font-size: 12px; }");
+			htmlContent.Append(".invoice-box { width: 100%; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); line-height: 24px; color: #555; }");
+			htmlContent.Append(".invoice-box table { width: 100%; line-height: inherit; text-align: left; }");
+			htmlContent.Append(".invoice-box table td { padding: 5px; vertical-align: top; }");
+			htmlContent.Append(".invoice-box table tr td:nth-child(2) { text-align: right; }");
+			htmlContent.Append(".invoice-box table tr.top table td { padding-bottom: 20px; }");
+			htmlContent.Append(".invoice-box table tr.top table td.title { font-size: 45px; line-height: 45px; color: #333; }");
+			htmlContent.Append(".invoice-box table tr.information table td { padding-bottom: 40px; }");
+			htmlContent.Append(".invoice-box table tr.heading td { background: #eee; border-bottom: 1px solid #ddd; font-weight: bold; }");
+			htmlContent.Append(".invoice-box table tr.details td { padding-bottom: 20px; }");
+			htmlContent.Append(".invoice-box table tr.item td{ border-bottom: 1px solid #eee; }");
+			htmlContent.Append(".invoice-box table tr.item.last td { border-bottom: none; }");
+			htmlContent.Append(".invoice-box table tr.total td:nth-child(2) { border-top: 2px solid #eee; font-weight: bold; }");
+			htmlContent.Append("</style>");
+			htmlContent.Append("</head><body>");
+
+			// Invoice container
+			htmlContent.Append("<div class='invoice-box'>");
+			htmlContent.Append("<table cellpadding='0' cellspacing='0'>");
+
+			// Company and Invoice Information
+			htmlContent.Append("<tr class='top'>");
+			htmlContent.Append("<td colspan='2'>");
+			htmlContent.Append("<table>");
+			htmlContent.Append("<tr>");
+			htmlContent.AppendFormat("<td class='title'><img src='/Images/Home/{0}' alt='Company Logo' style='width: 100px;' /></td>", photo);
+			htmlContent.AppendFormat("<td>Invoice #: {0}<br>Created: {1}<br>Due: {2}</td>", PurchaseOrderNoumber, DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(30).ToShortDateString());
+			htmlContent.Append("</tr>");
+			htmlContent.Append("</table>");
+			htmlContent.Append("</td>");
+			htmlContent.Append("</tr>");
+
+			// Company Address and Merchant Information
+			htmlContent.Append("<tr class='information'>");
+			htmlContent.Append("<td colspan='2'>");
+			htmlContent.Append("<table>");
+			htmlContent.AppendFormat("<tr><td>{0}<br>{1}<br>{2}</td>", CompanyName, Address, PhoneNumber);
+			htmlContent.AppendFormat("<td>Merchant#: {0}<br>Warehouse#: {1}<br>Warehouse Branch: {2}</td>", Merchant, WareHouse, WareHouseBranch);
+			htmlContent.Append("</tr>");
+			htmlContent.Append("</table>");
+			htmlContent.Append("</td>");
+			htmlContent.Append("</tr>");
+
+			// Payment Method
+			htmlContent.Append("<tr class='heading'>");
+			htmlContent.Append("<td>Payment Method</td>");
+			htmlContent.Append("<td>Check #</td>");
+			htmlContent.Append("</tr>");
+			htmlContent.Append("<tr class='details'><td>Check</td><td>1000</td></tr>");
+
+			// Product Details
+			htmlContent.Append("<tr class='heading'><td>Product</td><td>Price</td></tr>");
+			htmlContent.AppendFormat("<tr class='item'><td>{0}</td><td>{1}</td></tr>", ProductInformation, sellingPrice);
+
+			// Total
+			htmlContent.Append("<tr class='total'><td></td><td>Total: " + sellingPrice + "</td></tr>");
+			htmlContent.Append("</table>");
+
+			// QR Code, Barcode, and UPC Section
+			htmlContent.Append("<div class='footer'>");
+			htmlContent.AppendFormat("<img src='{0}' alt='QR Code' style='width: 80px;' /><br>", qrCodeSrc);
+			htmlContent.AppendFormat("<img src='{0}' alt='Barcode' style='width: 180px;' /><br>", bar);
+			if (!string.IsNullOrEmpty(upc))
+			{
+				htmlContent.AppendFormat("<div class='upc'>UPC: {0}</div>", upc);
+			}
+			else
+			{
+				htmlContent.Append("<div class='upc'>UPC: N/A</div>");
+			}
+			htmlContent.Append("</div>");
+
+			// Print and Submit Buttons
+			htmlContent.Append("<div class='text-right' style='margin-top: 20px;'>");
+			htmlContent.Append("<button onclick='window.print()' class='btn btn-default'><i class='fa fa-print'></i> Print</button>");
+			htmlContent.Append("<button type='submit' class='btn btn-primary'>Submit</button>");
+			htmlContent.Append("</div>");
+
+			// Close Invoice container
+			htmlContent.Append("</div>");
+
+			// End HTML content
+			htmlContent.Append("</body></html>");
+
+			// Return the formatted content as an HTML page
+			return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
+		}
+
+
+
+
+
+
+
+
+
+
+
+	}
+}

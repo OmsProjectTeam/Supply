@@ -1349,20 +1349,9 @@ namespace Yara.Areas.Admin.Controllers
 
         public IActionResult printInvoce(int IdPurchaseOrder)
         {
-		
-		
-
-			
-
-
-
-
-
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().Take(1);
            
-
-
             // تأكد من أن CompanieTypeWork مهيأ حتى لو لم يكن هناك ID
             if (vmodel.ListCompanyInformatione == null)
             {
@@ -1375,11 +1364,6 @@ namespace Yara.Areas.Admin.Controllers
             }
 
             return View(vmodel);
-
-
-
-
-
 
         }
 

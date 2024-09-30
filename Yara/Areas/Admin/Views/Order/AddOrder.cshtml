@@ -335,7 +335,8 @@
                                     <a class="btn btn-sm btn-outline-primary" id="printWarehouseDetails" onclick="printWarehouseDetails1()">Print</a>
                                 </div>
                                 <div>
-                                    <a asp-area="Admin" asp-controller="Order" asp-action="printInvoce" asp-route-IdPurchaseOrder="@Model.Order.IdPurchaseOrder" class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="printWarehouseDetails()">Print Invoice</a>
+                                    <a class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="PrintInvoice(123)">Print Invoice</a>
+
                                 </div>
                                
                             </div>
@@ -1857,9 +1858,14 @@
 
         ///////////////////////////////////./////////////////////////////////////////////
 
-        function Printinvoice() {
+        function PrintInvoice(IdPurchaseOrder) {
 
+            var url = "/Admin/Order/printInvoce?IdPurchaseOrder=" + IdPurchaseOrder;
+
+            // فتح صفحة الطباعة في نافذة جديدة
+            window.open(url, '_blank');
         }
+
 
 
         $(document).ready(function () {

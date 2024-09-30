@@ -366,12 +366,6 @@
   <data name="lbCurrentState" xml:space="preserve">
     <value>status</value>
   </data>
-  <data name="lbCusName" xml:space="preserve">
-    <value>Customer Name</value>
-  </data>
-  <data name="lbCusName1212" xml:space="preserve">
-    <value>Customer Name</value>
-  </data>
   <data name="LBCustomeronorder" xml:space="preserve">
     <value>Customer On Order</value>
   </data>
@@ -1310,5 +1304,14 @@
   </data>
   <data name="VLWareHouseTypeDoplceted" xml:space="preserve">
     <value>The Ware House Type has already been entered. Please check and try again later...!</value>
+  </data>
+  <data name="lbCusName" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="lbCusName1212" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="Lbtotal" xml:space="preserve">
+    <value>Total</value>
   </data>
 </root>

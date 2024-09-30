@@ -2860,6 +2860,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string Lbtotal {
+            get {
+                return ResourceManager.GetString("Lbtotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transfer Amount.
         /// </summary>
         public static string LbTransferAmount {

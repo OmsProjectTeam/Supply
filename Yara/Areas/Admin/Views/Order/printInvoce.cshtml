@@ -1,243 +1,208 @@
 ﻿@model ViewmMODeElMASTER
 @{
-	ViewData["Title"] = ResourceWeb.LBAddOrder;
-	Layout = null;
+    ViewData["Title"] = ResourceWeb.LBAddOrder;
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	<title>Invoice - Ninja Admin Template</title>
+    <title>Invoice - Ninja Admin Template</title>
 
-	<!-- Main Styles -->
-	<link rel="stylesheet" href="~/Admin/assets/styles/style.min.css">
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="~/Admin/assets/styles/style.min.css">
 
-	<!-- mCustomScrollbar -->
-	<link rel="stylesheet" href="~/Admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- mCustomScrollbar -->
+    <link rel="stylesheet" href="~/Admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
 
-	<!-- Waves Effect -->
-	<link rel="stylesheet" href="~/Admin/assets/plugin/waves/waves.min.css">
+    <!-- Waves Effect -->
+    <link rel="stylesheet" href="~/Admin/assets/plugin/waves/waves.min.css">
 
-	<!-- Sweet Alert -->
-	<link rel="stylesheet" href="~/Admin/assets/plugin/sweet-alert/sweetalert.css">
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="~/Admin/assets/plugin/sweet-alert/sweetalert.css">
 
-	<!-- Dark Themes -->
-	<link rel="stylesheet" href="~/Admin/assets/styles/style-dark.min.css">
+    <!-- Dark Themes -->
+    <link rel="stylesheet" href="~/Admin/assets/styles/style-dark.min.css">
 </head>
 
 <body>
-	
-	<!-- /.main-menu -->
+    <div id="wrapper">
+        <div class="main-content">
+            <div class="row small-spacing">
+                <div class="col-xs-12">
+                    <div class="invoice-box">
+                        <table>
+                            <tr class="top">
+                                <td colspan="2">
+                                    @foreach (var item in Model.ListCompanyInformatione)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td class="title">
+                                                    <a href="#">
+                                                        <img src="@string.Format("/Images/Home/{0}", item.Photo)"
+                                                             class="img-bordered img-circle img-circle"
+                                                             style="width:100px; height:100px">
+                                                    </a>
+                                                </td>
+                                                @foreach (var item1 in Model.ListViewOrder)
+                                                {
+                                                    <td>
+                                                        @item1.BondType<br>
+                                                        Invoice #: @item1.PurchaseAuotNoumber<br>
+                                                        Created: @item1.DateTimeEntry<br>
+                                                        Due:  @item1.DateTimeEntry
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </table>
+                                    }
+                                </td>
+                            </tr>
 
+                            <tr class="information">
+                                <td colspan="2">
+                                    <table>
+                                        @foreach (var item2 in Model.ListCompanyInformatione)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item2.CompanyName<br>
+                                                    @item2.AddressEn<br>
+                                                </td>
 
+                                                <td>
+                                                    @item2.PhoneNumber<br>
+                                                    @item2.EmailCompany<br>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
 
+                            <tr class="heading">
+                                <td>
+                                    Payment Method
+                                </td>
+                                <td>
+                                    Check #
+                                </td>
+                            </tr>
 
+                            <tr class="details">
+                                <td>
+                                   
+                                </td>
+                                <td>
+                                   
+                                </td>
+                            </tr>
+                        </table>
 
-	<!-- /#message-popup -->
-	<div id="wrapper">
-		<div class="main-content">
-			<div class="row small-spacing">
-				<div class="col-xs-12">
-					<div class="invoice-box">
-						<table>
-							<tr class="top">
-								<td colspan="2">
-									@foreach (var item in Model.ListCompanyInformatione)
-									{
-										<table>
-											<tr>
-												<td class="title">
-													<a href="#">
-														<img src="@string.Format("/Images/Home/{0}", item.Photo)"
-															 class="img-bordered img-circle img-circle"
-															 style="width:100px; height:100px">
-													</a>
-												</td>
+                        <div class='table-responsive'>
+                            <div style="overflow-x:auto;">
+                                <table id="example" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th>@ResourceWeb.LbPhoto</th>
+                                            <th>@ResourceWeb.lbProductName</th>
+                                            <th>@ResourceWeb.LbTypesProduct</th>
+                                            <th>@ResourceWeb.LbsellingPrice</th>
+                                            <th>@ResourceWeb.LbQuantityOute</th>
+                                            <th>@ResourceWeb.Lbtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ListViewOrder)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img src="@item.Photo" class="img-bordered img-circle"
+                                                         style="width:100px; height:100px">
+                                                </td>
+                                                <td>@item.ProductName</td>
+                                                <td>@item.TypesProduct</td>
+                                                <td>@item.sellingPrice</td>
+                                                <td>@item.QuantityOute</td>
+                                                @{
+                                                    var total = item.sellingPrice * item.QuantityOute;
+                                                }
+                                                <td>@total</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>@ResourceWeb.LbPhoto</th>
+                                            <th>@ResourceWeb.lbProductName</th>
+                                            <th>@ResourceWeb.LbTypesProduct</th>
+                                            <th>@ResourceWeb.LbsellingPrice</th>
+                                            <th>@ResourceWeb.LbQuantityOute</th>
+                                            <th>@ResourceWeb.Lbtotal</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
 
-												<td>
-													Invoice #: 123<br>
-													Created: January 1, 2015<br>
-													Due: February 1, 2015
-												</td>
-											</tr>
-										</table>
-									}
-									
-								</td>
-							</tr>
+                        <table>
+                            <tr class="heading">
+                                <td>
+                                    Payment Method
+                                </td>
+                                <td>
+                                    Check #
+                                </td>
+                            </tr>
 
-							<tr class="information">
-								<td colspan="2">
-									<table>
-										<tr>
-											<td>
-												Next Step Webs, Inc.<br>
-												12345 Sunny Road<br>
-												Sunnyville, TX 12345
-											</td>
+                            <tr class="details">
+                                   @foreach (var item in Model.ListViewOrder)
+                                        {
+                                <td>
+                                    Check
+                                </td>
 
-											<td>
-												Acme Corp.<br>
-												John Doe<br>
-												john@example.com
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
+                                    <td>
+                                  
+                                        @{
+                                            var total = item.sellingPrice * item.QuantityOute;
+                                        }
+                                   @total</td>
+                                  
+                                
+                                        }
+                            </tr>
+                        </table>
 
+                       
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <ul class="list-inline">
+                    <li>2016 © NinjaAdmin.</li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </footer>
+        </div>
+    </div>
 
-
-
-							<tr class="heading">
-								<td>
-									Payment Method
-								</td>
-
-								<td>
-									Check #
-								</td>
-							</tr>
-
-							<tr class="details">
-								<td>
-									Check
-								</td>
-
-								<td>
-									1000
-								</td>
-							</tr>
-
-							<tr class="heading">
-								<div class='table-responsive'>
-									<div style="overflow-x:auto;">
-										<table id="example" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
-
-											<thead>
-												<tr role="row">
-													<th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbGroupName</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbUserName</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoneNumber</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbUserEmail</th>
-
-											<tfoot>
-												<tr>
-													<th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-
-													<th rowspan="1" colspan="1">@ResourceWeb.LbGroupName</th>
-													<th rowspan="1" colspan="1">@ResourceWeb.LbUserName</th>
-													<th rowspan="1" colspan="1">@ResourceWeb.LbPhoneNumber</th>
-													<th rowspan="1" colspan="1">@ResourceWeb.LbUserEmail</th>
-													<th rowspan="1" colspan="1">@ResourceWeb.LbEmail</th>
-
-											</tfoot>
-											<tbody>
-
-
-												<tr role="row" class="odd">
-													<td>IdNewsletterGroup</td>
-
-													<td class="truncate-50">GroupName</td>
-													<td class="truncate-50">UserName</td>
-													<td class="truncate-50">PhoneNumber</td>
-													<td class="truncate-50">ConstEmail</td>
-													<td class="truncate-50">CurrentEmail</td>
-												</tr>
-
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</tr>
-@* 
-							<tr class="item">
-								<td>
-									Website design
-								</td>
-
-								<td>
-									$300.00
-								</td>
-							</tr> 
-
-							<tr class="item">
-								<td>
-									Hosting (3 months)
-								</td>
-
-								<td>
-									$75.00
-								</td>
-							</tr>
-
-							<tr class="item last">
-								<td>
-									Domain name (1 year)
-								</td>
-
-								<td>
-									$10.00
-								</td>
-							</tr>
-							*@
-						@* 	<tr class="total">
-								<td></td>
-
-								<td>
-									Total: $385.00
-								</td>
-							</tr> *@
-						</table>
-
-						<div class="text-right margin-top-20">
-							<ul class="list-inline">
-								<li><button type="button" class="btn btn-default waves-effect waves-light"><i class='fa fa-print'></i> Print</button></li>
-								<li><button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /.invoice-box -->
-				</div>
-				<!-- /.col-xs-12 -->
-			</div>
-			<!-- /.row small-spacing -->
-			<footer class="footer">
-				<ul class="list-inline">
-					<li>2016 © NinjaAdmin.</li>
-					<li><a href="#">Privacy</a></li>
-					<li><a href="#">Terms</a></li>
-					<li><a href="#">Help</a></li>
-				</ul>
-			</footer>
-		</div>
-		<!-- /.main-content -->
-	</div><!--/#wrapper -->
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		<script src="~/Admin/assets/script/html5shiv.min.js"></script>
-		<script src="~/Admin/assets/script/respond.min.js"></script>
-	<![endif]-->
-	<!--
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="~/Admin/assets/scripts/jquery.min.js"></script>
-	<script src="~/Admin/assets/scripts/modernizr.min.js"></script>
-	<script src="~/Admin/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
-	<script src="~/Admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="~/Admin/assets/plugin/nprogress/nprogress.js"></script>
-	<script src="~/Admin/assets/plugin/sweet-alert/sweetalert.min.js"></script>
-	<script src="~/Admin/assets/plugin/waves/waves.min.js"></script>
-	<!-- Full Screen Plugin -->
-	<script src="~/Admin/assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
-
-	<script src="~/Admin/assets/scripts/main.min.js"></script>
+    <!-- Scripts -->
+    <script src="~/Admin/assets/scripts/jquery.min.js"></script>
+    <script src="~/Admin/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Admin/assets/plugin/nprogress/nprogress.js"></script>
+    <script src="~/Admin/assets/plugin/sweet-alert/sweetalert.min.js"></script>
+    <script src="~/Admin/assets/plugin/waves/waves.min.js"></script>
+    <script src="~/Admin/assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
+    <script src="~/Admin/assets/scripts/main.min.js"></script>
 </body>
 </html>

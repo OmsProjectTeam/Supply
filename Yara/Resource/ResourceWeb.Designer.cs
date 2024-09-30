@@ -808,6 +808,24 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Name.
+        /// </summary>
+        public static string lbCusName {
+            get {
+                return ResourceManager.GetString("lbCusName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Name.
+        /// </summary>
+        public static string lbCusName1212 {
+            get {
+                return ResourceManager.GetString("lbCusName1212", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nearest Teacher.
         /// </summary>
         public static string Lbcust_landmark {

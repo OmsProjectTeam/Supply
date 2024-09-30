@@ -366,6 +366,12 @@
   <data name="lbCurrentState" xml:space="preserve">
     <value>status</value>
   </data>
+  <data name="lbCusName" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="lbCusName1212" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
   <data name="LBCustomeronorder" xml:space="preserve">
     <value>Customer On Order</value>
   </data>

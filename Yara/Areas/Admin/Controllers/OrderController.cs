@@ -63,8 +63,6 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.user = iUserInformation.GetAllByRole("Customer,Admin,Basic");
 
 
-
-
             ViewBag.BrandName = iBrandName.GetAll();
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();

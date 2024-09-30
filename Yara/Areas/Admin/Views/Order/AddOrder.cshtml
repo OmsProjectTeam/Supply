@@ -135,7 +135,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="SelectMerchantdiv">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectMerchant"></select>
@@ -143,7 +143,15 @@
                                 </div>
                             </div>
                             <div hidden id="MerchantComm">@TempData["Merchant"]</div>
+                            <div class="col-sm-6" id="SelectCustomersdiv">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbCusName1212</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))" id="SelectCustomers"></select>
+                                    <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="row small-spacing">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -262,7 +270,7 @@
                         </div>
                         <div class="row small-spacing">
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="QuantityIndiv">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
@@ -270,10 +278,10 @@
 
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="QuantityOutediv">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.QuantityOute">@ResourceWeb.LbQuantityOute</label>
-                                    <input id="QuantityIn" asp-for="@Model.Order.QuantityOute" type="text" placeholder="@ResourceWeb.LbQuantityOute...." class="form-control">
+                                    <input id="QuantityOute" asp-for="@Model.Order.QuantityOute" type="text" placeholder="@ResourceWeb.LbQuantityOute...." class="form-control">
                                     <span asp-validation-for="@Model.Order.QuantityOute" class="text-danger"></span>
 
                                 </div>
@@ -324,7 +332,10 @@
                             <div class="form-group">
                                 <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
                                 <div>
-                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
+                                    <a class="btn btn-sm btn-outline-primary" id="printWarehouseDetails" onclick="printWarehouseDetails1()">Print</a>
+                                </div>
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="printWarehouseDetails()">Print Invoice</a>
                                 </div>
                             </div>
                         </div>
@@ -440,6 +451,7 @@
                                 <div>
                                     <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
                                 </div>
+
                             </div>
                         </div>
 
@@ -1787,6 +1799,7 @@
 
 
     <script>
+
         function checkProductAvailability(productId) {
                 console.log("checkProductAvailability:" + productId);
             $.ajax({
@@ -1839,5 +1852,61 @@
                 searchAboutProduct(val);
             }
         });
+
+
+        ///////////////////////////////////./////////////////////////////////////////////
+
+        function Printinvoice() {
+
+        }
+
+
+        $(document).ready(function () {
+
+            var selectedValue = $('#SelectBondType option:selected').text();
+
+            if (selectedValue == "Purchase order") {
+                $('#SelectMerchantdiv').css("display", "block");
+                $('#QuantityIndiv').css("display", "block");
+                $('#printWarehouseDetails').css("display", "block");
+
+                $('#SelectCustomersdiv').css("display", "none");
+                $('#QuantityOutediv').css("display", "none");
+                $('#Printinvoice').css("display", "none");
+            }
+            else {
+                $('#SelectMerchantdiv').css("display", "none");
+                $('#QuantityIndiv').css("display", "none");
+                $('#printWarehouseDetails').css("display", "none");
+
+                $('#SelectCustomersdiv').css("display", "block");
+                $('#QuantityOutediv').css("display", "block");
+                $('#Printinvoice').css("display", "block");
+            }
+
+            $('#SelectBondType').change(function () {
+
+                var selectedValue1 = $('#SelectBondType option:selected').text();
+                if (selectedValue1 == "Purchase order") {
+                    $('#SelectMerchantdiv').css("display", "block");
+                    $('#QuantityIndiv').css("display", "block");
+                    $('#printWarehouseDetails').css("display", "block");
+
+                    $('#SelectCustomersdiv').css("display", "none");
+                    $('#QuantityOutediv').css("display", "none");
+                    $('#Printinvoice').css("display", "none");
+                }
+                else {
+                    $('#SelectMerchantdiv').css("display", "none");
+                    $('#QuantityIndiv').css("display", "none");
+                    $('#printWarehouseDetails').css("display", "none");
+
+                    $('#SelectCustomersdiv').css("display", "block");
+                    $('#QuantityOutediv').css("display", "block");
+                    $('#Printinvoice').css("display", "block");
+                }
+            });
+        });
+
     </script>
 }

@@ -259,7 +259,7 @@
                                                                 <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="DeleteData" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-danger btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
                                                                         @if (item.BondType == "Purchase order")
                                                                         {
-                                                                            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="DeleteData" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-info btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
+                                                                    <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="printPurchase" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-info btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
                                                                         }
                                                                       
                                                                     <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="printInvoce" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-success btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>
@@ -427,7 +427,10 @@
 
         $(document).ready(function () {
             updateBar();
+            updateQRCode();
         });
+
+
     </script>
 
 }

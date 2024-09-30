@@ -1347,6 +1347,7 @@ namespace Yara.Areas.Admin.Controllers
 		}
 
 
+
         public IActionResult printInvoce(int IdPurchaseOrder)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();

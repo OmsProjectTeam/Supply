@@ -1,7 +1,7 @@
 ﻿@model ViewmMODeElMASTER
 @{
     ViewData["Title"] = "Print Label";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = null;
 }
     <style>
         body {
@@ -77,11 +77,14 @@
     
 
     <div class="label-container">
-
+        @foreach (var item in Model.ListCompanyInformatione)
+    {
         <div class="header">
-        <img class="logo" src="/Images/Home/@Model.ListCompanyInformatione.FirstOrDefault(a => a.Photo == Model.ListCompanyInformatione.FirstOrDefault().Photo)" alt="Company Logo" />
-        <div class="text-container">@Model.ListCompanyInformatione.FirstOrDefault(a => a.CompanyName == Model.ListCompanyInformatione.FirstOrDefault().CompanyName)™</div>
+            <img class="logo" src="@string.Format("/Images/Home/{0}", item.Photo)" alt="Company Logo" />
+            <div class="text-container">@item.CompanyName</div>
         </div>
+    }
+      
     @foreach(var item in Model.ListViewOrder)
     {
         <div class="section address-section">
@@ -99,7 +102,15 @@
         <div class="section footer">
             <img class="qr-code" src="" alt="QR Code" />
             <div hidden class="Code">@item.Qrcode</div>
-            <img class="barcode" src="" alt="Barcode" />
+            <div class="form-group">
+                <div hidden class="Code">@item.Qrcode</div>
+                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+            </div>
+
+            <div class="form-group">
+                <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
+                <div hidden class="UPCFORPR">@item.UPC</div>
+            </div>
             <div hidden class="UPCFORPR">@item.UPC</div>
             <div class="upc">@(!string.IsNullOrEmpty(item.UPC) ? item.UPC : "UPC: N/A")</div>
         </div>
@@ -138,3 +149,4 @@
     });
 
 </script>
+<script src="~/js/orderjava.js"></script>

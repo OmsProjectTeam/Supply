@@ -1370,7 +1370,24 @@ namespace Yara.Areas.Admin.Controllers
 
 
 
+        public IActionResult printPurchase(int IdPurchaseOrder)
+        {
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().Take(1);
 
+            // تأكد من أن CompanieTypeWork مهيأ حتى لو لم يكن هناك ID
+            if (vmodel.ListCompanyInformatione == null)
+            {
+                vmodel.CompanyInformation = new TBCompanyInformation(); // أو النوع الصحيح
+            }
+
+            if (IdPurchaseOrder != null)
+            {
+                vmodel.ListViewOrder = iOrder.GetAllv(IdPurchaseOrder);
+            }
+
+            return View(vmodel);
+        }
 
 
 

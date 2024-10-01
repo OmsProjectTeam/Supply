@@ -589,7 +589,7 @@
     <value>Merchant Information</value>
   </data>
   <data name="lbMerchantName" xml:space="preserve">
-    <value>Merchant Name</value>
+    <value>Merchant /Clinet</value>
   </data>
   <data name="lbMerchantOnerEmail" xml:space="preserve">
     <value>Merchant Oner Email</value>

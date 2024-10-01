@@ -137,17 +137,17 @@
 
                             <div class="col-sm-6" id="SelectMerchantdiv">
                                 <div class="form-group">
-                                    <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectMerchant"></select>
-                                    <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                                    <label asp-for="@Model.Order.IdUser">@ResourceWeb.lbMerchantName</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdUser" asp-items="@(new SelectList(ViewBag.Merchants, "IdUserIdentity", "Name"))" id="SelectMerchant"></select>
+                                    <span asp-validation-for="@Model.Order.IdUser" class="text-danger"></span>
                                 </div>
                             </div>
                             <div hidden id="MerchantComm">@TempData["Merchant"]</div>
                             <div class="col-sm-6" id="SelectCustomersdiv">
                                 <div class="form-group">
-                                    <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbCusName1212</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))" id="SelectCustomers"></select>
-                                    <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                                    <label asp-for="@Model.Order.IdUser">@ResourceWeb.lbCusName1212</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdUser" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))" id="SelectCustomers"></select>
+                                    <span asp-validation-for="@Model.Order.IdUser" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -822,7 +822,7 @@
 
         // Function to update the Code field
         function updateCodeField() {
-            var Merchant = $('#SelectMerchant option:selected').text();
+            var Merchant = $('#SelectMerchant="" option:selected').text();
             var WareHouse = $('#SelectWareHouse option:selected').text();
             var BondType = $('#SelectBondType option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
@@ -1914,6 +1914,10 @@
                 }
             });
         });
+        // $(document).ready(function () {
+        //     $('#SelectMerchant').val('');
+        //     $('#SelectCustomers').val('');
 
+        // });
     </script>
 }

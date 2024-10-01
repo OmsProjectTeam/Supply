@@ -14,6 +14,7 @@ using OpenQA.Selenium;
 using System;
 
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -33,9 +34,10 @@ namespace Yara.Areas.Admin.Controllers
         IIBrandName iBrandName;
         IICompanyInformation iCompanyInformation;
         IIUserInformation iUserInformation;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
-            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1)
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -49,6 +51,7 @@ namespace Yara.Areas.Admin.Controllers
             iBrandName = iBrandName1;
             iCompanyInformation = iCompanyInformation1;
             iUserInformation = iUserInformation1;
+            _userManager= userManager;
         }
         public IActionResult MyOrder()
         {
@@ -111,7 +114,7 @@ namespace Yara.Areas.Admin.Controllers
 					{
 						slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
 						slider.IdBondType = model.Order.IdBondType;
-						slider.IdMerchants = model.Order.IdMerchants;
+						slider.IdUser = model.Order.IdUser;
 						slider.IdProductCategory = model.Order.IdProductCategory;
 						slider.IdTypesProduct = model.Order.IdTypesProduct;
 						slider.IdProductInformation = model.Order.IdProductInformation;
@@ -145,7 +148,7 @@ namespace Yara.Areas.Admin.Controllers
 							if (reqwest == true)
 							{
 								TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-								TempData["Merchant"] = model.Order.IdMerchants;
+								TempData["Merchant"] = model.Order.IdUser;
 								return RedirectToAction("AddOrder");
 							}
 							else
@@ -187,7 +190,7 @@ namespace Yara.Areas.Admin.Controllers
 
 						slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
 						slider.IdBondType = model.Order.IdBondType;
-						slider.IdMerchants = model.Order.IdMerchants;
+						slider.IdUser = model.Order.IdUser;
 						slider.IdProductCategory = model.Order.IdProductCategory;
 						slider.IdTypesProduct = model.Order.IdTypesProduct;
 						slider.IdProductInformation = model.Order.IdProductInformation;
@@ -208,20 +211,99 @@ namespace Yara.Areas.Admin.Controllers
 						//Conditions
 						var maxPurchaseAutoNumber = dbcontext.TBOrders.Max(o => (int?)o.PurchaseAuotNoumber) ?? 0;
 						slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
-						if (slider.GlobalPrice == null)
+				
 							slider.GlobalPrice = 0;
 						if (slider.SpecialSalePrice == null)
 							slider.SpecialSalePrice = 0;
-						if (slider.QuantityOute == null)
-							slider.QuantityOute = 0;
+						
+							slider.QuantityIn = 0;
+							slider.PurchasePrice = 0;
 
 						if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
 						{
 							var reqwest = iOrder.saveData(slider);
 							if (reqwest == true)
 							{
-								TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-								TempData["Merchant"] = model.Order.IdMerchants;
+
+                            //Mail Sendig
+
+                            //var userd = vmodel.sUser = iUserInformation.GetById(slider.IdMerchants);
+                            //var user = await _userManager.FindByIdAsync(slider.IdMerchants);
+                            ////var user = await _userManager.GetUserAsync(User);
+                            //if (user == null)
+                            //    return NotFound();
+                            //string namedovlober = user.Name;
+                            //string email = user.Email;
+                            //var TAskStatus = vmodel.ViewRequestsTask = iRequestsTask.GetByIdview(slider.IdRequestsTask);
+                            //if (user == null)
+                            //    return NotFound();
+                            //string ProjectName = TAskStatus.ProjectName;
+                            //string taskstEn = TAskStatus.TitleEn;
+                            //string DescriptionEn = TAskStatus.DescriptionEn;
+                            //string StartDate = TAskStatus.StartDate.ToString();
+                            //string EndtDate = TAskStatus.EndtDate.ToString();
+                            ////send email
+                            //var emailSetting = await dbcontext.TBEmailAlartSettings
+                            //   .OrderByDescending(n => n.IdEmailAlartSetting)
+                            //   .Where(a => a.CurrentState == true && a.Active == true)
+                            //   .FirstOrDefaultAsync();
+                            //// التحقق من وجود إعدادات البريد الإلكتروني
+                            //if (emailSetting != null)
+                            //{
+                            //    var message = new MimeMessage();
+                            //    message.From.Add(new MailboxAddress(slider.RequestsTitelEn, emailSetting.MailSender));
+                            //    message.To.Add(new MailboxAddress(namedovlober, email));
+                            //    message.Cc.Add(new MailboxAddress("saif aldin", "saifaldin_s@hotmail.com"));
+                            //    message.Subject = "New Request  " + "By:" + slider.AddedBy;
+                            //    var builder = new BodyBuilder
+                            //    {
+                            //        TextBody = $"New Request  \n\n\n" +
+                            //                   $"Attn: Mr  {namedovlober}Greetings ...,\n\n\n" +
+
+                            //                   $"Please pay careful attention to the following request and respond to it as soon as possible.. :\n\n\n" +
+                            //                   $"The request is related to the project: {ProjectName}\n\n\n" +
+                            //                   $"And related to the Task Name : {taskstEn}\n\n\n" +
+                            //                   $"Which includes : {DescriptionEn}\n\n\n" +
+                            //                   $"Start Date : {StartDate}\n\n\n" +
+                            //                   $"End Date: {EndtDate}\n\n\n" +
+                            //                   $"The Titel request: {slider.RequestsTitelEn}\n\n\n" +
+                            //                   $"Description request: {slider.RequestsEn}\n\n\n" +
+                            //                   $"Add by  : {slider.AddedBy}\n\n\n"
+                            //    };
+                            //    // إضافة الصورة كملف مرفق إذا كانت موجودة
+                            //    if (!string.IsNullOrEmpty(slider.Photo))
+                            //    {
+                            //        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Home", slider.Photo);
+                            //        builder.Attachments.Add(imagePath);
+                            //    }
+                            //    message.Body = builder.ToMessageBody();
+                            //    using (var client = new SmtpClient())
+                            //    {
+                            //        await client.ConnectAsync(emailSetting.SmtpServer, emailSetting.PortServer, SecureSocketOptions.StartTls);
+                            //        await client.AuthenticateAsync(emailSetting.MailSender, emailSetting.PasswordEmail);
+                            //        await client.SendAsync(message);
+                            //        await client.DisconnectAsync(true);
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    // التعامل مع الحالة التي لا توجد فيها إعدادات البريد الإلكتروني
+                            //    // يمكنك تسجيل خطأ أو تنفيذ إجراءات أخرى هنا
+                            //}
+
+
+
+
+
+
+
+
+
+
+
+
+                            TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
+								TempData["Merchant"] = model.Order.IdUser;
 								return RedirectToAction("AddOrder");
 							}
 							else

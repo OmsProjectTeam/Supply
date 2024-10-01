@@ -118,7 +118,7 @@
                             <input type="hidden" asp-for="@Model.Order.IdPurchaseOrder" class="form-control">
                             <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
                             <input type="hidden" asp-for="@Model.returnUrl" id="url">
-                            <input type="hidden" id="IdUserAAAA" asp-for="@Model.Order.IdUser" />
+                            <input type="text" id="IdUserAAAA" asp-for="@Model.Order.IdUser" />
 
                         </div>
                         @* <input id="product12" placeholder="Enter QR Code" /> *@
@@ -1917,6 +1917,35 @@
             });
         });
         $(document).ready(function () {
+
+            var selectedValue1 = $('#SelectBondType option:selected').text();
+
+            if (selectedValue1 == "Purchase order") {
+
+                var selectedValue = $('#SelectMerchant option:selected').val();
+                $('#IdUserAAAA').val(selectedValue);
+            }
+
+            else 
+            {
+                var selectedValue = $('#SelectCustomers option:selected').val();
+                $('#IdUserAAAA').val(selectedValue);
+            }
+
+            $('#SelectBondType').change(function () {
+                var selectedValue1 = $('#SelectBondType option:selected').text();
+
+                if (selectedValue1 == "Purchase order") {
+                    var selectedValue = $('#SelectMerchant option:selected').val();
+                    $('#IdUserAAAA').val(selectedValue);
+                }
+                else {
+                    var selectedValue = $('#SelectCustomers option:selected').val();
+                    $('#IdUserAAAA').val(selectedValue);
+                }
+            });
+
+
 
             $('#SelectMerchant').change(function () {
                 var selectedValue = $('#SelectMerchant option:selected').val();

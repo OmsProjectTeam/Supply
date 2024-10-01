@@ -103,24 +103,20 @@
             <img class="qr-code" src="" alt="QR Code" />
             <div hidden class="Code">@item.Qrcode</div>
             <div class="form-group">
-                <div hidden class="Code">@item.Qrcode</div>
-                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
-            </div>
-
-            <div class="form-group">
                 <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
                 <div hidden class="UPCFORPR">@item.UPC</div>
             </div>
-            <div hidden class="UPCFORPR">@item.UPC</div>
             <div class="upc">@(!string.IsNullOrEmpty(item.UPC) ? item.UPC : "UPC: N/A")</div>
         </div>
     }
 
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/orderjava.js"></script>
 
 <script>
-    function updateQRCode() {
+    function updateQRCodeIn() {
         $('.qr-code').each(function () {
             var code = $(this).siblings('.Code').text();
             if (code) {
@@ -131,8 +127,8 @@
         });
     }
 
-    function updateBar() {
-        $('.barcode').each(function () {
+    function updateBarIn() {
+        $('.BarCodeUPC').each(function () {
             var upc = $(this).siblings('.UPCFORPR').text();
             console.log(upc);
             if (upc) {
@@ -144,9 +140,9 @@
     }
 
     $(document).ready(function () {
-        updateBar();
-        updateQRCode();
+        updateBarIn();
+        updateQRCodeIn();
     });
 
 </script>
-<script src="~/js/orderjava.js"></script>
+

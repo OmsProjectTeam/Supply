@@ -349,6 +349,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding And Modifyng Purchase Documentation.
+        /// </summary>
+        public static string LBAddPurchaseDocumentation {
+            get {
+                return ResourceManager.GetString("LBAddPurchaseDocumentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string LbAddres {
@@ -381,6 +390,15 @@ namespace Yara.Resource {
         public static string LBAddRolesName {
             get {
                 return ResourceManager.GetString("LBAddRolesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding and modifying Scraping Html Title.
+        /// </summary>
+        public static string LBAddScrapingHtmlTitle {
+            get {
+                return ResourceManager.GetString("LBAddScrapingHtmlTitle", resourceCulture);
             }
         }
         
@@ -741,6 +759,15 @@ namespace Yara.Resource {
         public static string LbCoPricePerkgUnder10 {
             get {
                 return ResourceManager.GetString("LbCoPricePerkgUnder10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cost Order.
+        /// </summary>
+        public static string LbCostOrder {
+            get {
+                return ResourceManager.GetString("LbCostOrder", resourceCulture);
             }
         }
         
@@ -1510,7 +1537,7 @@ namespace Yara.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Merchant Name.
+        ///   Looks up a localized string similar to Merchant /Clinet.
         /// </summary>
         public static string lbMerchantName {
             get {
@@ -1861,11 +1888,29 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purchase Documentation.
+        /// </summary>
+        public static string LBMyPurchaseDocumentation {
+            get {
+                return ResourceManager.GetString("LBMyPurchaseDocumentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Roles .
         /// </summary>
         public static string LBMyRolesName {
             get {
                 return ResourceManager.GetString("LBMyRolesName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scraping Html Title.
+        /// </summary>
+        public static string LBMyScrapingHtmlTitle {
+            get {
+                return ResourceManager.GetString("LBMyScrapingHtmlTitle", resourceCulture);
             }
         }
         
@@ -2266,6 +2311,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order Number.
+        /// </summary>
+        public static string LbOrderNumber {
+            get {
+                return ResourceManager.GetString("LbOrderNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Orders System.
         /// </summary>
         public static string LBOrdersSystem {
@@ -2644,6 +2698,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scraping Html Title.
+        /// </summary>
+        public static string LbScrapingHtmlTitle {
+            get {
+                return ResourceManager.GetString("LbScrapingHtmlTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to sector.
         /// </summary>
         public static string LbSector {
@@ -2761,6 +2824,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        public static string LbStartDate {
+            get {
+                return ResourceManager.GetString("LbStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Street.
         /// </summary>
         public static string LBStreet {
@@ -2865,6 +2937,15 @@ namespace Yara.Resource {
         public static string Lbtotal {
             get {
                 return ResourceManager.GetString("Lbtotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction Date.
+        /// </summary>
+        public static string LbTransactionDate {
+            get {
+                return ResourceManager.GetString("LbTransactionDate", resourceCulture);
             }
         }
         
@@ -3499,6 +3580,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The order number has already been entered. Please check and try again later...!.
+        /// </summary>
+        public static string VLPurchaseDocumentationDoplceted {
+            get {
+                return ResourceManager.GetString("VLPurchaseDocumentationDoplceted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The bond number has already been entered. Please check and try again later...!.
         /// </summary>
         public static string VLReceiptNoDoplceted {
@@ -3531,6 +3621,15 @@ namespace Yara.Resource {
         public static string VLSavedSuccessfully {
             get {
                 return ResourceManager.GetString("VLSavedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The scanning address has already been entered. Please check and try again later so that the process is completed successfully....!.
+        /// </summary>
+        public static string VLScrapingHtmlTitleDoplceted {
+            get {
+                return ResourceManager.GetString("VLScrapingHtmlTitleDoplceted", resourceCulture);
             }
         }
         

@@ -87,12 +87,18 @@
                             </tr>
 
                             <tr class="heading">
+                                 @foreach (var item1 in Model.ListViewOrder)
+                                                {
                                 <td>
-                                    Payment Method
+                                    @item1.NameUser
                                 </td>
                                 <td>
-                                    Check #
+                                   @item1.MerchantPhone
                                 </td>
+                                    <td>
+                                        @item1.MerchantEmaile
+                                    </td>
+                                                }
                             </tr>
 
                             <tr class="details">

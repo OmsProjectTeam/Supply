@@ -1314,4 +1314,37 @@
   <data name="Lbtotal" xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="LBMyPurchaseDocumentation" xml:space="preserve">
+    <value>Purchase Documentation</value>
+  </data>
+  <data name="LbOrderNumber" xml:space="preserve">
+    <value>Order Number</value>
+  </data>
+  <data name="LbStartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="LbTransactionDate" xml:space="preserve">
+    <value>Transaction Date</value>
+  </data>
+  <data name="LbCostOrder" xml:space="preserve">
+    <value>Cost Order</value>
+  </data>
+  <data name="VLPurchaseDocumentationDoplceted" xml:space="preserve">
+    <value>The order number has already been entered. Please check and try again later...!</value>
+  </data>
+  <data name="LBAddPurchaseDocumentation" xml:space="preserve">
+    <value>Adding And Modifyng Purchase Documentation</value>
+  </data>
+  <data name="VLScrapingHtmlTitleDoplceted" xml:space="preserve">
+    <value>The scanning address has already been entered. Please check and try again later so that the process is completed successfully....!</value>
+  </data>
+  <data name="LBMyScrapingHtmlTitle" xml:space="preserve">
+    <value>Scraping Html Title</value>
+  </data>
+  <data name="LbScrapingHtmlTitle" xml:space="preserve">
+    <value>Scraping Html Title</value>
+  </data>
+  <data name="LBAddScrapingHtmlTitle" xml:space="preserve">
+    <value>Adding and modifying Scraping Html Title</value>
+  </data>
 </root>

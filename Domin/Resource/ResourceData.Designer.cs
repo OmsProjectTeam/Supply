@@ -151,20 +151,20 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The maximum number of characters entered must not exceed 50 characters. Please try again so that the process can be completed successfully...!.
+        /// </summary>
+        public static string MaxLength50 {
+            get {
+                return ResourceManager.GetString("MaxLength50", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number of characters entered must not exceed 500 characters...!.
         /// </summary>
         public static string MaxLength500 {
             get {
                 return ResourceManager.GetString("MaxLength500", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string MaxLengthTitel20 {
-            get {
-                return ResourceManager.GetString("MaxLengthTitel20", resourceCulture);
             }
         }
         
@@ -264,15 +264,6 @@ namespace Domin.Resource {
         public static string RoleName {
             get {
                 return ResourceManager.GetString("RoleName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         
@@ -435,6 +426,15 @@ namespace Domin.Resource {
         public static string VlCoPricePerkgUnder10 {
             get {
                 return ResourceManager.GetString("VlCoPricePerkgUnder10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the Cost Order for the process to be completed successfully..!.
+        /// </summary>
+        public static string VlCostOrder {
+            get {
+                return ResourceManager.GetString("VlCostOrder", resourceCulture);
             }
         }
         
@@ -718,6 +718,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the order number to complete the process successfully..!.
+        /// </summary>
+        public static string VlOrderNumber {
+            get {
+                return ResourceManager.GetString("VlOrderNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include the Password Email for the process to complete successfully...!.
         /// </summary>
         public static string VlPasswordEmail {
@@ -777,6 +786,15 @@ namespace Domin.Resource {
         public static string VlProfitAmount {
             get {
                 return ResourceManager.GetString("VlProfitAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The order number has already been entered. Please check and try again later..!.
+        /// </summary>
+        public static string VLPurchaseDocumentationDoplceted {
+            get {
+                return ResourceManager.GetString("VLPurchaseDocumentationDoplceted", resourceCulture);
             }
         }
         
@@ -858,6 +876,15 @@ namespace Domin.Resource {
         public static string VlSmtpServer {
             get {
                 return ResourceManager.GetString("VlSmtpServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the bond date for the process to be completed successfully..!.
+        /// </summary>
+        public static string VlStartDate {
+            get {
+                return ResourceManager.GetString("VlStartDate", resourceCulture);
             }
         }
         
@@ -948,6 +975,15 @@ namespace Domin.Resource {
         public static string VlTitleShipping {
             get {
                 return ResourceManager.GetString("VlTitleShipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the Transaction Date for the process to be completed successfully..!.
+        /// </summary>
+        public static string VlTransactionDate {
+            get {
+                return ResourceManager.GetString("VlTransactionDate", resourceCulture);
             }
         }
         

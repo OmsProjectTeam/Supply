@@ -13,6 +13,7 @@ namespace Infarstuructre.BL
         bool UpdateData(TBOrder updatss);
         bool deleteData(int IdPurchaseOrder);
         List<TBViewOrder> GetAllv(int IdPurchaseOrder);
+        TBViewOrder GetByIdview(int IdPurchaseOrder);
 
         //////////////////////////APIs/////////////////////////////////////////////////////////////////
         Task<List<TBOrder>> GetAllAsync();
@@ -101,6 +102,16 @@ namespace Infarstuructre.BL
             List<TBViewOrder> MySlider = dbcontext.ViewOrder.OrderByDescending(n => n.IdPurchaseOrder == IdPurchaseOrder).Where(a => a.IdPurchaseOrder == IdPurchaseOrder).Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
+
+
+
+
+        public TBViewOrder GetByIdview(int IdPurchaseOrder)
+        {
+            TBViewOrder sslid = dbcontext.ViewOrder.FirstOrDefault(a => a.IdPurchaseOrder == IdPurchaseOrder);
+            return sslid;
+        }
+
         // //////////////////////////APIs/////////////////////////////////////////////////////////////////
 
         public async Task<List<TBOrder>> GetAllAsync()

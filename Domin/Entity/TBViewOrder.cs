@@ -13,9 +13,9 @@ namespace Domin.Entity
         public int IdBondType { get; set; }
         public string BondType { get; set; }
    
-        public string Name { get; set; }
-        public string MerchantPhone { get; set; }
-        public string MerchantEmaile { get; set; }
+    
+        public string? MerchantPhone { get; set; }
+        public string? MerchantEmaile { get; set; }
         public int IdProductCategory { get; set; }
         public string ProductCategory { get; set; }
         public int IdTypesProduct { get; set; }

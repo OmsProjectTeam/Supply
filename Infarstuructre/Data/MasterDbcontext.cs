@@ -393,6 +393,28 @@ namespace Infarstuructre.Data
            .HasDefaultValueSql("((1))");
 
             //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBPurchaseDocumentation>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBPurchaseDocumentation>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))"); 
+       
+
+            //--------------------------------- 
+            //---------------------------------
+            builder.Entity<TBScrapingHtmlTitle>()
+           .Property(b => b.DateTimeEntry)
+           .HasDefaultValueSql("getdate()");
+            builder.Entity<TBScrapingHtmlTitle>()
+           .Property(b => b.CurrentState)
+           .HasDefaultValueSql("((1))");
+            builder.Entity<TBScrapingHtmlTitle>()
+             .Property(b => b.Active)
+             .HasDefaultValueSql("((1))");
+
+            //--------------------------------- 
         }
         //***********************************
         public DbSet<VwUser> VwUsers { get; set; }
@@ -437,6 +459,8 @@ namespace Infarstuructre.Data
         public DbSet<TBViewSendLog> ViewSendLog { get; set; } 
         public DbSet<TBCompanyInformation> TBCompanyInformations { get; set; }
         public DbSet<TBBrandName> TBBrandNames { get; set; }
+        public DbSet<TBPurchaseDocumentation> TBPurchaseDocumentations { get; set; }
+        public DbSet<TBScrapingHtmlTitle> TBScrapingHtmlTitles { get; set; }
      
 
     }

@@ -399,9 +399,6 @@
   <data name="VlQuantityIn" xml:space="preserve">
     <value>Please enter the quantity for the process to be completed successfully...!</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="VlFollowUpMail" xml:space="preserve">
     <value>Please include the Follow Up Mail to complete successfully..!</value>
   </data>
@@ -450,10 +447,25 @@
   <data name="VlUrlTwitter" xml:space="preserve">
     <value>Please include the Twitter Url  To complete successfully..!</value>
   </data>
-  <data name="MaxLengthTitel20" xml:space="preserve">
-    <value />
-  </data>
   <data name="VlBrandName" xml:space="preserve">
     <value>Please include the Brand Name to complete successfully..!</value>
+  </data>
+  <data name="VlOrderNumber" xml:space="preserve">
+    <value>Please enter the order number to complete the process successfully..!</value>
+  </data>
+  <data name="MaxLength50" xml:space="preserve">
+    <value>The maximum number of characters entered must not exceed 50 characters. Please try again so that the process can be completed successfully...!</value>
+  </data>
+  <data name="VlStartDate" xml:space="preserve">
+    <value>Please enter the bond date for the process to be completed successfully..!</value>
+  </data>
+  <data name="VlTransactionDate" xml:space="preserve">
+    <value>Please enter the Transaction Date for the process to be completed successfully..!</value>
+  </data>
+  <data name="VlCostOrder" xml:space="preserve">
+    <value>Please enter the Cost Order for the process to be completed successfully..!</value>
+  </data>
+  <data name="VLPurchaseDocumentationDoplceted" xml:space="preserve">
+    <value>The order number has already been entered. Please check and try again later..!</value>
   </data>
 </root>

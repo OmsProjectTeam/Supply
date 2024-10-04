@@ -17,13 +17,15 @@ namespace Yara.Areas.Admin.Controllers
         IIProductInformation iProductInformation;
         IITypesProduct iTypesProduct;
         IIBrandName iBrandName;
-        public ProductInformationlowesController(MasterDbcontext dbcontext1, IIProductCategory iProductCategory1, IIProductInformation iProductInformation1, IITypesProduct iTypesProduct1,IIBrandName iBrandName1)
+        IIScrapingHtmlTitle iScrapingHtmlTitle;
+        public ProductInformationlowesController(MasterDbcontext dbcontext1, IIProductCategory iProductCategory1, IIProductInformation iProductInformation1, IITypesProduct iTypesProduct1,IIBrandName iBrandName1,IIScrapingHtmlTitle iScrapingHtmlTitle1)
         {
             dbcontext = dbcontext1;
             iProductCategory = iProductCategory1;
             iProductInformation = iProductInformation1;
             iTypesProduct = iTypesProduct1;
             iBrandName = iBrandName1;
+            iScrapingHtmlTitle = iScrapingHtmlTitle1; 
         }
         public IActionResult MYProductInformation()
         {
@@ -37,7 +39,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
             ViewBag.BrandName = iBrandName.GetAll();
-
+            ViewBag.ScrapingHtmlTitle = iScrapingHtmlTitle.GetAll();
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ProductInformation = new TBProductInformation();
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
@@ -57,6 +59,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.Category = iProductCategory.GetAll();
             ViewBag.TypesProduct = iTypesProduct.GetAll();
             ViewBag.BrandName = iBrandName.GetAll();
+            ViewBag.ScrapingHtmlTitle = iScrapingHtmlTitle.GetAll();
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 
@@ -86,6 +89,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductInformation = model.ProductInformation.IdProductInformation;
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
+                slider.IdScrapingHtmlTitle = model.ProductInformation.IdScrapingHtmlTitle;
                 slider.ProductName = model.ProductInformation.ProductName;
                 slider.IdBrandName = model.ProductInformation.IdBrandName;
                 slider.UPC = model.ProductInformation.UPC;
@@ -120,8 +124,6 @@ namespace Yara.Areas.Admin.Controllers
                         return RedirectToAction("AddEditProductInformation");
                     }
                 }
-
-
                 // Save or update the product information
                 if (slider.IdProductInformation == 0)
                 {
@@ -136,7 +138,6 @@ namespace Yara.Areas.Admin.Controllers
                 {
                     dbcontext.TBProductInformations.Update(slider);
                 }
-
                 await dbcontext.SaveChangesAsync();
 
                 TempData["Saved successfully"] = "Saved successfully.";
@@ -148,7 +149,6 @@ namespace Yara.Areas.Admin.Controllers
                 return RedirectToAction("AddEditProductInformation", model);
             }
         }
-
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> SaveModal(ViewmMODeElMASTER model, TBProductInformation slider, List<IFormFile> Files, string returnUrl)

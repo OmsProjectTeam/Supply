@@ -318,7 +318,7 @@ namespace Yara.Areas.Admin.Controllers
         public async Task<IActionResult> FetchImageByModel(string model, string breand)
         {
 
-            if (breand == "RYOBI")
+            if (breand == "home depot")
             {
                 try
                 {

@@ -187,12 +187,13 @@
         // Event listener for when the model input field changes
         $("#modelInput").on("change", function () {
             var model = $(this).val(); // Get the model input value
+            var BrandName = $('#BrandName12 option:selected').text();
 
             if (model) {
                 $.ajax({
                     url: '@Url.Action("FetchImageByModel", "ProductInformationlowes", new { area = "Admin" })',
                     type: 'GET',
-                    data: { model: model }, // Send the model as a parameter
+                    data: { model: model, breand: BrandName }, // Send the model as a parameter
                     success: function (response) {
                         if (response.success) {
                             $("#output").attr("src", response.imageUrl).show(); // Display the fetched image

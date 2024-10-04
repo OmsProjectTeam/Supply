@@ -812,7 +812,7 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet("GetProductByName")]
+        [HttpGet("Order/GetProductByName")]
         public async Task<IActionResult> GetProductByName(string qrCode)
         {
             if (string.IsNullOrWhiteSpace(qrCode))

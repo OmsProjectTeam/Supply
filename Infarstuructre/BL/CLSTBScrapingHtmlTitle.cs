@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Infarstuructre.BL
 {
     public interface IIScrapingHtmlTitle
@@ -10,6 +12,15 @@ namespace Infarstuructre.BL
         bool UpdateData(TBScrapingHtmlTitle updatss);
         bool deleteData(int IdScrapingHtmlTitle);
         List<TBScrapingHtmlTitle> GetAllv(int IdScrapingHtmlTitle);
+        ////////////////////////////API////////////////////////////////
+        ///
+        Task<List<TBScrapingHtmlTitle>> GetAllAsync();
+        Task<TBScrapingHtmlTitle> GetByIdAsync(int IdScrapingHtmlTitle);
+        Task<bool> AddDataAsync(TBScrapingHtmlTitle savee);
+        Task<bool> UpdateDataAsync(TBScrapingHtmlTitle updatss);
+        Task<bool> DeleteDataAsync(int IdScrapingHtmlTitle);
+        Task<List<TBScrapingHtmlTitle>> GetAllvAsync(int IdScrapingHtmlTitle);
+
     }
     public class CLSTBScrapingHtmlTitle: IIScrapingHtmlTitle
     {
@@ -78,5 +89,72 @@ namespace Infarstuructre.BL
             return MySlider;
         }
 
+        /// //////////////////////////////////////////API//////////////////////////////////////////////////
+
+        public async Task<List<TBScrapingHtmlTitle>> GetAllAsync()
+        {
+            List<TBScrapingHtmlTitle> MySlider = await dbcontext.TBScrapingHtmlTitles.OrderByDescending(n => n.IdScrapingHtmlTitle).Where(a => a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
+
+        public async Task<TBScrapingHtmlTitle> GetByIdAsync(int IdScrapingHtmlTitle)
+        {
+            TBScrapingHtmlTitle sslid = await dbcontext.TBScrapingHtmlTitles.FirstOrDefaultAsync(a => a.IdScrapingHtmlTitle == IdScrapingHtmlTitle);
+            return sslid;
+        }
+
+        public async Task<bool> AddDataAsync(TBScrapingHtmlTitle savee)
+        {
+            try
+            {
+                await dbcontext.AddAsync<TBScrapingHtmlTitle>(savee);
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateDataAsync(TBScrapingHtmlTitle updatss)
+        {
+            try
+            {
+                dbcontext.Entry(updatss).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteDataAsync(int IdScrapingHtmlTitle)
+        {
+            try
+            {
+                var catr = await GetByIdAsync(IdScrapingHtmlTitle);
+                catr.CurrentState = false;
+                //TbSubCateegoory dele = dbcontex.TbSubCateegoorys.Where(a => a.IdBrand == IdBrand).FirstOrDefault();
+                //dbcontex.TbSubCateegoorys.Remove(dele);
+                dbcontext.Entry(catr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                await dbcontext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<TBScrapingHtmlTitle>> GetAllvAsync(int IdScrapingHtmlTitle)
+        {
+            List<TBScrapingHtmlTitle> MySlider = await dbcontext.TBScrapingHtmlTitles.OrderByDescending(n => n.IdScrapingHtmlTitle == IdScrapingHtmlTitle).Where(a => a.IdScrapingHtmlTitle == IdScrapingHtmlTitle).Where(a => a.CurrentState == true).ToListAsync();
+            return MySlider;
+        }
     }
+
 }
+

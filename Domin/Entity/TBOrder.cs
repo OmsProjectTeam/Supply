@@ -12,7 +12,7 @@ namespace Domin.Entity
         [Key]
         public int IdPurchaseOrder { get; set; }
         public int IdBondType { get; set; }
-        public int IdMerchants { get; set; }
+       
         public int IdProductCategory { get; set; }
         public int IdTypesProduct { get; set; }
         public int IdProductInformation { get; set; }
@@ -36,6 +36,8 @@ namespace Domin.Entity
         public string DataEntry { get; set; }
         public DateTime DateTimeEntry { get; set; }
         public bool CurrentState { get; set; }
+        public string IdUser { get; set; }
+
 
 
     }

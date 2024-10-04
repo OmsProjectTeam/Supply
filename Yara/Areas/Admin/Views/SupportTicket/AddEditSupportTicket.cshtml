@@ -35,7 +35,8 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label asp-for="@Model.SupportTicket.IdUser" for="exampleInputEmail1">@ResourceWeb.LbDescriptionClint</label>
-                                            <select id="merchant-select" class="form-control" asp-for="@Model.SupportTicket.IdUser" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))">
+                                            <select id="merchant-select" class="form-control" asp-for="@Model.SupportTicket.IdUser" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))" data-url="@Url.Action("GetUserDetails", "SupportTicket")"></select>
+                                            @* <select id="merchant-select" class="form-control" asp-for="@Model.SupportTicket.IdUser" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))"> *@
                                             </select>
                                             <span asp-validation-for="@Model.SupportTicket.IdUser" class="text-danger"></span>
                                         </div>
@@ -129,7 +130,8 @@
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script>
+    <script src="~/js/support-ticket.js"></script>
+    @* <script>
         $(document).ready(function () {
             $('.select2_1').select2({
                 placeholder: "Select an option",
@@ -178,5 +180,5 @@
                 }
             });
         });
-    </script>
+    </script> *@
 }

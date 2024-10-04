@@ -80,7 +80,7 @@ namespace Yara.Areas.Admin.Controllers
             {
                 slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
                 slider.IdBondType = model.Order.IdBondType;
-                slider.IdMerchants = model.Order.IdMerchants;
+                slider.IdUser = model.Order.IdUser;
                 slider.IdProductCategory = model.Order.IdProductCategory;
                 slider.IdTypesProduct = model.Order.IdTypesProduct;
                 slider.IdProductInformation = model.Order.IdProductInformation;
@@ -265,7 +265,7 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet("GetProductByName")]
+        [HttpGet("Sales/GetProductByName")]
         public async Task<IActionResult> GetProductByName(string qrCode)
         {
             if (string.IsNullOrWhiteSpace(qrCode))

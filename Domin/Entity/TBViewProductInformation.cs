@@ -23,5 +23,9 @@ namespace Domin.Entity
         public DateTime DateTimeEntry { get; set; }
         public bool CurrentState { get; set; }
         public string Model { get; set; }
+        public int IdScrapingHtmlTitle { get; set; }
+        public string ScrapingHtmlTitle { get; set; }
+
+
     }
 }

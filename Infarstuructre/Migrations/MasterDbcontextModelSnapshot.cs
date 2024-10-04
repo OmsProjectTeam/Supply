@@ -696,9 +696,6 @@ namespace Infarstuructre.Migrations
                     b.Property<int>("IdBondType")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdMerchants")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdProductCategory")
                         .HasColumnType("int");
 
@@ -707,6 +704,10 @@ namespace Infarstuructre.Migrations
 
                     b.Property<int>("IdTypesProduct")
                         .HasColumnType("int");
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PurchaseAuotNoumber")
                         .HasColumnType("int");
@@ -811,6 +812,9 @@ namespace Infarstuructre.Migrations
                     b.Property<int>("IdProductCategory")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdScrapingHtmlTitle")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdTypesProduct")
                         .HasColumnType("int");
 
@@ -841,6 +845,83 @@ namespace Infarstuructre.Migrations
                     b.HasKey("IdProductInformation");
 
                     b.ToTable("TBProductInformations");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBPurchaseDocumentation", b =>
+                {
+                    b.Property<int>("IdPurchaseDocumentation")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPurchaseDocumentation"));
+
+                    b.Property<decimal>("CostOrder")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("TransactionDate")
+                        .HasColumnType("date");
+
+                    b.HasKey("IdPurchaseDocumentation");
+
+                    b.ToTable("TBPurchaseDocumentations");
+                });
+
+            modelBuilder.Entity("Domin.Entity.TBScrapingHtmlTitle", b =>
+                {
+                    b.Property<int>("IdScrapingHtmlTitle")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdScrapingHtmlTitle"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<bool>("CurrentState")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("DataEntry")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeEntry")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("ScrapingHtmlTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdScrapingHtmlTitle");
+
+                    b.ToTable("TBScrapingHtmlTitles");
                 });
 
             modelBuilder.Entity("Domin.Entity.TBSendLog", b =>
@@ -1457,9 +1538,6 @@ namespace Infarstuructre.Migrations
                     b.Property<int>("IdBondType")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdMerchants")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdProductCategory")
                         .HasColumnType("int");
 
@@ -1472,19 +1550,25 @@ namespace Infarstuructre.Migrations
                     b.Property<int>("IdTypesProduct")
                         .HasColumnType("int");
 
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Make")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MerchantEmaile")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MerchantPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("NameUser")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

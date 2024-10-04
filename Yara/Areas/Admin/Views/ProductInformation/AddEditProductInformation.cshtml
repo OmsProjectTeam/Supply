@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="row small-spacing">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
                                         <select class="form-control" asp-for="@Model.ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))" id="SelectCategory"></select>
@@ -43,14 +43,22 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.IdTypesProduct">@ResourceWeb.LbTypesProduct</label>
                                         <select class="form-control" asp-for="@Model.ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
                                         <span asp-validation-for="@Model.ProductInformation.IdTypesProduct" class="text-danger"></span>
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdScrapingHtmlTitle">@ResourceWeb.LbTypesProduct</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdScrapingHtmlTitle" asp-items="@(new SelectList(ViewBag.ScrapingHtmlTitle, "IdScrapingHtmlTitle", "ScrapingHtmlTitle"))" id="SelectTypesProduct"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdScrapingHtmlTitle" class="text-danger"></span>
+                                    </div>
+                                </div>
                             </div>
+
 
                             <div class="row small-spacing">
                                 <div class="col-12 col-sm-6">
@@ -288,12 +296,6 @@
 
 
     </script>
-
-
-
-
-
-
 
     <script>
         // Function to load a local file and display it

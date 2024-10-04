@@ -15,6 +15,7 @@ namespace Domin.Entity
         public int IdProductCategory { get; set; }     
         public int IdTypesProduct { get; set; }
         public int IdBrandName { get; set; }
+        public int IdScrapingHtmlTitle { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlProductName")]
         [MaxLength(500, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength500")]
         [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]

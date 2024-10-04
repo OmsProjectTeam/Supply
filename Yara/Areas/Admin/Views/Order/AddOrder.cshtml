@@ -60,12 +60,12 @@
         cursor: pointer;
     }
 
-        .close-modal:hover,
-        .close-modal:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+    .close-modal:hover,
+    .close-modal:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
 </style>
 
@@ -118,6 +118,8 @@
                             <input type="hidden" asp-for="@Model.Order.IdPurchaseOrder" class="form-control">
                             <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
                             <input type="hidden" asp-for="@Model.returnUrl" id="url">
+                            <input type="text" id="IdUserAAAA" asp-for="@Model.Order.IdUser" />
+
                         </div>
                         @* <input id="product12" placeholder="Enter QR Code" /> *@
                         @* <button type="button" class="btn btn-sm btn-primary margin-bottom-10 waves-effect waves-light" onclick="openModal()">Standard modal</button> *@
@@ -135,14 +137,23 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="SelectMerchantdiv">
                                 <div class="form-group">
-                                    <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectMerchant"></select>
-                                    <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                                    <label asp-for="@Model.Order.IdUser">@ResourceWeb.lbMerchantName</label>
+                                    <select class="form-control select2_1"  asp-items="@(new SelectList(ViewBag.Merchants, "IdUserIdentity", "Name"))" id="SelectMerchant"></select>
+                                    <span asp-validation-for="@Model.Order.IdUser" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div hidden id="MerchantComm">@TempData["Merchant"]</div>
+                            <div class="col-sm-6" id="SelectCustomersdiv">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdUser">@ResourceWeb.lbCusName1212</label>
+                                    <select class="form-control select2_1" asp-items="@(new SelectList(ViewBag.user, "Id", "Name"))" id="SelectCustomers"></select>
+                                    <span asp-validation-for="@Model.Order.IdUser" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row small-spacing">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -261,7 +272,7 @@
                         </div>
                         <div class="row small-spacing">
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="QuantityIndiv">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
@@ -269,11 +280,19 @@
 
                                 </div>
                             </div>
+                            <div class="col-sm-6" id="QuantityOutediv">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.QuantityOute">@ResourceWeb.LbQuantityOute</label>
+                                    <input id="QuantityOute" asp-for="@Model.Order.QuantityOute" type="text" placeholder="@ResourceWeb.LbQuantityOute...." class="form-control">
+                                    <span asp-validation-for="@Model.Order.QuantityOute" class="text-danger"></span>
 
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>product UPC</label>
                                     <input id="UPCField" readonly type="text" class="form-control" />
+                                    <input id="MakField" readonly type="text" class="form-control" />
                                 </div>
                             </div>
 
@@ -315,8 +334,13 @@
                             <div class="form-group">
                                 <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
                                 <div>
-                                    <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails1()">Print</a>
+                                    <a class="btn btn-sm btn-outline-primary" id="printWarehouseDetails" onclick="printWarehouseDetails1()">Print</a>
                                 </div>
+                                <div>
+                                    <a class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="PrintInvoice(123)">Print Invoice</a>
+
+                                </div>
+                               
                             </div>
                         </div>
 
@@ -336,219 +360,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="box-content">
-                @* <ul class="list-inline">
-                <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a></li>/
-                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-                <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
-
-                </ul> *@
-                <!-- /.box-title -->
-                @* <div class="dropdown js__drop_down">
-                <a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformation"><button type="button" class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" style="margin-bottom:20px">Add</button></a>
-                </div> *@
-                <!-- /.dropdown js__dropdown -->
-                <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div id="rootwizard-progress">
-                                <div class="tab-header">
-                                    <div class="navbar">
-
-                                        <div class="navbar-inner">
-                                            <ul>
-                                                <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformation</a></li>
-                                                <li><a href="#tab-progress-4" data-toggle="tab">@ResourceWeb.LbInformaitionProductInformationMake</a></li>
-                                                <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbOpration</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="box-content">
-                                            <span style="color:royalblue"> <strong>@TempData["Saved successfully"]</strong></span>
-                                            <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="tab-content">
-                                    <div id="bar" class="progress">
-                                        <div class="progress-bar active progress-bar-info progress-bar-striped bar"></div>
-                                    </div>
-                                    <div class="tab-pane" id="tab-progress-1">
-                                        <div class='table-responsive'>
-                                            <div style="overflow-x:auto;">
-                                                <table id="example" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbProductCategory</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbTypesProduct</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbProductCategory</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbTypesProduct</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
-                                                    </tfoot>
-                                                    <tbody>
-                                                                @foreach (var item in Model.ListViewProductInformation)
-                                                                {
-                                                            <tr role="row" class="odd">
-                                                                <td>@item.IdProductInformation</td>
-                                                                <td class="sorting_1">
-                                                                    <img src="@item.Photo" class="img-bordered img-circle img-circle"
-                                                                         style="width:100px; height:100px">
-                                                                </td>
-                                                                <td class="truncate-50 Category">@item.ProductCategory</td>
-                                                                <td class="truncate-50 TypesProduct">@item.TypesProduct</td>
-                                                                <td class="truncate-50">@item.ProductName</td>
-                                                                <td class="truncate-50 Codee">@item.Qrcode</td>
-                                                                <td>
-                                                                    <div class="form-group">
-                                                                        <div hidden class="Code">@item.Qrcode</div>
-                                                                        <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                                }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="tab-progress-4">
-                                        <div class='table-responsive'>
-                                            <div style="overflow-x:auto;">
-                                                <table id="example4" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
-                                                    </tfoot>
-                                                    <tbody>
-                                                                @foreach (var item in Model.ListViewProductInformation)
-                                                                {
-                                                            <tr role="row" class="odd">
-                                                                <td>@item.IdProductInformation</td>
-                                                                <td class="sorting_1">
-                                                                    <img src="@item.Photo" class="img-bordered img-circle img-circle"
-                                                                         style="width:100px; height:100px">
-                                                                </td>
-                                                                <td class="truncate-50 ProductName">@item.ProductName</td>
-                                                                <td class="truncate-50">@item.Make</td>
-                                                                <td class="truncate-50 UPC">@item.UPC</td>
-                                                                <td class="truncate-50 Model">@item.Model</td>
-                                                                <td>
-                                                                    <div class="switch primary"><input type="checkbox" checked="@item.Active" IdProductInformation="switch-3" disabled><label for="switch-3">@item.Active</label></div>
-                                                                </td>
-                                                            </tr>
-                                                                }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="tab-progress-3">
-                                        <div class='table-responsive'>
-                                            <div style="overflow-x:auto;">
-                                                <table id="example2" class="table table-striped table-bordered display dataTable table-responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbOpration</th>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.LbOpration</th>
-                                                    </tfoot>
-                                                    <tbody>
-                                                                @foreach (var item in Model.ListViewProductInformation)
-                                                                {
-                                                            <tr role="row" class="odd">
-                                                                <td>@item.IdProductInformation</td>
-                                                                <td class="sorting_1">
-                                                                    <img src="@item.Photo" class="img-bordered img-circle img-circle"
-                                                                         style="width:100px; height:100px">
-                                                                </td>
-                                                                <td class="truncate-50">@item.ProductName</td>
-                                                                <td>@item.DataEntry</td>
-                                                                <td>@item.DateTimeEntry</td>
-                                                                <td>
-                                                                    <div class="switch primary"><input type="checkbox" checked="@item.CurrentState" IdProductInformation="switch-2" disabled><label for="switch-2">@item.CurrentState</label></div>
-                                                                </td>
-                                                                <td>
-                                                                    <ul class="list-inline">
-                                                                        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="ProductInformation" asp-action="AddEditProductInformationImage" asp-route-IdProductInformation="@item.IdProductInformation"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
-                                                                        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="ProductInformation" asp-action="DeleteData" asp-route-IdProductInformation="@item.IdProductInformation"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                                }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ul class="pager wizard">
-                                        <li class="previous"><a href="javascript:void(0)">Previous</a></li>
-                                        <li class="next"><a href="javascript:void(0)">Next</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 4 of 4 entries (filtered from 57 total entries)</div>
-                    </div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li></ul></div></div>
-                </div>
-            </div>
+            @* هنا يجب عرض الموديل  *@
+          
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -560,13 +374,14 @@
                     <h2>Add New Product</h2>
                 </div>
                 <div class="custom-modal-body">
-                    <form role="form" method="post" asp-controller="ProductInformation" asp-action="SaveModal" enctype="multipart/form-data">
+                    <form role="form" method="post" asp-controller="Order" asp-action="SaveNewProductInfo" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
                             <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
                             <input type="hidden" asp-for="@Model.ProductInformation.DateTimeEntry" value="@DateTime.Now">
                             <input type="hidden" asp-for="@Model.returnUrl" id="url">
-                            <input type="hidden" asp-for="@Model.ProductInformation.Photo" id="imageUrlInput">
+                            <input type="hidden" id="xaxaxaxaxa" asp-for="@Model.ProductInformation.Photo">
+                            <p hidden id="AfterSave">@TempData["AfterSave"]</p>
                         </div>
 
                         <div class="row small-spacing">
@@ -600,7 +415,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.IdBrandName">@ResourceWeb.LbBrandName</label>
-                                    <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))"></select>
+                                    <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" id="BrandName123"></select>
                                     <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
                                 </div>
                             </div>
@@ -632,6 +447,7 @@
                             </div>
 
 
+
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -639,6 +455,7 @@
                                 <div>
                                     <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
                                 </div>
+
                             </div>
                         </div>
 
@@ -667,7 +484,7 @@
                                 <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? " " " />
 
                                 <!-- حقل مخفي لإرسال رابط الصورة إلى الدالة Save -->
-                                <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
+                                <input type="hidden" asp-for="ProductInformation.Photo"  id="hiddenPhotoUrl" value="" />
 
                                 <!-- سكريبت لتحديث الحقل المخفي عند تغيير الصورة -->
                                 <script>
@@ -842,7 +659,7 @@
                 });
             }
 
-            // Function to populate product details after selecting a product
+            // Function to populate product details after selecting a product ///////////////////////////////////////////////////////////////////////////////////////////////
             function populateProductDetails(productDetails) {
                 if (productDetails && productDetails.productCategoryId > 0) {
                     $('#ProductName').val(productDetails.model);
@@ -881,30 +698,6 @@
             window.onclick = function (event) {
                 if (event.target == $('#customModal')[0]) {
                     closeModal();
-                }
-            }
-
-            // Function to populate product name in the modal based on the model number
-            function populateProductNameInModal(model) {  // **NEW FUNCTION**: Added to populate product name when the modal opens
-                if (model) {
-                    $.ajax({
-                        url: '@Url.Action("FetchImageByModel", "ProductInformationlowes", new { area = "Admin" })',  // Adjust the URL according to your routing
-                        type: 'GET',
-                        data: { model: model },  // Send the model as a parameter
-                        success: function (response) {
-                            if (response.success) {
-                                $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
-                                console.log(MyProduct)
-                            } else {
-                                alert(response.message);  // Show an alert if there was an issue
-                                $("#MyProduct").val('');  // Clear product name if not found
-                            }
-                        },
-                        error: function () {
-                            alert("Error fetching the product name.");  // Alert the user about the error
-                            $("#MyProduct").val('');  // Clear product name in case of an error
-                        }
-                    });
                 }
             }
 
@@ -1031,7 +824,7 @@
 
         // Function to update the Code field
         function updateCodeField() {
-            var Merchant = $('#SelectMerchant option:selected').text();
+            var Merchant = $('#SelectMerchant="" option:selected').text();
             var WareHouse = $('#SelectWareHouse option:selected').text();
             var BondType = $('#SelectBondType option:selected').text();
             var WareHouseBranch = $('#SelectWareHouseBranch option:selected').text();
@@ -1826,17 +1619,344 @@
 
     </script>
  *@
+@*  <script>
+
+    var previousSearchText = '';
+
+    function openModal() {
+        previousSearchText = $('#product12').val(); // Store the current search text
+        $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
+        document.getElementById("customModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("customModal").style.display = "none";
+        $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
+    }
+
+ </script> *@
 
 
 
 
+        <script>
+
+            // function generateRandomStringrr(length) {
+            //     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            //     var result = '';
+            //     var charactersLength = characters.length;
+            //     for (var i = 0; i < length; i++) {
+            //         result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            //     }
+            //     return result;
+            // }
+
+            // // Bind change events to WareHouseType and Description fields
+
+
+            // function updateQRCodeForAA() {
+            //     var code = $('#Codeeee').val();
+            //     if (code) {
+            //         $('#QRCodeImage123').attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+            //     } else {
+            //         $('#QRCodeImage123').attr('src', '');
+            //     }
+            // }
+
+            // // Function to update the Code field
+            // function updateCodeFieldmodal() {
+            //     var Category = $('#SelectCategory option:selected').text();
+            //     var TypesProduct = $('#SelectTypesProductt option:selected').text();
+            //     var Product = $('#ProductName').val() || "No Name";
+            //     var Model = $('#modelInput').val();
+            //     var UPC = $('#UPC12').val();
+
+            //     var randomString = generateRandomStringrr(5);
+
+            //     if (Category && TypesProduct) {
+
+            //         var code = randomString + Category + TypesProduct + Product + Model + UPC;
+            //         console.log(code);
+            //         console.log("codeeeeeeeeee");
+            //         $('#Codeeee').val(code);
+            //         updateQRCodeForAA(); // Update QR code when code is updated
+            //     }
+
+            // }
+
+
+        //     function printWarehouseDetails() {
+        //         var Category = $('#SelectCategory option:selected').text();
+        //         var TypesProduct = $('#SelectTypesProduct option:selected').text();
+        //         var Product = $('#ProductName').val() || "aaaaaaa";
+        //         var Model = $('#modelInput').val();
+        //         var UPC = $('#UPC').val();
+        //         var qrCodeSrc = $('#QRCodeImage123').attr('src');
+        //         var bar = $('#BarCode0936').attr('src');
+
+        //         var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
+
+        //         // Encode URI components to handle special characters
+
+        //         url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
+
+
+        //         $.get(url, function (data) {
+        //             var printWindow = window.open('', '_blank');
+        //             printWindow.document.open();
+        //             printWindow.document.write(data);
+        //             printWindow.document.close();
+
+        //             // Ensure the image is fully loaded before printing
+        //             printWindow.onload = function () {
+        //                 printWindow.print();
+        //             };
+        //         }).fail(function (jqXHR, textStatus, errorThrown) {
+        //             console.error("Error: ", textStatus, errorThrown);
+        //         });
+        //     }
+
+
+        // $('#UPC12, #BrandName123 ,#SelectTypesProductt, #SelectCategory, #ProductName').on('change keyup', function () {
+        //         console.log("تغير ال يو بي سي");
+
+        //         updateCodeFieldmodal();
+        //     });
+
+
+    //     </script>
+    // <script>
+
+
+    //     // function CreateBarCode(text) {
+    //     //     const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+
+    //     //     $.ajax({
+    //     //         url: apiUrl,
+    //     //         type: 'GET',
+    //     //         xhrFields: {
+    //     //             responseType: 'blob' // تعيين نوع الاستجابة إلى Blob
+    //     //         },
+    //     //         success: function (data) {
+    //     //             if (data) {
+    //     //                 var imageUrl = URL.createObjectURL(data);
+    //     //                 $('#BarCode0936').attr('src', imageUrl);
+    //     //                 $('#BarCodeNo').text(text);
+    //     //             } else {
+    //     //                 console.error("Error generating barcode.");
+    //     //             }
+    //     //         },
+    //     //         error: function (xhr, status, error) {
+    //     //             console.error("Error: " + error);
+    //     //         }
+    //     //     });
+    //     // }
+
+
+    //     // $(document).ready(function () {
+    //     //     $('#UPC12').on('change keyup', function () {
+    //     //         console.log("UPC value changed");
+    //     //         var upc = this.value;
+    //     //         CreateBarCode(upc);
+    //     //     });
+
+
+    //     // });
+
+
+
+    //     // function printWarehouseDetails() {
+    //     //     console.log("printWarehouseDetailsprintWarehouseDetails");
+    //     //     var Category = $('#SelectCategory option:selected').text();
+    //     //     var TypesProduct = $('#SelectTypesProduct option:selected').text();
+    //     //     var Product = $('#ProductName').val() || "aaaaaaa";
+    //     //     var Model = $('#modelInput').val();
+    //     //     var UPC = $('#UPC').val();
+    //     //     var qrCodeSrc = $('#QRCodeImage123').attr('src');
+    //     //     var bar = $('#BarCode0936').attr('src');
+
+    //     //     var url = '@Url.Action("PrintWareHouseDetails", "ProductInformation")';
+
+    //     //     // Encode URI components to handle special characters
+
+    //     //     url = `${url}?Category=${encodeURIComponent(Category)}&TypesProduct=${encodeURIComponent(TypesProduct)}&Product=${encodeURIComponent(Product)}&Model=${encodeURIComponent(Model)}&UPC=${encodeURIComponent(UPC)}&qrCodeSrc=${encodeURIComponent(qrCodeSrc)}&bar=${encodeURIComponent(bar)}&upc=${encodeURIComponent(upc)}`;
+
+
+    //     //     $.get(url, function (data) {
+    //     //         var printWindow = window.open('', '_blank');
+    //     //         printWindow.document.open();
+    //     //         printWindow.document.write(data);
+    //     //         printWindow.document.close();
+
+    //     //         // Ensure the image is fully loaded before printing
+    //     //         printWindow.onload = function () {
+    //     //             printWindow.print();
+    //     //         };
+    //     //     }).fail(function (jqXHR, textStatus, errorThrown) {
+    //     //         console.error("Error: ", textStatus, errorThrown);
+    //     //     });
+    //     // }
+
+    // </script>
 
 
 
 
+    <script>
+
+        function checkProductAvailability(productId) {
+                console.log("checkProductAvailability:" + productId);
+            $.ajax({
+                url: '@Url.Action("GetProductDetailsForOrder", "Order")',
+                type: 'GET',
+                    data: { productId: productId },
+                    success: function (data) {
+                        if (data && data.productCategoryId > 0) {
+                            populateProductDetails(data);  // Populate product details
+                            $('#modalButton').prop('disabled', true);  // Disable modal button
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No product available',
+                                text: 'Create a new one, please click the modal button',
+                                showConfirmButton: false,
+                                timer: 6000,
+                                position: 'top-end',
+                                toast: true
+                            });
+                            $('#ProductName').val(productId);
+                            $('#modalButton').prop('disabled', false);
+                            openModal();
+                        }
+                    },
+                    error: function () {
+                        console.error("Error fetching product details.");
+                        $('#ProductImage').attr('src', 'http://placehold.it/220x180');
+                        $('#GlobalPrice').val("0.00");
+                        $('#modalButton').prop('disabled', true);
+                    }
+                });
+        }
+
+
+        function searchAboutProduct(model) {
+
+            $('#product12').val(model);
+
+            checkProductAvailability(model);
+            setTimeout(() => {
+                document.getElementById('contentWrapper').style.display = 'block';
+            }, 100);
+        }
+
+        $(document).ready(function () {
+            var val = $('#AfterSave').text();
+            console.log("AfterSave:" + val)
+            if (val) {
+                searchAboutProduct(val);
+            }
+        });
+
+
+        ///////////////////////////////////./////////////////////////////////////////////
+
+        function PrintInvoice(IdPurchaseOrder) {
+
+            var url = "/Admin/Order/printInvoce?IdPurchaseOrder=" + IdPurchaseOrder;
+
+            // فتح صفحة الطباعة في نافذة جديدة
+            window.open(url, '_blank');
+        }
 
 
 
-} 
+        $(document).ready(function () {
+
+            var selectedValue = $('#SelectBondType option:selected').text();
+
+            if (selectedValue == "Purchase order") {
+                $('#SelectMerchantdiv').css("display", "block");
+                $('#QuantityIndiv').css("display", "block");
+                $('#printWarehouseDetails').css("display", "block");
+
+                $('#SelectCustomersdiv').css("display", "none");
+                $('#QuantityOutediv').css("display", "none");
+                $('#Printinvoice').css("display", "none");
+            }
+            else {
+                $('#SelectMerchantdiv').css("display", "none");
+                $('#QuantityIndiv').css("display", "none");
+                $('#printWarehouseDetails').css("display", "none");
+
+                $('#SelectCustomersdiv').css("display", "block");
+                $('#QuantityOutediv').css("display", "block");
+                $('#Printinvoice').css("display", "block");
+            }
+
+            $('#SelectBondType').change(function () {
+
+                var selectedValue1 = $('#SelectBondType option:selected').text();
+                if (selectedValue1 == "Purchase order") {
+                    $('#SelectMerchantdiv').css("display", "block");
+                    $('#QuantityIndiv').css("display", "block");
+                    $('#printWarehouseDetails').css("display", "block");
+
+                    $('#SelectCustomersdiv').css("display", "none");
+                    $('#QuantityOutediv').css("display", "none");
+                    $('#Printinvoice').css("display", "none");
+                }
+                else {
+                    $('#SelectMerchantdiv').css("display", "none");
+                    $('#QuantityIndiv').css("display", "none");
+                    $('#printWarehouseDetails').css("display", "none");
+
+                    $('#SelectCustomersdiv').css("display", "block");
+                    $('#QuantityOutediv').css("display", "block");
+                    $('#Printinvoice').css("display", "block");
+                }
+            });
+        });
+        $(document).ready(function () {
+
+            var selectedValue1 = $('#SelectBondType option:selected').text();
+
+            if (selectedValue1 == "Purchase order") {
+
+                var selectedValue = $('#SelectMerchant option:selected').val();
+                $('#IdUserAAAA').val(selectedValue);
+            }
+
+            else 
+            {
+                var selectedValue = $('#SelectCustomers option:selected').val();
+                $('#IdUserAAAA').val(selectedValue);
+            }
+
+            $('#SelectBondType').change(function () {
+                var selectedValue1 = $('#SelectBondType option:selected').text();
+
+                if (selectedValue1 == "Purchase order") {
+                    var selectedValue = $('#SelectMerchant option:selected').val();
+                    $('#IdUserAAAA').val(selectedValue);
+                }
+                else {
+                    var selectedValue = $('#SelectCustomers option:selected').val();
+                    $('#IdUserAAAA').val(selectedValue);
+                }
+            });
 
 
+
+            $('#SelectMerchant').change(function () {
+                var selectedValue = $('#SelectMerchant option:selected').val();
+                $('#IdUserAAAA').val(selectedValue);
+            });
+
+            $('#SelectCustomers').change(function () {
+                var selectedValue = $('#SelectCustomers option:selected').val();
+                $('#IdUserAAAA').val(selectedValue);
+            });
+        });
+
+    </script>
+}

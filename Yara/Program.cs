@@ -119,6 +119,8 @@ builder.Services.AddScoped<IITemplate, CLSTBTemplate>();
 builder.Services.AddScoped<AccountsController>();
 builder.Services.AddScoped<IICompanyInformation, CLSTBCompanyInformation>();
 builder.Services.AddScoped<IIBrandName, CLSTBBrandName>();
+builder.Services.AddScoped<IIPurchaseDocumentation, CLSTBPurchaseDocumentation>();
+builder.Services.AddScoped<IIScrapingHtmlTitle, CLSTBScrapingHtmlTitle>();
 
 
 

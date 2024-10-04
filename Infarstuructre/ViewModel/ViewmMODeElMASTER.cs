@@ -90,6 +90,8 @@ namespace Infarstuructre.ViewModel
 
         public IEnumerable<TBViewOrder> ListViewOrder { get; set; }
         public TBOrder Order { get; set; }
+        public TBViewOrder viewOrder { get; set; }
+
   
         public IEnumerable<TBConnectAndDisConnect> ConnectAndDisConnect { get; set; }
         public TBMessageChat TBMessageChat { get; set; }
@@ -111,7 +113,11 @@ namespace Infarstuructre.ViewModel
         public IEnumerable<TBCompanyInformation> ListCompanyInformatione { get; set; }
         public TBCompanyInformation CompanyInformation { get; set; }  
         public IEnumerable<TBBrandName> ListBrandName { get; set; }
-        public TBBrandName BrandName { get; set; }
+        public TBBrandName BrandName { get; set; } 
+        public IEnumerable<TBPurchaseDocumentation> ListPurchaseDocumentation { get; set; }
+        public TBPurchaseDocumentation PurchaseDocumentation { get; set; }
+        public IEnumerable<TBScrapingHtmlTitle> ListScrapingHtmlTitle { get; set; }
+        public TBScrapingHtmlTitle ScrapingHtmlTitle { get; set; }
 
 
     }

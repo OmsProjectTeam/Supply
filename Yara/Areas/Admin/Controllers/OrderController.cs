@@ -14,6 +14,7 @@ using OpenQA.Selenium;
 using System;
 
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Yara.Areas.Admin.Controllers
 {
@@ -33,9 +34,10 @@ namespace Yara.Areas.Admin.Controllers
         IIBrandName iBrandName;
         IICompanyInformation iCompanyInformation;
         IIUserInformation iUserInformation;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
-            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1)
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -49,6 +51,7 @@ namespace Yara.Areas.Admin.Controllers
             iBrandName = iBrandName1;
             iCompanyInformation = iCompanyInformation1;
             iUserInformation = iUserInformation1;
+            _userManager = userManager;
         }
         public IActionResult MyOrder()
         {
@@ -61,8 +64,6 @@ namespace Yara.Areas.Admin.Controllers
         {
 
             ViewBag.user = iUserInformation.GetAllByRole("Customer,Admin,Basic");
-
-
 
 
             ViewBag.BrandName = iBrandName.GetAll();
@@ -101,173 +102,311 @@ namespace Yara.Areas.Admin.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Save(ViewmMODeElMASTER model, TBOrder slider, List<IFormFile> Files, string returnUrl)
         {
-           
-				ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             var IdBondType = model.Order.IdBondType;
 
-                var TAskStatus = vmodel.BondType = iBondType.GetById(IdBondType);
-				string BondType = TAskStatus.BondType;
-				if (BondType == "Purchase order")
-				{
-					try
-					{
-						slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
-						slider.IdBondType = model.Order.IdBondType;
-						slider.IdMerchants = model.Order.IdMerchants;
-						slider.IdProductCategory = model.Order.IdProductCategory;
-						slider.IdTypesProduct = model.Order.IdTypesProduct;
-						slider.IdProductInformation = model.Order.IdProductInformation;
-						slider.IdBWareHouse = model.Order.IdBWareHouse;
-						slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
-						slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
-						slider.PurchaseOrderNoumber = model.Order.PurchaseOrderNoumber;
-						slider.PurchasePrice = model.Order.PurchasePrice;
-						slider.sellingPrice = model.Order.sellingPrice;
-						slider.GlobalPrice = model.Order.GlobalPrice;
-						slider.SpecialSalePrice = model.Order.SpecialSalePrice;
-						slider.QuantityIn = model.Order.QuantityIn;
-						slider.QuantityOute = model.Order.QuantityOute;
-						slider.Qrcode = model.Order.Qrcode;
-						slider.DataEntry = model.Order.DataEntry;
-						slider.DateTimeEntry = model.Order.DateTimeEntry;
-						slider.CurrentState = model.Order.CurrentState;
-						//Conditions
-						var maxPurchaseAutoNumber = dbcontext.TBOrders.Max(o => (int?)o.PurchaseAuotNoumber) ?? 0;
-						slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
-						if (slider.GlobalPrice == null)
-							slider.GlobalPrice = 0;
-						if (slider.SpecialSalePrice == null)
-							slider.SpecialSalePrice = 0;
-						if (slider.QuantityOute == null)
-							slider.QuantityOute = 0;
+            var TAskStatus = vmodel.BondType = iBondType.GetById(IdBondType);
+            string BondType = TAskStatus.BondType;
+            if (BondType == "Purchase order")
+            {
+                try
+                {
+                    slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
+                    slider.IdBondType = model.Order.IdBondType;
+                    slider.IdUser = model.Order.IdUser;
+                    slider.IdProductCategory = model.Order.IdProductCategory;
+                    slider.IdTypesProduct = model.Order.IdTypesProduct;
+                    slider.IdProductInformation = model.Order.IdProductInformation;
+                    slider.IdBWareHouse = model.Order.IdBWareHouse;
+                    slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
+                    slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
+                    slider.PurchaseOrderNoumber = model.Order.PurchaseOrderNoumber;
+                    slider.PurchasePrice = model.Order.PurchasePrice;
+                    slider.sellingPrice = model.Order.sellingPrice;
+                    slider.GlobalPrice = model.Order.GlobalPrice;
+                    slider.SpecialSalePrice = model.Order.SpecialSalePrice;
+                    slider.QuantityIn = model.Order.QuantityIn;
+                    slider.QuantityOute = model.Order.QuantityOute;
+                    slider.Qrcode = model.Order.Qrcode;
+                    slider.DataEntry = model.Order.DataEntry;
+                    slider.DateTimeEntry = model.Order.DateTimeEntry;
+                    slider.CurrentState = model.Order.CurrentState;
+                    //Conditions
+                    var maxPurchaseAutoNumber = dbcontext.TBOrders.Max(o => (int?)o.PurchaseAuotNoumber) ?? 0;
+                    slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
+                    if (slider.GlobalPrice == null)
+                        slider.GlobalPrice = 0;
+                    if (slider.SpecialSalePrice == null)
+                        slider.SpecialSalePrice = 0;
+                    if (slider.QuantityOute == null)
+                        slider.QuantityOute = 0;
 
-						if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
-						{
-							var reqwest = iOrder.saveData(slider);
-							if (reqwest == true)
-							{
-								TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-								TempData["Merchant"] = model.Order.IdMerchants;
-								return RedirectToAction("AddOrder");
-							}
-							else
-							{
-								TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-								return Redirect(returnUrl);
-							}
-						}
-						else
-						{
-							var reqestUpdate = iOrder.UpdateData(slider);
-							if (reqestUpdate == true)
-							{
-								TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-								return RedirectToAction("MyOrder");
-							}
-							else
-							{
-								TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-								return Redirect(returnUrl);
-							}
-						}
-					}
-
-
-					catch
-					{
-						TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-						return Redirect(returnUrl);
-					}
-				}
-				else if (BondType == "Sales invoice")
-				{
-					try
-					{
+                    if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
+                    {
+                        var reqwest = iOrder.saveData(slider);
+                        if (reqwest == true)
+                        {
+                            TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
+                            TempData["Merchant"] = model.Order.IdUser;
+                            return RedirectToAction("AddOrder");
+                        }
+                        else
+                        {
+                            TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
+                            return Redirect(returnUrl);
+                        }
+                    }
+                    else
+                    {
+                        var reqestUpdate = iOrder.UpdateData(slider);
+                        if (reqestUpdate == true)
+                        {
+                            TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
+                            return RedirectToAction("MyOrder");
+                        }
+                        else
+                        {
+                            TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
+                            return Redirect(returnUrl);
+                        }
+                    }
+                }
 
 
-
-
-						slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
-						slider.IdBondType = model.Order.IdBondType;
-						slider.IdMerchants = model.Order.IdMerchants;
-						slider.IdProductCategory = model.Order.IdProductCategory;
-						slider.IdTypesProduct = model.Order.IdTypesProduct;
-						slider.IdProductInformation = model.Order.IdProductInformation;
-						slider.IdBWareHouse = model.Order.IdBWareHouse;
-						slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
-						slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
-						slider.PurchaseOrderNoumber = model.Order.PurchaseOrderNoumber;
-						slider.PurchasePrice = model.Order.PurchasePrice;
-						slider.sellingPrice = model.Order.sellingPrice;
-						slider.GlobalPrice = model.Order.GlobalPrice;
-						slider.SpecialSalePrice = model.Order.SpecialSalePrice;
-						slider.QuantityIn = model.Order.QuantityIn;
-						slider.QuantityOute = model.Order.QuantityOute;
-						slider.Qrcode = model.Order.Qrcode;
-						slider.DataEntry = model.Order.DataEntry;
-						slider.DateTimeEntry = model.Order.DateTimeEntry;
-						slider.CurrentState = model.Order.CurrentState;
-						//Conditions
-						var maxPurchaseAutoNumber = dbcontext.TBOrders.Max(o => (int?)o.PurchaseAuotNoumber) ?? 0;
-						slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
-						if (slider.GlobalPrice == null)
-							slider.GlobalPrice = 0;
-						if (slider.SpecialSalePrice == null)
-							slider.SpecialSalePrice = 0;
-						if (slider.QuantityOute == null)
-							slider.QuantityOute = 0;
-
-						if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
-						{
-							var reqwest = iOrder.saveData(slider);
-							if (reqwest == true)
-							{
-								TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
-								TempData["Merchant"] = model.Order.IdMerchants;
-								return RedirectToAction("AddOrder");
-							}
-							else
-							{
-								TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-								return Redirect(returnUrl);
-							}
-						}
-						else
-						{
-							var reqestUpdate = iOrder.UpdateData(slider);
-							if (reqestUpdate == true)
-							{
-								TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
-								return RedirectToAction("MyOrder");
-							}
-							else
-							{
-								TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
-								return Redirect(returnUrl);
-							}
-						}
-					}
-
-
-					catch
-					{
-						TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
-						return Redirect(returnUrl);
-					}
-				}
-			
-		
-
-
-			return Redirect(returnUrl);
+                catch
+                {
+                    TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
+                    return Redirect(returnUrl);
+                }
+            }
+            else if (BondType == "Sales invoice")
+            {
+                try
+                {
 
 
 
-		}
+
+                    slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
+                    slider.IdBondType = model.Order.IdBondType;
+                    slider.IdUser = model.Order.IdUser;
+                    slider.IdProductCategory = model.Order.IdProductCategory;
+                    slider.IdTypesProduct = model.Order.IdTypesProduct;
+                    slider.IdProductInformation = model.Order.IdProductInformation;
+                    slider.IdBWareHouse = model.Order.IdBWareHouse;
+                    slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
+                    slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
+                    slider.PurchaseOrderNoumber = model.Order.PurchaseOrderNoumber;
+                    slider.PurchasePrice = model.Order.PurchasePrice;
+                    slider.sellingPrice = model.Order.sellingPrice;
+                    slider.GlobalPrice = model.Order.GlobalPrice;
+                    slider.SpecialSalePrice = model.Order.SpecialSalePrice;
+                    slider.QuantityIn = model.Order.QuantityIn;
+                    slider.QuantityOute = model.Order.QuantityOute;
+                    slider.Qrcode = model.Order.Qrcode;
+                    slider.DataEntry = model.Order.DataEntry;
+                    slider.DateTimeEntry = model.Order.DateTimeEntry;
+                    slider.CurrentState = model.Order.CurrentState;
+                    //Conditions
+                    var maxPurchaseAutoNumber = dbcontext.TBOrders.Max(o => (int?)o.PurchaseAuotNoumber) ?? 0;
+                    slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
+
+                    slider.GlobalPrice = 0;
+                    if (slider.SpecialSalePrice == null)
+                        slider.SpecialSalePrice = 0;
+
+                    slider.QuantityIn = 0;
+                    slider.PurchasePrice = 0;
+
+                    if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
+                    {
+                        var reqwest = iOrder.saveData(slider);
+                        if (reqwest == true)
+                        {
+
+                            //Mail Sendig
+
+            //                var userd = vmodel.sUser = iUserInformation.GetById(slider.IdUser);
+            //                var user = await _userManager.FindByIdAsync(slider.IdUser);
+            //                if (user == null)
+            //                    return NotFound();
+
+            //                string namedovlober = user.Name;
+            //                string email = user.Email;
+            //                var TAskStatus2 = vmodel.viewOrder = iOrder.GetByIdview(slider.IdPurchaseOrder);
+            //                if (TAskStatus2 == null)
+            //                    return NotFound();
+
+            //                string ProductName = TAskStatus2.ProductName;
+            //                string Photo = TAskStatus2.Photo;
+            //                string TypesProduct = TAskStatus2.TypesProduct;
+            //                string sellingPrice = TAskStatus2.sellingPrice.ToString();
+            //                string QuantityOute = TAskStatus2.QuantityOute.ToString();
+            //                var total = TAskStatus2.sellingPrice * TAskStatus2.QuantityOute;
+
+            //                // الحصول على إعدادات البريد الإلكتروني
+            //                var emailSetting = await dbcontext.TBEmailAlartSettings
+            //                   .OrderByDescending(n => n.IdEmailAlartSetting)
+            //                   .Where(a => a.CurrentState == true && a.Active == true)
+            //                   .FirstOrDefaultAsync();
+
+            //                if (emailSetting != null)
+            //                {
+            //                    var message = new MimeMessage();
+            //                    message.From.Add(new MailboxAddress(slider.DataEntry, emailSetting.MailSender));
+            //                    message.To.Add(new MailboxAddress(namedovlober, email));
+            //                    message.Cc.Add(new MailboxAddress("saif aldin", "saifaldin_s@hotmail.com"));
+            //                    message.Subject = "New Invoice  " + "Number:" + slider.PurchaseAuotNoumber;
+
+            //                    var builder = new BodyBuilder
+            //                    {
+            //                        HtmlBody = $@"
+            //<!DOCTYPE html>
+            //<html lang='en'>
+            //<head>
+            //    <meta charset='UTF-8'>
+            //    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            //    <style>
+            //        body {{ font-family: Arial, sans-serif; margin: 20px; }}
+            //        .invoice-header, .invoice-details {{ text-align: right; }}
+            //        .invoice-container {{ width: 100%; border-collapse: collapse; }}
+            //        .invoice-container th, .invoice-container td {{ border: 1px solid #ddd; padding: 8px; }}
+            //        .invoice-container th {{ background-color: #f2f2f2; text-align: center; }}
+            //        .company-logo {{ float: left; margin-right: 20px; }}
+            //        .customer-info {{ float: right; text-align: left; }}
+            //        .clear {{ clear: both; }}
+            //        .text-center {{ text-align: center; }}
+            //        .payment-method {{ margin-top: 20px; font-weight: bold; }}
+            //    </style>
+            //    <title>Invoice</title>
+            //</head>
+            //<body>
+            //    <div class='invoice-header'>
+            //        <div class='company-logo'>
+            //            <img src='https://via.placeholder.com/100' alt='Company Logo'>
+            //        </div>
+            //        <div class='customer-info'>
+            //            <p><strong>Sales invoice</strong></p>
+            //            <p>Invoice #: 2</p>
+            //            <p>Created: {DateTime.Now}</p>
+            //            <p>Due: {DateTime.Now}</p>
+            //        </div>
+            //        <div class='clear'></div>
+            //    </div>
+
+            //    <div class='invoice-details'>
+            //        <p>Apx</p>
+            //        <p>+19165968856</p>
+            //        <p>Info@apx.com</p>
+            //        <hr>
+            //        <p>{namedovlober} - {slider.DataEntry}</p>
+            //    </div>
+
+            //    <table class='invoice-container'>
+            //        <thead>
+            //            <tr>
+            //                <th>Photo</th>
+            //                <th>Product Name</th>
+            //                <th>Type Product</th>
+            //                <th>Selling Price</th>
+            //                <th>Output Quantity</th>
+            //                <th>Total</th>
+            //            </tr>
+            //        </thead>
+            //        <tbody>
+            //            <tr>
+            //                <td class='text-center'>
+            //                    <img src='{Photo}' alt='Product Image' style='height:50px;width:50px'>
+            //                </td>
+            //                <td>{ProductName}</td>
+            //                <td class='text-center'>{TypesProduct}</td>
+            //                <td class='text-center'>{sellingPrice}</td>
+            //                <td class='text-center'>{QuantityOute}</td>
+            //                <td class='text-center'>{total}</td>
+            //            </tr>
+            //        </tbody>
+            //    </table>
+
+            //    <div class='payment-method'>
+            //        <p>Payment Method: Check</p>
+            //        <p>Check #: {total}</p>
+            //    </div>
+            //</body>
+            //</html>"
+            //                    };
+
+            //                    message.Body = builder.ToMessageBody();
+
+            //                    // استخدام OAuth2 بدلاً من المصادقة الأساسية
+            //                    var accessToken = "axziyzjtvxmclllo"; // يجب توليد رمز الوصول (Access Token) باستخدام OAuth2
+            //                    var oauth2 = new SaslMechanismOAuth2(emailSetting.MailSender, accessToken);
+
+            //                    using (var client = new SmtpClient())
+            //                    {
+            //                        await client.ConnectAsync(emailSetting.SmtpServer, emailSetting.PortServer, SecureSocketOptions.StartTls);
+            //                        await client.AuthenticateAsync(oauth2); // المصادقة باستخدام OAuth2
+            //                        await client.SendAsync(message);
+            //                        await client.DisconnectAsync(true);
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    // التعامل مع الحالة التي لا توجد فيها إعدادات البريد الإلكتروني
+            //                    // يمكنك تسجيل خطأ أو تنفيذ إجراءات أخرى هنا
+            //                }
 
 
-           
-        
+
+
+
+
+                            TempData["Saved successfully"] = ResourceWeb.VLSavedSuccessfully;
+                            TempData["Merchant"] = model.Order.IdUser;
+                            return RedirectToAction("AddOrder");
+                        }
+                        else
+                        {
+                            TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
+                            return Redirect(returnUrl);
+                        }
+                    }
+                    else
+                    {
+                        var reqestUpdate = iOrder.UpdateData(slider);
+                        if (reqestUpdate == true)
+                        {
+                            TempData["Saved successfully"] = ResourceWeb.VLUpdatedSuccessfully;
+                            return RedirectToAction("MyOrder");
+                        }
+                        else
+                        {
+                            TempData["ErrorSave"] = ResourceWeb.VLErrorUpdate;
+                            return Redirect(returnUrl);
+                        }
+                    }
+                }
+
+
+                catch
+                {
+                    TempData["ErrorSave"] = ResourceWeb.VLErrorSave;
+                    return Redirect(returnUrl);
+                }
+            }
+
+
+
+
+            return Redirect(returnUrl);
+
+
+
+        }
+
+
+
+
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteData(int IdPurchaseOrder)
         {
@@ -673,7 +812,7 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet("GetProductByName")]
+        [HttpGet("Order/GetProductByName")]
         public async Task<IActionResult> GetProductByName(string qrCode)
         {
             if (string.IsNullOrWhiteSpace(qrCode))
@@ -781,163 +920,216 @@ namespace Yara.Areas.Admin.Controllers
             }
             else if (Make == "Lows")
             {
-				/// نهاد
-				/// 
-				IWebDriver driver = new ChromeDriver();
-				try
-				{
-					// تشغيل متصفح Chrome باستخدام Selenium
-					
-
-					// تعيين الرابط الذي يتم البحث فيه
-					var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
-
-					// التنقل إلى الرابط
-					driver.Navigate().GoToUrl(searchUrl);
-
-					// انتظار بعض الوقت حتى يتم تحميل الصفحة بالكامل
-					await Task.Delay(5000); // يمكن تعديل الوقت بناءً على احتياج تحميل الصفحة
-
-					// استهداف عنصر <span class="screen-reader"> لاستخراج السعر
-					var priceDollarNode = driver.FindElement(By.XPath("//div[@class='sc-kFWlue iHYmQD pd-comp-space-8']//span[@class='screen-reader']"));
-
-					string priceText = "";
-
-					if (priceDollarNode != null)
-					{
-						priceText = priceDollarNode.Text.Trim(); // السعر بالدولار والسنتات موجود في نفس العنصر
-
-						// تنظيف النص لتبقي فقط الأرقام والنقاط
-						priceText = Regex.Replace(priceText, "[^0-9.]", "");
-
-						// تحويل النص المنظف إلى قيمة رقمية
-						if (decimal.TryParse(priceText, out decimal parsedPrice))
-						{
-							globalPrice = parsedPrice;
-							Console.WriteLine($"Price: {parsedPrice}");
-						}
-						else
-						{
-							Console.WriteLine("Failed to parse price.");
-							globalPrice = 0;
-						}
-					}
-					else
-					{
-						Console.WriteLine("Price not found.");
-						globalPrice = 0;
-					}
-				}
-				catch (Exception ex)
-				{
-					// التعامل مع الاستثناءات
-					Console.WriteLine($"Error: {ex.Message}");
-					globalPrice = 0;
-				}
-
-				finally
-				{
-					// إغلاق المتصفح
-					driver.Quit();
-				}
-
-
-
-			}
-			return globalPrice;
-		}
-
-            [HttpGet]
-            public IActionResult GetSubWarehouses(int IdBWareHouse)
-            {
-                var subWarehouses = dbcontext.TBWareHouseBranchs
-                    .Where(b => b.IdBWareHouse == IdBWareHouse)
-                    .Select(b => new
-                    {
-                        value = b.IdBWareHouseBranch,
-                        text = b.Description
-                    }).ToList();
-
-                return Json(subWarehouses);
-            }
-
-
-            public async Task<JsonResult> GetProductDetailsForOrder(string productId)
-            {
-                var product = dbcontext.ViewProductInformation
-                             .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId || p.Make == productId).FirstOrDefault();
-
-
-                if (product != null)
-                {
-                    // Fetch the global price using HtmlAgilityPack and the model field
-                    decimal globalPrice = 0; //await FetchGlobalPrice(product.Model);
-
-                    return Json(new
-                    {
-                        imageUrl = product.Photo,
-                        globalPrice = globalPrice,
-                        productCategoryId = product.IdProductCategory,
-                        bondTypeId = product.IdTypesProduct,  // Assuming this field exists
-                        typesProductId = product.IdTypesProduct,
-                        productName = product.ProductName,
-                        id = product.IdProductInformation,
-                        m = product.IdProductInformation
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        imageUrl = "http://placehold.it/220x180",
-                        globalPrice = "0.00",
-                        productCategoryId = 0,
-                        bondTypeId = 0,
-                        typesProductId = 0,
-                        id = 0,
-                    });
-                }
-            }
-
-            public async Task<IActionResult> GetProductSuggestions(string query)
-            {
-                if (string.IsNullOrWhiteSpace(query))
-                {
-                    return BadRequest("Search query cannot be empty");
-                }
+                /// نهاد
+                /// 
+                IWebDriver driver = new ChromeDriver();
                 try
                 {
-                    // Fetch products matching the query
-                    var products = await dbcontext.ViewProductInformation
-                        .Where(p => p.Qrcode.StartsWith(query) ||
-                                    p.Model.StartsWith(query) ||
-                                    p.UPC.StartsWith(query) ||
-                                    p.ProductName.StartsWith(query) ||
-                                    p.Make.StartsWith(query))
-                        .Select(p => new { p.Qrcode, p.ProductName, p.Model, p.Photo })
-                        .ToListAsync();
+                    // تشغيل متصفح Chrome باستخدام Selenium
 
-                    if (products.Any())
+
+                    // تعيين الرابط الذي يتم البحث فيه
+                    var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
+
+                    // التنقل إلى الرابط
+                    driver.Navigate().GoToUrl(searchUrl);
+
+                    // انتظار بعض الوقت حتى يتم تحميل الصفحة بالكامل
+                    await Task.Delay(5000); // يمكن تعديل الوقت بناءً على احتياج تحميل الصفحة
+
+                    // استهداف عنصر <span class="screen-reader"> لاستخراج السعر
+                    var priceDollarNode = driver.FindElement(By.XPath("//div[@class='sc-kFWlue iHYmQD pd-comp-space-8']//span[@class='screen-reader']"));
+
+                    string priceText = "";
+
+                    if (priceDollarNode != null)
                     {
-                        return Ok(products); // Return list of matching products
+                        priceText = priceDollarNode.Text.Trim(); // السعر بالدولار والسنتات موجود في نفس العنصر
+
+                        // تنظيف النص لتبقي فقط الأرقام والنقاط
+                        priceText = Regex.Replace(priceText, "[^0-9.]", "");
+
+                        // تحويل النص المنظف إلى قيمة رقمية
+                        if (decimal.TryParse(priceText, out decimal parsedPrice))
+                        {
+                            globalPrice = parsedPrice;
+                            Console.WriteLine($"Price: {parsedPrice}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to parse price.");
+                            globalPrice = 0;
+                        }
                     }
                     else
                     {
-                        return NotFound("No products found");
+                        Console.WriteLine("Price not found.");
+                        globalPrice = 0;
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Log exception and return error response
-                    return StatusCode(500, $"Internal server error: {ex.Message}");
+                    // التعامل مع الاستثناءات
+                    Console.WriteLine($"Error: {ex.Message}");
+                    globalPrice = 0;
+                }
+
+                finally
+                {
+                    // إغلاق المتصفح
+                    driver.Quit();
+                }
+
+
+
+            }
+            return globalPrice;
+        }
+
+        [HttpGet]
+        public IActionResult GetSubWarehouses(int IdBWareHouse)
+        {
+            var subWarehouses = dbcontext.TBWareHouseBranchs
+                .Where(b => b.IdBWareHouse == IdBWareHouse)
+                .Select(b => new
+                {
+                    value = b.IdBWareHouseBranch,
+                    text = b.Description
+                }).ToList();
+
+            return Json(subWarehouses);
+        }
+
+
+        public async Task<JsonResult> GetProductDetailsForOrder(string productId)
+        {
+            var product = dbcontext.ViewProductInformation
+                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId || p.Make == productId).FirstOrDefault();
+
+
+            if (product != null)
+            {
+                // Fetch the global price using HtmlAgilityPack and the model field
+                decimal globalPrice = 0; //await FetchGlobalPrice(product.Model);
+
+                return Json(new
+                {
+                    imageUrl = product.Photo,
+                    globalPrice = globalPrice,
+                    productCategoryId = product.IdProductCategory,
+                    bondTypeId = product.IdTypesProduct,  // Assuming this field exists
+                    typesProductId = product.IdTypesProduct,
+                    productName = product.ProductName,
+                    id = product.IdProductInformation,
+                    m = product.IdProductInformation
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    imageUrl = "http://placehold.it/220x180",
+                    globalPrice = "0.00",
+                    productCategoryId = 0,
+                    bondTypeId = 0,
+                    typesProductId = 0,
+                    id = 0,
+                });
+            }
+        }
+
+        public async Task<IActionResult> GetProductSuggestions(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return BadRequest("Search query cannot be empty");
+            }
+            try
+            {
+                // Fetch products matching the query
+                var products = await dbcontext.ViewProductInformation
+                    .Where(p => p.Qrcode.StartsWith(query) ||
+                                p.Model.StartsWith(query) ||
+                                p.UPC.StartsWith(query) ||
+                                p.ProductName.StartsWith(query) ||
+                                p.Make.StartsWith(query))
+                    .Select(p => new { p.Qrcode, p.ProductName, p.Model, p.Photo })
+                    .ToListAsync();
+
+                if (products.Any())
+                {
+                    return Ok(products); // Return list of matching products
+                }
+                else
+                {
+                    return NotFound("No products found");
                 }
             }
+            catch (Exception ex)
+            {
+                // Log exception and return error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
 
 
-            [HttpGet]
-            [AllowAnonymous]
-            public async Task<IActionResult> FetchImageByModel(string model)
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> FetchImageByModel(string model)
+        {
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                var document = web.Load("https://www.homedepot.com/s/" + model);
+
+
+                var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
+
+                if (imageNodes != null && imageNodes.Any())
+                {
+                    var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
+
+                    // الحصول على اسم المنتج من h1 داخل div
+                    var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
+                    var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                    return Json(new { success = true, imageUrl, productName });
+                }
+                else
+                {
+                    // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
+                    var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
+
+                    if (imageNodesFallback != null && imageNodesFallback.Any())
+                    {
+                        var firstImageUrl = imageNodesFallback
+                            .Select(node => node.GetAttributeValue("src", ""))
+                            .FirstOrDefault();
+
+                        // الحصول على اسم المنتج
+                        // تعديل XPath ليكون أكثر عمومية
+                        var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
+                        var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                        return Json(new { success = true, imageUrl = firstImageUrl, productName });
+
+                    }
+                }
+
+                // If no image was found
+                return Json(new { success = false, message = "Image not found." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        public async Task<IActionResult> FetchImageByModelOrder(string model, string breand)
+        {
+
+            if (breand == "RYOBI")
             {
                 try
                 {
@@ -957,6 +1149,7 @@ namespace Yara.Areas.Admin.Controllers
 
                         return Json(new { success = true, imageUrl, productName });
                     }
+
                     else
                     {
                         // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
@@ -986,94 +1179,60 @@ namespace Yara.Areas.Admin.Controllers
                     return Json(new { success = false, message = ex.Message });
                 }
             }
-
-            public async Task<IActionResult> FetchImageByModelOrder(string model, string breand)
+            else
             {
-
-                if (breand == "RYOBI")
+                try
                 {
-                    try
+                    using (HttpClient client = new HttpClient())
                     {
-                        HtmlWeb web = new HtmlWeb();
-                        var document = web.Load("https://www.homedepot.com/s/" + model);
+                        client.Timeout = TimeSpan.FromSeconds(30); // تعيين المهلة إلى 30 ثانية
 
+                        // تعيين وكيل المستخدم ليبدو كأنه متصفح حقيقي
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
 
-                        var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
+                        var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
+                        var response = await client.GetAsync(searchUrl);
 
-                        if (imageNodes != null && imageNodes.Any())
+                        if (response.IsSuccessStatusCode)
                         {
-                            var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
+                            // الحصول على الرابط الجديد بعد إعادة التوجيه
+                            var redirectedUrl = response.RequestMessage.RequestUri.ToString();
 
-                            // الحصول على اسم المنتج من h1 داخل div
-                            var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
-                            var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+                            // تحميل محتوى الصفحة الجديدة
+                            var pageContents = await response.Content.ReadAsStringAsync();
+                            var document = new HtmlDocument();
+                            document.LoadHtml(pageContents);
 
-                            return Json(new { success = true, imageUrl, productName });
-                        }
+                            // محاولة استخراج اسم المنتج
+                            var productTitleNode = document.DocumentNode.SelectSingleNode("//h1[@class='styles__H1-sc-11vpuyu-0 krJSUv typography variant--h1 align--left product-brand-description']");
+                            string productName = productTitleNode != null ? productTitleNode.InnerText.Trim() : "Product name not found";
 
-                        else
-                        {
-                            // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
-                            var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
+                            // محاولة استخراج الصور من العنصر المطلوب
+                            var imageNodes = document.DocumentNode.SelectNodes("//div[@class='ImageContainerstyles__ImageTileWrapper-sc-1l8vild-0 cfyBCn tile']//img");
 
-                            if (imageNodesFallback != null && imageNodesFallback.Any())
+                            if (imageNodes != null && imageNodes.Any())
                             {
-                                var firstImageUrl = imageNodesFallback
-                                    .Select(node => node.GetAttributeValue("src", ""))
-                                    .FirstOrDefault();
+                                var firstImageUrl = imageNodes
+                                   .Select(node => node.GetAttributeValue("src", ""))
+                                   .FirstOrDefault(src => !string.IsNullOrEmpty(src));
 
-                                // الحصول على اسم المنتج
-                                // تعديل XPath ليكون أكثر عمومية
-                                var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
-                                var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
-
-                                return Json(new { success = true, imageUrl = firstImageUrl, productName });
-
-                            }
-                        }
-
-                        // If no image was found
-                        return Json(new { success = false, message = "Image not found." });
-                    }
-                    catch (Exception ex)
-                    {
-                        return Json(new { success = false, message = ex.Message });
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        using (HttpClient client = new HttpClient())
-                        {
-                            client.Timeout = TimeSpan.FromSeconds(30); // تعيين المهلة إلى 30 ثانية
-
-                            // تعيين وكيل المستخدم ليبدو كأنه متصفح حقيقي
-                            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-
-                            var searchUrl = "https://www.lowes.com/search?searchTerm=" + model;
-                            var response = await client.GetAsync(searchUrl);
-
-                            if (response.IsSuccessStatusCode)
-                            {
-                                // الحصول على الرابط الجديد بعد إعادة التوجيه
-                                var redirectedUrl = response.RequestMessage.RequestUri.ToString();
-
-                                // تحميل محتوى الصفحة الجديدة
-                                var pageContents = await response.Content.ReadAsStringAsync();
-                                var document = new HtmlDocument();
-                                document.LoadHtml(pageContents);
-
-                                // محاولة استخراج اسم المنتج
-                                var productTitleNode = document.DocumentNode.SelectSingleNode("//h1[@class='styles__H1-sc-11vpuyu-0 krJSUv typography variant--h1 align--left product-brand-description']");
-                                string productName = productTitleNode != null ? productTitleNode.InnerText.Trim() : "Product name not found";
-
-                                // محاولة استخراج الصور من العنصر المطلوب
-                                var imageNodes = document.DocumentNode.SelectNodes("//div[@class='ImageContainerstyles__ImageTileWrapper-sc-1l8vild-0 cfyBCn tile']//img");
-
-                                if (imageNodes != null && imageNodes.Any())
+                                if (!string.IsNullOrEmpty(firstImageUrl))
                                 {
-                                    var firstImageUrl = imageNodes
+                                    return Json(new { success = true, imageUrl = firstImageUrl, productName, redirectedUrl });
+                                }
+                                else
+                                {
+                                    // إذا لم يتم العثور على أي صورة
+                                    return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
+                                }
+                            }
+                            else
+                            {
+                                var imageNodes2 = document.DocumentNode.SelectNodes("//img");
+                                // إذا لم يتم العثور على أي صورة
+                                if (imageNodes2 != null && imageNodes2.Any())
+                                {
+                                    var firstImageUrl = imageNodes2
                                        .Select(node => node.GetAttributeValue("src", ""))
                                        .FirstOrDefault(src => !string.IsNullOrEmpty(src));
 
@@ -1087,142 +1246,292 @@ namespace Yara.Areas.Admin.Controllers
                                         return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
                                     }
                                 }
-                                else
-                                {
-                                    var imageNodes2 = document.DocumentNode.SelectNodes("//img");
-                                    // إذا لم يتم العثور على أي صورة
-                                    if (imageNodes2 != null && imageNodes2.Any())
-                                    {
-                                        var firstImageUrl = imageNodes2
-                                           .Select(node => node.GetAttributeValue("src", ""))
-                                           .FirstOrDefault(src => !string.IsNullOrEmpty(src));
 
-                                        if (!string.IsNullOrEmpty(firstImageUrl))
-                                        {
-                                            return Json(new { success = true, imageUrl = firstImageUrl, productName, redirectedUrl });
-                                        }
-                                        else
-                                        {
-                                            // إذا لم يتم العثور على أي صورة
-                                            return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
-                                        }
-                                    }
-
-                                    return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
-                                }
-                            }
-                            else
-                            {
-                                return Json(new { success = false, message = "Failed to load the page." });
+                                return Json(new { success = false, message = "Image not found in the specified div.", productName, redirectedUrl });
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        return Json(new { success = false, message = ex.Message });
-                    }
-                }
-            }
-
-
-
-            [HttpPost]
-            [AutoValidateAntiforgeryToken]
-            public async Task<IActionResult> SaveNewProductInfo(ViewmMODeElMASTER model, TBProductInformation slider, List<IFormFile> Files, string returnUrl, string photo)
-            {
-                try
-                {
-                    slider.IdProductInformation = model.ProductInformation.IdProductInformation;
-                    slider.IdProductCategory = model.ProductInformation.IdProductCategory;
-                    slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
-                    slider.IdBrandName = model.ProductInformation.IdBrandName;
-                    slider.ProductName = model.ProductInformation.ProductName;
-                    slider.UPC = model.ProductInformation.UPC;
-                    slider.Qrcode = model.ProductInformation.Qrcode;
-                    slider.Active = model.ProductInformation.Active;
-                    slider.DateTimeEntry = model.ProductInformation.DateTimeEntry;
-                    slider.DataEntry = model.ProductInformation.DataEntry;
-                    slider.CurrentState = model.ProductInformation.CurrentState;
-                    slider.Model = model.ProductInformation.Model;
-                    slider.Photo = model.ProductInformation.Photo;
-                    if (slider.Photo == null)
-                    {
-                        var file = Files.FirstOrDefault(); // Assuming a single file upload for the image
-                        if (file != null && file.Length > 0)
+                        else
                         {
-                            // Generate a unique filename
-                            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-
-                            // Save the file to the server
-                            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Product", fileName);
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await file.CopyToAsync(stream);
-                            }
-
-                            // Save the filename in the database
-                            slider.Photo = "/Images/Product/" + fileName;
-                        }
-                        else if (slider.IdProductInformation == 0 || string.IsNullOrEmpty(slider.Photo))
-                        {
-                            TempData["Message"] = "Please upload an image."; // Message indicating that an image upload is required
-                            return RedirectToAction("AddOrder");
+                            return Json(new { success = false, message = "Failed to load the page." });
                         }
                     }
-
-
-                    // Save or update the product information
-                    if (slider.IdProductInformation == 0)
-                    {
-                        if (dbcontext.TBProductInformations.Any(a => a.ProductName == slider.ProductName && a.IdTypesProduct == slider.IdTypesProduct && a.IdProductCategory == slider.IdProductCategory))
-                        {
-                            TempData["ProductName"] = "Product already exists.";
-                            return RedirectToAction("AddOrder", model);
-                        }
-                        dbcontext.TBProductInformations.Add(slider);
-                    }
-                    else
-                    {
-                        dbcontext.TBProductInformations.Update(slider);
-                    }
-
-                    await dbcontext.SaveChangesAsync();
-
-                    TempData["Saved successfully"] = "Saved successfully.";
-                    TempData["AfterSave"] = model.ProductInformation.Model;
-                    return RedirectToAction("AddOrder");
                 }
                 catch (Exception ex)
                 {
-                    TempData["ErrorSave"] = "Error saving data: " + ex.Message;
-                    return RedirectToAction("AddOrder", model);
+                    return Json(new { success = false, message = ex.Message });
                 }
             }
-            public async Task<IActionResult> GetUPC(int value)
+        }
 
+
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> SaveNewProductInfo(ViewmMODeElMASTER model, TBProductInformation slider, List<IFormFile> Files, string returnUrl, string photo)
+        {
+            try
             {
-                string UPC = string.Empty;
-                string Make = string.Empty;
-                decimal GlobalPrice = 0;
-
-                var product = await iProductInformation.GetByIdFromViewAsync(value);
-                if (product == null)
-                    return Ok(new
-                    {
-                        UPC,
-                        Make,
-                        GlobalPrice
-
-                    });
-
-                GlobalPrice = await FetchGlobalPrice(product.Model, product.Make);
-
-                return Ok(new
+                slider.IdProductInformation = model.ProductInformation.IdProductInformation;
+                slider.IdProductCategory = model.ProductInformation.IdProductCategory;
+                slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
+                slider.IdBrandName = model.ProductInformation.IdBrandName;
+                slider.ProductName = model.ProductInformation.ProductName;
+                slider.UPC = model.ProductInformation.UPC;
+                slider.Qrcode = model.ProductInformation.Qrcode;
+                slider.Active = model.ProductInformation.Active;
+                slider.DateTimeEntry = model.ProductInformation.DateTimeEntry;
+                slider.DataEntry = model.ProductInformation.DataEntry;
+                slider.CurrentState = model.ProductInformation.CurrentState;
+                slider.Model = model.ProductInformation.Model;
+                slider.Photo = model.ProductInformation.Photo;
+                if (slider.Photo == null)
                 {
-                    UPC = product.UPC,
-                    Make = product.Make,
-                    GlobalPrice = GlobalPrice
-                });
+                    var file = Files.FirstOrDefault(); // Assuming a single file upload for the image
+                    if (file != null && file.Length > 0)
+                    {
+                        // Generate a unique filename
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+                        // Save the file to the server
+                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Product", fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        // Save the filename in the database
+                        slider.Photo = "/Images/Product/" + fileName;
+                    }
+                    else if (slider.IdProductInformation == 0 || string.IsNullOrEmpty(slider.Photo))
+                    {
+                        TempData["Message"] = "Please upload an image."; // Message indicating that an image upload is required
+                        return RedirectToAction("AddOrder");
+                    }
+                }
+
+
+                // Save or update the product information
+                if (slider.IdProductInformation == 0)
+                {
+                    if (dbcontext.TBProductInformations.Any(a => a.ProductName == slider.ProductName && a.IdTypesProduct == slider.IdTypesProduct && a.IdProductCategory == slider.IdProductCategory))
+                    {
+                        TempData["ProductName"] = "Product already exists.";
+                        return RedirectToAction("AddOrder", model);
+                    }
+                    dbcontext.TBProductInformations.Add(slider);
+                }
+                else
+                {
+                    dbcontext.TBProductInformations.Update(slider);
+                }
+
+                await dbcontext.SaveChangesAsync();
+
+                TempData["Saved successfully"] = "Saved successfully.";
+                TempData["AfterSave"] = model.ProductInformation.Model;
+                return RedirectToAction("AddOrder");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorSave"] = "Error saving data: " + ex.Message;
+                return RedirectToAction("AddOrder", model);
             }
         }
+        public async Task<IActionResult> GetUPC(int value)
+
+        {
+            string UPC = string.Empty;
+            string Make = string.Empty;
+            decimal GlobalPrice = 0;
+
+            var product = await iProductInformation.GetByIdFromViewAsync(value);
+            if (product == null)
+                return Ok(new
+                {
+                    UPC,
+                    Make,
+                    GlobalPrice
+
+                });
+
+            GlobalPrice = await FetchGlobalPrice(product.Model, product.Make);
+
+            return Ok(new
+            {
+                UPC = product.UPC,
+                Make = product.Make,
+                GlobalPrice = GlobalPrice
+            });
+        }
+
+        [HttpGet]
+        public IActionResult PrintInvoice(string Merchant, string WareHouse,
+          string PurchaseOrderNoumber, string ProductInformation,
+          string WareHouseBranch, string sellingPrice,
+          string QouantityIn,
+          string PurchasePrice,
+          string SpecialSalePrice,
+          string BondType,
+          string qrCodeSrc,
+          string bar, string upc)
+        {
+            string photo = string.Empty;
+            string PhoneNumber = string.Empty;
+            string Address = string.Empty;
+            string CompanyName = string.Empty;
+
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+
+            // Fetch company information and set it in the ViewModel
+            vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().ToList();
+
+            if (vmodel.ListCompanyInformatione != null && vmodel.ListCompanyInformatione.Any())
+            {
+                var company = vmodel.ListCompanyInformatione.FirstOrDefault();
+                CompanyName = company.CompanyName;
+                PhoneNumber = company.PhoneNumber;
+                photo = company.Photo;
+                Address = company.AddressEn;
+            }
+
+            var htmlContent = new StringBuilder();
+
+            // Start HTML content
+            htmlContent.Append("<html><head><title>Print Invoice</title>");
+            htmlContent.Append("<style>");
+            htmlContent.Append("body { font-family: Arial, sans-serif; font-size: 12px; }");
+            htmlContent.Append(".invoice-box { width: 100%; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); line-height: 24px; color: #555; }");
+            htmlContent.Append(".invoice-box table { width: 100%; line-height: inherit; text-align: left; }");
+            htmlContent.Append(".invoice-box table td { padding: 5px; vertical-align: top; }");
+            htmlContent.Append(".invoice-box table tr td:nth-child(2) { text-align: right; }");
+            htmlContent.Append(".invoice-box table tr.top table td { padding-bottom: 20px; }");
+            htmlContent.Append(".invoice-box table tr.top table td.title { font-size: 45px; line-height: 45px; color: #333; }");
+            htmlContent.Append(".invoice-box table tr.information table td { padding-bottom: 40px; }");
+            htmlContent.Append(".invoice-box table tr.heading td { background: #eee; border-bottom: 1px solid #ddd; font-weight: bold; }");
+            htmlContent.Append(".invoice-box table tr.details td { padding-bottom: 20px; }");
+            htmlContent.Append(".invoice-box table tr.item td{ border-bottom: 1px solid #eee; }");
+            htmlContent.Append(".invoice-box table tr.item.last td { border-bottom: none; }");
+            htmlContent.Append(".invoice-box table tr.total td:nth-child(2) { border-top: 2px solid #eee; font-weight: bold; }");
+            htmlContent.Append("</style>");
+            htmlContent.Append("</head><body>");
+
+            // Invoice container
+            htmlContent.Append("<div class='invoice-box'>");
+            htmlContent.Append("<table cellpadding='0' cellspacing='0'>");
+
+            // Company and Invoice Information
+            htmlContent.Append("<tr class='top'>");
+            htmlContent.Append("<td colspan='2'>");
+            htmlContent.Append("<table>");
+            htmlContent.Append("<tr>");
+            htmlContent.AppendFormat("<td class='title'><img src='/Images/Home/{0}' alt='Company Logo' style='width: 100px;' /></td>", photo);
+            htmlContent.AppendFormat("<td>Invoice #: {0}<br>Created: {1}<br>Due: {2}</td>", PurchaseOrderNoumber, DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(30).ToShortDateString());
+            htmlContent.Append("</tr>");
+            htmlContent.Append("</table>");
+            htmlContent.Append("</td>");
+            htmlContent.Append("</tr>");
+
+            // Company Address and Merchant Information
+            htmlContent.Append("<tr class='information'>");
+            htmlContent.Append("<td colspan='2'>");
+            htmlContent.Append("<table>");
+            htmlContent.AppendFormat("<tr><td>{0}<br>{1}<br>{2}</td>", CompanyName, Address, PhoneNumber);
+            htmlContent.AppendFormat("<td>Merchant#: {0}<br>Warehouse#: {1}<br>Warehouse Branch: {2}</td>", Merchant, WareHouse, WareHouseBranch);
+            htmlContent.Append("</tr>");
+            htmlContent.Append("</table>");
+            htmlContent.Append("</td>");
+            htmlContent.Append("</tr>");
+
+            // Payment Method
+            htmlContent.Append("<tr class='heading'>");
+            htmlContent.Append("<td>Payment Method</td>");
+            htmlContent.Append("<td>Check #</td>");
+            htmlContent.Append("</tr>");
+            htmlContent.Append("<tr class='details'><td>Check</td><td>1000</td></tr>");
+
+            // Product Details
+            htmlContent.Append("<tr class='heading'><td>Product</td><td>Price</td></tr>");
+            htmlContent.AppendFormat("<tr class='item'><td>{0}</td><td>{1}</td></tr>", ProductInformation, sellingPrice);
+
+            // Total
+            htmlContent.Append("<tr class='total'><td></td><td>Total: " + sellingPrice + "</td></tr>");
+            htmlContent.Append("</table>");
+
+            // QR Code, Barcode, and UPC Section
+            htmlContent.Append("<div class='footer'>");
+            htmlContent.AppendFormat("<img src='{0}' alt='QR Code' style='width: 80px;' /><br>", qrCodeSrc);
+            htmlContent.AppendFormat("<img src='{0}' alt='Barcode' style='width: 180px;' /><br>", bar);
+            if (!string.IsNullOrEmpty(upc))
+            {
+                htmlContent.AppendFormat("<div class='upc'>UPC: {0}</div>", upc);
+            }
+            else
+            {
+                htmlContent.Append("<div class='upc'>UPC: N/A</div>");
+            }
+            htmlContent.Append("</div>");
+
+            // Print and Submit Buttons
+            htmlContent.Append("<div class='text-right' style='margin-top: 20px;'>");
+            htmlContent.Append("<button onclick='window.print()' class='btn btn-default'><i class='fa fa-print'></i> Print</button>");
+            htmlContent.Append("<button type='submit' class='btn btn-primary'>Submit</button>");
+            htmlContent.Append("</div>");
+
+            // Close Invoice container
+            htmlContent.Append("</div>");
+
+            // End HTML content
+            htmlContent.Append("</body></html>");
+
+            // Return the formatted content as an HTML page
+            return Content(htmlContent.ToString(), "text/html", Encoding.UTF8);
+        }
+
+
+
+        public IActionResult printInvoce(int IdPurchaseOrder)
+        {
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().Take(1);
+
+            // تأكد من أن CompanieTypeWork مهيأ حتى لو لم يكن هناك ID
+            if (vmodel.ListCompanyInformatione == null)
+            {
+                vmodel.CompanyInformation = new TBCompanyInformation(); // أو النوع الصحيح
+            }
+
+            if (IdPurchaseOrder != null)
+            {
+                vmodel.ListViewOrder = iOrder.GetAllv(IdPurchaseOrder);
+            }
+
+            return View(vmodel);
+
+        }
+
+
+
+        public IActionResult printPurchase(int IdPurchaseOrder)
+        {
+            ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
+            vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().Take(1);
+
+            // تأكد من أن CompanieTypeWork مهيأ حتى لو لم يكن هناك ID
+            if (vmodel.ListCompanyInformatione == null)
+            {
+                vmodel.CompanyInformation = new TBCompanyInformation(); // أو النوع الصحيح
+            }
+
+            if (IdPurchaseOrder != null)
+            {
+                vmodel.ListViewOrder = iOrder.GetAllv(IdPurchaseOrder);
+            }
+
+            return View(vmodel);
+        }
+
+
+
+
     }
+}

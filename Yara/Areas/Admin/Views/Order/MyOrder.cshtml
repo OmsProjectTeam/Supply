@@ -59,6 +59,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbBondType</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseAuotNoumber</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseOrderNoumber</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantPhone</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantEmaile</th>
@@ -70,6 +71,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbBondType</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbPurchaseAuotNoumber</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbPurchaseOrderNoumber</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantPhone</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantEmaile</th>
@@ -87,9 +89,13 @@
                                                         <td class="truncate-50">@item.BondType</td>
                                                         <td class="truncate-50">@item.PurchaseAuotNoumber</td>
                                                         <td class="truncate-50">@item.PurchaseOrderNoumber</td>
-                                                        <td class="truncate-50">@item.Name</td>
+                                                        <td class="truncate-50">@item.Model</td>
+                                                        <td class="truncate-50">@item.NameUser</td>
+
                                                         <td class="truncate-50">@item.MerchantPhone</td>
                                                         <td class="truncate-50">@item.MerchantEmaile</td>
+
+
                                                         <td>
                                                             <div class="form-group">
                                                                 <div hidden class="Code">@item.Qrcode</div>
@@ -119,6 +125,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbProductCategory</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbTypesProduct</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
@@ -129,6 +136,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbProductCategory</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbTypesProduct</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
@@ -146,6 +154,7 @@
                                                         </td>
                                                         <td class="truncate-50">@item.ProductCategory</td>
                                                         <td class="truncate-50">@item.TypesProduct</td>
+                                                        <td class="truncate-50">@item.Model</td>
                                                         <td class="truncate-50">@item.ProductName</td>
                                                         <td class="truncate-50">@item.Make</td>
                                                         <td class="truncate-50">@item.UPC</td>
@@ -165,6 +174,7 @@
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouse</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseBranchName</th>
@@ -178,6 +188,7 @@
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouse</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseBranchName</th>
@@ -197,6 +208,7 @@
                                                             <img src="@item.Photo" class="img-bordered img-circle img-circle"
                                                                  style="width:100px; height:100px">
                                                         </td>
+                                                        <td class="truncate-50">@item.Model</td>
                                                         <td class="truncate-50">@item.ProductName</td>
                                                         <td class="truncate-50">@item.Description</td>
                                                         <td class="truncate-50">@item.WareHouseBranchName</td>
@@ -223,6 +235,7 @@
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
@@ -232,6 +245,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
@@ -247,6 +261,7 @@
                                                                  style="width:100px; height:100px">
                                                         </td>
                                                         <td>@item.ProductName</td>
+                                                        <td>@item.Model</td>
                                                       
                                                         <td>@item.DataEntry</td>
                                                         <td>@item.DateTimeEntry</td>
@@ -255,12 +270,27 @@
                                                         </td>
                                                         <td>
                                                             <ul class="list-inline">
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="AddOrder" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="DeleteData" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="AddOrder" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-primary btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="DeleteData" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-danger btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
+                                                                        @if (item.BondType == "Purchase order")
+                                                                        {
+                                                                    <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="printPurchase" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-info btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-barcode"></i></button></a></li>
+                                                                        }
+
+                                                                        else if (item.BondType == "Sales invoice")
+                                                                        {
+                                                                    <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Order" asp-action="printInvoce" asp-route-IdPurchaseOrder="@item.IdPurchaseOrder"><button type="button" class="btn btn-success btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-file-text"></i></button></a></li>
+                                                                        }
+
+                                                                      
+                                                                    
+                                                                                                                  
+                                                                        
                                                             </ul>
                                                         </td>
+
                                                     </tr>
-                                                        }
+                                                        }  
                                             </tbody>
                                         </table>
                                     </div>
@@ -418,7 +448,10 @@
 
         $(document).ready(function () {
             updateBar();
+            updateQRCode();
         });
+
+
     </script>
 
 }

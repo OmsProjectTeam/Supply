@@ -12,10 +12,10 @@ namespace Domin.Entity
         public int IdPurchaseOrder { get; set; }
         public int IdBondType { get; set; }
         public string BondType { get; set; }
-        public int IdMerchants { get; set; }
-        public string Name { get; set; }
-        public string MerchantPhone { get; set; }
-        public string MerchantEmaile { get; set; }
+   
+    
+        public string? MerchantPhone { get; set; }
+        public string? MerchantEmaile { get; set; }
         public int IdProductCategory { get; set; }
         public string ProductCategory { get; set; }
         public int IdTypesProduct { get; set; }
@@ -41,5 +41,8 @@ namespace Domin.Entity
         public string DataEntry { get; set; }
         public DateTime DateTimeEntry { get; set; }
         public bool CurrentState { get; set; }
+        public string Model { get; set; }
+        public string IdUser { get; set; }
+        public string NameUser { get; set; }
     }
 }

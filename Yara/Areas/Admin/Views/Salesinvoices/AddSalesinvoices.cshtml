@@ -137,9 +137,9 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label asp-for="@Model.Order.IdMerchants">@ResourceWeb.lbMerchantName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdMerchants" asp-items="@(new SelectList(ViewBag.Merchants, "IdMerchants", "Name"))" id="SelectMerchant"></select>
-                                    <span asp-validation-for="@Model.Order.IdMerchants" class="text-danger"></span>
+                                    <label asp-for="@Model.Order.IdUser">@ResourceWeb.lbMerchantName</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdUser" asp-items="@(new SelectList(ViewBag.Merchants, "IdUser", "Name"))" id="SelectMerchant"></select>
+                                    <span asp-validation-for="@Model.Order.IdUser" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>

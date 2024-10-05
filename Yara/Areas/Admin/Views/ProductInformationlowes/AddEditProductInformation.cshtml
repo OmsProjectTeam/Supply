@@ -103,6 +103,42 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                               <div class="row small-spacing">
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
+                                        <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="modelNumber" class="form-control" maxlength="100" id="modelNumber">
+                                        <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.UPC">storeSku</label>
+                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="storeSku" class="form-control" maxlength="100" id="storeSku">
+                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                    </div>
+                                </div>   
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.UPC">store So Sku</label>
+                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="storeSoSku." class="form-control" maxlength="100" id="storeSoSku">
+                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                    </div>
+                                </div>  
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.UPC">brand</label>
+                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="brand." class="form-control" maxlength="100" id="brand">
+                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                             
+                            </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
@@ -203,6 +239,19 @@
                             if (response.productName) {
                                 $("#ProductName").val(response.productName);
                             }
+
+                              if (response.storeSku) {
+                                $("#storeSku").val(response.storeSku);
+                            }
+                               if (response.storeSoSku) {
+                                $("#storeSoSku").val(response.storeSoSku);
+                            }    
+                            if (response.brand) {
+                                $("#brand").val(response.brand);
+                            }   if (response.modelNumber) {
+                                $("#modelNumber").val(response.modelNumber);
+                            }
+
                         } else {
                             alert(response.message); // Show an alert if there was an issue fetching the image
                             $("#output").hide(); // Hide the image element if there's no image to display

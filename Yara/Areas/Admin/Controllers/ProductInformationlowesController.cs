@@ -18,14 +18,14 @@ namespace Yara.Areas.Admin.Controllers
         IITypesProduct iTypesProduct;
         IIBrandName iBrandName;
         IIScrapingHtmlTitle iScrapingHtmlTitle;
-        public ProductInformationlowesController(MasterDbcontext dbcontext1, IIProductCategory iProductCategory1, IIProductInformation iProductInformation1, IITypesProduct iTypesProduct1,IIBrandName iBrandName1,IIScrapingHtmlTitle iScrapingHtmlTitle1)
+        public ProductInformationlowesController(MasterDbcontext dbcontext1, IIProductCategory iProductCategory1, IIProductInformation iProductInformation1, IITypesProduct iTypesProduct1, IIBrandName iBrandName1, IIScrapingHtmlTitle iScrapingHtmlTitle1)
         {
             dbcontext = dbcontext1;
             iProductCategory = iProductCategory1;
             iProductInformation = iProductInformation1;
             iTypesProduct = iTypesProduct1;
             iBrandName = iBrandName1;
-            iScrapingHtmlTitle = iScrapingHtmlTitle1; 
+            iScrapingHtmlTitle = iScrapingHtmlTitle1;
         }
         public IActionResult MYProductInformation()
         {
@@ -317,14 +317,28 @@ namespace Yara.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> FetchImageByModel(string model, string breand)
         {
-
             if (breand == "home depot")
             {
                 try
                 {
+                    //HtmlWeb web = new HtmlWeb();
+                    //var document = web.Load("https://www.homedepot.com/s/" + model);
+
+
+                    //var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
+
+                    //if (imageNodes != null && imageNodes.Any())
+                    //{
+                    //    var imageUrl = imageNodes.Select(node => node.GetAttributeValue("src", "")).FirstOrDefault();
+
+                    //    // الحصول على اسم المنتج من h1 داخل div
+                    //    var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
+                    //    var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                    //    return Json(new { success = true, imageUrl, productName });
+                    //}
                     HtmlWeb web = new HtmlWeb();
                     var document = web.Load("https://www.homedepot.com/s/" + model);
-
 
                     var imageNodes = document.DocumentNode.SelectNodes("//div[@class='mediagallery']//img");
 
@@ -336,11 +350,49 @@ namespace Yara.Areas.Admin.Controllers
                         var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
                         var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
 
-                        return Json(new { success = true, imageUrl, productName });
+                        // الحصول على Store SKU من div
+                        var skuNode = document.DocumentNode.SelectSingleNode("//div[contains(@class, 'sui-flex sui-inline-flex sui-mr-2')]//h2//span");
+                        var storeSku = skuNode != null ? skuNode.InnerText.Trim() : "Unknown SKU";
+
+                        // الحصول على Store SO SKU من h2
+                        var soSkuNode = document.DocumentNode.SelectSingleNode("//h2[contains(text(), 'Store SO SKU')]/span");
+                        var storeSoSku = soSkuNode != null ? soSkuNode.InnerText.Trim() : "Unknown SO SKU";
+
+                        // الحصول على العلامة التجارية (RYOBI) من div
+                        var brandNode = document.DocumentNode.SelectSingleNode("//div[@class='sui-pr-2 sui-inline-flex']//h2");
+                        var brand = brandNode != null ? brandNode.InnerText.Trim() : "Unknown Brand";
+                        //الحصول على المودل 
+                        var modelNode = document.DocumentNode.SelectSingleNode("//div[@class='sui-flex sui-inline-flex sui-mr-2']//h2[contains(text(), 'Model #')]/span");
+                        var modelNumber = modelNode != null ? modelNode.InnerText.Trim() : "Unknown Model";
+
+                        return Json(new { success = true, imageUrl, productName, storeSku, storeSoSku, brand, modelNumber });
                     }
+
+                    //else
+                    //{
+                    //    return Json(new { success = false, message = "No images found" });
+                    //}
 
                     else
                     {
+                        // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
+                        //var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
+
+                        //if (imageNodesFallback != null && imageNodesFallback.Any())
+                        //{
+                        //    var firstImageUrl = imageNodesFallback
+                        //        .Select(node => node.GetAttributeValue("src", ""))
+                        //        .FirstOrDefault();
+
+                        //    // الحصول على اسم المنتج
+                        //    // تعديل XPath ليكون أكثر عمومية
+                        //    var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
+                        //    var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
+
+                        //    return Json(new { success = true, imageUrl = firstImageUrl, productName });
+
+                        //}
+
                         // مصدر الصورة البديل إذا كان المصدر الرئيسي غير متاح
                         var imageNodesFallback = document.DocumentNode.SelectNodes("//div[@data-testid='product-image__wrapper']//img");
 
@@ -351,13 +403,22 @@ namespace Yara.Areas.Admin.Controllers
                                 .FirstOrDefault();
 
                             // الحصول على اسم المنتج
-                            // تعديل XPath ليكون أكثر عمومية
                             var productNode = document.DocumentNode.SelectSingleNode("//h3[contains(@class, 'sui-text-primary') and contains(@class, 'sui-text-ellipsis')]");
                             var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
 
-                            return Json(new { success = true, imageUrl = firstImageUrl, productName });
+                            // الحصول على الموديل
+                            var modelNode = document.DocumentNode.SelectSingleNode("//div[contains(@class, 'sui-flex sui-text-xs sui-mb-1 sui-mr-1')]");
+                            var modelNumber = modelNode != null ? modelNode.InnerText.Replace("Model#", "").Trim() : "Unknown Model";
 
+
+
+                            var brandNode = document.DocumentNode.SelectSingleNode("//p[@data-testid='attribute-brandname-above']");
+                            var brand = brandNode != null ? brandNode.InnerText.Trim() : "Unknown Brand";
+
+
+                            return Json(new { success = true, imageUrl = firstImageUrl, productName, modelNumber, brand });
                         }
+
                     }
 
                     // If no image was found

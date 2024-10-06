@@ -201,10 +201,30 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-6 col-xs-12">
+    <div class="box-content">
+
+              <h4 class="box-title">@ResourceWeb.lbOldeAndUserGide</h4>
+                    <!-- /.box-title -->
+                    <div class="card-content">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="@Model.ProductInformation.Photo" for="exampleInputEmail1"></input>
+                            <p><img src="@Model.ProductInformation.Photo" id="output" width="450" height="300" /></p>
+                        </div>
+
+                        @*   <div class="form-group">
+                        <img src="~/images/user gide/Product.png" width="1920" height="1077" />
+                        </div> *@
+
+
+                    </div>
+        </div>
+        </div>
         </div>
     </div>
 </div>
 
+       
 @section Scripts {
     <script>
         // Function to load a local file and display it

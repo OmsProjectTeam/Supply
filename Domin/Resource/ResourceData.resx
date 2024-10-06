@@ -468,4 +468,7 @@
   <data name="VLPurchaseDocumentationDoplceted" xml:space="preserve">
     <value>The order number has already been entered. Please check and try again later..!</value>
   </data>
+  <data name="Vlbrand" xml:space="preserve">
+    <value>Please check that the brand must be entered for the process to be successful..!</value>
+  </data>
 </root>

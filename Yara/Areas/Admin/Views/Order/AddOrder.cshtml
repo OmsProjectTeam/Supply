@@ -411,14 +411,14 @@
                                     <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
                                 </div>
                             </div>
-
+@* 
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.IdBrandName">@ResourceWeb.LbBrandName</label>
                                     <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" id="BrandName123"></select>
                                     <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
 
                         <div class="row small-spacing">

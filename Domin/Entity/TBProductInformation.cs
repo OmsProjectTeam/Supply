@@ -14,7 +14,7 @@ namespace Domin.Entity
         public int IdProductInformation { get; set; }
         public int IdProductCategory { get; set; }     
         public int IdTypesProduct { get; set; }
-        public int IdBrandName { get; set; }
+  
         public int IdScrapingHtmlTitle { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlProductName")]
         [MaxLength(500, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength500")]
@@ -38,6 +38,20 @@ namespace Domin.Entity
         [MaxLength(100, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength100")]
         [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
         public string Model { get; set; }
+        [MaxLength(50, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength50")]
+        [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
+        public string? storeSku { get; set; }
+        [MaxLength(50, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength50")]
+        [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
+        public string? storeSoSku { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "Vlbrand")]
+        [MaxLength(50, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength50")]
+        [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
+        public string brand { get; set; }
+
+
+
+
 
     }
 }

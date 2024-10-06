@@ -1004,7 +1004,7 @@ namespace Yara.Areas.Admin.Controllers
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
         {
             var product = dbcontext.ViewProductInformation
-                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId || p.Make == productId).FirstOrDefault();
+                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId ).FirstOrDefault();
 
 
             if (product != null)
@@ -1051,8 +1051,8 @@ namespace Yara.Areas.Admin.Controllers
                     .Where(p => p.Qrcode.StartsWith(query) ||
                                 p.Model.StartsWith(query) ||
                                 p.UPC.StartsWith(query) ||
-                                p.ProductName.StartsWith(query) ||
-                                p.Make.StartsWith(query))
+                                p.ProductName.StartsWith(query))
+                                //p.Make.StartsWith(query))
                     .Select(p => new { p.Qrcode, p.ProductName, p.Model, p.Photo })
                     .ToListAsync();
 
@@ -1274,7 +1274,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductInformation = model.ProductInformation.IdProductInformation;
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
-                slider.IdBrandName = model.ProductInformation.IdBrandName;
+                //slider.IdBrandName = model.ProductInformation.IdBrandName;
                 slider.ProductName = model.ProductInformation.ProductName;
                 slider.UPC = model.ProductInformation.UPC;
                 slider.Qrcode = model.ProductInformation.Qrcode;
@@ -1354,12 +1354,12 @@ namespace Yara.Areas.Admin.Controllers
 
                 });
 
-            GlobalPrice = await FetchGlobalPrice(product.Model, product.Make);
+            GlobalPrice = await FetchGlobalPrice(product.Model, product.UPC);
 
             return Ok(new
             {
                 UPC = product.UPC,
-                Make = product.Make,
+                Make = product.UPC,
                 GlobalPrice = GlobalPrice
             });
         }

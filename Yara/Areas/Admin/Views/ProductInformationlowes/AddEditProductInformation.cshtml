@@ -25,7 +25,7 @@
                 <div class="box-content card white">
                     <h4 class="box-title">@ResourceWeb.LBAddEditProductInformation</h4>
                     <div class="card-content">
-                        <form role="form" method="post" asp-controller="ProductInformation" asp-action="Save" enctype="multipart/form-data">
+                        <form role="form" method="post" asp-controller="ProductInformationlowes" asp-action="Save" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="hidden" asp-for="@Model.ProductInformation.DataEntry" class="form-control" value="@User.Identity.Name">
                                 <input type="hidden" asp-for="@Model.ProductInformation.IdProductInformation" class="form-control">
@@ -69,13 +69,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-6">
+                              @*   <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.IdBrandName">@ResourceWeb.LbBrandName</label>
                                         <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" ></select>
                                         <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
                                     </div>
-                                </div>
+                                </div> *@
                             </div>
 
                             <div class="row small-spacing">
@@ -116,23 +116,23 @@
 
                                 <div class="col-12 col-sm-3">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ProductInformation.UPC">storeSku</label>
-                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="storeSku" class="form-control" maxlength="100" id="storeSku">
-                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                        <label asp-for="@Model.ProductInformation.storeSku">storeSku</label>
+                                        <input asp-for="@Model.ProductInformation.storeSku" type="text" placeholder="storeSku" class="form-control" maxlength="100" id="storeSku">
+                                        <span asp-validation-for="@Model.ProductInformation.storeSku" class="text-danger"></span>
                                     </div>
                                 </div>   
                                 <div class="col-12 col-sm-3">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ProductInformation.UPC">store So Sku</label>
-                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="storeSoSku." class="form-control" maxlength="100" id="storeSoSku">
-                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                        <label asp-for="@Model.ProductInformation.storeSoSku">store So Sku</label>
+                                        <input asp-for="@Model.ProductInformation.storeSoSku" type="text" placeholder="storeSoSku." class="form-control" maxlength="100" id="storeSoSku">
+                                        <span asp-validation-for="@Model.ProductInformation.storeSoSku" class="text-danger"></span>
                                     </div>
                                 </div>  
                                 <div class="col-12 col-sm-3">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ProductInformation.UPC">brand</label>
-                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="brand." class="form-control" maxlength="100" id="brand">
-                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                        <label asp-for="@Model.ProductInformation.brand">brand</label>
+                                        <input asp-for="@Model.ProductInformation.brand" type="text" placeholder="brand." class="form-control" maxlength="100" id="brand">
+                                        <span asp-validation-for="@Model.ProductInformation.brand" class="text-danger"></span>
                                     </div>
                                 </div>
 

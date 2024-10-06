@@ -53,7 +53,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.IdScrapingHtmlTitle">@ResourceWeb.LbScrapingHtmlTitle</label>
-                                        <select class="form-control" asp-for="@Model.ProductInformation.IdScrapingHtmlTitle" asp-items="@(new SelectList(ViewBag.ScrapingHtmlTitle, "IdScrapingHtmlTitle", "ScrapingHtmlTitle"))" id="BrandName12"></select>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdScrapingHtmlTitle" asp-items="@(new SelectList(ViewBag.ScrapingHtmlTitle, "IdScrapingHtmlTitle", "ScrapingHtmlTitle"))" id="ScrapingHtmlTitle"></select>
                                         <span asp-validation-for="@Model.ProductInformation.IdScrapingHtmlTitle" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
-                                        <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="Code"></textarea>
+                                        <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="CodeForQR"></textarea>
                                         <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -260,6 +260,18 @@
             }
         });
 
+        // Update the QR code image
+        function updateQRCode() {
+            console.log("updateQRCodeupdateQRCode");
+            var code = $('#CodeForQR').val();
+            if (code) {
+                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformationlowes")?text=' + encodeURIComponent(code));
+            } else {
+                $('#QRCodeImage').attr('src', '');
+            }
+        }
+
+
         function generateRandomString(length) {
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             var result = '';
@@ -272,36 +284,29 @@
 
         // Function to update the Code field
         function updateCodeField() {
-            var Category = $('#SelectCategory option:selected').text();
-            var TypesProduct = $('#SelectTypesProduct option:selected').text();
-            var BrandName = $('#BrandName12 option:selected').text();
-            var Product = $('#ProductName').val();
-            var Model = $('#modelInput').val();
+            var SelectCategory = $('#SelectCategory option:selected').text();
+            var SelectTypesProduct = $('#SelectTypesProduct option:selected').text();
+            var ScrapingHtmlTitle = $('#ScrapingHtmlTitle option:selected').text();
+            var ProductName = $('#ProductName').val();
+            var brand = $('#brand').val();
+            var storeSoSku = $('#storeSoSku').val();
+            var modelNumber = $('#modelNumber').val();
+            var modelInput = $('#modelInput').val();
             var UPC = $('#UPC').val();
 
             var randomString = generateRandomString(5);
 
-            if (Category && TypesProduct && Product && Model && UPC && BrandName) {
-                var code = randomString + Category + TypesProduct + Product + Model + UPC + BrandName;
-                $('#Code').val(code);
+            if (SelectCategory && SelectTypesProduct && ProductName) {
+                var code = randomString + SelectCategory + SelectTypesProduct + ScrapingHtmlTitle + ProductName + brand + storeSoSku + modelNumber + modelInput + UPC;
+                $('#CodeForQR').val(code);
                 updateQRCode(); // Update QR code when code is updated
             }
         }
 
         // Bind change events to WareHouseType and Description fields
-        $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC, #BrandName12').on('change keyup', function () {
+        $('#SelectCategory, #SelectTypesProduct, #ScrapingHtmlTitle, #ProductName, #storeSku, #UPC, #modelNumber, #storeSoSku, #brand').on('change keyup', function () {
             updateCodeField();
         });
-
-        // Update the QR code image
-        function updateQRCode() {
-            var code = $('#Code').val();
-            if (code) {
-                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
-            } else {
-                $('#QRCodeImage').attr('src', '');
-            }
-        }
 
         // Bind change event to Code field to update QR code
         $(document).ready(function () {
@@ -349,7 +354,7 @@
 
     <script>
         function CreateBarCode(text) {
-            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformationlowes", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
             $.ajax({
                 url: apiUrl,
@@ -373,23 +378,10 @@
         }
 
 
-        $(document).ready(function () {
-            $('#UPC').on('keyup', function () {
-                console.log("UPC value changed");
-                var upc = this.value;
-                CreateBarCode(upc);
-            });
+        $('#UPC').on('change keyup', function () {
+            var upc = this.value;
+            CreateBarCode(upc);
         });
-
-
-        $(document).ready(function () {
-            $('#UPC').on('change', function () {
-                console.log("UPC value changed");
-                var upc = this.value;
-                CreateBarCode(upc);
-            });
-        });
-
 
     </script>
 
@@ -398,4 +390,5 @@
     <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/js/productinfo.js"></script>
 }

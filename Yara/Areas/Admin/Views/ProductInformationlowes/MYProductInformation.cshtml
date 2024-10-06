@@ -88,7 +88,7 @@
                                                         <td >
                                                             <div class="form-group">
                                                                 <div hidden class="Code">@item.Qrcode</div>
-                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" style="width:5px; height:5px" />
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
@@ -227,20 +227,24 @@
 </div>
 <!-- /.box-content -->
 @* <img src="~/images/user gide/ProductInformation.png" width="1920" height="1077" /> *@
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @section Scripts
 {
     <!-- Data Tables -->
- 
-  
+    <!-- jQuery UI CSS -->
+
+    <!-- jQuery & jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/select2/js/select2.min.js"></script>
+    <script src="~/Admin/assets/plugin/multiselect/multiselect.min.js"></script>
+    <script src="~/js/productinfo.js"></script>
 
 
     <script>
 
         $(document).ready(function () {
-            updateQRCode();
-            console.log("fgfddfhgdf");
-
-
             // Function to truncate text to a specified length
             function truncateText(text, maxLength) {
                 if (text.length > maxLength) {
@@ -256,26 +260,27 @@
 
 
     </script>
-
+    <script src="~/js/productinfo.js"></script>
     <script>
 
-        function updateQRCode() {
+        function updateQRCodeForPROINFOR() {
+            console.log("updateQRCodeupdateQRCodeupdateQRCodeupdateQRCodeupdateQRCode");
             $('.QRCodeImage').each(function () {
                 var code = $(this).siblings('.Code').text();
                 if (code) {
-                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                    $(this).attr('src', '@Url.Action("GenerateQRCode", "ProductInformationlowes")?text=' + encodeURIComponent(code));
                 } else {
                     $(this).attr('src', '');
                 }
             });
         }
 
-        function updateBar() {
+        function updateBarFORPROINF() {
             $('.BarCodeUPC').each(function () {
                 var upc = $(this).siblings('.UPCFORPR').text();
                 console.log(upc);
                 if (upc) {
-                    $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformation")?text=` + encodeURIComponent(upc));
+                    $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformationlowes")?text=` + encodeURIComponent(upc));
                 } else {
                     $(this).attr('src', '');
                 }
@@ -286,20 +291,20 @@
     </script>
     <script>
         $(document).on('click', '.paginate_button', function () {
-            updateQRCode();
-            updateBar();
+            updateQRCodeForPROINFOR();
+            updateBarFORPROINF();
         });
                 $(document).on('input', '.form-control .input-sm', function () {
-            updateQRCode();
-            updateBar();
+            updateQRCodeForPROINFOR();
+            updateBarFORPROINF();
         });
 
         $(document).ready(function () {
-            updateBar();
+            updateQRCodeForPROINFOR();
+            updateBarFORPROINF();
         });
     </script>
 
-  //form-control input-sm
 }
 
 

@@ -57,6 +57,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbProductCategory</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbTypesProduct</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbbrand</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbQrcode</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQRCode1</th>
                                             <tfoot>
@@ -66,6 +67,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbProductCategory</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbTypesProduct</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbbrand</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbQrcode</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbQRCode1</th>
                                             </tfoot>
@@ -81,6 +83,7 @@
                                                         <td class="truncate-50 Category">@item.ProductCategory</td>
                                                         <td class="truncate-50 TypesProduct">@item.TypesProduct</td>
                                                         <td class="truncate-50">@item.ProductName</td>
+                                                        <td class="truncate-50">@item.brand</td>
                                                         <td class="truncate-50 Codee">@item.Qrcode</td>
                                                         <td >
                                                             <div class="form-group">
@@ -108,18 +111,22 @@
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
-@*                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th> *@
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbbrand</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbstoreSku</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbstoreSoSku</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
                                             <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
-                                                   @*  <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th> *@
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbbrand</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbstoreSku</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbstoreSoSku</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
                                             </tfoot>
                                             <tbody>
@@ -132,9 +139,11 @@
                                                                  style="width:100px; height:100px">
                                                         </td>
                                                         <td class="truncate-50 ProductName">@item.ProductName</td>
-                                                       @*  <td class="truncate-50">@item.Make</td> *@
+                                                        <td class="truncate-50">@item.brand</td>
                                                         <td class="truncate-50 UPC">@item.UPC</td>
                                                         <td class="truncate-50 Model">@item.Model</td>
+                                                        <td class="truncate-50 Model">@item.storeSku</td>
+                                                        <td class="truncate-50 Model">@item.storeSoSku</td>
                                                         <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.Active" IdProductInformation="switch-3" disabled><label for="switch-3">@item.Active</label></div>
                                                         </td>

@@ -574,6 +574,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to brand.
+        /// </summary>
+        public static string lbbrand {
+            get {
+                return ResourceManager.GetString("lbbrand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brand Name.
         /// </summary>
         public static string LbBrandName {
@@ -2829,6 +2838,24 @@ namespace Yara.Resource {
         public static string LbStartDate {
             get {
                 return ResourceManager.GetString("LbStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to storeSku.
+        /// </summary>
+        public static string lbstoreSku {
+            get {
+                return ResourceManager.GetString("lbstoreSku", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to storeSoSku.
+        /// </summary>
+        public static string lbstoreSoSku {
+            get {
+                return ResourceManager.GetString("lbstoreSoSku", resourceCulture);
             }
         }
         

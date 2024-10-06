@@ -1347,4 +1347,13 @@
   <data name="LBAddScrapingHtmlTitle" xml:space="preserve">
     <value>Adding and modifying Scraping Html Title</value>
   </data>
+  <data name="lbbrand" xml:space="preserve">
+    <value>brand</value>
+  </data>
+  <data name="lbstoreSku" xml:space="preserve">
+    <value>storeSku</value>
+  </data>
+  <data name="lbstoreSoSku" xml:space="preserve">
+    <value>storeSoSku</value>
+  </data>
 </root>

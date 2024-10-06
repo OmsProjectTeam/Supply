@@ -14,7 +14,6 @@ namespace Domin.Entity
         public int IdTypesProduct { get; set; }
         public string TypesProduct { get; set; }
         public string ProductName { get; set; }
-        //public string Make { get; set; }
         public string UPC { get; set; }
         public string Qrcode { get; set; }
         public string Photo { get; set; }
@@ -25,6 +24,9 @@ namespace Domin.Entity
         public string Model { get; set; }
         public int IdScrapingHtmlTitle { get; set; }
         public string ScrapingHtmlTitle { get; set; }
+        public string brand { get; set; }
+        public string storeSku { get; set; }
+        public string storeSoSku { get; set; }
 
 
     }

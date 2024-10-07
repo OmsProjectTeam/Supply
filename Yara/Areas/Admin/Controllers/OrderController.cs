@@ -1001,7 +1001,8 @@ namespace Yara.Areas.Admin.Controllers
         }
 
 
-        public async Task<JsonResult> GetProductDetailsForOrder(string productId)
+        public async Task<IActionResult> GetProductDetailsForOrder(string productId)
+        
         
         
         {
@@ -1014,7 +1015,7 @@ namespace Yara.Areas.Admin.Controllers
                 // Fetch the global price using HtmlAgilityPack and the model field
                 decimal globalPrice = 0; //await FetchGlobalPrice(product.Model);
 
-                return Json(new
+                return Ok(new
                 {
                     imageUrl = product.Photo,
                     globalPrice = globalPrice,
@@ -1028,11 +1029,12 @@ namespace Yara.Areas.Admin.Controllers
                     storeSku = product.storeSku,
                     storeSoSku = product.storeSoSku,
                     ScrapingHtmlTitle = product.ScrapingHtmlTitle,
+                    UPC = product.UPC,
                 });
             }
             else
             {
-                return Json(new
+                return Ok(new
                 {
                     imageUrl = "http://placehold.it/220x180",
                     globalPrice = "0.00",

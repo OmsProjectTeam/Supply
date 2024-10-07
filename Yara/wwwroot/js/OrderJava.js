@@ -299,9 +299,11 @@ function checkProductAvailability(productId) {
         type: 'GET',
         data: { productId: productId },
         success: function (data) {
+            console.log("nohad3" + data);
             if (data && data.productCategoryId > 0) {
                 populateProductDetails(data);  // Populate product details
                 $('#modalButton').prop('disabled', true);  // Disable modal button
+                
             } else {
                 Swal.fire({
                     icon: 'warning',
@@ -317,6 +319,7 @@ function checkProductAvailability(productId) {
                 console.log("openModal in in in  checkProductAvailability ");
 
                 openModal();
+
             }
         },
         error: function () {
@@ -348,8 +351,11 @@ function populateProductDetails(productDetails) {
         $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
         $('#SelectProductInformation150').empty().append(new Option(productDetails.productName, productDetails.m, true, true)).trigger('change');
         $('#modalButton').prop('disabled', true);
+        $('##Brand').val(productDetails.brand);
+       
         updateCodeField();  // Update QR code or other fields if necessary
     }
+    console.log(populateProductDetails());
 }
 
 // Detect input event for manual typing
@@ -600,6 +606,119 @@ $(document).ready(function () {
     if (merchantValue) {
         $('#SelectMerchant').val(merchantValue).trigger('change');
     } else {}
+});
+function searchAboutProduct(model) {
+
+    $('#product12').val(model);
+
+    checkProductAvailability(model);
+    setTimeout(() => {
+        document.getElementById('contentWrapper').style.display = 'block';
+    }, 100);
+}
+
+$(document).ready(function () {
+    var val = $('#AfterSave').text();
+    console.log("AfterSave:" + val)
+    if (val) {
+        searchAboutProduct(val);
+    }
+});
+function PrintInvoice(IdPurchaseOrder) {
+
+    var url = "/Admin/Order/printInvoce?IdPurchaseOrder=" + IdPurchaseOrder;
+
+    // فتح صفحة الطباعة في نافذة جديدة
+    window.open(url, '_blank');
+}
+
+
+
+$(document).ready(function () {
+
+    var selectedValue = $('#SelectBondType option:selected').text();
+
+    if (selectedValue == "Purchase order") {
+        $('#SelectMerchantdiv').css("display", "block");
+        $('#QuantityIndiv').css("display", "block");
+        $('#printWarehouseDetails').css("display", "block");
+
+        $('#SelectCustomersdiv').css("display", "none");
+        $('#QuantityOutediv').css("display", "none");
+        $('#Printinvoice').css("display", "none");
+    }
+    else {
+        $('#SelectMerchantdiv').css("display", "none");
+        $('#QuantityIndiv').css("display", "none");
+        $('#printWarehouseDetails').css("display", "none");
+
+        $('#SelectCustomersdiv').css("display", "block");
+        $('#QuantityOutediv').css("display", "block");
+        $('#Printinvoice').css("display", "block");
+    }
+
+    $('#SelectBondType').change(function () {
+
+        var selectedValue1 = $('#SelectBondType option:selected').text();
+        if (selectedValue1 == "Purchase order") {
+            $('#SelectMerchantdiv').css("display", "block");
+            $('#QuantityIndiv').css("display", "block");
+            $('#printWarehouseDetails').css("display", "block");
+
+            $('#SelectCustomersdiv').css("display", "none");
+            $('#QuantityOutediv').css("display", "none");
+            $('#Printinvoice').css("display", "none");
+        }
+        else {
+            $('#SelectMerchantdiv').css("display", "none");
+            $('#QuantityIndiv').css("display", "none");
+            $('#printWarehouseDetails').css("display", "none");
+
+            $('#SelectCustomersdiv').css("display", "block");
+            $('#QuantityOutediv').css("display", "block");
+            $('#Printinvoice').css("display", "block");
+        }
+    });
+});
+$(document).ready(function () {
+
+    var selectedValue1 = $('#SelectBondType option:selected').text();
+
+    if (selectedValue1 == "Purchase order") {
+
+        var selectedValue = $('#SelectMerchant option:selected').val();
+        $('#IdUserAAAA').val(selectedValue);
+    }
+
+    else {
+        var selectedValue = $('#SelectCustomers option:selected').val();
+        $('#IdUserAAAA').val(selectedValue);
+    }
+
+    $('#SelectBondType').change(function () {
+        var selectedValue1 = $('#SelectBondType option:selected').text();
+
+        if (selectedValue1 == "Purchase order") {
+            var selectedValue = $('#SelectMerchant option:selected').val();
+            $('#IdUserAAAA').val(selectedValue);
+        }
+        else {
+            var selectedValue = $('#SelectCustomers option:selected').val();
+            $('#IdUserAAAA').val(selectedValue);
+        }
+    });
+
+
+
+    $('#SelectMerchant').change(function () {
+        var selectedValue = $('#SelectMerchant option:selected').val();
+        $('#IdUserAAAA').val(selectedValue);
+    });
+
+    $('#SelectCustomers').change(function () {
+        var selectedValue = $('#SelectCustomers option:selected').val();
+        $('#IdUserAAAA').val(selectedValue);
+    });
 });
 
 

@@ -25,8 +25,8 @@ namespace Domin.Entity
         public int IdScrapingHtmlTitle { get; set; }
         public string ScrapingHtmlTitle { get; set; }
         public string brand { get; set; }
-        public string storeSku { get; set; }
-        public string storeSoSku { get; set; }
+        public string? storeSku { get; set; }
+        public string? storeSoSku { get; set; }
 
 
     }

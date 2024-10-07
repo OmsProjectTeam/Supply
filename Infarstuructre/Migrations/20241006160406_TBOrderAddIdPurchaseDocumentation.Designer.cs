@@ -4,6 +4,7 @@ using Infarstuructre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(MasterDbcontext))]
-    partial class MasterDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20241006160406_TBOrderAddIdPurchaseDocumentation")]
+    partial class TBOrderAddIdPurchaseDocumentation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -696,10 +699,16 @@ namespace Infarstuructre.Migrations
                     b.Property<int>("IdBondType")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdProductCategory")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdProductInformation")
                         .HasColumnType("int");
 
                     b.Property<int>("IdPurchaseDocumentation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTypesProduct")
                         .HasColumnType("int");
 
                     b.Property<string>("IdUser")
@@ -708,6 +717,14 @@ namespace Infarstuructre.Migrations
 
                     b.Property<int>("PurchaseAuotNoumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("PurchaseOrderNoumber")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<decimal?>("PurchasePrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Qrcode")
                         .IsRequired()
@@ -719,6 +736,9 @@ namespace Infarstuructre.Migrations
 
                     b.Property<int?>("QuantityOute")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("SpecialSalePrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("sellingPrice")
                         .HasColumnType("decimal(18,2)");
@@ -1534,10 +1554,16 @@ namespace Infarstuructre.Migrations
                     b.Property<int>("IdBondType")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdProductCategory")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdProductInformation")
                         .HasColumnType("int");
 
                     b.Property<int>("IdPurchaseOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTypesProduct")
                         .HasColumnType("int");
 
                     b.Property<string>("IdUser")
@@ -1576,6 +1602,10 @@ namespace Infarstuructre.Migrations
 
                     b.Property<int>("PurchaseAuotNoumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("PurchaseOrderNoumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("PurchasePrice")
                         .HasColumnType("decimal(18,2)");

@@ -154,24 +154,24 @@
                             </div>
                         </div>
 
-                        <div class="row small-spacing">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.IdProductCategory">@ResourceWeb.LbProductCategory</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdProductCategory" asp-items="@(new SelectList(ViewBag.ProductCategory, "IdProductCategory", "ProductCategory"))" id="SelectProductCategory"></select>
-                                    <span asp-validation-for="@Model.Order.IdProductCategory" class="text-danger"></span>
+                         <div class="row small-spacing">
+                        <div class="col-sm-6">
+                        <div class="form-group">
+                        <label>Brand</label>
+                        <input id="Brand"  type="text"  class="form-control" maxlength="300">
+             
 
-                                </div>
-                            </div>
+                        </div>
+                        </div>
 
-                            <div class="col-sm-6">
+                            @*   <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdTypesProduct">@ResourceWeb.LbBondType</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
                                     <span asp-validation-for="@Model.Order.IdTypesProduct" class="text-danger"></span>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
+                        </div> 
 
 
                         <div class="row small-spacing">
@@ -217,25 +217,25 @@
                                     <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                          @*   <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
                                     <input asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" id="PurchaseOrderNoumber11" maxlength="300">
                                     <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
 
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                         <div class="row small-spacing">
 
-                            <div class="col-sm-6">
+                          @*   <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
                                     <input id="PurchasePrice" asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
                                     <span asp-validation-for="@Model.Order.PurchasePrice" class="text-danger"></span>
 
                                 </div>
-                            </div>
+                            </div> *@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.sellingPrice">@ResourceWeb.LbsellingPrice</label>
@@ -261,14 +261,14 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-6">
+                         @*    <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
                                     <input id="SpecialSalePrice" asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
                                     <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
 
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                         <div class="row small-spacing">
 
@@ -1812,7 +1812,10 @@
                     data: { productId: productId },
                     success: function (data) {
                         if (data && data.productCategoryId > 0) {
-                            populateProductDetails(data);  // Populate product details
+                            populateProductDetails(data);
+                             console.log("nohad:" + data);
+                            
+                            // Populate product details
                             $('#modalButton').prop('disabled', true);  // Disable modal button
                         } else {
                             Swal.fire({
@@ -1825,6 +1828,9 @@
                                 toast: true
                             });
                             $('#ProductName').val(productId);
+                            $('#Brand').val(data.brand);
+
+
                             $('#modalButton').prop('disabled', false);
                             openModal();
                         }

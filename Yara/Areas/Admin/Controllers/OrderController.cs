@@ -78,6 +78,9 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.ProductInformation = iProductInformation.GetAll();
             ViewBag.WareHouse = iWareHouse.GetAll();
             ViewBag.WareHouseBranch = iWareHouseBranch.GetAll();
+
+
+
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListViewOrder = iOrder.GetAll();
             vmodel.ListViewProductInformation = iProductInformation.GetAll();
@@ -115,17 +118,17 @@ namespace Yara.Areas.Admin.Controllers
                     slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
                     slider.IdBondType = model.Order.IdBondType;
                     slider.IdUser = model.Order.IdUser;
-                    slider.IdProductCategory = model.Order.IdProductCategory;
-                    slider.IdTypesProduct = model.Order.IdTypesProduct;
+                  
+               
                     slider.IdProductInformation = model.Order.IdProductInformation;
                     slider.IdBWareHouse = model.Order.IdBWareHouse;
                     slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
                     slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
-                    slider.PurchaseOrderNoumber = model.Order.PurchaseOrderNoumber;
-                    slider.PurchasePrice = model.Order.PurchasePrice;
+                  
+                 
                     slider.sellingPrice = model.Order.sellingPrice;
                     slider.GlobalPrice = model.Order.GlobalPrice;
-                    slider.SpecialSalePrice = model.Order.SpecialSalePrice;
+                 
                     slider.QuantityIn = model.Order.QuantityIn;
                     slider.QuantityOute = model.Order.QuantityOute;
                     slider.Qrcode = model.Order.Qrcode;
@@ -137,8 +140,7 @@ namespace Yara.Areas.Admin.Controllers
                     slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
                     if (slider.GlobalPrice == null)
                         slider.GlobalPrice = 0;
-                    if (slider.SpecialSalePrice == null)
-                        slider.SpecialSalePrice = 0;
+                  
                     if (slider.QuantityOute == null)
                         slider.QuantityOute = 0;
 
@@ -191,17 +193,16 @@ namespace Yara.Areas.Admin.Controllers
                     slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
                     slider.IdBondType = model.Order.IdBondType;
                     slider.IdUser = model.Order.IdUser;
-                    slider.IdProductCategory = model.Order.IdProductCategory;
-                    slider.IdTypesProduct = model.Order.IdTypesProduct;
+          
+                 
                     slider.IdProductInformation = model.Order.IdProductInformation;
                     slider.IdBWareHouse = model.Order.IdBWareHouse;
                     slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
                     slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
-                    slider.PurchaseOrderNoumber = model.Order.PurchaseOrderNoumber;
-                    slider.PurchasePrice = model.Order.PurchasePrice;
+     
                     slider.sellingPrice = model.Order.sellingPrice;
                     slider.GlobalPrice = model.Order.GlobalPrice;
-                    slider.SpecialSalePrice = model.Order.SpecialSalePrice;
+                  
                     slider.QuantityIn = model.Order.QuantityIn;
                     slider.QuantityOute = model.Order.QuantityOute;
                     slider.Qrcode = model.Order.Qrcode;
@@ -213,11 +214,10 @@ namespace Yara.Areas.Admin.Controllers
                     slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
 
                     slider.GlobalPrice = 0;
-                    if (slider.SpecialSalePrice == null)
-                        slider.SpecialSalePrice = 0;
+                
 
                     slider.QuantityIn = 0;
-                    slider.PurchasePrice = 0;
+                 
 
                     if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
                     {
@@ -1002,6 +1002,8 @@ namespace Yara.Areas.Admin.Controllers
 
 
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
+        
+        
         {
             var product = dbcontext.ViewProductInformation
                          .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId ).FirstOrDefault();
@@ -1021,7 +1023,11 @@ namespace Yara.Areas.Admin.Controllers
                     typesProductId = product.IdTypesProduct,
                     productName = product.ProductName,
                     id = product.IdProductInformation,
-                    m = product.IdProductInformation
+                    m = product.IdProductInformation,
+                    brand = product.brand,
+                    storeSku = product.storeSku,
+                    storeSoSku = product.storeSoSku,
+                    ScrapingHtmlTitle = product.ScrapingHtmlTitle,
                 });
             }
             else

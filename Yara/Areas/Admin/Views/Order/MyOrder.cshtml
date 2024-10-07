@@ -58,7 +58,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbBondType</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseAuotNoumber</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbPurchaseOrderNoumber</th>
+
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMerchantPhone</th>
@@ -70,7 +70,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbBondType</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbPurchaseAuotNoumber</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbPurchaseOrderNoumber</th>
+                                               
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMerchantPhone</th>
@@ -88,12 +88,12 @@
                                                         </td>
                                                         <td class="truncate-50">@item.BondType</td>
                                                         <td class="truncate-50">@item.PurchaseAuotNoumber</td>
-                                                        <td class="truncate-50">@item.PurchaseOrderNoumber</td>
+                                                     
                                                         <td class="truncate-50">@item.Model</td>
-                                                        <td class="truncate-50">@item.NameUser</td>
+                                                        <td class="truncate-50">@item.Name</td>
 
-                                                        <td class="truncate-50">@item.MerchantPhone</td>
-                                                        <td class="truncate-50">@item.MerchantEmaile</td>
+                                                        <td class="truncate-50">@item.PhoneNumber</td>
+                                                        <td class="truncate-50">@item.Email</td>
 
 
                                                         <td>
@@ -156,7 +156,7 @@
                                                         <td class="truncate-50">@item.TypesProduct</td>
                                                         <td class="truncate-50">@item.Model</td>
                                                         <td class="truncate-50">@item.ProductName</td>
-                                                        <td class="truncate-50">@item.Make</td>
+                                                        <td class="truncate-50">@item.brand</td>
                                                         <td class="truncate-50">@item.UPC</td>
 
                                                     </tr>
@@ -178,10 +178,8 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouse</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseBranchName</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPurchasePrice</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbsellingPrice</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbGlobalPrice</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbSpecialSalePrice</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQuantityIn</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbQuantityOute</th>
                                             <tfoot>
@@ -192,10 +190,10 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouse</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseBranchName</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbPurchasePrice</th>
+                                           
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbsellingPrice</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbGlobalPrice</th>                                                
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.LbSpecialSalePrice</th>
+                                                
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbQuantityIn</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbQuantityOute</th>
                                             </tfoot>
@@ -212,10 +210,10 @@
                                                         <td class="truncate-50">@item.ProductName</td>
                                                         <td class="truncate-50">@item.Description</td>
                                                         <td class="truncate-50">@item.WareHouseBranchName</td>
-                                                        <td class="truncate-50">@item.PurchasePrice</td>
+                                                     
                                                         <td class="truncate-50">@item.sellingPrice</td>
                                                         <td class="truncate-50">@item.GlobalPrice</td>
-                                                        <td class="truncate-50">@item.SpecialSalePrice</td>
+                                                    
                                                         <td class="truncate-50">@item.QuantityIn</td>
                                                         <td class="truncate-50">@item.QuantityOute</td>
                                                     </tr>

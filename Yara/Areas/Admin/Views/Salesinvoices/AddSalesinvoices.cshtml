@@ -143,15 +143,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row small-spacing">
-                            <div class="col-sm-6">
+                 @*        <div class="row small-spacing">
+                          @*   <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdProductCategory">@ResourceWeb.LbProductCategory</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdProductCategory" asp-items="@(new SelectList(ViewBag.ProductCategory, "IdProductCategory", "ProductCategory"))" id="SelectProductCategory"></select>
                                     <span asp-validation-for="@Model.Order.IdProductCategory" class="text-danger"></span>
 
                                 </div>
-                            </div>
+                            </div> 
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -160,7 +160,7 @@
                                     <span asp-validation-for="@Model.Order.IdTypesProduct" class="text-danger"></span>
                                 </div>
                             </div>
-                        </div>
+                        </div> *@
 
 
                         <div class="row small-spacing">
@@ -204,25 +204,25 @@
                                     <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                       @*      <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
                                     <input asp-for="@Model.Order.PurchaseOrderNoumber" type="text" placeholder="@ResourceWeb.lbPurchaseOrderNoumber ...." class="form-control" id="PurchaseOrderNoumber11" maxlength="300">
                                     <span asp-validation-for="@Model.Order.PurchaseOrderNoumber" class="text-danger"></span>
 
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                         <div class="row small-spacing">
 
-                            <div class="col-sm-6">
+                         @*    <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
                                     <input id="PurchasePrice" asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
                                     <span asp-validation-for="@Model.Order.PurchasePrice" class="text-danger"></span>
 
                                 </div>
-                            </div>
+                            </div> *@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.sellingPrice">@ResourceWeb.LbsellingPrice</label>
@@ -248,14 +248,14 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-6">
+                          @*   <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
                                     <input id="SpecialSalePrice" asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
                                     <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
 
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                         <div class="row small-spacing">
 

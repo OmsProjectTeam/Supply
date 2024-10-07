@@ -29,3 +29,17 @@ global using Yara.Helpers;
 
 
 global using HtmlAgilityPack;
+
+global using System.Drawing.Imaging;
+global using System.Drawing;
+global using ZXing.QrCode;
+global using ZXing;
+global using System.Text.RegularExpressions;
+global using Microsoft.EntityFrameworkCore.Infrastructure;
+global using Microsoft.Extensions.Primitives;
+global using System.Globalization;
+global using OpenQA.Selenium.Chrome;
+global using OpenQA.Selenium; 
+global using System;
+global using System.Threading.Tasks;
+

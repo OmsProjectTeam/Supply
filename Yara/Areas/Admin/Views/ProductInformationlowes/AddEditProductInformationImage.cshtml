@@ -309,7 +309,7 @@
         }
 
         // Bind change events to WareHouseType and Description fields
-        $('#SelectCategory, #SelectTypesProduct, #ProductName, #modelInput, #UPC, #BrandName12').on('change keyup', function () {
+        $('#SelectCategory, #SelectTypesProduct, #ScrapingHtmlTitle, #ProductName, #storeSku, #UPC, #modelNumber, #storeSoSku, #brand').on('change keyup', function () {
             updateCodeField();
         });
 
@@ -317,7 +317,7 @@
         function updateQRCode() {
             var code = $('#Code').val();
             if (code) {
-                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformation")?text=' + encodeURIComponent(code));
+                $('#QRCodeImage').attr('src', '@Url.Action("GenerateQRCode", "ProductInformationlowes")?text=' + encodeURIComponent(code));
             } else {
                 $('#QRCodeImage').attr('src', '');
             }
@@ -369,7 +369,7 @@
 
     <script>
         function CreateBarCode(text) {
-            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformation", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
+            const apiUrl = `@Url.Action("GenerateBarcode", "ProductInformationlowes", new { area = "Admin" })?text=${encodeURIComponent(text)}`;
 
             $.ajax({
                 url: apiUrl,
@@ -410,7 +410,12 @@
             });
         });
 
-
+        $(document).ready(function () {
+            console.log("gnddfdfbssdbs");
+            var x = $('#UPC').val();
+            CreateBarCode(x);
+            updateQRCode();
+        });
     </script>
 
     <!-- Include necessary scripts for Select2 and other plugins -->

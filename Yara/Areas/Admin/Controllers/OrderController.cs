@@ -830,10 +830,8 @@ namespace Yara.Areas.Admin.Controllers
                             var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
 
                             return Json(new { success = true, imageUrl = firstImageUrl, productName });
-
                         }
                     }
-
                     // If no image was found
                     return Json(new { success = false, message = "Image not found." });
                 }
@@ -923,7 +921,9 @@ namespace Yara.Areas.Admin.Controllers
                 {
                     return Json(new { success = false, message = ex.Message });
                 }
+
             }
+            return null;
         }
 
 
@@ -937,8 +937,11 @@ namespace Yara.Areas.Admin.Controllers
                 slider.IdProductInformation = model.ProductInformation.IdProductInformation;
                 slider.IdProductCategory = model.ProductInformation.IdProductCategory;
                 slider.IdTypesProduct = model.ProductInformation.IdTypesProduct;
-                //slider.IdBrandName = model.ProductInformation.IdBrandName;
+                slider.IdScrapingHtmlTitle = model.ProductInformation.IdScrapingHtmlTitle;
                 slider.ProductName = model.ProductInformation.ProductName;
+                slider.storeSku = model.ProductInformation.storeSku;
+                slider.storeSoSku = model.ProductInformation.storeSoSku;
+                slider.brand = model.ProductInformation.brand;
                 slider.UPC = model.ProductInformation.UPC;
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;

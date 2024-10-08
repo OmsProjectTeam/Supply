@@ -652,10 +652,7 @@ namespace Yara.Areas.Admin.Controllers
 
             if (product != null)
             {
-
-                var mm = product.Model;
-                var scr = product.ScrapingHtmlTitle;
-                var result = await FetchGlobalPrice(mm, scr);
+                var result = 0;
                 return Ok(new
                 {
                     imageUrl = product.Photo,

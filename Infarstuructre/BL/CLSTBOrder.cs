@@ -36,12 +36,8 @@ namespace Infarstuructre.BL
 
         public List<TBViewOrder> GetAll()
         {
-            try
-            {
-                List<TBViewOrder> MySlider = dbcontext.ViewOrder.Where(a => a.CurrentState == true).ToList();
-                return MySlider;
-            }catch (Exception ex) { ex.ToString(); }
-            return new List<TBViewOrder>();
+            List<TBViewOrder> MySlider = dbcontext.ViewOrder.OrderByDescending(n => n.IdPurchaseOrder).Where(a => a.CurrentState == true).ToList();
+            return MySlider;
         }
         public List<TBViewOrder> GetAllActive()
         {

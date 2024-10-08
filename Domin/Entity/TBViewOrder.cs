@@ -25,7 +25,7 @@ namespace Domin.Entity
         public string? storeSku { get; set; }
         public string? storeSoSku { get; set; }
         public int IdBWareHouse { get; set; }
-        public string WareHouseType { get; set; }
+    
         public string Description { get; set; }
         public string Code { get; set; }
         public int IdBWareHouseBranch { get; set; }

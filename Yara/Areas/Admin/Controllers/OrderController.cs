@@ -1,5 +1,6 @@
 ﻿
 
+using Infarstuructre.BL;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Drawing;
@@ -28,9 +29,10 @@ namespace Yara.Areas.Admin.Controllers
         IIUserInformation iUserInformation;
         private readonly UserManager<ApplicationUser> _userManager;
         IIScrapingHtmlTitle iScrapingHtmlTitle;
+        IIPurchaseDocumentation iPurchaseDocumentation;
 
         public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
-            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager, IIScrapingHtmlTitle iScrapingHtmlTitle1)
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager, IIScrapingHtmlTitle iScrapingHtmlTitle1,IIPurchaseDocumentation iPurchaseDocumentation1)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -46,6 +48,7 @@ namespace Yara.Areas.Admin.Controllers
             iUserInformation = iUserInformation1;
             _userManager = userManager;
             iScrapingHtmlTitle = iScrapingHtmlTitle1;
+            iPurchaseDocumentation = iPurchaseDocumentation1;
         }
         public IActionResult MyOrder()
         {
@@ -74,6 +77,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.WareHouseBranch = iWareHouseBranch.GetAll();
 
             ViewBag.ScrapingHtmlTitle = iScrapingHtmlTitle.GetAll();
+            ViewBag.PurchaseDocumentation = iPurchaseDocumentation.GetAll();
 
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();

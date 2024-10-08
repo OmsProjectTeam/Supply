@@ -74,15 +74,14 @@
     <div class="col-12">
         <div class="box-content">
             <input id="product12" placeholder="Enter QR Code" />
+            <a asp-area="Admin" asp-controller="Order" asp-action="MyOrder"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light"style="margin-left:300px">@ResourceWeb.LBMyOrder</button></a>
+        </div>
+        <div class="box-content">
+            <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
+            <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 <div id="contentWrapper" style="display: none;">
     <div class="row small-spacing">
@@ -118,7 +117,7 @@
                             <input type="hidden" asp-for="@Model.Order.IdPurchaseOrder" class="form-control">
                             <input type="hidden" asp-for="@Model.Order.DateTimeEntry" value="@DateTime.Now">
                             <input type="hidden" asp-for="@Model.returnUrl" id="url">
-                            <input type="text" id="IdUserAAAA" asp-for="@Model.Order.IdUser" />
+                            <input type="hidden" id="IdUserAAAA" asp-for="@Model.Order.IdUser" />
 
                         </div>
                         @* <input id="product12" placeholder="Enter QR Code" /> *@
@@ -224,18 +223,26 @@
                                 </div>
                             </div>
 
-                            @* <div class="col-sm-6">
-                            <div class="form-group">
-                            <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
-                            <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse"></select>
-                            <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdPurchaseDocumentation">@ResourceWeb.LbOrderNumber</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdPurchaseDocumentation" asp-items="@(new SelectList(ViewBag.PurchaseDocumentation, "IdPurchaseDocumentation", "OrderNumber"))"></select>
+                                    <span asp-validation-for="@Model.Order.IdPurchaseDocumentation" class="text-danger"></span>
+
+                                </div>
                             </div>
-                            </div> *@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouse" asp-items="@(new SelectList(ViewBag.WareHouse, "IdBWareHouse", "Description"))" id="SelectWareHouse" onchange="loadWarehouseBranches()"></select>
                                     <span asp-validation-for="@Model.Order.IdBWareHouse" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
+                                    <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
+                                    <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -248,13 +255,7 @@
 
                             </div>
                             </div> *@
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
-                                    <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
-                                    <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
-                                </div>
-                            </div>
+                           
                           @*   <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.PurchaseOrderNoumber">@ResourceWeb.lbPurchaseOrderNoumber</label>
@@ -266,15 +267,8 @@
                         </div>
                         <div class="row small-spacing">
 
-                          @*   <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.PurchasePrice">@ResourceWeb.LbPurchasePrice</label>
-                                    <input id="PurchasePrice" asp-for="@Model.Order.PurchasePrice" type="text" placeholder="@ResourceWeb.LbPurchasePrice ...." class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.Order.PurchasePrice" class="text-danger"></span>
-
-                                </div>
-                            </div> *@
-                            <div class="col-sm-6">
+                       
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.sellingPrice">@ResourceWeb.LbsellingPrice</label>
                                     <input id="sellingPrice" asp-for="@Model.Order.sellingPrice" type="text" placeholder="@ResourceWeb.LbsellingPrice ...." class="form-control" maxlength="300">
@@ -282,16 +276,9 @@
 
                                 </div>
                             </div>
-                        </div>
-                        <div class="row small-spacing">
 
-                            <div class="col-sm-6">
-                                @* <div class="form-group">
-                                <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
-                                <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300">
-                                <span asp-validation-for="@Model.Order.GlobalPrice" class="text-danger"></span>
+                            <div class="col-sm-4">
 
-                                </div> *@
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.GlobalPrice">@ResourceWeb.LbGlobalPrice</label>
                                     <input id="GlobalPrice" asp-for="@Model.Order.GlobalPrice" type="text" placeholder="@ResourceWeb.LbGlobalPrice...." class="form-control" maxlength="300" readonly>
@@ -299,18 +286,7 @@
                                 </div>
 
                             </div>
-                         @*    <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
-                                    <input id="SpecialSalePrice" asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
-                                    <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
-
-                                </div>
-                            </div> *@
-                        </div>
-                        <div class="row small-spacing">
-
-                            <div class="col-sm-6" id="QuantityIndiv">
+                            <div class="col-sm-4" id="QuantityIndiv">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
                                     <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
@@ -326,33 +302,21 @@
 
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                        </div>
+                        <div class="row small-spacing">
+
+                         @*    <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>product UPC</label>
-                                    <input id="UPCField" readonly type="text" class="form-control" />
-                                    <input id="MakField" readonly type="text" class="form-control" />
+                                    <label asp-for="@Model.Order.SpecialSalePrice">@ResourceWeb.LbSpecialSalePrice</label>
+                                    <input id="SpecialSalePrice" asp-for="@Model.Order.SpecialSalePrice" type="text" placeholder="@ResourceWeb.LbSpecialSalePrice ...." class="form-control" maxlength="300">
+                                    <span asp-validation-for="@Model.Order.SpecialSalePrice" class="text-danger"></span>
+
                                 </div>
-                            </div>
-
-
-
-                            <div class="form-group">
-                                <label>Barcode:</label>
-                                <img id="BarCode11111111" src="" alt="Bar Code" class="img-fluid" />
-                                <p id="UPCProduct"></p>
-                            </div>
-
-
-
-                            @*                         <div class="col-sm-6">
-                            <div class="form-group">
-                            <label asp-for="@Model.Order.QuantityIn">@ResourceWeb.LbQuantityIn</label>
-                            <input id="QuantityIn" asp-for="@Model.Order.QuantityIn" type="text" placeholder="@ResourceWeb.LbQuantityIn...." class="form-control">
-                            <span asp-validation-for="@Model.Order.QuantityIn" class="text-danger"></span>
-
-                            </div>
                             </div> *@
+                        </div>
+                        <div class="row small-spacing">
 
+                          
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
@@ -370,14 +334,14 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" />
-                                <div>
-                                    <a class="btn btn-sm btn-outline-primary" id="printWarehouseDetails" onclick="printWarehouseDetails1()">Print</a>
+                                <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" hidden/>
+               @*                  <div>
+                                    <a class="btn btn-sm btn-outline-primary" id="printWarehouseDetails" onclick="printWarehouseDetails1()"hidden>Print</a>
                                 </div>
                                 <div>
-                                    <a class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="PrintInvoice(123)">Print Invoice</a>
+                                    <a class="btn btn-sm btn-outline-primary" id="Printinvoice" onclick="PrintInvoice(123)"hidden>Print Invoice</a>
 
-                                </div>
+                                </div> *@
                                
                             </div>
                         </div>
@@ -393,7 +357,7 @@
                 <div class="row">
                     <div class="col-md-3 col-xs-6">
                         <a href="#" class="thumbnail">
-                            <img id="ProductImage" src="http://placehold.it/220x180" alt="Product Image" class="img-fluid" />
+                            <img id="ProductImage" src="http://placehold.it/220x180" alt="Product Image" class="img-fluid"style="height:250px;width:250px" />
                         </a>
                     </div>
                 </div>

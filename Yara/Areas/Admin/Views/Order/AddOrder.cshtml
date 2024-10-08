@@ -422,7 +422,8 @@
                             <p hidden id="AfterSave">@TempData["AfterSave"]</p>
                         </div>
 
-                        <div class="row small-spacing">
+                        @*  من هنا نهاد قام بالغاء المودل القديم  الذي يحفظ منتج جديديد
+                          <div class="row small-spacing">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
@@ -456,7 +457,7 @@
                                     <select class="form-control" asp-for="@Model.ProductInformation.IdBrandName" asp-items="@(new SelectList(ViewBag.BrandName, "IdBrandName", "BrandName"))" id="BrandName123"></select>
                                     <span asp-validation-for="@Model.ProductInformation.IdBrandName" class="text-danger"></span>
                                 </div>
-                            </div> *@
+                            </div> 
                         </div>
 
                         <div class="row small-spacing">
@@ -513,7 +514,7 @@
                                 <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
                             </p>
                             <p>
-                                @*   <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? "" /> *@
+                                @*   <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? "" /> 
 
 
                                 <!-- عرض الصورة في الصفحة -->
@@ -562,12 +563,178 @@
                             </div>
                         </div>
 
-                        @* <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button> *@
+                        @* <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button> 
 
                         <div class="custom-modal-footer">
                             <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" onclick="closeModal()">Close</button>
                             <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Save changes</button>
-                        </div>
+                        </div> *@
+
+                                <div class="row small-spacing">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdProductCategory">@ResourceWeb.LbProductCategory</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdProductCategory" asp-items="@(new SelectList(ViewBag.Category, "IdProductCategory", "ProductCategory"))" id="SelectCategory"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdProductCategory" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdTypesProduct">@ResourceWeb.LbTypesProduct</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdTypesProduct" asp-items="@(new SelectList(ViewBag.TypesProduct, "IdTypesProduct", "TypesProduct"))" id="SelectTypesProduct"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdTypesProduct" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.IdScrapingHtmlTitle">@ResourceWeb.LbScrapingHtmlTitle</label>
+                                        <select class="form-control" asp-for="@Model.ProductInformation.IdScrapingHtmlTitle" asp-items="@(new SelectList(ViewBag.ScrapingHtmlTitle, "IdScrapingHtmlTitle", "ScrapingHtmlTitle"))" id="ScrapingHtmlTitle"></select>
+                                        <span asp-validation-for="@Model.ProductInformation.IdScrapingHtmlTitle" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
+                                        <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
+                                        <span asp-validation-for="@Model.ProductInformation.ProductName" class="text-danger"></span>
+                                        <span style="color:red"><strong>@TempData["ProductName"]</strong></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row small-spacing">
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
+                                        <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="@ResourceWeb.lbModel ...." class="form-control" maxlength="100" id="modelInput">
+                                        <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
+                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
+                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Qrcode">@ResourceWeb.lbQrcode</label>
+                                        <textarea asp-for="@Model.ProductInformation.Qrcode" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="5" id="CodeForQR"></textarea>
+                                        <span asp-validation-for="@Model.ProductInformation.Qrcode" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                               <div class="row small-spacing">
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.Model">@ResourceWeb.lbModel</label>
+                                        <input asp-for="@Model.ProductInformation.Model" type="text" placeholder="modelNumber" class="form-control" maxlength="100" id="modelNumber">
+                                        <span asp-validation-for="@Model.ProductInformation.Model" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.storeSku">storeSku</label>
+                                        <input asp-for="@Model.ProductInformation.storeSku" type="text" placeholder="storeSku" class="form-control" maxlength="100" id="storeSku">
+                                        <span asp-validation-for="@Model.ProductInformation.storeSku" class="text-danger"></span>
+                                    </div>
+                                </div>   
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.storeSoSku">store So Sku</label>
+                                        <input asp-for="@Model.ProductInformation.storeSoSku" type="text" placeholder="storeSoSku." class="form-control" maxlength="100" id="storeSoSku">
+                                        <span asp-validation-for="@Model.ProductInformation.storeSoSku" class="text-danger"></span>
+                                    </div>
+                                </div>  
+                                <div class="col-12 col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ProductInformation.brand">brand</label>
+                                        <input asp-for="@Model.ProductInformation.brand" type="text" placeholder="brand." class="form-control" maxlength="100" id="brand">
+                                        <span asp-validation-for="@Model.ProductInformation.brand" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                             
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <img id="QRCodeImage" src="" alt="QR Code" class="img-fluid" />
+                                    <div>
+                                        <a class="btn btn-sm btn-outline-primary" onclick="printWarehouseDetails()">Print</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Barcode:</label>
+                                <img id="BarCode" src="" alt="Bar Code" class="img-fluid" />
+                                <p id="BarCodeNo"></p>
+                            </div>
+
+                            <!-- Image Upload and Display Section -->
+                            <div class="form-group">
+                                <p>
+                                    <input type="file" accept="image/*" name="Files" id="file" onchange="loadFile(event)" style="display: none;">
+                                </p>
+                                <p>
+                                    <label class="btn btn-violet btn-rounded btn-bordered waves-effect waves-light" for="file" style="cursor: pointer;" name="Files">@ResourceWeb.LBUpload_image</label>
+                                </p>
+                                <p>
+                                    <!-- Display the image on the page -->
+                                    <img id="output" width="450" height="300" src="@Model.ProductInformation?.Photo ?? " " " />
+
+                                    <!-- Hidden field to send the image URL to the Save function -->
+                                    <input type="hidden" asp-for="ProductInformation.Photo" id="hiddenPhotoUrl" value="" />
+
+                                    <!-- Script to update the hidden field when the image changes -->
+                                    <script>
+                                        // Update the hidden field with the image URL value on page load
+                                        document.getElementById('hiddenPhotoUrl').value = document.getElementById('output').src;
+
+                                        // Update the hidden field when the image changes
+                                        function updateHiddenPhotoUrl() {
+                                            var outputImg = document.getElementById('output');
+                                            var hiddenPhotoUrl = document.getElementById('hiddenPhotoUrl');
+                                            hiddenPhotoUrl.value = outputImg.src;
+                                        }
+
+                                        // Call the function to update the hidden field when the image changes
+                                        document.getElementById('output').addEventListener('load', updateHiddenPhotoUrl);
+                                    </script>
+                                </p>
+                                <span style="color:red"><strong>@TempData["Message"]</strong></span>
+                            </div>
+
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success">
+                                    <input type="checkbox" asp-for="@Model.ProductInformation.Active" id="switch-9" checked="checked">
+                                    <label for="switch-9">@ResourceWeb.LbActive</label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox margin-bottom-20">
+                                <div class="switch success">
+                                    <input type="checkbox" asp-for="@Model.ProductInformation.CurrentState" id="switch-10" checked="checked">
+                                    <label for="switch-10">@ResourceWeb.lbCurrentState</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
+
+
                     </form>
                 </div>
             </div>

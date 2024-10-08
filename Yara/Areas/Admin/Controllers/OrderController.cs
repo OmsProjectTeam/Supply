@@ -27,9 +27,10 @@ namespace Yara.Areas.Admin.Controllers
         IICompanyInformation iCompanyInformation;
         IIUserInformation iUserInformation;
         private readonly UserManager<ApplicationUser> _userManager;
+        IIScrapingHtmlTitle iScrapingHtmlTitle;
 
         public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
-            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager)
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager, IIScrapingHtmlTitle iScrapingHtmlTitle1)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -44,6 +45,7 @@ namespace Yara.Areas.Admin.Controllers
             iCompanyInformation = iCompanyInformation1;
             iUserInformation = iUserInformation1;
             _userManager = userManager;
+            iScrapingHtmlTitle = iScrapingHtmlTitle1;
         }
         public IActionResult MyOrder()
         {
@@ -71,6 +73,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewBag.WareHouse = iWareHouse.GetAll();
             ViewBag.WareHouseBranch = iWareHouseBranch.GetAll();
 
+            ViewBag.ScrapingHtmlTitle = iScrapingHtmlTitle.GetAll();
 
 
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();

@@ -278,6 +278,29 @@ $(document).ready(function () {
 });
 
 
+
+function FetchPrice() {
+
+    var mm = $('#mmoodel').val();
+    var mk = $('#ScrapingHtmlTitle1212').val();
+    $.ajax({
+        url: '/admin/Order/FetchGlobalPrice',
+        type: 'GET',
+        data: { model: mm, Make: mk },
+        success: function (data) {
+            if (data) {
+                $('#GlobalPrice').val(data);
+            } else {
+                console.log('No data returned');
+            }
+        },
+        error: function (err) {
+            console.error("Error fetching price: ", err);
+        }
+    });
+}
+
+
 // Function to populate product details after selecting a product
 function populateProductDetails(productDetails) {
 
@@ -296,15 +319,18 @@ function populateProductDetails(productDetails) {
         $('#Brand').val(productDetails.brand);
         $('#ScrapingHtmlTitle1212').val(productDetails.scrapingHtmlTitle);
         $('#sku1212').val(productDetails.storeSku);
-        $('#UPCx').val(productDetails.uPC);
+        $('#UPCx').val(productDetails.uPC).trigger('change');
         $('#soSku').val(productDetails.sstoreSoSku);
         $('#mmoodel').val(productDetails.mmodel);
+
+
+
+        FetchPrice();
 
         updateCodeField();  // Update QR code or other fields if necessary
     }
 
 }
-
 
 
 function checkProductAvailability(productId) {

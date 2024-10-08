@@ -515,8 +515,8 @@ namespace Yara.Areas.Admin.Controllers
 
         }
 
-
-        private async Task<decimal> FetchGlobalPrice(string model, string Make)
+        [HttpGet("admin/Order/FetchGlobalPrice")]
+        public async Task<decimal> FetchGlobalPrice(string model, string Make)
         {
             decimal globalPrice = 0;
             if (Make == "home depot")

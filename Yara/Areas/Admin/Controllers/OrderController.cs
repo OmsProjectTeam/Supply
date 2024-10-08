@@ -1,5 +1,13 @@
 ﻿
 
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
+using ZXing;
+using ZXing.QrCode;
+
 namespace Yara.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -510,8 +518,9 @@ namespace Yara.Areas.Admin.Controllers
 
         private async Task<decimal> FetchGlobalPrice(string model, string Make)
         {
+
             decimal globalPrice = 0;
-            if (Make == "RYOBI")
+            if (Make == "home depot")
             {
                 try
                 {
@@ -638,9 +647,6 @@ namespace Yara.Areas.Admin.Controllers
 
 
         public async Task<IActionResult> GetProductDetailsForOrder(string productId)
-        
-        
-        
         {
             var product = dbcontext.ViewProductInformation
                          .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId ).FirstOrDefault();
@@ -648,13 +654,14 @@ namespace Yara.Areas.Admin.Controllers
 
             if (product != null)
             {
-                // Fetch the global price using HtmlAgilityPack and the model field
-                decimal globalPrice = 0; //await FetchGlobalPrice(product.Model);
 
+                var mm = product.Model;
+                var scr = product.ScrapingHtmlTitle;
+                var result = await FetchGlobalPrice(mm, scr);
                 return Ok(new
                 {
                     imageUrl = product.Photo,
-                    globalPrice = globalPrice,
+                    globalPrice = result,
                     productCategoryId = product.IdProductCategory,
                     bondTypeId = product.IdTypesProduct,  // Assuming this field exists
                     typesProductId = product.IdTypesProduct,
@@ -663,9 +670,11 @@ namespace Yara.Areas.Admin.Controllers
                     m = product.IdProductInformation,
                     brand = product.brand,
                     storeSku = product.storeSku,
-                    storeSoSku = product.storeSoSku,
-                    ScrapingHtmlTitle = product.ScrapingHtmlTitle,
-                    UPC = product.UPC,
+                    sstoreSoSku = product.storeSoSku,
+                    scrapingHtmlTitle = product.ScrapingHtmlTitle,
+                    uPC = product.UPC,
+                    mmodel = product.Model,
+
                 });
             }
             else

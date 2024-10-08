@@ -27,7 +27,6 @@ function CreateBarCode(text) {
 
 $(document).ready(function () {
     $('#UPC12').on('change keyup', function () {
-        console.log("UPC value changed");
         var upc = this.value;
         CreateBarCode(upc);
     });
@@ -109,8 +108,7 @@ function updateCodeFieldmodal() {
     if (Category && TypesProduct) {
 
         var code = randomString + Category + TypesProduct + Product + Model + UPC;
-        console.log(code);
-        console.log("codeeeeeeeeee");
+
         $('#Codeeee').val(code);
         updateQRCodeForAA(); // Update QR code when code is updated
     }
@@ -137,7 +135,6 @@ function populateProductNameInModal(model, brand1) {
                     $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
                     $("#output").attr('src', response.imageUrl);
                     var xxxxx = response.imageUrl;
-                    console.log(xxxxx);
                     $("#xaxaxaxaxa").val(xxxxx);
                 } else {
                     alert(response.message);  // Show an alert if there was an issue
@@ -222,18 +219,6 @@ function openModal() {
 
 }
 
-$('#BrandName123').on('change', function () {
-
-    console.log("BrandName123 change");
-    var productId = $('#product12').val();
-    var brand = $('#BrandName123 option:selected').text();
-    console.log(brand);
-    populateProductNameInModal(productId, brand);
-});
-
-
-
-
 function closeModal() {
     document.getElementById("customModal").style.display = "none";
     $('#product12').val($('#product12').data('previous-value')); // Restore the search text from the data attribute
@@ -292,6 +277,36 @@ $(document).ready(function () {
     }
 });
 
+
+// Function to populate product details after selecting a product
+function populateProductDetails(productDetails) {
+
+    console.log("populateProductDetails xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    var set = setPurchase();
+
+    if (productDetails && productDetails.productCategoryId > 0) {
+        $('#ProductName').val(productDetails.model);
+        $('#SelectProductCategory').val(productDetails.productCategoryId).trigger('change');
+        $('#SelectBondType').val(set).trigger('change');
+        $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
+        $('#GlobalPrice').val(productDetails.globalPrice);
+        $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
+        $('#SelectProductInformation150').empty().append(new Option(productDetails.productName, productDetails.m, true, true)).trigger('change');
+        $('#modalButton').prop('disabled', true);
+        $('#Brand').val(productDetails.brand);
+        $('#ScrapingHtmlTitle1212').val(productDetails.scrapingHtmlTitle);
+        $('#sku1212').val(productDetails.storeSku);
+        $('#UPCx').val(productDetails.uPC);
+        $('#soSku').val(productDetails.sstoreSoSku);
+        $('#mmoodel').val(productDetails.mmodel);
+
+        updateCodeField();  // Update QR code or other fields if necessary
+    }
+
+}
+
+
+
 function checkProductAvailability(productId) {
     console.log("checkProductAvailability:" + productId);
     $.ajax({
@@ -299,7 +314,6 @@ function checkProductAvailability(productId) {
         type: 'GET',
         data: { productId: productId },
         success: function (data) {
-            console.log("nohad3" + data);
             if (data && data.productCategoryId > 0) {
                 populateProductDetails(data);  // Populate product details
                 $('#modalButton').prop('disabled', true);  // Disable modal button
@@ -338,25 +352,7 @@ function setPurchase() {
     return selectedValue;
 }
 
-// Function to populate product details after selecting a product
-function populateProductDetails(productDetails) {
-    var set = setPurchase();
 
-    if (productDetails && productDetails.productCategoryId > 0) {
-        $('#ProductName').val(productDetails.model);
-        $('#SelectProductCategory').val(productDetails.productCategoryId).trigger('change');
-        $('#SelectBondType').val(set).trigger('change');
-        $('#SelectTypesProduct').val(productDetails.typesProductId).trigger('change');
-        $('#GlobalPrice').val(productDetails.globalPrice);
-        $('#ProductImage').attr('src', productDetails.imageUrl || 'http://placehold.it/220x180');
-        $('#SelectProductInformation150').empty().append(new Option(productDetails.productName, productDetails.m, true, true)).trigger('change');
-        $('#modalButton').prop('disabled', true);
-        $('##Brand').val(productDetails.brand);
-       
-        updateCodeField();  // Update QR code or other fields if necessary
-    }
-    console.log(populateProductDetails());
-}
 
 // Detect input event for manual typing
 $('#product12').on('input', function () {
@@ -397,7 +393,6 @@ $(document).ready(function () {
                     }));
                 },
                 error: function () {
-                    console.log("openModalopenModalopenModalopenModalopenModal");
                     openModal();
                 }
             });
@@ -446,7 +441,6 @@ $.ajax({
         type: 'GET',
          success: function (data) {
              if (data) {
-             console.log("DData :", data);
              $('#UPCField').val(data.upc || "");
              $('#MakField').val(data.make || "");
              $('#UPCProduct').val(data.upc || "");
@@ -466,7 +460,6 @@ $.ajax({
 
 $(document).ready(function () {
     $('#SelectProductInformation150').on('change', function () {
-        console.log("SelectProductInformation150 Change");
         if (this.value === '') {
             console.error('يرجى اختيار خيار صالح.');
         } else {
@@ -501,7 +494,7 @@ function CreateBarCode1(text) {
         }
 
 
-$('#UPCField').on('change keyup', function () {
+$('#UPCx').on('change keyup', function () {
         var upc = this.value;
         CreateBarCode1(upc);
     });
@@ -619,7 +612,6 @@ function searchAboutProduct(model) {
 
 $(document).ready(function () {
     var val = $('#AfterSave').text();
-    console.log("AfterSave:" + val)
     if (val) {
         searchAboutProduct(val);
     }

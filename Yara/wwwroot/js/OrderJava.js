@@ -401,7 +401,7 @@ $(document).ready(function () {
         select: function (event, ui) {
             productSelectedFromAutocomplete = true;  // Flag that product was selected from autocomplete
             $('#product12').val(ui.item.value);  // Set selected value in the input box
-            populateProductDetails(ui.item);
+            //populateProductDetails(ui.item);
             // Populate product details
             clearTimeout(typingTimer);  // Clear typing timer as selection is made
             // Ensure product availability check is called just like in manual input

@@ -518,7 +518,6 @@ namespace Yara.Areas.Admin.Controllers
 
         private async Task<decimal> FetchGlobalPrice(string model, string Make)
         {
-
             decimal globalPrice = 0;
             if (Make == "home depot")
             {
@@ -650,7 +649,6 @@ namespace Yara.Areas.Admin.Controllers
         {
             var product = dbcontext.ViewProductInformation
                          .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId ).FirstOrDefault();
-
 
             if (product != null)
             {

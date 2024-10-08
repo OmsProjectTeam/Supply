@@ -780,7 +780,7 @@ namespace Yara.Areas.Admin.Controllers
         public async Task<IActionResult> FetchImageByModelOrder(string model, string breand)
         {
 
-            if (breand == "RYOBI")
+            if (breand == "home depot")
             {
                 try
                 {
@@ -798,7 +798,19 @@ namespace Yara.Areas.Admin.Controllers
                         var productNode = document.DocumentNode.SelectSingleNode("//div[@class='product-details__badge-title--wrapper--vtpd5']//h1");
                         var productName = productNode != null ? productNode.InnerText.Trim() : "Unknown Product";
 
-                        return Json(new { success = true, imageUrl, productName });
+                        var skuNode = document.DocumentNode.SelectSingleNode("//div[contains(@class, 'sui-flex sui-inline-flex sui-mr-2')]//h2//span");
+                        var storeSku = skuNode != null ? skuNode.InnerText.Trim() : "Unknown SKU";
+                        // الحصول على Store SO SKU من h2
+                        var soSkuNode = document.DocumentNode.SelectSingleNode("//h2[contains(text(), 'Store SO SKU')]/span");
+                        var storeSoSku = soSkuNode != null ? soSkuNode.InnerText.Trim() : "Unknown SO SKU";
+                        // الحصول على العلامة التجارية (RYOBI) من div
+                        var brandNode = document.DocumentNode.SelectSingleNode("//div[@class='sui-pr-2 sui-inline-flex']//h2");
+                        var brand = brandNode != null ? brandNode.InnerText.Trim() : "Unknown Brand";
+                        //الحصول على المودل 
+                        var modelNode = document.DocumentNode.SelectSingleNode("//div[@class='sui-flex sui-inline-flex sui-mr-2']//h2[contains(text(), 'Model #')]/span");
+                        var modelNumber = modelNode != null ? modelNode.InnerText.Trim() : "Unknown Model";
+
+                        return Json(new { success = true, imageUrl, productName, storeSku, storeSoSku, brand, modelNumber });
                     }
 
                     else
@@ -830,7 +842,7 @@ namespace Yara.Areas.Admin.Controllers
                     return Json(new { success = false, message = ex.Message });
                 }
             }
-            else
+            else if(breand == "Lows")
             {
                 try
                 {

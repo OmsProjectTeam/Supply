@@ -117,17 +117,17 @@ namespace Yara.Areas.Admin.Controllers
                     slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
                     slider.IdBondType = model.Order.IdBondType;
                     slider.IdUser = model.Order.IdUser;
-                  
-               
+
+
                     slider.IdProductInformation = model.Order.IdProductInformation;
                     slider.IdBWareHouse = model.Order.IdBWareHouse;
                     slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
                     slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
-                  
-                 
+
+
                     slider.sellingPrice = model.Order.sellingPrice;
                     slider.GlobalPrice = model.Order.GlobalPrice;
-                 
+
                     slider.QuantityIn = model.Order.QuantityIn;
                     slider.QuantityOute = model.Order.QuantityOute;
                     slider.Qrcode = model.Order.Qrcode;
@@ -139,7 +139,7 @@ namespace Yara.Areas.Admin.Controllers
                     slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
                     if (slider.GlobalPrice == null)
                         slider.GlobalPrice = 0;
-                  
+
                     if (slider.QuantityOute == null)
                         slider.QuantityOute = 0;
 
@@ -192,16 +192,16 @@ namespace Yara.Areas.Admin.Controllers
                     slider.IdPurchaseOrder = model.Order.IdPurchaseOrder;
                     slider.IdBondType = model.Order.IdBondType;
                     slider.IdUser = model.Order.IdUser;
-          
-                 
+
+
                     slider.IdProductInformation = model.Order.IdProductInformation;
                     slider.IdBWareHouse = model.Order.IdBWareHouse;
                     slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
                     slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
-     
+
                     slider.sellingPrice = model.Order.sellingPrice;
                     slider.GlobalPrice = model.Order.GlobalPrice;
-                  
+
                     slider.QuantityIn = model.Order.QuantityIn;
                     slider.QuantityOute = model.Order.QuantityOute;
                     slider.Qrcode = model.Order.Qrcode;
@@ -213,10 +213,10 @@ namespace Yara.Areas.Admin.Controllers
                     slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
 
                     slider.GlobalPrice = 0;
-                
+
 
                     slider.QuantityIn = 0;
-                 
+
 
                     if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
                     {
@@ -226,134 +226,134 @@ namespace Yara.Areas.Admin.Controllers
 
                             //Mail Sendig
 
-            //                var userd = vmodel.sUser = iUserInformation.GetById(slider.IdUser);
-            //                var user = await _userManager.FindByIdAsync(slider.IdUser);
-            //                if (user == null)
-            //                    return NotFound();
+                            //                var userd = vmodel.sUser = iUserInformation.GetById(slider.IdUser);
+                            //                var user = await _userManager.FindByIdAsync(slider.IdUser);
+                            //                if (user == null)
+                            //                    return NotFound();
 
-            //                string namedovlober = user.Name;
-            //                string email = user.Email;
-            //                var TAskStatus2 = vmodel.viewOrder = iOrder.GetByIdview(slider.IdPurchaseOrder);
-            //                if (TAskStatus2 == null)
-            //                    return NotFound();
+                            //                string namedovlober = user.Name;
+                            //                string email = user.Email;
+                            //                var TAskStatus2 = vmodel.viewOrder = iOrder.GetByIdview(slider.IdPurchaseOrder);
+                            //                if (TAskStatus2 == null)
+                            //                    return NotFound();
 
-            //                string ProductName = TAskStatus2.ProductName;
-            //                string Photo = TAskStatus2.Photo;
-            //                string TypesProduct = TAskStatus2.TypesProduct;
-            //                string sellingPrice = TAskStatus2.sellingPrice.ToString();
-            //                string QuantityOute = TAskStatus2.QuantityOute.ToString();
-            //                var total = TAskStatus2.sellingPrice * TAskStatus2.QuantityOute;
+                            //                string ProductName = TAskStatus2.ProductName;
+                            //                string Photo = TAskStatus2.Photo;
+                            //                string TypesProduct = TAskStatus2.TypesProduct;
+                            //                string sellingPrice = TAskStatus2.sellingPrice.ToString();
+                            //                string QuantityOute = TAskStatus2.QuantityOute.ToString();
+                            //                var total = TAskStatus2.sellingPrice * TAskStatus2.QuantityOute;
 
-            //                // الحصول على إعدادات البريد الإلكتروني
-            //                var emailSetting = await dbcontext.TBEmailAlartSettings
-            //                   .OrderByDescending(n => n.IdEmailAlartSetting)
-            //                   .Where(a => a.CurrentState == true && a.Active == true)
-            //                   .FirstOrDefaultAsync();
+                            //                // الحصول على إعدادات البريد الإلكتروني
+                            //                var emailSetting = await dbcontext.TBEmailAlartSettings
+                            //                   .OrderByDescending(n => n.IdEmailAlartSetting)
+                            //                   .Where(a => a.CurrentState == true && a.Active == true)
+                            //                   .FirstOrDefaultAsync();
 
-            //                if (emailSetting != null)
-            //                {
-            //                    var message = new MimeMessage();
-            //                    message.From.Add(new MailboxAddress(slider.DataEntry, emailSetting.MailSender));
-            //                    message.To.Add(new MailboxAddress(namedovlober, email));
-            //                    message.Cc.Add(new MailboxAddress("saif aldin", "saifaldin_s@hotmail.com"));
-            //                    message.Subject = "New Invoice  " + "Number:" + slider.PurchaseAuotNoumber;
+                            //                if (emailSetting != null)
+                            //                {
+                            //                    var message = new MimeMessage();
+                            //                    message.From.Add(new MailboxAddress(slider.DataEntry, emailSetting.MailSender));
+                            //                    message.To.Add(new MailboxAddress(namedovlober, email));
+                            //                    message.Cc.Add(new MailboxAddress("saif aldin", "saifaldin_s@hotmail.com"));
+                            //                    message.Subject = "New Invoice  " + "Number:" + slider.PurchaseAuotNoumber;
 
-            //                    var builder = new BodyBuilder
-            //                    {
-            //                        HtmlBody = $@"
-            //<!DOCTYPE html>
-            //<html lang='en'>
-            //<head>
-            //    <meta charset='UTF-8'>
-            //    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-            //    <style>
-            //        body {{ font-family: Arial, sans-serif; margin: 20px; }}
-            //        .invoice-header, .invoice-details {{ text-align: right; }}
-            //        .invoice-container {{ width: 100%; border-collapse: collapse; }}
-            //        .invoice-container th, .invoice-container td {{ border: 1px solid #ddd; padding: 8px; }}
-            //        .invoice-container th {{ background-color: #f2f2f2; text-align: center; }}
-            //        .company-logo {{ float: left; margin-right: 20px; }}
-            //        .customer-info {{ float: right; text-align: left; }}
-            //        .clear {{ clear: both; }}
-            //        .text-center {{ text-align: center; }}
-            //        .payment-method {{ margin-top: 20px; font-weight: bold; }}
-            //    </style>
-            //    <title>Invoice</title>
-            //</head>
-            //<body>
-            //    <div class='invoice-header'>
-            //        <div class='company-logo'>
-            //            <img src='https://via.placeholder.com/100' alt='Company Logo'>
-            //        </div>
-            //        <div class='customer-info'>
-            //            <p><strong>Sales invoice</strong></p>
-            //            <p>Invoice #: 2</p>
-            //            <p>Created: {DateTime.Now}</p>
-            //            <p>Due: {DateTime.Now}</p>
-            //        </div>
-            //        <div class='clear'></div>
-            //    </div>
+                            //                    var builder = new BodyBuilder
+                            //                    {
+                            //                        HtmlBody = $@"
+                            //<!DOCTYPE html>
+                            //<html lang='en'>
+                            //<head>
+                            //    <meta charset='UTF-8'>
+                            //    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                            //    <style>
+                            //        body {{ font-family: Arial, sans-serif; margin: 20px; }}
+                            //        .invoice-header, .invoice-details {{ text-align: right; }}
+                            //        .invoice-container {{ width: 100%; border-collapse: collapse; }}
+                            //        .invoice-container th, .invoice-container td {{ border: 1px solid #ddd; padding: 8px; }}
+                            //        .invoice-container th {{ background-color: #f2f2f2; text-align: center; }}
+                            //        .company-logo {{ float: left; margin-right: 20px; }}
+                            //        .customer-info {{ float: right; text-align: left; }}
+                            //        .clear {{ clear: both; }}
+                            //        .text-center {{ text-align: center; }}
+                            //        .payment-method {{ margin-top: 20px; font-weight: bold; }}
+                            //    </style>
+                            //    <title>Invoice</title>
+                            //</head>
+                            //<body>
+                            //    <div class='invoice-header'>
+                            //        <div class='company-logo'>
+                            //            <img src='https://via.placeholder.com/100' alt='Company Logo'>
+                            //        </div>
+                            //        <div class='customer-info'>
+                            //            <p><strong>Sales invoice</strong></p>
+                            //            <p>Invoice #: 2</p>
+                            //            <p>Created: {DateTime.Now}</p>
+                            //            <p>Due: {DateTime.Now}</p>
+                            //        </div>
+                            //        <div class='clear'></div>
+                            //    </div>
 
-            //    <div class='invoice-details'>
-            //        <p>Apx</p>
-            //        <p>+19165968856</p>
-            //        <p>Info@apx.com</p>
-            //        <hr>
-            //        <p>{namedovlober} - {slider.DataEntry}</p>
-            //    </div>
+                            //    <div class='invoice-details'>
+                            //        <p>Apx</p>
+                            //        <p>+19165968856</p>
+                            //        <p>Info@apx.com</p>
+                            //        <hr>
+                            //        <p>{namedovlober} - {slider.DataEntry}</p>
+                            //    </div>
 
-            //    <table class='invoice-container'>
-            //        <thead>
-            //            <tr>
-            //                <th>Photo</th>
-            //                <th>Product Name</th>
-            //                <th>Type Product</th>
-            //                <th>Selling Price</th>
-            //                <th>Output Quantity</th>
-            //                <th>Total</th>
-            //            </tr>
-            //        </thead>
-            //        <tbody>
-            //            <tr>
-            //                <td class='text-center'>
-            //                    <img src='{Photo}' alt='Product Image' style='height:50px;width:50px'>
-            //                </td>
-            //                <td>{ProductName}</td>
-            //                <td class='text-center'>{TypesProduct}</td>
-            //                <td class='text-center'>{sellingPrice}</td>
-            //                <td class='text-center'>{QuantityOute}</td>
-            //                <td class='text-center'>{total}</td>
-            //            </tr>
-            //        </tbody>
-            //    </table>
+                            //    <table class='invoice-container'>
+                            //        <thead>
+                            //            <tr>
+                            //                <th>Photo</th>
+                            //                <th>Product Name</th>
+                            //                <th>Type Product</th>
+                            //                <th>Selling Price</th>
+                            //                <th>Output Quantity</th>
+                            //                <th>Total</th>
+                            //            </tr>
+                            //        </thead>
+                            //        <tbody>
+                            //            <tr>
+                            //                <td class='text-center'>
+                            //                    <img src='{Photo}' alt='Product Image' style='height:50px;width:50px'>
+                            //                </td>
+                            //                <td>{ProductName}</td>
+                            //                <td class='text-center'>{TypesProduct}</td>
+                            //                <td class='text-center'>{sellingPrice}</td>
+                            //                <td class='text-center'>{QuantityOute}</td>
+                            //                <td class='text-center'>{total}</td>
+                            //            </tr>
+                            //        </tbody>
+                            //    </table>
 
-            //    <div class='payment-method'>
-            //        <p>Payment Method: Check</p>
-            //        <p>Check #: {total}</p>
-            //    </div>
-            //</body>
-            //</html>"
-            //                    };
+                            //    <div class='payment-method'>
+                            //        <p>Payment Method: Check</p>
+                            //        <p>Check #: {total}</p>
+                            //    </div>
+                            //</body>
+                            //</html>"
+                            //                    };
 
-            //                    message.Body = builder.ToMessageBody();
+                            //                    message.Body = builder.ToMessageBody();
 
-            //                    // استخدام OAuth2 بدلاً من المصادقة الأساسية
-            //                    var accessToken = "axziyzjtvxmclllo"; // يجب توليد رمز الوصول (Access Token) باستخدام OAuth2
-            //                    var oauth2 = new SaslMechanismOAuth2(emailSetting.MailSender, accessToken);
+                            //                    // استخدام OAuth2 بدلاً من المصادقة الأساسية
+                            //                    var accessToken = "axziyzjtvxmclllo"; // يجب توليد رمز الوصول (Access Token) باستخدام OAuth2
+                            //                    var oauth2 = new SaslMechanismOAuth2(emailSetting.MailSender, accessToken);
 
-            //                    using (var client = new SmtpClient())
-            //                    {
-            //                        await client.ConnectAsync(emailSetting.SmtpServer, emailSetting.PortServer, SecureSocketOptions.StartTls);
-            //                        await client.AuthenticateAsync(oauth2); // المصادقة باستخدام OAuth2
-            //                        await client.SendAsync(message);
-            //                        await client.DisconnectAsync(true);
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    // التعامل مع الحالة التي لا توجد فيها إعدادات البريد الإلكتروني
-            //                    // يمكنك تسجيل خطأ أو تنفيذ إجراءات أخرى هنا
-            //                }
+                            //                    using (var client = new SmtpClient())
+                            //                    {
+                            //                        await client.ConnectAsync(emailSetting.SmtpServer, emailSetting.PortServer, SecureSocketOptions.StartTls);
+                            //                        await client.AuthenticateAsync(oauth2); // المصادقة باستخدام OAuth2
+                            //                        await client.SendAsync(message);
+                            //                        await client.DisconnectAsync(true);
+                            //                    }
+                            //                }
+                            //                else
+                            //                {
+                            //                    // التعامل مع الحالة التي لا توجد فيها إعدادات البريد الإلكتروني
+                            //                    // يمكنك تسجيل خطأ أو تنفيذ إجراءات أخرى هنا
+                            //                }
 
 
 
@@ -466,7 +466,7 @@ namespace Yara.Areas.Admin.Controllers
 
 
 
-     
+
         [HttpGet]
         public async Task<JsonResult> GetProductDetails(int id)
         {
@@ -655,7 +655,7 @@ namespace Yara.Areas.Admin.Controllers
         public async Task<IActionResult> GetProductDetailsForOrder(string productId)
         {
             var product = dbcontext.ViewProductInformation
-                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId ).FirstOrDefault();
+                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId).FirstOrDefault();
 
             if (product != null)
             {
@@ -699,21 +699,41 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return BadRequest("Search query cannot be empty");
             }
+
             try
             {
-                // Fetch products matching the query
+
                 var products = await dbcontext.ViewProductInformation
                     .Where(p => p.Qrcode.StartsWith(query) ||
                                 p.Model.StartsWith(query) ||
                                 p.UPC.StartsWith(query) ||
+                                p.brand.StartsWith(query) ||
+                                p.storeSku.StartsWith(query) ||
+                                p.storeSoSku.StartsWith(query) ||
                                 p.ProductName.StartsWith(query))
-                                //p.Make.StartsWith(query))
-                    .Select(p => new { p.Qrcode, p.ProductName, p.Model, p.Photo })
+                    .Select(p => new
+                    {
+                        p.Qrcode,
+                        p.ProductName,
+                        p.Model,
+                        p.UPC,
+                        p.brand,
+                        p.storeSku,
+                        p.storeSoSku,
+                        MatchingField =
+                            p.Qrcode.StartsWith(query) ? "Qrcode" :
+                            p.Model.StartsWith(query) ? "Model" :
+                            p.UPC.StartsWith(query) ? "UPC" :
+                            p.brand.StartsWith(query) ? "Brand" :
+                            p.storeSoSku.StartsWith(query) ? "StoreSku" :
+                            p.storeSoSku.StartsWith(query) ? "StoreSoSku" :
+                            p.ProductName.StartsWith(query) ? "ProductName" : null
+                    })
                     .ToListAsync();
 
                 if (products.Any())
                 {
-                    return Ok(products); // Return list of matching products
+                    return Ok(products);
                 }
                 else
                 {
@@ -722,10 +742,9 @@ namespace Yara.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                // Log exception and return error response
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        }
+        } 
 
 
 

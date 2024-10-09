@@ -431,7 +431,7 @@
                 var upc = $(this).siblings('.UPCFORPR').text();
                 console.log(upc);
                 if (upc) {
-                    $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformation")?text=` + encodeURIComponent(upc));
+                    $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformationLowes")?text=` + encodeURIComponent(upc));
                 } else {
                     $(this).attr('src', '');
                 }

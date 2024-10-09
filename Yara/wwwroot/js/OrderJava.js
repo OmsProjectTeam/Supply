@@ -419,7 +419,7 @@ $('#product12').on('input', function () {
 });
 
 $(document).ready(function () {
-    let productSelectedFromAutocomplete = false;  // Track whether product is selected from autocomplete
+    let productSelectedFromAutocomplete = false;  // لتتبع ما إذا تم تحديد المنتج من الـ autocomplete
 
     $("#product12").autocomplete({
         source: function (request, response) {
@@ -428,27 +428,57 @@ $(document).ready(function () {
                 type: 'GET',
                 data: { query: request.term },
                 success: function (data) {
+                    console.log(data);
                     response($.map(data, function (item) {
-                        return {
-                            label: item.model,
-                            value: item.model
-                        };
+                        switch (item.matchingField) {
+                            case "Qrcode":
+                                return {
+                                    label: item.qrcode,
+                                    value: item.model
+                                };
+                            case "Model":
+                                return {
+                                    label: item.model,
+                                    value: item.model
+                                };
+                            case "Brand":
+                                return {
+                                    label: item.brand,
+                                    value: item.model
+                                };
+                            case "UPC":
+                                return {
+                                    label: item.upc,
+                                    value: item.model
+                                };
+                            case "StoreSku":
+                                return {
+                                    label: item.storeSku,
+                                    value: item.model
+                                };
+                            case "StoreSoSku":
+                                return {
+                                    label: item.storeSoSku,
+                                    value: item.model
+                                };
+                            case "ProductName":
+                                return {
+                                    label: item.productName,
+                                    value: item.model
+                                };
+                        }
                     }));
                 },
                 error: function () {
-                    openModal();
+                    openModal();  // فتح النافذة في حال حدوث خطأ
                 }
             });
         },
         minLength: 1,
         select: function (event, ui) {
-            productSelectedFromAutocomplete = true;  // Flag that product was selected from autocomplete
-            $('#product12').val(ui.item.value);  // Set selected value in the input box
-            //populateProductDetails(ui.item);
-            // Populate product details
-            clearTimeout(typingTimer);  // Clear typing timer as selection is made
-            // Ensure product availability check is called just like in manual input
-            checkProductAvailability(ui.item.value);  // Trigger the check
+            productSelectedFromAutocomplete = true;  // الإشارة إلى أن المنتج تم اختياره
+            $('#product12').val(ui.item.value);  // وضع القيمة المختارة في الحقل
+            checkProductAvailability(ui.item.value);  // التحقق من توافر المنتج
             return false;
         }
     });
@@ -575,13 +605,12 @@ function updateCodeField() {
     var sellingPrice = $('#sellingPrice').val();
     var PurchaseOrderNoumber = $('#PurchaseOrderNoumber11').val();
     var GlobalPr = $('#GlobalPrice').val();
-    var QouantityIn = $('#QuantityIn').val();
     var SpecialSalePrice = $('#SpecialSalePrice').val();
 
     var randomString = generateRandomString(5);
 
     if (Merchant && WareHouse) {
-        var code = Merchant + '-' + WareHouse + '-' + BondType + '-' + WareHouseBranch + '-' + ProductInformation + '-' + 'selling Price:' + sellingPrice + '-' + 'Purchase Order Noumber:' + PurchaseOrderNoumber + '-' + 'GlobalPr' + GlobalPr + '-' + 'Qouantity In:' + QouantityIn + '-' + 'Special Sale Price:' + SpecialSalePrice + '-' + randomString;
+        var code = Merchant + '-' + WareHouse + '-' + BondType + '-' + WareHouseBranch + '-' + ProductInformation + '-' + 'selling Price:' + sellingPrice + '-' + 'Purchase Order Noumber:' + PurchaseOrderNoumber + '-' + 'GlobalPr' + GlobalPr + '-' + '-' + 'Special Sale Price:' + SpecialSalePrice + '-' + randomString;
         $('#Qrcode').val(code);
         updateQRCodeForxxx();
     }

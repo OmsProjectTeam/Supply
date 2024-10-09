@@ -1,7 +1,7 @@
 ﻿
 function CreateBarCode(text) {
 
-    const apiUrl = `/Admin/ProductInformation/GenerateBarcode?text=${encodeURIComponent(text)}`;
+    const apiUrl = `/Admin/ProductInformationLowes/GenerateBarcode?text=${encodeURIComponent(text)}`;
 
     $.ajax({
         url: apiUrl,
@@ -12,7 +12,7 @@ function CreateBarCode(text) {
         success: function (data) {
             if (data) {
                 var imageUrl = URL.createObjectURL(data);
-                $('#BarCode0936').attr('src', imageUrl);
+                $('#BarCode').attr('src', imageUrl);
                 $('#BarCodeNo').text(text);
             } else {
                 console.error("Error generating barcode.");
@@ -64,7 +64,7 @@ function printWarehouseDetails() {
 }
 
 
-$('#UPC12, #BrandName123 ,#SelectTypesProductt, #SelectCategory, #ProductName').on('change keyup', function () {
+$('#UPC12, #storeSku ,#storeSoSku, #modelNumber, #brand, #ProductName').on('change keyup', function () {
     updateCodeFieldmodal();
 });
 
@@ -84,32 +84,38 @@ function generateRandomStringrr(length) {
 
 // Bind change events to WareHouseType and Description fields
 
-
 function updateQRCodeForAA() {
-    var code = $('#Codeeee').val();
+    var code = $('#CodeForQR').val();
     if (code) {
         
-        $('#QRCodeImage123').attr('src', '/Admin/WareHouse/GenerateQRCode?text=' + encodeURIComponent(code));
+        $('#QRCodeImage').attr('src', '/Admin/WareHouse/GenerateQRCode?text=' + encodeURIComponent(code));
     } else {
-        $('#QRCodeImage123').attr('src', '');
+        $('#QRCodeImage').attr('src', '');
     }
 }
 
 // Function to update the Code field
 function updateCodeFieldmodal() {
     var Category = $('#SelectCategory option:selected').text();
-    var TypesProduct = $('#SelectTypesProductt option:selected').text();
+    var HtmlTitle = $('#ScrapingHtmlTitle option:selected').text();
+    var TypesProduct = $('#SelectTypesProduct option:selected').text();
     var Product = $('#ProductName').val() || "No Name";
-    var Model = $('#modelInput').val();
+    var Model = $('#modelInput').val
+
+    var ModNumber = $('#modelNumber').val();
+    var StoreSku = $('#storeSku').val();
+    var StoreSoSku = $('#storeSoSku').val();
+    var Brand = $('#brand').val();
+
     var UPC = $('#UPC12').val();
 
     var randomString = generateRandomStringrr(5);
 
     if (Category && TypesProduct) {
 
-        var code = randomString + Category + TypesProduct + Product + Model + UPC;
+        var code = randomString + Category + TypesProduct + HtmlTitle + Product + Model + ModNumber + StoreSku + StoreSoSku + Brand + UPC;
 
-        $('#Codeeee').val(code);
+        $('#CodeForQR').val(code);
         updateQRCodeForAA(); // Update QR code when code is updated
     }
 
@@ -132,13 +138,17 @@ function populateProductNameInModal(model, brand1) {
             data: { model: model, breand: brand1 }, 
             success: function (response) {
                 if (response.success) {
-                    $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
+                    $("#ProductName").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
                     $("#output").attr('src', response.imageUrl);
+                    $("#storeSku").val(response.storeSku);
+                    $("#storeSoSku").val(response.storeSoSku);
+                    $("#brand").val(response.brand);
+                    $("#modelNumber").val(response.modelNumber);
                     var xxxxx = response.imageUrl;
                     $("#xaxaxaxaxa").val(xxxxx);
                 } else {
                     alert(response.message);  // Show an alert if there was an issue
-                    $("#MyProduct").val('');  // Clear product name if not found
+                    $("#ProductName").val('');  // Clear product name if not found
                       // Clear product name if not found
                 }
             },
@@ -206,9 +216,10 @@ window.onclick = function (event) {
 var previousSearchText = '';
 
 function openModal() {
-    $('#BrandName123').val('');
+
+    $('#ScrapingHtmlTitle').val('');
     var productId = $('#product12').val();
-    $('#ProductName').val(productId).trigger('change');
+    $('#modelInput').val(productId).trigger('change');
     previousSearchText = $('#product12').val(); // Store the current search text
     $('#product12').data('previous-value', previousSearchText); // Store it in the data attribute
     document.getElementById("customModal").style.display = "block";
@@ -218,6 +229,12 @@ function openModal() {
     //populateProductNameInModal(productId, brand);
 
 }
+
+$('#ScrapingHtmlTitle').on('change', function () {
+    var modell = $('#modelInput').val();
+    var brand = $('#ScrapingHtmlTitle option:selected').text();
+    populateProductNameInModal(modell, brand);
+});
 
 function closeModal() {
     document.getElementById("customModal").style.display = "none";
@@ -638,6 +655,7 @@ function searchAboutProduct(model) {
 
 $(document).ready(function () {
     var val = $('#AfterSave').text();
+    console.log("AfterSave" + val);
     if (val) {
         searchAboutProduct(val);
     }

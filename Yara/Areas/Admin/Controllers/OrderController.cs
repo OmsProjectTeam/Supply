@@ -1,5 +1,6 @@
 ﻿
 
+using Domin.Entity;
 using Infarstuructre.BL;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -32,7 +33,7 @@ namespace Yara.Areas.Admin.Controllers
         IIPurchaseDocumentation iPurchaseDocumentation;
 
         public OrderController(IIOrder iOrder1, IIBondType iBondType1, IIMerchants iMerchants1, IIProductCategory iProductCategory1, IITypesProduct iTypesProduct1,
-            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager, IIScrapingHtmlTitle iScrapingHtmlTitle1,IIPurchaseDocumentation iPurchaseDocumentation1)
+            IIProductInformation iProductInformation1, IIWareHouse iWareHouse1, IIWareHouseBranch iWareHouseBranch1, MasterDbcontext dbcontext1, IIBrandName iBrandName1, IICompanyInformation iCompanyInformation1, IIUserInformation iUserInformation1, UserManager<ApplicationUser> userManager, IIScrapingHtmlTitle iScrapingHtmlTitle1, IIPurchaseDocumentation iPurchaseDocumentation1)
         {
             iOrder = iOrder1;
             iBondType = iBondType1;
@@ -743,7 +744,7 @@ namespace Yara.Areas.Admin.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        } 
+        }
 
 
 
@@ -863,7 +864,7 @@ namespace Yara.Areas.Admin.Controllers
                     return Json(new { success = false, message = ex.Message });
                 }
             }
-            else if(breand == "Lows")
+            else if (breand == "Lows")
             {
                 try
                 {
@@ -1026,7 +1027,7 @@ namespace Yara.Areas.Admin.Controllers
                 return RedirectToAction("AddOrder", model);
             }
         }
-   
+
 
 
 
@@ -1069,6 +1070,14 @@ namespace Yara.Areas.Admin.Controllers
             return View(vmodel);
         }
 
+
+        [HttpGet("/admin/Order/LoadWareHouseBranches/{idWareBranch}")]
+        [ActionName("LoadWareHouseBranches")]
+        public IActionResult LoadWareHouseBranches(int idWareBranch)
+        {
+            var branches = iWareHouseBranch.GetAllvByWareHouse(idWareBranch);
+            return Ok(branches);
+        }
 
     }
 }

@@ -16,7 +16,7 @@ namespace Domin.Entity
         public string ProductCategory { get; set; }
         public string TypesProduct { get; set; }
         public string ProductName { get; set; }
-        public string UPC { get; set; }
+  
         public string Qrcode { get; set; }
         public string Photo { get; set; }
         public string Model { get; set; }
@@ -52,6 +52,8 @@ namespace Domin.Entity
         public string Email { get; set; }
         public string Role { get; set; }
         public string PhoneNumber { get; set; }
+        public string? UbcMaster { get; set; }
+        public string? UbcSacund { get; set; }
 
 
 

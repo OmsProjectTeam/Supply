@@ -104,9 +104,14 @@
             <div hidden class="Code">@item.Qrcode</div>
             <div class="form-group">
                 <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
-                <div hidden class="UPCFORPR">@item.UPC</div>
+                <div hidden class="UPCFORPR">@item.UbcMaster</div>
             </div>
-            <div class="upc">@(!string.IsNullOrEmpty(item.UPC) ? item.UPC : "UPC: N/A")</div>
+            <div class="upc">@(!string.IsNullOrEmpty(item.UbcMaster) ? item.UbcMaster : "UPC: N/A")</div>
+            <div class="form-group">
+                <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
+                <div hidden class="UPCFORPR">@item.UbcSacund</div>
+            </div>
+            <div class="upc">@(!string.IsNullOrEmpty(item.UbcSacund) ? item.UbcSacund : "UPC: N/A")</div>
         </div>
     }
 

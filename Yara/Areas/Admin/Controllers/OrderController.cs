@@ -123,26 +123,24 @@ namespace Yara.Areas.Admin.Controllers
                     slider.IdBWareHouse = model.Order.IdBWareHouse;
                     slider.IdBWareHouseBranch = model.Order.IdBWareHouseBranch;
                     slider.PurchaseAuotNoumber = model.Order.PurchaseAuotNoumber;
-
-
+                    slider.IdPurchaseDocumentation = model.Order.IdPurchaseDocumentation;
                     slider.sellingPrice = model.Order.sellingPrice;
                     slider.GlobalPrice = model.Order.GlobalPrice;
-
                     slider.QuantityIn = model.Order.QuantityIn;
                     slider.QuantityOute = model.Order.QuantityOute;
                     slider.Qrcode = model.Order.Qrcode;
                     slider.DataEntry = model.Order.DataEntry;
                     slider.DateTimeEntry = model.Order.DateTimeEntry;
                     slider.CurrentState = model.Order.CurrentState;
+                    slider.UbcMaster = model.Order.UbcMaster;
+                    slider.UbcSacund = model.Order.UbcSacund;
                     //Conditions
                     var maxPurchaseAutoNumber = dbcontext.TBOrders.Max(o => (int?)o.PurchaseAuotNoumber) ?? 0;
                     slider.PurchaseAuotNoumber = maxPurchaseAutoNumber + 1;
                     if (slider.GlobalPrice == null)
                         slider.GlobalPrice = 0;
-
                     if (slider.QuantityOute == null)
                         slider.QuantityOute = 0;
-
                     if (slider.IdPurchaseOrder == 0 || slider.IdPurchaseOrder == null)
                     {
                         var reqwest = iOrder.saveData(slider);
@@ -653,9 +651,10 @@ namespace Yara.Areas.Admin.Controllers
 
 
         public async Task<IActionResult> GetProductDetailsForOrder(string productId)
+        
         {
             var product = dbcontext.ViewProductInformation
-                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId).FirstOrDefault();
+                         .Where(p => p.Qrcode == productId || p.Model == productId  || p.ProductName == productId).FirstOrDefault();
 
             if (product != null)
             {
@@ -674,7 +673,7 @@ namespace Yara.Areas.Admin.Controllers
                     storeSku = product.storeSku,
                     sstoreSoSku = product.storeSoSku,
                     scrapingHtmlTitle = product.ScrapingHtmlTitle,
-                    uPC = product.UPC,
+                   
                     mmodel = product.Model,
 
                 });
@@ -706,7 +705,7 @@ namespace Yara.Areas.Admin.Controllers
                 var products = await dbcontext.ViewProductInformation
                     .Where(p => p.Qrcode.StartsWith(query) ||
                                 p.Model.StartsWith(query) ||
-                                p.UPC.StartsWith(query) ||
+                              
                                 p.brand.StartsWith(query) ||
                                 p.storeSku.StartsWith(query) ||
                                 p.storeSoSku.StartsWith(query) ||
@@ -716,14 +715,14 @@ namespace Yara.Areas.Admin.Controllers
                         p.Qrcode,
                         p.ProductName,
                         p.Model,
-                        p.UPC,
+                      
                         p.brand,
                         p.storeSku,
                         p.storeSoSku,
                         MatchingField =
                             p.Qrcode.StartsWith(query) ? "Qrcode" :
                             p.Model.StartsWith(query) ? "Model" :
-                            p.UPC.StartsWith(query) ? "UPC" :
+                         
                             p.brand.StartsWith(query) ? "Brand" :
                             p.storeSoSku.StartsWith(query) ? "StoreSku" :
                             p.storeSoSku.StartsWith(query) ? "StoreSoSku" :
@@ -966,7 +965,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.storeSku = model.ProductInformation.storeSku;
                 slider.storeSoSku = model.ProductInformation.storeSoSku;
                 slider.brand = model.ProductInformation.brand;
-                slider.UPC = model.ProductInformation.UPC;
+              
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
                 slider.DateTimeEntry = model.ProductInformation.DateTimeEntry;

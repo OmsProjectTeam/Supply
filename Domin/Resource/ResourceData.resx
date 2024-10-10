@@ -471,4 +471,7 @@
   <data name="Vlbrand" xml:space="preserve">
     <value>Please check that the brand must be entered for the process to be successful..!</value>
   </data>
+  <data name="VlUbcMaster" xml:space="preserve">
+    <value>Please enter the barcode number to complete the process successfully...!</value>
+  </data>
 </root>

@@ -34,6 +34,13 @@ namespace Domin.Entity
         public DateTime DateTimeEntry { get; set; }
         public bool CurrentState { get; set; }
         public string IdUser { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "VlUbcMaster")]
+        [MaxLength(100, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength100")]
+        [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
+        public string UbcMaster { get; set; }
+        [MaxLength(100, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MaxLength100")]
+        [MinLength(3, ErrorMessageResourceType = typeof(Resource.ResourceData), ErrorMessageResourceName = "MinLength3")]
+        public string? UbcSacund { get; set; }
 
 
 

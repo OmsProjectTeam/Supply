@@ -429,7 +429,7 @@
                                                             <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbPhoto</th>
                                                             <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                     @*                                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th> *@
-                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
+                                                  
                                                             <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbModel</th>
                                                             <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
                                                     <tfoot>
@@ -438,7 +438,7 @@
                                                             <th rowspan="1" colspan="1">@ResourceWeb.LbPhoto</th>
                                                             <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                            @*  <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th> *@
-                                                            <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
+                                                           
                                                             <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
                                                             <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
                                                     </tfoot>
@@ -453,7 +453,7 @@
                                                                 </td>
                                                                 <td class="truncate-50 ProductName">@item.ProductName</td>
                                                                @*  <td class="truncate-50">@item.Make</td> *@
-                                                                <td class="truncate-50 UPC">@item.UPC</td>
+                                                               
                                                                 <td class="truncate-50 Model">@item.Model</td>
                                                                 <td>
                                                                     <div class="switch primary"><input type="checkbox" checked="@item.Active" IdProductInformation="switch-3" disabled><label for="switch-3">@item.Active</label></div>
@@ -611,13 +611,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-4">
+                         @*    <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
                                     <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC12">
                                     <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
                                 </div>
-                            </div>
+                            </div> *@
 
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">

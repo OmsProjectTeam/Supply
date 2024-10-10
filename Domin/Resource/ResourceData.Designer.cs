@@ -1060,6 +1060,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the barcode number to complete the process successfully...!.
+        /// </summary>
+        public static string VlUbcMaster {
+            get {
+                return ResourceManager.GetString("VlUbcMaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please include VlUPC  to complete successfully..!.
         /// </summary>
         public static string VlUPC {

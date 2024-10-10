@@ -380,7 +380,7 @@ namespace Yara.Areas.Admin.Controllers
         public async Task<JsonResult> GetProductDetailsForOrder(string productId)
         {
             var product = dbcontext.ViewProductInformation
-                         .Where(p => p.Qrcode == productId || p.Model == productId || p.UPC == productId || p.ProductName == productId ).FirstOrDefault();
+                         .Where(p => p.Qrcode == productId || p.Model == productId  || p.ProductName == productId ).FirstOrDefault();
 
 
             if (product != null)
@@ -427,7 +427,7 @@ namespace Yara.Areas.Admin.Controllers
                 var products = await dbcontext.ViewProductInformation
                     .Where(p => p.Qrcode.StartsWith(query) ||
                                 p.Model.StartsWith(query) ||
-                                p.UPC.StartsWith(query) ||
+                             
                                 p.ProductName.StartsWith(query)) 
                                 //p.Make.StartsWith(query))
                     .Select(p => new { p.Qrcode, p.ProductName, p.Model, p.Photo })
@@ -506,14 +506,14 @@ namespace Yara.Areas.Admin.Controllers
 
 
 
-        public async Task<string> GetUPC(int value)
-        {
+        //public async Task<string> GetUPC(int value)
+        //{
 
-            var product = await iProductInformation.GetByIdFromViewAsync(value);
-            if (product == null)
-                return "000000000000";
+        //    var product = await iProductInformation.GetByIdFromViewAsync(value);
+        //    if (product == null)
+        //        return "000000000000";
 
-            return product.UPC;
-        }
+        //    return product.UPC;
+        //}
     }
 }

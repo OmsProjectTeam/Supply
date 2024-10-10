@@ -156,60 +156,25 @@
                          <div class="row small-spacing">
                         <div class="col-sm-6">
                         <div class="form-group">
-                        <label>Brand</label>
-                        <input id="Brand"  type="text"  class="form-control" maxlength="300">
+                        <label hidden>Brand</label>
+                                    <input id="Brand" type="hidden" class="form-control" maxlength="300">
              
 
                         </div>
                         </div>
+                       
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Scraping Html Title</label>
-                                    <input id="ScrapingHtmlTitle1212" type="text" class="form-control" maxlength="300">
+                                    <label hidden>Scraping Html Title</label>
+                                    <input id="ScrapingHtmlTitle1212" type="hidden" class="form-control" maxlength="300">
 
 
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row small-spacing">
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>UPC</label>
-                                    <input id="UPCx" type="text" class="form-control" maxlength="300">
-
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>SKU</label>
-                                    <input id="sku1212" type="text" class="form-control" maxlength="300">
-
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>SKU SO</label>
-                                    <input id="soSku" type="text" class="form-control" maxlength="300">
-
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>Model</label>
-                                    <input id="mmoodel" type="text" class="form-control" maxlength="300">
-
-
-                                </div>
-                            </div>
-                        </div>
+                     
 
                         <div class="row small-spacing">
 
@@ -231,6 +196,8 @@
 
                                 </div>
                             </div>
+                            </div>
+                        <div class="row small-spacing">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="@Model.Order.IdBWareHouse">@ResourceWeb.LbWareHouse</label>
@@ -243,6 +210,52 @@
                                     <label asp-for="@Model.Order.IdBWareHouseBranch">@ResourceWeb.LbWareHouseBranchName</label>
                                     <select class="form-control select2_1" asp-for="@Model.Order.IdBWareHouseBranch" asp-items="@(new SelectList(ViewBag.WareHouseBranch, "IdBWareHouseBranch", "WareHouseBranchName"))" id="SelectWareHouseBranch"></select>
                                     <span asp-validation-for="@Model.Order.IdBWareHouseBranch" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row small-spacing">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.UbcMaster">UPC  Master</label>
+                                    <input asp-for="@Model.Order.UbcMaster" id="UPCx" type="text" class="form-control" maxlength="100">
+                                    <span asp-validation-for="@Model.Order.UbcMaster" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.UbcSacund"> UPC Sacund</label>
+                                    <input asp-for="@Model.Order.UbcSacund" id="UPCx" type="text" class="form-control" maxlength="100">
+                                    <span asp-validation-for="@Model.Order.UbcSacund" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label hidden>SKU</label>
+                                    <input id="sku1212" type="hidden" class="form-control" maxlength="300">
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label hidden>SKU SO</label>
+                                    <input id="soSku" type="hidden" class="form-control" maxlength="300">
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label hidden>Model</label>
+                                    <input id="mmoodel" type="hidden" class="form-control" maxlength="300">
+
+
                                 </div>
                             </div>
                         </div>
@@ -316,23 +329,23 @@
                         </div>
                         <div class="row small-spacing">
 
-                          
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Order.Qrcode">@ResourceWeb.lbQrcode</label>
-                                    <textarea id="Qrcode" asp-for="@Model.Order.Qrcode" type="text" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" rows="8"></textarea>
-                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
 
+                            <div class="col-sm-6" style="display:none;">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Order.Qrcode" hidden>@ResourceWeb.lbQrcode</label>
+                                    <input id="Qrcode" asp-for="@Model.Order.Qrcode" type="hidden" placeholder="@ResourceWeb.lbQrcode ...." class="form-control" maxlength="1000" />
+                                    <span asp-validation-for="@Model.Order.Qrcode" class="text-danger"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
+                       
+                        <div class="col-sm-6" style="display:none;">
                             <div class="form-group">
-                                <label asp-for="@Model.Order.CurrentState">@ResourceWeb.lbCurrentState</label>
+                                <label  asp-for="@Model.Order.CurrentState">@ResourceWeb.lbCurrentState</label>
                                 <input asp-for="@Model.Order.CurrentState" checked type="checkbox" placeholder="@ResourceWeb.lbCurrentState...." class="form-control">
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <img id="QRCodeImage11" src="" alt="QR Code" class="img-fluid" hidden/>
                @*                  <div>
@@ -580,13 +593,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-4">
+                            @*     <div class="col-12 col-sm-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
                                     <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC12">
                                         <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
                                     </div>
-                                </div>
+                                </div> *@
 
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group">

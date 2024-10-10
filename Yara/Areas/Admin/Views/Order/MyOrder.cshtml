@@ -104,7 +104,7 @@
 
                                                             <div class="form-group">
                                                                 <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
-                                                                <div hidden class="UPCFORPR">@item.UPC</div>
+                                                                <div hidden class="UPCFORPR">@item.UbcMaster</div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -129,6 +129,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbProductName</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbMake</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbUPC</th>
 
                                             <tfoot>
                                                 <tr>
@@ -139,6 +140,7 @@
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbModel</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbProductName</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbMake</th>
+                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.lbUPC</th>
 
 
@@ -157,7 +159,8 @@
                                                         <td class="truncate-50">@item.Model</td>
                                                         <td class="truncate-50">@item.ProductName</td>
                                                         <td class="truncate-50">@item.brand</td>
-                                                        <td class="truncate-50">@item.UPC</td>
+                                                        <td class="truncate-50">@item.UbcMaster</td>
+                                                        <td class="truncate-50">@item.UbcSacund</td>
 
                                                     </tr>
                                                         }

@@ -1,4 +1,15 @@
 ﻿
+
+function generateGUIDChar() {
+    let chars = '0123456789';
+    let guid = '';
+    for (let i = 0; i < 11; i++) {
+        guid += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return '10' + guid;
+}
+
+
 function CreateBarCode(text) {
 
     const apiUrl = `/Admin/ProductInformationLowes/GenerateBarcode?text=${encodeURIComponent(text)}`;
@@ -339,8 +350,8 @@ function populateProductDetails(productDetails) {
         $('#UPCx').val(productDetails.uPC).trigger('change');
         $('#soSku').val(productDetails.sstoreSoSku);
         $('#mmoodel').val(productDetails.mmodel);
-
-
+        var x = generateGUIDChar();
+        $('#UPCxv').val(x);
 
         FetchPrice();
 
@@ -351,7 +362,6 @@ function populateProductDetails(productDetails) {
 
 
 function checkProductAvailability(productId) {
-    console.log("checkProductAvailability:" + productId);
     $.ajax({
         url: '/admin/Order/GetProductDetailsForOrder',
         type: 'GET',
@@ -814,3 +824,5 @@ $('#SelectWareHouse').change(function () {
 $(document).ready(function () {
     $('#SelectWareHouse').trigger('change');
 });
+
+

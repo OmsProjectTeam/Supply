@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domin.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infarstuructre.BL
 {
@@ -11,6 +12,7 @@ namespace Infarstuructre.BL
         bool UpdateData(TBWareHouseBranch updatss);
         bool deleteData(int idBWareHouseBranch);
         List<TBViewWareHouseBranch> GetAllv(int idBWareHouseBranch);
+        List<TBViewWareHouseBranch> GetAllvByWareHouse(int idBWareHouse);
         List<TBViewWareHouseBranch> GetAllActive();
         //////////////////API//////////////////////////
         Task<List<TBViewWareHouseBranch>> GetAllAPI();
@@ -20,6 +22,7 @@ namespace Infarstuructre.BL
         Task SaveDataAPI(TBWareHouseBranch savee);
         Task DeleteDataAPI(int idBWareHouseBranch);
         Task UpdateDataAPI(TBWareHouseBranch update);
+        Task<List<TBViewWareHouseBranch>> GetAllvByWareHouseAsync(int idBWareHouse);
     }
 
     public class CLSTBWareHouseBranch : IIWareHouseBranch
@@ -95,6 +98,12 @@ namespace Infarstuructre.BL
             return MySlider;
         }
 
+        public List<TBViewWareHouseBranch> GetAllvByWareHouse(int idBWareHouse)
+        {
+            List<TBViewWareHouseBranch> MySlider = dbcontext.ViewWareHouseBranch.OrderByDescending(n => n.IdBWareHouse == idBWareHouse).Where(a => a.IdBWareHouse == idBWareHouse).Where(a => a.CurrentState == true).ToList();
+            return MySlider;
+        }
+
         //////////////////API//////////////////////////
 
         public async Task<List<TBViewWareHouseBranch>> GetAllAPI()
@@ -139,6 +148,12 @@ namespace Infarstuructre.BL
         {
             dbcontext.Entry(update).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await dbcontext.SaveChangesAsync();
+        }
+
+        public async Task<List<TBViewWareHouseBranch>> GetAllvByWareHouseAsync(int idBWareHouse)
+        {
+            List<TBViewWareHouseBranch> MySlider = await dbcontext.ViewWareHouseBranch.OrderByDescending(n => n.IdBWareHouse == idBWareHouse).Where(a => a.IdBWareHouse == idBWareHouse).Where(a => a.CurrentState == true).ToListAsync();
+            return MySlider;
         }
     }
 }

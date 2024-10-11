@@ -788,3 +788,29 @@ $(document).ready(function () {
 
 
 
+function loadBranchData(wareHouseId) {
+    $.ajax({
+        url: '/admin/Order/LoadWareHouseBranches/' + wareHouseId,
+        type: 'GET',
+        success: function (data) {
+            console.log(data);
+            $('#SelectWareHouseBranch').empty();
+            $.each(data, function (index, branch) {
+                $('#SelectWareHouseBranch').append('<option value="' + branch.idBWareHouseBranch + '">' + branch.code + '</option>');
+            });
+        },
+        error: function () {
+            console.error("Error fetching branch details.");
+        }
+    });
+}
+
+$('#SelectWareHouse').change(function () {
+    var id = $(this).val();
+    loadBranchData(id);
+});
+
+
+$(document).ready(function () {
+    $('#SelectWareHouse').trigger('change');
+});

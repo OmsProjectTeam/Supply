@@ -187,24 +187,11 @@
             }
         }
 
-
-
-
-
         [HttpGet]
-        public JsonResult GetUserDetails(string id)
+        public IActionResult GetMerchantData(string id)
         {
-            var user = _userManager.Users.SingleOrDefault(u => u.Id == id);
-            if (user != null)
-            {
-                return Json(new
-                {
-                    MerchantPhone = user.PhoneNumber,
-                    MerchantEmaile = user.Email,
-                    // أضف هنا المزيد من الخصائص إذا كنت بحاجة إليها
-                });
-            }
-            return Json(new { });
+            var data = iUserInformation.GetAllbyId(id);
+            return Ok(data);
         }
     }
 }

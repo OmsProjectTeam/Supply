@@ -998,8 +998,6 @@ namespace Yara.Areas.Admin.Controllers
                         return RedirectToAction("AddOrder");
                     }
                 }
-
-
                 // Save or update the product information
                 if (slider.IdProductInformation == 0)
                 {
@@ -1014,9 +1012,7 @@ namespace Yara.Areas.Admin.Controllers
                 {
                     dbcontext.TBProductInformations.Update(slider);
                 }
-
                 await dbcontext.SaveChangesAsync();
-
                 TempData["Saved successfully"] = "Saved successfully.";
                 TempData["AfterSave"] = model.ProductInformation.Model;
                 return RedirectToAction("AddOrder");
@@ -1027,10 +1023,6 @@ namespace Yara.Areas.Admin.Controllers
                 return RedirectToAction("AddOrder", model);
             }
         }
-
-
-
-
         public IActionResult printInvoce(int IdPurchaseOrder)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
@@ -1050,26 +1042,21 @@ namespace Yara.Areas.Admin.Controllers
             return View(vmodel);
 
         }
-
-        public IActionResult printPurchase(int IdPurchaseOrder)
+       public IActionResult printPurchase(int IdPurchaseOrder)
         {
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
             vmodel.ListCompanyInformatione = iCompanyInformation.GetAll().Take(1);
-
             // تأكد من أن CompanieTypeWork مهيأ حتى لو لم يكن هناك ID
             if (vmodel.ListCompanyInformatione == null)
             {
                 vmodel.CompanyInformation = new TBCompanyInformation(); // أو النوع الصحيح
             }
-
             if (IdPurchaseOrder != null)
             {
                 vmodel.ListViewOrder = iOrder.GetAllv(IdPurchaseOrder);
             }
-
             return View(vmodel);
         }
-
 
         [HttpGet("/admin/Order/LoadWareHouseBranches/{idWareBranch}")]
         [ActionName("LoadWareHouseBranches")]
@@ -1078,6 +1065,5 @@ namespace Yara.Areas.Admin.Controllers
             var branches = iWareHouseBranch.GetAllvByWareHouse(idWareBranch);
             return Ok(branches);
         }
-
     }
 }

@@ -7,9 +7,11 @@
 <div class="col-xs-12">
     <div class="box-content">
         <ul class="list-inline">
-            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Roles Information</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area="Admin"asp-controller="Home"asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area=""asp-controller="Home"asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Roles Information</button></a></li>
+      
+
 
             <span style="color:royalblue"> <strong>@TempData["Delete successful"]</strong></span>
             <span style="color:red"> <strong>@TempData["Delete Error"]</strong></span>

@@ -6,9 +6,12 @@
 
 <div class="box-content">
     <ul class="list-inline">
-        <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Add Role</button></a></li>/
+        <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>/
         <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-        <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Accounts" asp-action="Roles"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBLbRoles</button></a></li>/
+        <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Add Role</button></a></li>
+
+
         <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
         <br>
         <br>

@@ -7,9 +7,10 @@
 <div class="col-xs-12">
     <div class="box-content">
         <ul class="list-inline">
-            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMyWareHouseType</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMyWareHouseType</button></a></li>
+
             <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
             <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
         </ul>
@@ -28,9 +29,9 @@
                                 <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
                                 <div class="navbar-inner">
                                     <ul>
-                                        <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbWareHouseType</a></li>
+                                        <li><a href="#tab-progress-1" data-toggle="tab">@ResourceWeb.LbInformaition</a></li>
 
-                                        <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbInformaition</a></li>
+                                        <li><a href="#tab-progress-3" data-toggle="tab">@ResourceWeb.LbOpration</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -42,26 +43,27 @@
                             <div class="tab-pane" id="tab-progress-1">
                                 <div class='table-responsive'>
                                     <div style="overflow-x:auto;">
-                                        <table id="example" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                        <table id="example" class="table table-striped table-bordered table-hover display dataTable responsive display dataTable" style="width: 100%;" role="grid" aria-describedby="example_info">
 
                                             <thead>
                                                 <tr role="row">
-                                                    <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
+                                                    @* <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th> *@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseType</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActive</th>
-                                            <tfoot>
+                                           @*  <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseType</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbActive</th>
 
-                                            </tfoot>
+                                            </tfoot> *@
                                             <tbody>
+                                               
                                                         @foreach (var item in Model.ViewWareHouseType)
                                                         {
                                                     <tr role="row" class="odd">
-                                                        <td>@item.IdWareHouseType</td>
-                                                        <td class="truncate-50">@item.WareHouseType</td>
+                                                       @*  <td>@item.IdWareHouseType</td> *@
+                                                        <td class="text-custom"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="AddWareHouseType" asp-route-IdWareHouseType="@item.IdWareHouseType">@item.WareHouseType</a></td>
                                                         <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.Active" IdTypesOfMessage="switch-3" disabled><label for="switch-3">@item.Active</label></div>
                                                         </td>
@@ -76,24 +78,24 @@
                             <div class="tab-pane" id="tab-progress-3">
                                 <div class='table-responsive'>
                                     <div style="overflow-x:auto;">
-                                        <table id="example2" class="table table-striped table-bordered display dataTable table-responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                        <table id="example2" class="table table-striped table-bordered table-hover display dataTable responsive display dataTable" style="width: 100%;" role="grid" aria-describedby="example_info">
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbWareHouseType</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDataEntry</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbDateTimeEntry</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbWareHouseType</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbDataEntry</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbDateTimeEntry</th>
+@*                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.lbCurrentState</th> *@
                                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbOpration</th>
-                                            <tfoot>
+                                       @*      <tfoot>
                                                 <tr>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbId</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbWareHouseType</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDataEntry</th>
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbDateTimeEntry</th>
-                                                    <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th>
+                                                   @*  <th rowspan="1" colspan="1">@ResourceWeb.lbCurrentState</th> 
                                                     <th rowspan="1" colspan="1">@ResourceWeb.LbOpration</th>
-                                            </tfoot>
+                                            </tfoot> *@
                                             <tbody>
                                                         @foreach (var item in Model.ViewWareHouseType)
                                                         {
@@ -103,13 +105,13 @@
                                                         <td>@item.WareHouseType</td>
                                                         <td>@item.DataEntry</td>
                                                         <td>@item.DateTimeEntry</td>
-                                                        <td>
+                                                      @*   <td>
                                                             <div class="switch primary"><input type="checkbox" checked="@item.CurrentState" IdTypesOfMessage="switch-2" disabled><label for="switch-2">@item.CurrentState</label></div>
-                                                        </td>
+                                                        </td> *@
                                                         <td>
                                                             <ul class="list-inline">
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="AddWareHouseType" asp-route-IdWareHouseType="@item.IdWareHouseType"><button type="button" class="btn btn-primary btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
-                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="DeleteData" asp-route-IdWareHouseType="@item.IdWareHouseType"><button type="button" class="btn btn-danger btn-circle btn-lg waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="AddWareHouseType" asp-route-IdWareHouseType="@item.IdWareHouseType"><button type="button" class="btn btn-primary btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-edit"></i></button></a></li>|
+                                                                <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="WareHouseType" asp-action="DeleteData" asp-route-IdWareHouseType="@item.IdWareHouseType"><button type="button" class="btn btn-danger btn-circle btn-xs waves-effect waves-light"><i class="ico fa fa-remove"></i></button></a></li>
                                                             </ul>
                                                         </td>
                                                     </tr>

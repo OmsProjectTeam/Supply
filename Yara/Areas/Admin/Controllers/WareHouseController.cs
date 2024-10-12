@@ -88,7 +88,7 @@ namespace Yara.Areas.Admin.Controllers
             ViewmMODeElMASTER vmodel = new ViewmMODeElMASTER();
 
             vmodel.ViewWareHouse = iWareHouse.GetAll();
-            ViewBag.WareHouseType = iWareHouseType.GetAll();
+            ViewBag.WareHouseType = iWareHouseType.GetAllActive();
 
             if (IdBWareHouse != null)
             {

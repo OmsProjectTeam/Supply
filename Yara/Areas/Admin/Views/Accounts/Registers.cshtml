@@ -7,9 +7,9 @@
 <div class="col-xs-12">
     <div class="box-content">
         <ul class="list-inline">
-            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">User Information</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">User Information</button></a></li>
             <span style="color:royalblue"> <strong>@TempData["Delete successful"]</strong></span>
             <span style="color:red"> <strong>@TempData["Delete Error"]</strong></span>
 
@@ -39,7 +39,7 @@
                                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbUserPhone</th>
                                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbUserEmail</th>
                                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbNameRols</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActiveUser</th>
+               @*                          <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 64px;">@ResourceWeb.LbActiveUser</th> *@
                                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">@ResourceWeb.LbOpration</th>
                                 <tfoot>
                                     <tr>
@@ -49,7 +49,7 @@
                                         <th rowspan="1" colspan="1">@ResourceWeb.LbUserPhone</th>
                                         <th rowspan="1" colspan="1">@ResourceWeb.LbUserEmail</th>
                                         <th rowspan="1" colspan="1">@ResourceWeb.LbNameRols</th>
-                                        <th rowspan="1" colspan="1">@ResourceWeb.LbActiveUser</th>
+                                       @*  <th rowspan="1" colspan="1">@ResourceWeb.LbActiveUser</th> *@
                                         <th rowspan="1" colspan="1">@ResourceWeb.LbOpration</th>
                                 </tfoot>
                                 <tbody>
@@ -65,9 +65,9 @@
                                             <td>@item.PhoneNumber</td>
                                             <td>@item.Email</td>
                                             <td>@item.Role</td>
-                                            <td>
+                                           @*  <td>
                                                 <div class="switch primary"><input type="checkbox" checked="@item.ActiveUser" id="switch-2" disabled><label for="switch-2">@item.ActiveUser</label></div>
-                                            </td>
+                                            </td> *@
                                             <td>
                                                 <ul class="list-inline">
 

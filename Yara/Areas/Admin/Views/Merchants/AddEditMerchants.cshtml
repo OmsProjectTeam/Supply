@@ -3,22 +3,20 @@
     ViewData["Title"] = ResourceWeb.LBAddEditMerchants;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="col-xs-12">
     <div class="box-content">
         <ul class="list-inline">
-            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddEditMerchants</button></a></li>/
+            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Merchants" asp-action="MYMerchants"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYMerchants</button></a></li>
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddEditMerchants</button></a></li>
             <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
             <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
         </ul>
-
         <div class="row small-spacing">
             <div class="col-lg-6 col-xs-12">
                 <div class="box-content card white">
                     <h4 class="box-title">@ResourceWeb.LBEmageSise</h4>
-
                     <div class="card-content">
                         <form role="form" method="post" asp-controller="Merchants" asp-action="Save" enctype="multipart/form-data">
                             <div class="form-group">
@@ -26,10 +24,7 @@
                                 <input type="hidden" asp-for="@Model.Merchants.IdMerchants" class="form-control">
                                 <input type="hidden" asp-for="@Model.Merchants.DateTimeEntry" value="@DateTime.Now">
                                 <input type="hidden" asp-for="@Model.returnUrl" id="url">
-                            </div>
-
-                         
-
+                            </div>                        
                             <div class="card-content">
                                 <div class="row small-spacing">
 
@@ -56,7 +51,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card-content">
                                 <div class="row small-spacing">
                                     <div class="col-12 col-sm-6">
@@ -66,7 +60,6 @@
                                             <span asp-validation-for="@Model.Merchants.MerchantEmaile" class="text-danger"></span>
                                         </div>
                                     </div>
-
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label asp-for="@Model.Merchants.MerchantAddres" for="exampleInputEmail1">@ResourceWeb.LbMerchantAddres</label>

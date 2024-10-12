@@ -806,7 +806,7 @@ function loadBranchData(wareHouseId) {
             console.log(data);
             $('#SelectWareHouseBranch').empty();
             $.each(data, function (index, branch) {
-                $('#SelectWareHouseBranch').append('<option value="' + branch.idBWareHouseBranch + '">' + branch.code + '</option>');
+                $('#SelectWareHouseBranch').append('<option value="' + branch.idBWareHouseBranch + '">' + branch.wareHouseBranchName + '</option>');
             });
         },
         error: function () {

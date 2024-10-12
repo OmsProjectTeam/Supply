@@ -33,6 +33,7 @@ namespace Infarstuructre.BL
             List<TBWareHouseType> MySlider = dbcontext.TBWareHouseTypes.Where(a => a.CurrentState == true).ToList();
             return MySlider;
         }
+
         public List<TBWareHouseType> GetAllActive()
         {
             List<TBWareHouseType> MySlider = dbcontext.TBWareHouseTypes.OrderByDescending(n => n.IdWareHouseType).Where(a => a.CurrentState == true).Where(a => a.Active == true).ToList();

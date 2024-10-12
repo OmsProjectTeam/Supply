@@ -86,7 +86,7 @@
 			<!-- /.title -->
 			<ul class="menu js__accordion">
 				<li class="current">
-					<a class="waves-effect" href="index.html"><i class="menu-icon fa fa-home"></i><span>Dashboard</span></a>
+					<a class="waves-effect" asp-area="Admin"asp-controller="Home"asp-action="Index"><i class="menu-icon fa fa-home"></i><span>Dashboard</span></a>
 				</li>
 				<li>
 						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-user"></i><span>@ResourceWeb.LBUsersInformationEn</span><span class="menu-arrow fa fa-angle-down"></span></a>
@@ -99,21 +99,21 @@
 				<li>
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-adjust"></i><span>@ResourceWeb.LBGeneralSettings</span><span class="menu-arrow fa fa-angle-down"></span></a>
 					<ul class="sub-menu js__content">				
-                            <li><a asp-area="Admin" asp-controller="EmailAlartSetting" asp-action="MyEmailAlartSetting" asp-route-userId="@user.Id">@ResourceWeb.LBMyEmailAlartSetting</a></li>
-                            <li><a asp-area="Admin" asp-controller="CustomerMessages" asp-action="MyCustomerMessages" asp-route-userId="@user.Id">@ResourceWeb.LBMyCustomerMessages</a></li>
+                @*             <li><a asp-area="Admin" asp-controller="EmailAlartSetting" asp-action="MyEmailAlartSetting" asp-route-userId="@user.Id">@ResourceWeb.LBMyEmailAlartSetting</a></li>
+                            <li><a asp-area="Admin" asp-controller="CustomerMessages" asp-action="MyCustomerMessages" asp-route-userId="@user.Id">@ResourceWeb.LBMyCustomerMessages</a></li> *@
                             <li><a asp-area="Admin" asp-controller="WareHouseType" asp-action="MyWareHouseType" asp-route-userId="@user.Id">@ResourceWeb.LBMyWareHouseType</a></li>                         
                             <li><a asp-area="Admin" asp-controller="productCategory" asp-action="MyproductCategory" asp-route-userId="@user.Id">@ResourceWeb.LBMyproductCategory</a></li>
                             <li><a asp-area="Admin" asp-controller="TypesProduct" asp-action="MyTypesProduct" asp-route-userId="@user.Id">@ResourceWeb.LBMyTypesProduct</a></li>
-                            <li><a asp-area="Admin" asp-controller="BondType" asp-action="MyBondType" asp-route-userId="@user.Id">@ResourceWeb.LBMyBondType</a></li>
-                            <li><a asp-area="Admin" asp-controller="SupportTicketType" asp-action="MySupportTicketType" asp-route-userId="@user.Id">@ResourceWeb.LBMySupportTicketType</a></li>
-                            <li><a asp-area="Admin" asp-controller="SupportTicketStatus" asp-action="MySupportTicketStatus" asp-route-userId="@user.Id">@ResourceWeb.lbMySupportTicketStatus</a></li>
-                            <li><a asp-area="Admin" asp-controller="NewsLetterGroup" asp-action="MyNewsLetterGroups" asp-route-userId="@user.Id">@ResourceWeb.LbMyNewsLetterGroups</a></li>
-                            <li><a asp-area="Admin" asp-controller="Template" asp-action="MyTemplates" asp-route-userId="@user.Id">@ResourceWeb.LbMyTemplates</a></li>
+                          @*   <li><a asp-area="Admin" asp-controller="BondType" asp-action="MyBondType" asp-route-userId="@user.Id">@ResourceWeb.LBMyBondType</a></li> *@
+                         @*    <li><a asp-area="Admin" asp-controller="SupportTicketType" asp-action="MySupportTicketType" asp-route-userId="@user.Id">@ResourceWeb.LBMySupportTicketType</a></li>
+                            <li><a asp-area="Admin" asp-controller="SupportTicketStatus" asp-action="MySupportTicketStatus" asp-route-userId="@user.Id">@ResourceWeb.lbMySupportTicketStatus</a></li> *@
+                         @*    <li><a asp-area="Admin" asp-controller="NewsLetterGroup" asp-action="MyNewsLetterGroups" asp-route-userId="@user.Id">@ResourceWeb.LbMyNewsLetterGroups</a></li>
+                            <li><a asp-area="Admin" asp-controller="Template" asp-action="MyTemplates" asp-route-userId="@user.Id">@ResourceWeb.LbMyTemplates</a></li *@>
                             <li><a asp-area="Admin" asp-controller="CompanyInformation" asp-action="MYCompanyInformation" asp-route-userId="@user.Id">@ResourceWeb.BlMYCompanyInformation</a></li>
-                            <li><a asp-area="Admin" asp-controller="BrandName" asp-action="MyBrandName" asp-route-userId="@user.Id">@ResourceWeb.LBMyBrandName</a></li>
-                            <li><a asp-area="Admin" asp-controller="TypesOfMessage" asp-action="MyTypesOfMessage" asp-route-userId="@user.Id">@ResourceWeb.LBMyTypesOfMessage</a></li>
+                          @*   <li><a asp-area="Admin" asp-controller="BrandName" asp-action="MyBrandName" asp-route-userId="@user.Id">@ResourceWeb.LBMyBrandName</a></li> *@
+                           @*  <li><a asp-area="Admin" asp-controller="TypesOfMessage" asp-action="MyTypesOfMessage" asp-route-userId="@user.Id">@ResourceWeb.LBMyTypesOfMessage</a></li> *@
                             <li><a asp-area="Admin" asp-controller="ScrapingHtmlTitle" asp-action="MyScrapingHtmlTitle" asp-route-userId="@user.Id">@ResourceWeb.LBMyScrapingHtmlTitle</a></li>
-                            <li><a asp-area="Admin" asp-controller="HtmlAgility" asp-action="myLodeHtml" asp-route-userId="@user.Id">إختبار عنوان </a></li>			
+                           @*  <li><a asp-area="Admin" asp-controller="HtmlAgility" asp-action="myLodeHtml" asp-route-userId="@user.Id">إختبار عنوان </a></li>	 *@		
 					</ul>
 					<!-- /.sub-menu js__content -->
 				</li>		
@@ -150,7 +150,7 @@
 					<!-- /.sub-menu js__content -->
 				</li>
 			
-				<li>
+			@* 	<li>
 						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-th-large"></i><span>@ResourceWeb.LBCustomers</span></a>
 					<ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="CustomerMessages" asp-action="MyCustomerMessages" asp-route-userId="@user.Id">@ResourceWeb.LBMyCustomerMessages</a></li>
@@ -158,7 +158,7 @@
                             <li><a asp-area="Admin" asp-controller="NewsLetter" asp-action="MyNewsLetters" asp-route-userId="@user.Id">@ResourceWeb.LbMyNewsLetter</a></li>												
 					</ul>
 					<!-- /.sub-menu js__content -->
-				</li>    
+				</li>   *@  
 					<li>
 						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-th-large"></i><span>@ResourceWeb.LBMerchants</span></a>
 						<ul class="sub-menu js__content">
@@ -170,15 +170,15 @@
                     @* <li>
                         <a class="waves-effect" href="calendar.html"><i class="menu-icon fa fa-calendar"></i><span>Calendar</span></a>
                     </li> *@
-                    <li>
+                @*     <li>
                         <a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-table"></i><span>order</span><span class="menu-arrow fa fa-angle-down"></span></a>
                         <ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="OrderNew" asp-action="MyOrderNew" asp-route-userId="@user.Id">@ResourceWeb.LBMyOrderNew</a></li>
                          
                         </ul>
                         <!-- /.sub-menu js__content -->
-                    </li>
-                    <li>
+                    </li> *@
+               @*      <li>
                         <a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-table"></i><span>FAQ</span><span class="menu-arrow fa fa-angle-down"></span></a>
                         <ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="FAQ" asp-action="MyFAQ" asp-route-userId="@user.Id">@ResourceWeb.LbMyFAQ</a></li>
@@ -186,18 +186,18 @@
                             <li><a asp-area="Admin" asp-controller="FAQList" asp-action="MyFAQList" asp-route-userId="@user.Id">@ResourceWeb.LbMyFAQList</a></li>
                         </ul>
                         <!-- /.sub-menu js__content -->
-                    </li>
-                    <li>
+                    </li> *@
+                @*     <li>
                         <div id="notification" style="display: none; color: red;"></div>
                         <a class="waves-effect parent-item js__control" href="#"><i class="menu-icon fa fa-table"></i><span>Chat</span><span class="menu-arrow fa fa-angle-down"></span></a>
                         <ul class="sub-menu js__content">
                             <li><a asp-area="Admin" asp-controller="Chat" asp-action="Index" asp-route-userId="@user.Id">My Chat</a></li>
                         </ul>
                         <!-- /.sub-menu js__content -->
-                    </li>
+                    </li> *@
                 </ul>
                 <!-- /.menu js__accordion -->
-                <h5 class="title">Additions</h5>
+            @*     <h5 class="title">Additions</h5> *@
                 <!-- /.title -->
                 <ul class="menu js__accordion">
                     @* <li>

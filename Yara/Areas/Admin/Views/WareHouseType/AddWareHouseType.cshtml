@@ -1,6 +1,6 @@
 ﻿@model ViewmMODeElMASTER
 @{
-    ViewData["Title"] = "AddFAQ";
+    ViewData["Title"] = ResourceWeb.LBAddWareHouseType;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="row small-spacing">
@@ -8,14 +8,18 @@
         <div class="box-content">
             <ul class="list-inline">
                 <li class="margin-bottom-10">
-                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbWareHouseType</button></a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>/
                 </li>
                 <li class="margin-bottom-10">
-                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>/
                 </li>
                 <li class="margin-bottom-10">
-                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                    <a asp-area="Admin" asp-controller="WareHouseType" asp-action="MyWareHouseType"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbWareHouseType</button></a>
                 </li>
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddWareHouseType</button></a>
+                </li>
+               
             </ul>
             <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
             <span class="text-danger"><strong>@TempData["ErrorSave"]</strong></span>
@@ -44,7 +48,7 @@
                     </div>
                     <div class="row small-spacing">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" style="display:none;">
                                 <label asp-for="@Model.WareHouseType.Active">@ResourceWeb.LbActive</label>
                                 <input asp-for="@Model.WareHouseType.Active" type="checkbox" checked class="form-control">
                                 <span asp-validation-for="@Model.WareHouseType.Active" class="text-danger"></span>

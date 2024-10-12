@@ -3,110 +3,141 @@
     ViewData["Title"] = "Print Label";
     Layout = null;
 }
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    .label-container {
+        border: 1px solid #000;
+        width: 231px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .section {
+        margin-bottom: 10px;
+        border: 1px solid #000;
+        padding: 5px;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #000;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .text-container {
+        flex-grow: 1;
+        text-align: right;
+        font-size: 14px;
+    }
+
+    .address-section, .product-details {
+        margin-top: 10px;
+        font-size: 12px;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5px;
+        border-top: 1px solid #000;
+    }
+
+    .qr-code {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 5px;
+    }
+
+    .barcode {
+        width: 180px;
+        height: 40px;
+        margin-top: 5px;
+    }
+
+    .upc {
+        text-align: center;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    .merchant-initial {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #000;
+        background-color: #f0f0f0;
+        border-radius: 0; /* إزالة الحواف المستديرة لجعل الإطار مربعًا */
+    }
+
+        .merchant-initial .initial {
+            font-size: 48px; /* حجم الخط كبير جدًا */
+            font-weight: bold; /* الخط غامق */
+            color: #333;
         }
 
-        .label-container {
-            border: 1px solid #000;
-            width: 231px;
-            padding: 10px;
-            box-sizing: border-box;
-        }
+    .qr-code {
+        width: 100px; /* حجم QR Code */
+        height: 100px;
+    }
 
-        .section {
-            margin-bottom: 10px;
-            border: 1px solid #000;
-            padding: 5px;
-        }
+</style>
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #000;
-        }
 
-        .logo {
-            width: 50px;
-            height: 50px;
-        }
 
-        .text-container {
-            flex-grow: 1;
-            text-align: right;
-            font-size: 14px;
-        }
-
-        .address-section, .product-details {
-            margin-top: 10px;
-            font-size: 12px;
-        }
-
-        .footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 5px;
-            border-top: 1px solid #000;
-        }
-
-        .qr-code {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 5px;
-        }
-
-        .barcode {
-            width: 180px;
-            height: 40px;
-            margin-top: 5px;
-        }
-
-        .upc {
-            text-align: center;
-            margin-top: 5px;
-            font-size: 14px;
-        }
-    </style>
-
-    
-
-    <div class="label-container">
-        @foreach (var item in Model.ListCompanyInformatione)
+<div class="label-container">
+    @foreach (var item in Model.ListCompanyInformatione)
     {
         <div class="header">
-            <img class="logo" src="@string.Format("/Images/Home/{0}", item.Photo)" alt="Company Logo" />
-            <div class="text-container">@item.CompanyName</div>
+            @foreach (var item1 in Model.ListViewOrder)
+            {
+                <div class="merchant-initial">
+                    @* نأخذ الحرف الأول من اسم التاجر *@
+                    <span class="initial">
+                        @item1.Name.Substring(0, 1)
+                    </span>
+                </div>
+            }
+
+            <div class="form-group">
+                @foreach (var item1 in Model.ListViewOrder)
+                {
+                    <img class="qr-code" src="" alt="QR Code" />
+                    <div hidden class="Code">@item1.Qrcode</div>
+                }
+            </div>
         </div>
     }
-      
-    @foreach(var item in Model.ListViewOrder)
+
+    @foreach (var item in Model.ListViewOrder)
     {
         <div class="section address-section">
-            <p>Merchant#: @item.Name</p>
-            <p>WareHouse#: @item.IdBWareHouse</p>
-            <p>Warehouse Branch: @item.WareHouseBranchName</p>
-          
+            <p hidden>Merchant#: @item.Name</p>
+            <p>Model#: @item.Model</p>
+            <p>TypesProduct#: @item.TypesProduct</p>
+            <p hidden>Warehouse Branch: @item.WareHouseBranchName</p>
         </div>
 
         <div class="section product-details">
-            <p>Product: @item.ProductName</p>
-            <p>Selling Price: @item.sellingPrice</p>
+            <p>@item.ProductName</p>
+            <p>Selling Price: @item.sellingPrice $</p>
         </div>
 
         <div class="section footer">
-            <img class="qr-code" src="" alt="QR Code" />
-            <div hidden class="Code">@item.Qrcode</div>
-            <div class="form-group">
-                <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
-                <div hidden class="UPCFORPR">@item.UbcMaster</div>
-            </div>
-            <div class="upc">@(!string.IsNullOrEmpty(item.UbcMaster) ? item.UbcMaster : "UPC: N/A")</div>
             <div class="form-group">
                 <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
                 <div hidden class="UPCFORPR">@item.UbcSacund</div>
@@ -114,8 +145,8 @@
             <div class="upc">@(!string.IsNullOrEmpty(item.UbcSacund) ? item.UbcSacund : "UPC: N/A")</div>
         </div>
     }
-
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/orderjava.js"></script>

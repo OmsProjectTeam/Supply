@@ -8,16 +8,19 @@
     <div class="box-content">
         <ul class="list-inline">
             <li class="margin-bottom-10">
+                <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>/
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>/
+            </li>
+            <li class="margin-bottom-10">
+                <a asp-area="Admin" asp-controller="ProductInformationlowes" asp-action="MYProductInformation"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMYProductInformation</button></a>/
+            </li>
+            <li class="margin-bottom-10">
                 <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddEditProductInformation</button></a>
             </li>
-            <li class="margin-bottom-10">
-                <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
-            </li>
-            <li class="margin-bottom-10">
-                <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
-            </li>
-            <span style="color:royalblue"><strong>@TempData["Saved successfully"]</strong></span>
-            <span style="color:red"><strong>@TempData["ErrorSave"]</strong></span>
+
+
         </ul>
 
         <div class="row small-spacing">
@@ -60,7 +63,7 @@
                             </div>
 
                             <div class="row small-spacing">
-                                <div class="col-12 col-sm-6">
+                                <div class="col-12 col-sm-12">
                                     <div class="form-group">
                                         <label asp-for="@Model.ProductInformation.ProductName">@ResourceWeb.lbProductName</label>
                                         <input asp-for="@Model.ProductInformation.ProductName" type="text" placeholder="@ResourceWeb.lbProductName ...." class="form-control" maxlength="500" id="ProductName">
@@ -80,13 +83,13 @@
                                     </div>
                                 </div>
 
-                             @*    <div class="col-12 col-sm-4">
+                                <div class="col-12 col-sm-4">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ProductInformation.UPC">@ResourceWeb.lbUPC</label>
-                                        <input asp-for="@Model.ProductInformation.UPC" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="100" id="UPC">
-                                        <span asp-validation-for="@Model.ProductInformation.UPC" class="text-danger"></span>
+                                        <label asp-for="@Model.ProductInformation.barcodeUbc">@ResourceWeb.lbUPC</label>
+                                        <input asp-for="@Model.ProductInformation.barcodeUbc" type="text" placeholder="@ResourceWeb.lbUPC ...." class="form-control" maxlength="50" id="UPC">
+                                        <span asp-validation-for="@Model.ProductInformation.barcodeUbc" class="text-danger"></span>
                                     </div>
-                                </div> *@
+                                </div>
 
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group">
@@ -189,7 +192,7 @@
                                 </div>
                             </div>
 
-                            <div class="checkbox margin-bottom-20">
+                            <div class="checkbox margin-bottom-20" style="display:none;">
                                 <div class="switch success">
                                     <input type="checkbox" asp-for="@Model.ProductInformation.CurrentState" id="switch-10" checked="checked">
                                     <label for="switch-10">@ResourceWeb.lbCurrentState</label>

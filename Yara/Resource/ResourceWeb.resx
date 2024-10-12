@@ -1321,7 +1321,7 @@
     <value>Order Number</value>
   </data>
   <data name="LbStartDate" xml:space="preserve">
-    <value>Start Date</value>
+    <value>Order Date</value>
   </data>
   <data name="LbTransactionDate" xml:space="preserve">
     <value>Transaction Date</value>
@@ -1355,5 +1355,14 @@
   </data>
   <data name="lbstoreSoSku" xml:space="preserve">
     <value>storeSoSku</value>
+  </data>
+  <data name="lbmyAddWareHouse" xml:space="preserve">
+    <value>Add and edit repositories</value>
+  </data>
+  <data name="LbAddWareHouseBranch" xml:space="preserve">
+    <value>Add and edit sub-repository</value>
+  </data>
+  <data name="lbbarcodeUbc" xml:space="preserve">
+    <value>barcode UPC</value>
   </data>
 </root>

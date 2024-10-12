@@ -169,6 +169,15 @@ namespace Domin.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The maximum number of characters that can be entered is 20 characters. Please check and try again later...!.
+        /// </summary>
+        public static string MaxLengthTitel20 {
+            get {
+                return ResourceManager.GetString("MaxLengthTitel20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number of characters entered must not be less than one character, and the # symbol can be used to indicate the same page....!.
         /// </summary>
         public static string MinLength1 {
@@ -300,6 +309,15 @@ namespace Domin.Resource {
         public static string VlAddressEn {
             get {
                 return ResourceManager.GetString("VlAddressEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the factory barcode. The process is successful...!.
+        /// </summary>
+        public static string VlbarcodeUbc {
+            get {
+                return ResourceManager.GetString("VlbarcodeUbc", resourceCulture);
             }
         }
         

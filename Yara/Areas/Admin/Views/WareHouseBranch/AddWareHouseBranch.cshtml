@@ -1,6 +1,6 @@
 ﻿@model ViewmMODeElMASTER
 @{
-    ViewData["Title"] = "AddFAQ";
+    ViewData["Title"] = ResourceWeb.LbAddWareHouseBranch;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,13 +9,20 @@
         <div class="box-content">
             <ul class="list-inline">
                 <li class="margin-bottom-10">
-                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbWareHouse</button></a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>/
                 </li>
                 <li class="margin-bottom-10">
-                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a>/
                 </li>
                 <li class="margin-bottom-10">
-                    <a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a>
+                    <a asp-area="Admin" asp-controller="WareHouseBranch" asp-action="MyWareHouseBranch"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMyWareHouseBranch</button></a>/
+                </li>
+              
+              
+             
+                <li class="margin-bottom-10">
+                    <a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LbAddWareHouseBranch</button></a>
+
                 </li>
             </ul>
             <span class="text-primary"><strong>@TempData["Saved successfully"]</strong></span>
@@ -50,7 +57,16 @@
                             <span asp-validation-for="@Model.WareHouseBranch.IdBWareHouse" class="text-danger"></span>
                         </div>
                     </div>
-
+                    <div class="row small-spacing">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.WareHouseBranch.Description">@ResourceWeb.LbDescription1</label>
+                                <input id="Description" asp-for="@Model.WareHouseBranch.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300" id="Description">
+                                <span asp-validation-for="@Model.WareHouseBranch.Description" class="text-danger"></span>
+                                <span style="color:red"><strong>@TempData["WareHouseBranch"]</strong></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row small-spacing">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -60,6 +76,7 @@
                                 <span style="color:red"><strong>@TempData["Code"]</strong></span>
                             </div>
                         </div>
+
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>QR Code</label>
@@ -69,16 +86,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row small-spacing">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label asp-for="@Model.WareHouseBranch.Description">@ResourceWeb.LbDescription1</label>
-                                    <input id="Description" asp-for="@Model.WareHouseBranch.Description" type="text" placeholder="@ResourceWeb.LbDescription1 ...." class="form-control" maxlength="300" id="Description">
-                                    <span asp-validation-for="@Model.WareHouseBranch.Description" class="text-danger"></span>
-                                    <span style="color:red"><strong>@TempData["WareHouseBranch"]</strong></span>
-                                </div>
-                            </div>
                         </div>
+                     
                         <div class="row small-spacing">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -89,7 +98,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" style="display:none;">
                                 <div class="form-group">
                                     <label asp-for="@Model.WareHouseBranch.CurrentState">@ResourceWeb.lbCurrentState</label>
                                     <input asp-for="@Model.WareHouseBranch.CurrentState" type="checkbox" checked class="form-control" maxlength="300">
@@ -98,7 +107,7 @@
                             </div>
 
                         </div>
-                    </div>
+                   
                     <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>
                 </form>
             </div>

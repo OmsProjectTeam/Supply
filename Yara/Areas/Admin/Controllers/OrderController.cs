@@ -966,7 +966,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.storeSku = model.ProductInformation.storeSku;
                 slider.storeSoSku = model.ProductInformation.storeSoSku;
                 slider.brand = model.ProductInformation.brand;
-              
+                slider.barcodeUbc = model.ProductInformation.barcodeUbc;         
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
                 slider.DateTimeEntry = model.ProductInformation.DateTimeEntry;

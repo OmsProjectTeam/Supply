@@ -7,9 +7,11 @@
 <div class="col-xs-12">
     <div class="box-content">
         <ul class="list-inline">
-            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddPurchaseDocumentation</button></a></li>/
-            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
             <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
+
+            <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="PurchaseDocumentation" asp-action="MyPurchaseDocumentation"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMyPurchaseDocumentation</button></a></li>
+            <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddPurchaseDocumentation</button></a></li>
             <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
             <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
         </ul>
@@ -17,7 +19,7 @@
         <div class="row small-spacing">
             <div class="col-lg-6 col-xs-12">
                 <div class="box-content card white">
-                    <h4 class="box-title">@ResourceWeb.LBEmageSise</h4>
+                    <h4 class="box-title">@ResourceWeb.LBAddPurchaseDocumentation</h4>
 
                     <div class="card-content">
                         <form role="form" method="post" asp-controller="PurchaseDocumentation" asp-action="Save" enctype="multipart/form-data">
@@ -74,10 +76,7 @@
 
                                 </div>
                             </div>
-
-
-
-                            <div class="checkbox margin-bottom-20">
+                            <div class="checkbox margin-bottom-20" style="display:none;">
                                 <div class="switch success"><input type="checkbox" asp-for="@Model.PurchaseDocumentation.CurrentState" id="switch-10" checked="checked"><label for="switch-10">@ResourceWeb.lbCurrentState</label></div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>

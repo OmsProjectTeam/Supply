@@ -6,9 +6,14 @@
 
 <div class="box-content">
     <ul class="list-inline">
-        <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddTypesProduct</button></a></li>/
-        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
         <li class="margin-bottom-10"><a asp-area="" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Home</button></a></li>
+        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">Admin Home</button></a></li>/
+
+        <li class="margin-bottom-10"><a asp-area="Admin" asp-controller="TypesProduct" asp-action="MyTypesProduct"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBMyTypesProduct</button></a></li>/
+
+        <li class="margin-bottom-10"><a href="#"><button type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">@ResourceWeb.LBAddTypesProduct</button></a></li>
+
+
         <span style="color:royalblue"> <strong>@TempData["Saved successfullyl"]</strong></span>
         <span style="color:red"> <strong>@TempData["ErrorSave"]</strong></span>
     </ul>
@@ -46,7 +51,7 @@
                         <div class="checkbox margin-bottom-20">
                             <div class="switch success"><input type="checkbox" asp-for="@Model.TypesProduct.Active" id="switch-2"><label for="switch-2">@ResourceWeb.LbActive</label></div>
                         </div>
-                        <div class="checkbox margin-bottom-20">
+                        <div class="checkbox margin-bottom-20" style="display:none;">
                             <div class="switch success"><input type="checkbox" asp-for="@Model.TypesProduct.CurrentState" id="switch-10" checked="checked"><label for="switch-10">@ResourceWeb.lbCurrentState</label></div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">@ResourceWeb.lbSave</button>

@@ -89,6 +89,7 @@ namespace Yara.Areas.Admin.Controllers
                 slider.storeSku = model.ProductInformation.storeSku;
                 slider.storeSoSku = model.ProductInformation.storeSoSku;
                 slider.brand = model.ProductInformation.brand;
+                slider.barcodeUbc = model.ProductInformation.barcodeUbc;
            
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
@@ -173,8 +174,10 @@ namespace Yara.Areas.Admin.Controllers
                 slider.ProductName = model.ProductInformation.ProductName;
                 slider.storeSku = model.ProductInformation.storeSku;
                 slider.storeSoSku = model.ProductInformation.storeSoSku;
-                slider.brand = model.ProductInformation.brand;          
-             
+                slider.brand = model.ProductInformation.brand;  
+                slider.barcodeUbc = model.ProductInformation.barcodeUbc;
+
+
                 slider.Qrcode = model.ProductInformation.Qrcode;
                 slider.Active = model.ProductInformation.Active;
                 slider.DateTimeEntry = model.ProductInformation.DateTimeEntry;

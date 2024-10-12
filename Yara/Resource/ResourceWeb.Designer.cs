@@ -529,6 +529,15 @@ namespace Yara.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add and edit sub-repository.
+        /// </summary>
+        public static string LbAddWareHouseBranch {
+            get {
+                return ResourceManager.GetString("LbAddWareHouseBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Ware House Type.
         /// </summary>
         public static string LBAddWareHouseType {
@@ -543,6 +552,15 @@ namespace Yara.Resource {
         public static string LbAmount {
             get {
                 return ResourceManager.GetString("LbAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to barcode UPC.
+        /// </summary>
+        public static string lbbarcodeUbc {
+            get {
+                return ResourceManager.GetString("lbbarcodeUbc", resourceCulture);
             }
         }
         
@@ -1650,6 +1668,15 @@ namespace Yara.Resource {
         public static string lbMsgSavedChangePassword {
             get {
                 return ResourceManager.GetString("lbMsgSavedChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add and edit repositories.
+        /// </summary>
+        public static string lbmyAddWareHouse {
+            get {
+                return ResourceManager.GetString("lbmyAddWareHouse", resourceCulture);
             }
         }
         

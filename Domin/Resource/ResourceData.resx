@@ -474,4 +474,10 @@
   <data name="VlUbcMaster" xml:space="preserve">
     <value>Please enter the barcode number to complete the process successfully...!</value>
   </data>
+  <data name="MaxLengthTitel20" xml:space="preserve">
+    <value>The maximum number of characters that can be entered is 20 characters. Please check and try again later...!</value>
+  </data>
+  <data name="VlbarcodeUbc" xml:space="preserve">
+    <value>Please enter the factory barcode. The process is successful...!</value>
+  </data>
 </root>

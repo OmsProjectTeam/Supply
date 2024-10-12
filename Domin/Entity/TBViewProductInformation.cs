@@ -27,6 +27,7 @@ namespace Domin.Entity
         public string brand { get; set; }
         public string? storeSku { get; set; }
         public string? storeSoSku { get; set; }
+        public string barcodeUbc { get; set; }
 
 
     }

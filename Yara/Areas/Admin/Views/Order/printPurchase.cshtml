@@ -55,6 +55,16 @@
         border-top: 1px solid #000;
     }
 
+    .sellingPrice {
+        font-size: 20px;
+        font-weight: bolder;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+
     .qr-code {
         width: 80px;
         height: 80px;
@@ -128,13 +138,13 @@
         <div class="section address-section">
             <p hidden>Merchant#: @item.Name</p>
             <p>Model#: @item.Model</p>
-            <p>TypesProduct#: @item.TypesProduct</p>
+            <p>@item.TypesProduct</p>
             <p hidden>Warehouse Branch: @item.WareHouseBranchName</p>
         </div>
 
         <div class="section product-details">
             <p>@item.ProductName</p>
-            <p>Selling Price: @item.sellingPrice $</p>
+            <p class="sellingPrice">@item.sellingPrice $</p>
         </div>
 
         <div class="section footer">

@@ -674,7 +674,9 @@ namespace Yara.Areas.Admin.Controllers
                     storeSku = product.storeSku,
                     sstoreSoSku = product.storeSoSku,
                     scrapingHtmlTitle = product.ScrapingHtmlTitle,
-                   
+                    uupc = product.barcodeUbc,
+
+
                     mmodel = product.Model,
 
                 });

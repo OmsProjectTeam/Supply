@@ -218,8 +218,8 @@
                         </div>
 
                         <div class="row small-spacing">
-                            <div class="col-sm-6">
-                                <div class="form-group">
+                            <div hidden class="col-sm-6">
+                                <div  class="form-group">
                                     <label asp-for="@Model.Order.UbcMaster">UPC  Master</label>
                                     <input asp-for="@Model.Order.UbcMaster" id="UPCx" type="text" class="form-control" maxlength="100">
                                     <span asp-validation-for="@Model.Order.UbcMaster" class="text-danger"></span>
@@ -262,6 +262,24 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="row small-spacing">
+                            <div hidden class="col-sm-6">
+                                <div class="form-group">
+                                    <img id="FirsId" alt="main UPC"></img>
+                                    <p id="FirsIdText"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <img id="SecId" alt="cross UPC"></img>
+                                    <p id="SecIdText"></p>
+                                </div>
+                            </div>
+
+                         </div>
                         <div class="row small-spacing">
                             @* <div class="col-sm-6">
                             <div class="form-group">

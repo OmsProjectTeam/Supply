@@ -333,6 +333,7 @@ function FetchPrice() {
 function populateProductDetails(productDetails) {
 
     console.log("populateProductDetails xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    console.log(productDetails);
     var set = setPurchase();
 
     if (productDetails && productDetails.productCategoryId > 0) {
@@ -347,11 +348,11 @@ function populateProductDetails(productDetails) {
         $('#Brand').val(productDetails.brand);
         $('#ScrapingHtmlTitle1212').val(productDetails.scrapingHtmlTitle);
         $('#sku1212').val(productDetails.storeSku);
-        $('#UPCx').val(productDetails.uPC).trigger('change');
+        $('#UPCx').val(productDetails.uupc).trigger('change');
         $('#soSku').val(productDetails.sstoreSoSku);
         $('#mmoodel').val(productDetails.mmodel);
         var x = generateGUIDChar();
-        $('#UPCxv').val(x);
+        $('#UPCxv').val(x).trigger('change');
 
         FetchPrice();
 
@@ -359,7 +360,65 @@ function populateProductDetails(productDetails) {
     }
 
 }
+function CreateBarCodellUPUfir(text) {
+    const apiUrl = `/admin/ProductInformationLowes/GenerateBarcode?text=${encodeURIComponent(text)}`;
 
+    $.ajax({
+        url: apiUrl,
+        type: 'GET',
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (data) {
+            if (data) {
+                var imageUrl = URL.createObjectURL(data);
+                $('#FirsId').attr('src', imageUrl);
+                $('FirsIdText').text(text);
+            } else {
+                console.error("Error generating barcode.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error: " + error);
+        }
+    });
+}
+
+function CreateBarCodellUPUsec(text) {
+    const apiUrl = `/admin/ProductInformationLowes/GenerateBarcode?text=${encodeURIComponent(text)}`;
+
+    $.ajax({
+        url: apiUrl,
+        type: 'GET',
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (data) {
+            if (data) {
+                var imageUrl = URL.createObjectURL(data);
+                $('#SecId').attr('src', imageUrl);
+                $('SecIdText').text(text);
+            } else {
+                console.error("Error generating barcode.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error: " + error);
+        }
+    });
+}
+
+$('#UPCx').change(function () {
+    console.log("EUPCx  ttgir");
+    var bar = $(this).val();
+    CreateBarCodellUPUfir(bar)
+});
+
+$('#UPCxv').change(function () {
+    console.log("UPCxv  ttgir");
+    var bare = $(this).val();
+    CreateBarCodellUPUsec(bare);
+});
 
 function checkProductAvailability(productId) {
     $.ajax({
@@ -574,7 +633,7 @@ function CreateBarCode1(text) {
         console.error("Error: " + error);
                 }
             });
-        }
+}
 
 
 $('#UPCx').on('change keyup', function () {
